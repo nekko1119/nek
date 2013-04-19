@@ -1,0 +1,4 @@
+﻿#ifndef NEK_UTILITY_SWAP_HPP
+#define NEK_UTILITY_SWAP_HPP
+
+#endif
