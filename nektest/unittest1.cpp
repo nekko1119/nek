@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -11,7 +11,7 @@ namespace nektest
 		
 		TEST_METHOD(TestMethod1)
 		{
-			// TODO: ƒeƒXƒg ƒR[ƒh‚ğ‚±‚±‚É‘}“ü‚µ‚Ü‚·
+			// TODO: ãƒ†ã‚¹ãƒˆ ã‚³ãƒ¼ãƒ‰ã‚’ã“ã“ã«æŒ¿å…¥ã—ã¾ã™
 		}
 
 	};
