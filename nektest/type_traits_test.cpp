@@ -4,6 +4,8 @@
 #include <nek/type_traits/remove_cv.hpp>
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/type_traits/is_same.hpp>
+#include <nek/type_traits/enable_if.hpp>
+#include <nek/type_traits/enabler.hpp>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace nektest
@@ -71,6 +73,21 @@ namespace nektest
 			static_assert(is_same<int, int>::value == true, "is_same<int, int>::value");
 			static_assert(is_same<int, int&>::value == false, "is_same<int, int&>::value");
 			static_assert(is_same<int, const int>::value == false, "is_same<int, const int>::value");
+		}
+
+		template <class T>
+		nek::true_type enable_test_func(T, typename nek::enable_if<nek::is_same<T, int>>::type*& = nek::enabler);
+
+		template <class T>
+		nek::false_type enable_test_func(T, typename nek::enable_if<nek::is_same<T, double>>::type*& = nek::enabler);
+
+		TEST_METHOD(enable_if_test)
+		{
+			using namespace nek;
+			int i = 0;
+			double d = 0.0;
+			static_assert(is_same<decltype(enable_test_func(i)), true_type>::value, "true_type f(T)");
+			static_assert(is_same<decltype(enable_test_func(d)), false_type>::value, "false_type f(T)");
 		}
 	};
 }

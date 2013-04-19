@@ -5,7 +5,7 @@
 
 namespace nek
 {
-	typedef integral_constant<void*, nullptr> enabler_t;
+	typedef void* enabler_t;
 	extern enabler_t enabler;
 }
 
