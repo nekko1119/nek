@@ -1,8 +1,9 @@
-﻿//TODO : 後でIsTrueとtypeidを使っているところをis_same実装したらis_sameとstatic_assertに直す
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "CppUnitTest.h"
 #include <nek/type_traits/integral_constant.hpp>
 #include <nek/type_traits/remove_cv.hpp>
+#include <nek/type_traits/remove_reference.hpp>
+#include <nek/type_traits/is_same.hpp>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace nektest
@@ -14,44 +15,62 @@ namespace nektest
 		{
 			using namespace nek;
 
-			Assert::IsTrue(true_type() == true, L"true_type == true");
-			Assert::IsTrue(true_type::value == true, L"true_type::value == true");
-			Assert::IsTrue(typeid(true_type::value_type) == typeid(bool), L"true_type::value_type == bool");
+			Assert::IsTrue(true_type(), L"true_type == true");
+			static_assert(true_type::value == true, "true_type::value == true");
+			static_assert(is_same<true_type::value_type, bool>::value, "true_type::value_type == bool");
 
-			Assert::IsTrue(false_type() == false, L"false_type == false");
-			Assert::IsTrue(false_type::value == false, L"false_type::value == false");
-			Assert::IsTrue(typeid(false_type::value_type) == typeid(bool), L"false_type::value_type == bool");
+			Assert::IsTrue(!false_type(), L"false_type == false");
+			static_assert(false_type::value == false, "false_type::value == false");
+			static_assert(is_same<false_type::value_type, bool>::value, "false_type::value_type == bool");
 
 			typedef integral_constant<int, 0> zero_type;
 			Assert::IsTrue(zero_type() == 0, L"integral_constant<int, 0> == 0");
-			Assert::IsTrue(zero_type::value == 0, L"integral_constant<int, 0>::value == 0");
-			Assert::IsTrue(typeid(zero_type::value_type) == typeid(int), L"integral_constant<int, 0>::value_type == int");
+			static_assert(zero_type::value == 0, "integral_constant<int, 0>::value == 0");
+			static_assert(is_same<zero_type::value_type, int>::value, "integral_constant<int, 0>::value_type == int");
 		}
 
 		TEST_METHOD(remove_cv_test)
 		{
 			using namespace nek;
 			typedef volatile int vint_t;
-			Assert::IsTrue(typeid(remove_volatile<int>::type) == typeid(int), L"remove_volatile<int>::type == int");
-			Assert::IsTrue(typeid(remove_volatile<vint_t>::type) == typeid(int), L"remove_volatile<volatile int>::type == int");
-			Assert::IsTrue(typeid(remove_volatile<const vint_t>::type) == typeid(const int), L"remove_volatile<const volatile int>::type == const int");
-			Assert::IsTrue(typeid(remove_volatile<vint_t*>::type) == typeid(vint_t*), L"remove_volatile<volatile int*>::type == volatille int*");
-			Assert::IsTrue(typeid(remove_volatile<int* volatile>::type) == typeid(int*), L"remove_volatile<int* volatile>::type == int*");
-			Assert::IsTrue(typeid(remove_volatile<vint_t&>::type) == typeid(int&), L"remove_volatile<volatile int&>::type == int&");
+			static_assert(is_same<remove_volatile<int>::type, int>::value, "remove_volatile<int>::type == int");
+			static_assert(is_same<remove_volatile<vint_t>::type, int>::value, "remove_volatile<volatile int>::type == int");
+			static_assert(is_same<remove_volatile<const vint_t>::type, const int>::value, "remove_volatile<const volatile int>::type == const int");
+			static_assert(is_same<remove_volatile<vint_t*>::type, vint_t*>::value, "remove_volatile<volatile int*>::type == volatille int*");
+			static_assert(is_same<remove_volatile<int* volatile>::type, int*>::value, "remove_volatile<int* volatile>::type == int*");
+			static_assert(is_same<remove_volatile<vint_t&>::type, vint_t&>::value, "remove_volatile<volatile int&>::type == int&");
 
 			typedef const int cint_t;
-			Assert::IsTrue(typeid(remove_const<int>::type) == typeid(int), L"remove_const<int>::type == int");
-			Assert::IsTrue(typeid(remove_const<cint_t>::type) == typeid(int), L"remove_const<const int>::type == int");
-			Assert::IsTrue(typeid(remove_const<volatile cint_t>::type) == typeid(volatile int), L"remove_const<const volatile int>::type == volatile int");
-			Assert::IsTrue(typeid(remove_const<cint_t*>::type) == typeid(cint_t*), L"remove_const<const int*>::type == const int*");
-			Assert::IsTrue(typeid(remove_const<int* const>::type) == typeid(int*), L"remove_const<int* const>::type == int*");
-			Assert::IsTrue(typeid(remove_const<cint_t&>::type) == typeid(int&), L"remove_const<const int&>::type == int&");
+			static_assert(is_same<remove_const<int>::type, int>::value, "remove_const<int>::type == int");
+			static_assert(is_same<remove_const<cint_t>::type, int>::value, "remove_const<const int>::type == int");
+			static_assert(is_same<remove_const<volatile cint_t>::type, volatile int>::value, "remove_const<const volatile int>::type == volatile int");
+			static_assert(is_same<remove_const<cint_t*>::type, cint_t*>::value, "remove_const<const int*>::type == const int*");
+			static_assert(is_same<remove_const<int* const>::type, int*>::value, "remove_const<int* const>::type == int*");
+			static_assert(is_same<remove_const<cint_t&>::type, cint_t&>::value, "remove_const<const int&>::type == int&");
 
 			typedef const volatile int cvint_t;
-			Assert::IsTrue(typeid(remove_cv<int>::type) == typeid(int), L"remove_cv<int>::type == int");
-			Assert::IsTrue(typeid(remove_cv<cvint_t>::type) == typeid(int), L"remove_cv<const volatile int>::type == int");
-			Assert::IsTrue(typeid(remove_cv<cvint_t*>::type) == typeid(cvint_t*), L"remove_cv<const volatile int*>::type == const volatile int*");
-			Assert::IsTrue(typeid(remove_cv<int* const volatile>::type) == typeid(int*), L"remove_cv<int* const volatile>::type == int*");
+			static_assert(is_same<remove_cv<int>::type, int>::value, "remove_cv<int>::type == int");
+			static_assert(is_same<remove_cv<cvint_t>::type, int>::value, "remove_cv<const volatile int>::type == int");
+			static_assert(is_same<remove_cv<cvint_t*>::type, cvint_t*>::value, "remove_cv<const volatile int*>::type == const volatile int*");
+			static_assert(is_same<remove_cv<int* const volatile>::type, int*>::value, "remove_cv<int* const volatile>::type == int*");
+		}
+
+		TEST_METHOD(remove_reference_test)
+		{
+			using namespace nek;
+			static_assert(is_same<remove_reference<int>::type, int>::value, "remove_reference<int>::type == int");
+			static_assert(is_same<remove_reference<int&>::type, int>::value, "remove_reference<int&>::type == int");
+			static_assert(is_same<remove_reference<int&&>::type, int>::value, "remove_reference<int&&>::type == int");
+			static_assert(is_same<remove_reference<const int&>::type, const int>::value, "remove_reference<const int&>::type == const int");
+			static_assert(is_same<remove_reference<int*&>::type, int*>::value, "remove_reference<int*&>::type == int*");
+		}
+
+		TEST_METHOD(is_same_test)
+		{
+			using namespace nek;
+			static_assert(is_same<int, int>::value == true, "is_same<int, int>::value");
+			static_assert(is_same<int, int&>::value == false, "is_same<int, int&>::value");
+			static_assert(is_same<int, const int>::value == false, "is_same<int, const int>::value");
 		}
 	};
 }
