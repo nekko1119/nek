@@ -3,7 +3,6 @@
 
 #include <nek/utility/move.hpp>
 #include <crtdefs.h>
-#include <utility>
 
 namespace nek
 {

@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include <nek/utility/move.hpp>
 #include <nek/utility/swap.hpp>
+#include <nek/utility/addressof.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -54,6 +55,26 @@ namespace nektest
 			{
 				Assert::AreEqual(y[i], i + 1, L"y == {1, 2, 3}");
 			}
+		}
+
+		struct addressof_test_class
+		{
+			void* operator&()
+			{
+				return nullptr;
+			}
+		};
+
+		TEST_METHOD(addressof_test)
+		{
+			using namespace nek;
+			int i = 0;
+			Assert::AreEqual(&i, addressof(i), L"&i == addressof(i)");
+
+			addressof_test_class a;
+			Assert::IsNotNull(addressof(a), L"addressof a is not null pointer");
+			Assert::IsNull(&a, L"&a is null pointer");
+
 		}
 
 	};
