@@ -7,6 +7,7 @@
 #include <nek/type_traits/enable_if.hpp>
 #include <nek/type_traits/enabler.hpp>
 #include <nek/type_traits/is_pointer.hpp>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace nektest
