@@ -6,6 +6,7 @@
 #include <nek/type_traits/is_same.hpp>
 #include <nek/type_traits/enable_if.hpp>
 #include <nek/type_traits/enabler.hpp>
+#include <nek/type_traits/is_pointer.hpp>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace nektest
@@ -88,6 +89,30 @@ namespace nektest
 			double d = 0.0;
 			static_assert(is_same<decltype(enable_test_func(i)), true_type>::value, "true_type f(T)");
 			static_assert(is_same<decltype(enable_test_func(d)), false_type>::value, "false_type f(T)");
+		}
+
+		TEST_METHOD(is_pointer_test)
+		{
+			using namespace nek;
+			static_assert(is_pointer<int*>::value == true, "is_pointer<int*>::value == true");
+			static_assert(is_same<is_pointer<int*>::value_type, bool>::value, "is_same<is_pointer<int*>::value_type, bool>::value");
+			Assert::IsTrue(is_pointer<int*>() == true, L"is_pointer<int*>() ==true");
+			static_assert(is_pointer<int**>::value == true, "is_pointer<int**>::value == true");
+			static_assert(is_pointer<int>::value == false, "is_pointer<int>::value == false");
+			static_assert(is_pointer<int*&>::value == false, "is_pointer<int*&>::value == false");
+			static_assert(is_pointer<int[]>::value == false, "is_pointer_<int[]>::value == false");
+			static_assert(is_pointer<void (*)()>::value == true, "is_pointer<void (*)()>::value == true");
+			static_assert(is_pointer<void ()>::value == false, "is_pointer<void ()>::value == true");
+			static_assert(is_pointer<std::nullptr_t>::value == false, "is_pointer<std::nullptr_t>::value == false");
+
+			struct is_pointer_test_class
+			{
+				void mem_fn(){}
+				int mem;
+			};
+
+			static_assert(is_pointer<void (is_pointer_test_class::*)()>::value == false, "is_pointer<void (is_pointer_test_class::*)()>::value == false");
+			static_assert(is_pointer<int (is_pointer_test_class::*)>::value == false, "is_pointer<int (is_pointer_test_class::*)>::value == false");
 		}
 	};
 }
