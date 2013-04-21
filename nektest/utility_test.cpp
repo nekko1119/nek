@@ -3,6 +3,9 @@
 #include <nek/utility/move.hpp>
 #include <nek/utility/swap.hpp>
 #include <nek/utility/addressof.hpp>
+#include <nek/utility/forward.hpp>
+#include <nek/type_traits/integral_constant.hpp>
+#include <nek/type_traits/is_same.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -74,8 +77,28 @@ namespace nektest
 			addressof_test_class a;
 			Assert::IsNotNull(addressof(a), L"addressof a is not null pointer");
 			Assert::IsNull(&a, L"&a is null pointer");
-
 		}
 
+		void forward_test_func_i(int&&)
+		{
+			Logger::WriteMessage(L"int&&\n");
+		}
+		void forward_test_func_i(const int&)
+		{
+			Logger::WriteMessage(L"const int&\n");
+		}
+		template <class T>
+		void forward_test_func(T&& value)
+		{
+			forward_test_func_i(nek::forward<T>(value));
+		}
+
+		TEST_METHOD(forward_test)
+		{
+			using namespace nek;
+			int a = 0;
+			forward_test_func(move(a));
+			forward_test_func(a);
+		}
 	};
 }
