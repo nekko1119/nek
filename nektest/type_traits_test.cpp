@@ -5,7 +5,6 @@
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/type_traits/is_same.hpp>
 #include <nek/type_traits/enable_if.hpp>
-#include <nek/type_traits/enabler.hpp>
 #include <nek/type_traits/is_pointer.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -78,10 +77,10 @@ namespace nektest
 		}
 
 		template <class T>
-		nek::true_type enable_test_func(T, typename nek::enable_if<nek::is_same<T, int>>::type*& = nek::enabler);
+		typename nek::enable_if<nek::is_same<T, int>, nek::true_type>::type enable_test_func(T);
 
 		template <class T>
-		nek::false_type enable_test_func(T, typename nek::enable_if<nek::is_same<T, double>>::type*& = nek::enabler);
+		typename nek::enable_if<nek::is_same<T, double>, nek::false_type>::type enable_test_func(T);
 
 		TEST_METHOD(enable_if_test)
 		{
