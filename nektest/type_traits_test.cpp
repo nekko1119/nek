@@ -6,6 +6,9 @@
 #include <nek/type_traits/is_same.hpp>
 #include <nek/type_traits/enable_if.hpp>
 #include <nek/type_traits/is_pointer.hpp>
+#include <nek/type_traits/is_integral.hpp>
+#include <nek/type_traits/is_void.hpp>
+#include <nek/type_traits/is_union.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -113,6 +116,58 @@ namespace nektest
 
 			static_assert(is_pointer<void (is_pointer_test_class::*)()>::value == false, "is_pointer<void (is_pointer_test_class::*)()>::value == false");
 			static_assert(is_pointer<int (is_pointer_test_class::*)>::value == false, "is_pointer<int (is_pointer_test_class::*)>::value == false");
+		}
+
+		TEST_METHOD(is_integral_test)
+		{
+			using namespace nek;
+			static_assert(is_integral<int>::value == true, "is_integral<int>::value == true");
+			static_assert(is_same<is_integral<int>::value_type, bool>::value, "is_integral<int>:value_type == bool");
+			Assert::IsTrue(is_integral<int>() == true, L"is_integral<int>() == true");
+			static_assert(is_integral<int*>::value == false, "is_integral<int*>::value == false");
+			static_assert(is_integral<char>::value == true, "is_integral<char>::value == true");
+			static_assert(is_integral<const volatile unsigned long long int>::value == true, "is_integral<const volatile unsigned long long int>::value == true");
+			enum class is_integral_test_enum : unsigned int
+			{
+			};
+			static_assert(is_integral<is_integral_test_enum>::value == false, "is_integral<is_integral_test_enum>::value == false");
+			static_assert(is_integral<int&>::value == false, "is_integral<int&>::value == false");
+			static_assert(is_integral<int ()>::value == false, "is_integral<int ()>::value == false");
+			static_assert(is_integral<int []>::value == false, "is_integral<int []>::value == false");
+			static_assert(is_integral<float>::value == false, "is_integral<float>::value == false");
+		}
+
+		TEST_METHOD(is_void_test)
+		{
+			using namespace nek;
+			static_assert(is_void<void>::value == true, "is_void<void>::value == true");
+			static_assert(is_same<is_void<void>::value_type, bool>::value, "is_void<void>:value_type == bool");
+			Assert::IsTrue(is_void<void>() == true, L"is_integral<int>() == true");
+			static_assert(is_void<int>::value == false, "is_void<int>::value == false");
+			static_assert(is_void<const volatile void>::value == true, "is_void<const volatile void>::value == true");
+			static_assert(is_void<void*>::value == false, "is_void<void*>::value == false");
+			static_assert(is_void<void ()>::value == false, "is_void<void ()>::value == false");
+		}
+
+		TEST_METHOD(is_union_test)
+		{
+			using namespace nek;
+			union is_union_test_union
+			{
+			};
+			struct is_union_test_struct
+			{
+			};
+
+			static_assert(is_union<is_union_test_union>::value == true, "is_union<is_union_test_union>::value == true");
+			static_assert(is_same<is_union<is_union_test_union>::value_type, bool>::value,"is_union<is_union_test_union>::value_type == bool");
+			Assert::IsTrue(is_union<is_union_test_union>() == true, L"is_union<is_union_test_union>() == true");
+			static_assert(is_union<const volatile is_union_test_union>::value == true, "is_union<const volatile is_union_test_union>::value == true");
+			static_assert(is_union<int>::value == false, "is_union<int>::value == false");
+			static_assert(is_union<is_union_test_union*>::value == false, "is_union<is_union_test_union*>::value == false");
+			static_assert(is_union<is_union_test_union&>::value == false, "is_union<is_union_test_union&>::value == false");
+			static_assert(is_union<is_union_test_union ()>::value == false, "is_union<is_union_test_union ()>::value == false");
+			static_assert(is_union<is_union_test_union []>::value == false, "is_union<is_union_test_union []>::value == false");
 		}
 	};
 }
