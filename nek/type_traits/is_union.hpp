@@ -9,7 +9,7 @@ namespace nek
 {
 	template <class T>
 	struct is_union
-		: public mpl::if_c<__is_union(typename remove_cv<T>::type), true_type, false_type>::type
+		: public integral_constant<bool, __is_union(typename remove_cv<T>::type)>
 	{
 	};
 }
