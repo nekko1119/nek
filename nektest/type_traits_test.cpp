@@ -10,6 +10,7 @@
 #include <nek/type_traits/is_void.hpp>
 #include <nek/type_traits/is_union.hpp>
 #include <nek/type_traits/is_class.hpp>
+#include <nek/type_traits/is_lvalue_reference.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -192,6 +193,23 @@ namespace nektest
 			static_assert(is_class<is_class_test_class&>::value == false, "is_class<is_class_test_class&>::value == false");
 			static_assert(is_class<is_class_test_class ()>::value == false, "is_class<is_class_test_class ()>::value == false");
 			static_assert(is_class<is_class_test_class []>::value == false, "is_class<is_class_test_class []>::value == false");
+		}
+
+		TEST_METHOD(is_lvalue_reference_test)
+		{
+			using namespace nek;
+			static_assert(is_lvalue_reference<int&>::value == true, "is_lvalue_reference<int&>::value == true");
+			static_assert(is_same<is_lvalue_reference<int&>::value_type, bool>::value, "is_lvalue_reference<int&>::value_type == bool");
+			Assert::IsTrue(is_lvalue_reference<int&>() == true, L"is_lvalue_reference<int&>() == true");
+			static_assert(is_lvalue_reference<int>::value == false, "is_lvalue_reference<int>::value == false");
+			static_assert(is_lvalue_reference<int*&>::value == true, "is_lvalue_reference<int*&>::value == true");
+			static_assert(is_lvalue_reference<int*>::value == false, "is_lvalue_reference<int*>::value == false");
+			static_assert(is_lvalue_reference<const volatile int&>::value == true, "is_lvalue_reference<const volatile int&>::value == true");
+			static_assert(is_lvalue_reference<int&&>::value == false, "is_lvalue_reference<int&&>::value == false");
+			static_assert(is_lvalue_reference<void (&)()>::value == true, "is_lvalue_reference<void (&)()>::value == true");
+			static_assert(is_lvalue_reference<void (*)()>::value == false, "is_lvalue_reference<void (*)()>::value == false");
+			static_assert(is_lvalue_reference<int& ()>::value == false, "is_lvalue_reference<int& ()>::value == false");
+			static_assert(is_lvalue_reference<int []>::value == false, "is_lvalue_reference<int []>::value == false");
 		}
 	};
 }
