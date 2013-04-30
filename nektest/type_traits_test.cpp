@@ -8,6 +8,8 @@
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/type_traits/is_void.hpp>
+#include <nek/type_traits/is_union.hpp>
+#include <nek/type_traits/is_class.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -146,6 +148,50 @@ namespace nektest
 			static_assert(is_void<const volatile void>::value == true, "is_void<const volatile void>::value == true");
 			static_assert(is_void<void*>::value == false, "is_void<void*>::value == false");
 			static_assert(is_void<void ()>::value == false, "is_void<void ()>::value == false");
+		}
+
+		TEST_METHOD(is_union_test)
+		{
+			using namespace nek;
+			union is_union_test_union
+			{
+			};
+			struct is_union_test_struct
+			{
+			};
+
+			static_assert(is_union<is_union_test_union>::value == true, "is_union<is_union_test_union>::value == true");
+			static_assert(is_same<is_union<is_union_test_union>::value_type, bool>::value,"is_union<is_union_test_union>::value_type == bool");
+			Assert::IsTrue(is_union<is_union_test_union>() == true, L"is_union<is_union_test_union>() == true");
+			static_assert(is_union<const volatile is_union_test_union>::value == true, "is_union<const volatile is_union_test_union>::value == true");
+			static_assert(is_union<int>::value == false, "is_union<int>::value == false");
+			static_assert(is_union<is_union_test_struct>::value == false, "is_union<is_union_test_struct>::value == false");
+			static_assert(is_union<is_union_test_union*>::value == false, "is_union<is_union_test_union*>::value == false");
+			static_assert(is_union<is_union_test_union&>::value == false, "is_union<is_union_test_union&>::value == false");
+			static_assert(is_union<is_union_test_union ()>::value == false, "is_union<is_union_test_union ()>::value == false");
+			static_assert(is_union<is_union_test_union []>::value == false, "is_union<is_union_test_union []>::value == false");
+		}
+
+		TEST_METHOD(is_class_test)
+		{
+			using namespace nek;
+			union is_class_test_union
+			{
+			};
+			class is_class_test_class
+			{
+			};
+
+			static_assert(is_class<is_class_test_class>::value == true, "is_class<is_class_test_class>::value == true");
+			static_assert(is_same<is_union<is_class_test_class>::value_type, bool>::value,"is_class<is_class_test_class>::value_type == bool");
+			Assert::IsTrue(is_class<is_class_test_class>() == true, L"is_class<is_class_test_class>() == true");
+			static_assert(is_class<const volatile is_class_test_class>::value == true, "is_class<const volatile is_class_test_class>::value == true");
+			static_assert(is_class<int>::value == false, "is_class<int>::value == false");
+			static_assert(is_class<is_class_test_union>::value == false, "is_class<is_class_test_union>::value == false");
+			static_assert(is_class<is_class_test_class*>::value == false, "is_class<is_class_test_class*>::value == false");
+			static_assert(is_class<is_class_test_class&>::value == false, "is_class<is_class_test_class&>::value == false");
+			static_assert(is_class<is_class_test_class ()>::value == false, "is_class<is_class_test_class ()>::value == false");
+			static_assert(is_class<is_class_test_class []>::value == false, "is_class<is_class_test_class []>::value == false");
 		}
 	};
 }
