@@ -12,6 +12,7 @@
 #include <nek/type_traits/is_class.hpp>
 #include <nek/type_traits/is_lvalue_reference.hpp>
 #include <nek/type_traits/is_rvalue_reference.hpp>
+#include <nek/type_traits/is_reference.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -226,6 +227,22 @@ namespace nektest
 			static_assert(is_rvalue_reference<void (&&)()>::value == true, "is_rvalue_reference<void (&&)()>::value == true");
 			static_assert(is_rvalue_reference<int&& ()>::value == false, "is_rvalue_reference<int&& ()>::value == false");
 			static_assert(is_rvalue_reference<int []>::value == false, "is_rvalue_reference<int []>::value == false");
+		}
+
+		TEST_METHOD(is_reference_test)
+		{
+			using namespace nek;
+			static_assert(is_reference<int&>::value == true, "is_reference<int&>::value == true");
+			static_assert(is_same<is_reference<int&>::value_type, bool>::value, "is_reference<int&>::value_type == bool");
+			Assert::IsTrue(is_reference<int&>() == true, L"is_reference<int&>() == true");
+			static_assert(is_reference<int>::value == false, "is_reference<int>::value == false");
+			static_assert(is_reference<int*&>::value == true, "is_reference<int*&>::value == true");
+			static_assert(is_reference<int*>::value == false, "is_reference<int*>::value == false");
+			static_assert(is_reference<const volatile int&>::value == true, "is_reference<const volatile int&>::value == true");
+			static_assert(is_reference<int&&>::value == true, "is_reference<int&&>::value == true");
+			static_assert(is_reference<void (&&)()>::value == true, "is_reference<void (&&)()>::value == true");
+			static_assert(is_reference<int&& ()>::value == false, "is_reference<int&& ()>::value == false");
+			static_assert(is_reference<int []>::value == false, "is_reference<int []>::value == false");
 		}
 	};
 }
