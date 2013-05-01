@@ -9,7 +9,10 @@
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/type_traits/is_void.hpp>
 #include <nek/type_traits/is_union.hpp>
-
+#include <nek/type_traits/is_class.hpp>
+#include <nek/type_traits/is_lvalue_reference.hpp>
+#include <nek/type_traits/is_rvalue_reference.hpp>
+#include <nek/type_traits/is_reference.hpp>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace nektest
@@ -164,10 +167,81 @@ namespace nektest
 			Assert::IsTrue(is_union<is_union_test_union>() == true, L"is_union<is_union_test_union>() == true");
 			static_assert(is_union<const volatile is_union_test_union>::value == true, "is_union<const volatile is_union_test_union>::value == true");
 			static_assert(is_union<int>::value == false, "is_union<int>::value == false");
+			static_assert(is_union<is_union_test_struct>::value == false, "is_union<is_union_test_struct>::value == false");
 			static_assert(is_union<is_union_test_union*>::value == false, "is_union<is_union_test_union*>::value == false");
 			static_assert(is_union<is_union_test_union&>::value == false, "is_union<is_union_test_union&>::value == false");
 			static_assert(is_union<is_union_test_union ()>::value == false, "is_union<is_union_test_union ()>::value == false");
 			static_assert(is_union<is_union_test_union []>::value == false, "is_union<is_union_test_union []>::value == false");
+		}
+
+		TEST_METHOD(is_class_test)
+		{
+			using namespace nek;
+			union is_class_test_union
+			{
+			};
+			class is_class_test_class
+			{
+			};
+
+			static_assert(is_class<is_class_test_class>::value == true, "is_class<is_class_test_class>::value == true");
+			static_assert(is_same<is_union<is_class_test_class>::value_type, bool>::value,"is_class<is_class_test_class>::value_type == bool");
+			Assert::IsTrue(is_class<is_class_test_class>() == true, L"is_class<is_class_test_class>() == true");
+			static_assert(is_class<const volatile is_class_test_class>::value == true, "is_class<const volatile is_class_test_class>::value == true");
+			static_assert(is_class<int>::value == false, "is_class<int>::value == false");
+			static_assert(is_class<is_class_test_union>::value == false, "is_class<is_class_test_union>::value == false");
+			static_assert(is_class<is_class_test_class*>::value == false, "is_class<is_class_test_class*>::value == false");
+			static_assert(is_class<is_class_test_class&>::value == false, "is_class<is_class_test_class&>::value == false");
+			static_assert(is_class<is_class_test_class ()>::value == false, "is_class<is_class_test_class ()>::value == false");
+			static_assert(is_class<is_class_test_class []>::value == false, "is_class<is_class_test_class []>::value == false");
+		}
+
+		TEST_METHOD(is_lvalue_reference_test)
+		{
+			using namespace nek;
+			static_assert(is_lvalue_reference<int&>::value == true, "is_lvalue_reference<int&>::value == true");
+			static_assert(is_same<is_lvalue_reference<int&>::value_type, bool>::value, "is_lvalue_reference<int&>::value_type == bool");
+			Assert::IsTrue(is_lvalue_reference<int&>() == true, L"is_lvalue_reference<int&>() == true");
+			static_assert(is_lvalue_reference<int>::value == false, "is_lvalue_reference<int>::value == false");
+			static_assert(is_lvalue_reference<int*&>::value == true, "is_lvalue_reference<int*&>::value == true");
+			static_assert(is_lvalue_reference<int*>::value == false, "is_lvalue_reference<int*>::value == false");
+			static_assert(is_lvalue_reference<const volatile int&>::value == true, "is_lvalue_reference<const volatile int&>::value == true");
+			static_assert(is_lvalue_reference<int&&>::value == false, "is_lvalue_reference<int&&>::value == false");
+			static_assert(is_lvalue_reference<void (&)()>::value == true, "is_lvalue_reference<void (&)()>::value == true");
+			static_assert(is_lvalue_reference<int& ()>::value == false, "is_lvalue_reference<int& ()>::value == false");
+			static_assert(is_lvalue_reference<int []>::value == false, "is_lvalue_reference<int []>::value == false");
+		}
+
+		TEST_METHOD(is_rvalue_reference_test)
+		{
+			using namespace nek;
+			static_assert(is_rvalue_reference<int&&>::value == true, "is_rvalue_reference<int&&>::value == true");
+			static_assert(is_same<is_rvalue_reference<int&&>::value_type, bool>::value, "is_rvalue_reference<int&&>::value_type == bool");
+			Assert::IsTrue(is_rvalue_reference<int&&>() == true, L"is_rvalue_reference<int&&>() == true");
+			static_assert(is_rvalue_reference<int>::value == false, "is_rvalue_reference<int>::value == false");
+			static_assert(is_rvalue_reference<int*&&>::value == true, "is_rvalue_reference<int*&&>::value == true");
+			static_assert(is_rvalue_reference<int*>::value == false, "is_rvalue_reference<int*>::value == false");
+			static_assert(is_rvalue_reference<const volatile int&&>::value == true, "is_rvalue_reference<const volatile int&&>::value == true");
+			static_assert(is_rvalue_reference<int&>::value == false, "is_rvalue_reference<int&>::value == false");
+			static_assert(is_rvalue_reference<void (&&)()>::value == true, "is_rvalue_reference<void (&&)()>::value == true");
+			static_assert(is_rvalue_reference<int&& ()>::value == false, "is_rvalue_reference<int&& ()>::value == false");
+			static_assert(is_rvalue_reference<int []>::value == false, "is_rvalue_reference<int []>::value == false");
+		}
+
+		TEST_METHOD(is_reference_test)
+		{
+			using namespace nek;
+			static_assert(is_reference<int&>::value == true, "is_reference<int&>::value == true");
+			static_assert(is_same<is_reference<int&>::value_type, bool>::value, "is_reference<int&>::value_type == bool");
+			Assert::IsTrue(is_reference<int&>() == true, L"is_reference<int&>() == true");
+			static_assert(is_reference<int>::value == false, "is_reference<int>::value == false");
+			static_assert(is_reference<int*&>::value == true, "is_reference<int*&>::value == true");
+			static_assert(is_reference<int*>::value == false, "is_reference<int*>::value == false");
+			static_assert(is_reference<const volatile int&>::value == true, "is_reference<const volatile int&>::value == true");
+			static_assert(is_reference<int&&>::value == true, "is_reference<int&&>::value == true");
+			static_assert(is_reference<void (&&)()>::value == true, "is_reference<void (&&)()>::value == true");
+			static_assert(is_reference<int&& ()>::value == false, "is_reference<int&& ()>::value == false");
+			static_assert(is_reference<int []>::value == false, "is_reference<int []>::value == false");
 		}
 	};
 }
