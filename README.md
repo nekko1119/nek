@@ -2,15 +2,15 @@
 ライブラリと言うのもおこがましいくらいただのソースコードの断片集です。  
 自己満足、趣味、勉強用、劣化車輪の再発明。
 
-#開発環境
+##開発環境
  * OS windows 7
  * コンパイラ VC11.0 Nov 2012 CTP
 
-#コンパイラの未対応
-##decltype  
+##コンパイラの未対応
+###decltype  
 `decltype(expr)::type`のように、decltypeから直接メンバにアクセスすることができません。
 
-##Variadic Templates
+###Variadic Templates
 <pre>
 namespace ns
 {
@@ -29,8 +29,8 @@ int main()
 </pre>
 のように、可変長テンプレート関数と異なる名前空間の型を使用すると、その型は宣言されていないというエラーになる。
 
-##STL  
+###STL  
 std::forwardとstd::declvalがtype_traitsヘッダで定義されている。
 
-##最後に  
+###最後に  
 環境依存バリバリなソースコードです。上記の環境でしか確認していません。
