@@ -24,7 +24,7 @@ void f(Args... args)
 
 int main()
 {
-	f(hoge());//ERROR
+	f(ns::hoge());//ERROR
 }
 </pre>
 のように、可変長テンプレート関数と異なる名前空間の型を使用すると、その型は宣言されていないというエラーになる。
