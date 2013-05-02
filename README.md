@@ -1,4 +1,4 @@
-﻿#nek C++ ライブラリ
+#nek C++ ライブラリ
 ライブラリと言うのもおこがましいくらいただのソースコードの断片集です。  
 自己満足、趣味、勉強用、劣化車輪の再発明。
 
@@ -7,11 +7,11 @@
  * コンパイラ VC11.0 Nov 2012 CTP
 
 #コンパイラの未対応
- * decltype  
+##decltype  
 `decltype(expr)::type`のように、decltypeから直接メンバにアクセスすることができません。
 
- * Variadic Templates
-```cpp
+##Variadic Templates
+<pre>
 namespace ns
 {
 	struct hoge {};
@@ -24,13 +24,13 @@ void f(Args... args)
 
 int main()
 {
-	//f(hoge());//ERROR
+	f(hoge());//ERROR
 }
-```
-のように、可変長テンプレート関数と異なる名前空間の型を使用すると、曽於の方は宣言されていないというエラーになる。
+</pre>
+のように、可変長テンプレート関数と異なる名前空間の型を使用すると、その型は宣言されていないというエラーになる。
 
- * STL
-なぜか、std::forwardとstd::declvalがtype_traitsヘッダで定義されている。
+##STL  
+std::forwardとstd::declvalがtype_traitsヘッダで定義されている。
 
- * 最後に
+##最後に  
 環境依存バリバリなソースコードです。上記の環境でしか確認していません。
