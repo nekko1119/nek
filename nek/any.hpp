@@ -106,6 +106,11 @@ namespace nek
 		holder_base* held_;
 	};
 
+	inline void swap(any& left, any& right)
+	{
+		left.swap(right);
+	}
+
 	class bad_any_cast
 		: public std::bad_cast
 	{
