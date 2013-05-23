@@ -1,4 +1,4 @@
-#nek C++ ライブラリ
+﻿#nek C++ ライブラリ
 ライブラリと言うのもおこがましいくらいただのソースコードの断片集です。  
 自己満足、趣味、勉強用、劣化車輪の再発明。
 
@@ -17,7 +17,7 @@ namespace ns
 	struct hoge {};
 }
 
-template <class... Args>
+template &lt;class... Args&gt;
 void f(Args... args)
 {
 }
