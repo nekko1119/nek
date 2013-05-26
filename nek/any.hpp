@@ -50,7 +50,8 @@ namespace nek
 
 		any& swap(any& right)
 		{
-			nek::swap(held_, right.held_);
+			using nek::swap;
+			swap(held_, right.held_);
 			return *this;
 		}
 
@@ -82,7 +83,7 @@ namespace nek
 		{
 		public:
 			holder(const T& value)
-				:value_(value)
+				: value_(value)
 			{
 			}
 
