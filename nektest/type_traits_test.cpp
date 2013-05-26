@@ -13,6 +13,7 @@
 #include <nek/type_traits/is_lvalue_reference.hpp>
 #include <nek/type_traits/is_rvalue_reference.hpp>
 #include <nek/type_traits/is_reference.hpp>
+#include <nek/type_traits/is_floating_point.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -243,6 +244,23 @@ namespace nektest
 			static_assert(is_reference<void (&&)()>::value == true, "is_reference<void (&&)()>::value == true");
 			static_assert(is_reference<int&& ()>::value == false, "is_reference<int&& ()>::value == false");
 			static_assert(is_reference<int []>::value == false, "is_reference<int []>::value == false");
+		}
+
+		TEST_METHOD(is_floating_point_test)
+		{
+			using namespace nek;
+			static_assert(is_floating_point<float>::value == true, "is_floating_point<float>::value == true");
+			static_assert(is_same<is_floating_point<float>::value_type, bool>::value, "is_floating_point<float>::value_type == bool");
+			Assert::IsTrue(is_floating_point<float>() == true, L"is_floating_point<float>() == true");
+			static_assert(is_floating_point<int>::value == false, "is_floating_point<int>::value == false");
+			static_assert(is_floating_point<double>::value == true, "is_floating_point<double>::value == true");
+			static_assert(is_floating_point<long double>::value == true, "is_floating_point<long double>::value == true");
+			static_assert(is_floating_point<const volatile float>::value == true, "is_floating_point<const volatile float>::value == true");
+			static_assert(is_floating_point<unsigned>::value == false, "is_floating_point<unsigned>::value == false");
+			static_assert(is_floating_point<float*>::value == false, "is_floating_point<float*>::value == false");
+			static_assert(is_floating_point<double&>::value == false, "is_floating_point<double&>::value == false");
+			static_assert(is_floating_point<long double[1]>::value == false, "is_floating_point<long double[1]>::value == false");
+			static_assert(is_floating_point<double ()>::value == false, "is_floating_point<double ()>::value == false");
 		}
 	};
 }
