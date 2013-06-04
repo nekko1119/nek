@@ -6,11 +6,11 @@
 
 namespace nek
 {
-	template <class T>
-	struct remove_cv
-	{
-		typedef typename remove_const<typename remove_volatile<T>::type>::type type;
-	};
+    template <class T>
+    struct remove_cv
+    {
+        typedef typename remove_const<typename remove_volatile<T>::type>::type type;
+    };
 }
 
 #endif

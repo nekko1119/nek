@@ -5,11 +5,11 @@
 
 namespace nek
 {
-	template <class T>
-	inline typename remove_reference<T>::type&& move(T&& value)
-	{
-		return static_cast<typename remove_reference<T>::type&&>(value);
-	}
+    template <class T>
+    inline typename remove_reference<T>::type&& move(T&& value)
+    {
+        return static_cast<typename remove_reference<T>::type&&>(value);
+    }
 }
 
 #endif

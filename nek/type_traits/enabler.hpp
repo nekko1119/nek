@@ -5,8 +5,8 @@
 
 namespace nek
 {
-	typedef void* enabler_t;
-	extern enabler_t enabler;
+    typedef void* enabler_t;
+    extern enabler_t enabler;
 }
 
 #endif

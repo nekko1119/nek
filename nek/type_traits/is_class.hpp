@@ -6,11 +6,11 @@
 
 namespace nek
 {
-	template <class T>
-	struct is_class
-		: public integral_constant<bool, __is_class(typename remove_cv<T>::type)>
-	{
-	};
+    template <class T>
+    struct is_class
+        : public integral_constant<bool, __is_class(typename remove_cv<T>::type)>
+    {
+    };
 }
 
 #endif

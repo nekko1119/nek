@@ -1,24 +1,24 @@
-﻿#ifndef NEK_UTILITY_NONCOPYABLE_HPP
-#define NEK_UTILITY_NONCOPYABLE_HPP
+﻿#ifndef nek_utility_noncopyable_hpp
+#define nek_utility_noncopyable_hpp
 
 namespace nek
 {
-	//protection from ADL
-	namespace noncopyable_
-	{
-		//using CRTP is a solution of EBO with multiple inheritance.
-		template <class T>
-		class noncopyable
-		{
-		protected:
-			noncopyable(){}
-			~noncopyable(){}//protected non virtual destructor
-		private:
-			noncopyable(const noncopyable&);//no defined
-			noncopyable& operator=(const noncopyable&);//no defined
-		};
-	}
-	using namespace noncopyable_;
+    //protection from adl
+    namespace noncopyable_
+    {
+        //using crtp is a solution of ebo with multiple inheritance.
+        template <class t>
+        class noncopyable
+        {
+        protected:
+            noncopyable(){}
+            ~noncopyable(){}//protected non virtual destructor
+        private:
+            noncopyable(const noncopyable&);//no defined
+            noncopyable& operator=(const noncopyable&);//no defined
+        };
+    }
+    using namespace noncopyable_;
 }
 
 #endif

@@ -6,11 +6,11 @@
 
 namespace nek
 {
-	template <class T>
-	struct is_union
-		: public integral_constant<bool, __is_union(typename remove_cv<T>::type)>
-	{
-	};
+    template <class T>
+    struct is_union
+        : public integral_constant<bool, __is_union(typename remove_cv<T>::type)>
+    {
+    };
 }
 
 #endif
