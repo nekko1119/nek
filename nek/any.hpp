@@ -33,6 +33,7 @@ namespace nek
         ~any()
         {
             delete held_;
+            held_ = nullptr;
         }
 
         any& operator=(any right)
@@ -82,7 +83,7 @@ namespace nek
         {
         public:
             holder(const T& value)
-                :value_(value)
+                : value_(value)
             {
             }
 
