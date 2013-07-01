@@ -1,36 +1,40 @@
-﻿#nek C++ ライブラリ
-ライブラリと言うのもおこがましいくらいただのソースコードの断片集です。  
-自己満足、趣味、勉強用、劣化車輪の再発明。
+﻿# nek C++ ライブラリ
+ライブラリという体を取っていますが、ただのソースコードの寄せ集めです。  
+自己満足、趣味、勉強用、劣化車輪の再発明です。  
+主にSTLやBoostのライブラリで興味を持ったものを劣化コピーしていきます。
 
-##開発環境
- * OS windows 7
- * コンパイラ VC11.0 Nov 2012 CTP
+## 開発環境
+ * OS
+  - windows 7 32bit
+ * コンパイラ
+  - VC11.0 Nov 2012 CTP
+  - VC12.0 Preview
 
-##コンパイラの未対応
-###decltype  
-`decltype(expr)::type`のように、decltypeから直接メンバにアクセスすることができません。
+## コンパイラのC++11/C++14対応メモ
 
-###Variadic Templates
-<pre>
-namespace ns
-{
-	struct hoge {};
-}
+### constexpr
+未対応
 
-template &lt;class... Args&gt;
-void f(Args... args)
-{
-}
+### 関数のdelete/default指定
+未対応
 
-int main()
-{
-	f(ns::hoge());//ERROR
-}
-</pre>
-のように、可変長テンプレート関数と異なる名前空間の型を使用すると、その型は宣言されていないというエラーになる。
+### 初期化リスト
+`vector<int> v({1, 2, 3})`がコンパイルエラーになります。
 
-###STL  
-std::forwardとstd::declvalがtype_traitsヘッダで定義されている。
+### noexcept
+未対応
 
-###最後に  
+### ユーザー定義リテラル
+未対応
+
+### ムーブコンストラクタとムーブ代入演算子の自動生成
+未対応
+
+### decltype
+`decltype(expr)::type`のように、decltypeから直接、メンバ型にアクセスすることができません。
+
+### STL  
+std::forwardとstd::declvalがtype_traitsヘッダで定義されています。
+
+### 最後に  
 環境依存バリバリなソースコードです。上記の環境でしか確認していません。
