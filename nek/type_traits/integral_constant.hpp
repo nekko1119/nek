@@ -5,15 +5,16 @@
 
 namespace nek
 {
-    template <class T, T Val>
+    template <class T, T Value>
     struct integral_constant
     {
         typedef T value_type;
+        typedef integral_constant<T, Value> type;
         operator value_type() const
         {
             return value;
         }
-        static const value_type value = Val;
+        static const value_type value = Value;
     };
 
     typedef integral_constant<bool, true> true_type;

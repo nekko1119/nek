@@ -27,15 +27,18 @@ namespace nektest
             using namespace nek;
 
             Assert::IsTrue(true_type(), L"true_type == true");
+            static_assert(is_same<true_type::type, true_type>::value, "true_type::type == true_type");
             static_assert(true_type::value == true, "true_type::value == true");
             static_assert(is_same<true_type::value_type, bool>::value, "true_type::value_type == bool");
 
             Assert::IsTrue(!false_type(), L"false_type == false");
+            static_assert(is_same<false_type::type, false_type>::value, "false_type::type == false_type");
             static_assert(false_type::value == false, "false_type::value == false");
             static_assert(is_same<false_type::value_type, bool>::value, "false_type::value_type == bool");
 
             typedef integral_constant<int, 0> zero_type;
             Assert::IsTrue(zero_type() == 0, L"integral_constant<int, 0> == 0");
+            static_assert(is_same<zero_type::type, zero_type>::value, "zero_type::type == zero_type");
             static_assert(zero_type::value == 0, "integral_constant<int, 0>::value == 0");
             static_assert(is_same<zero_type::value_type, int>::value, "integral_constant<int, 0>::value_type == int");
         }
@@ -79,7 +82,9 @@ namespace nektest
         TEST_METHOD(is_same_test)
         {
             using namespace nek;
+            static_assert(is_same<is_same<int, int>::type, true_type>::value, "is_same<True>::type == true_type");
             static_assert(is_same<int, int>::value == true, "is_same<int, int>::value");
+            static_assert(is_same<is_same<int, int&>::type, false_type>::value, "is_same<False>::type == false_type");
             static_assert(is_same<int, int&>::value == false, "is_same<int, int&>::value");
             static_assert(is_same<int, const int>::value == false, "is_same<int, const int>::value");
         }
@@ -103,6 +108,7 @@ namespace nektest
         {
             using namespace nek;
             static_assert(is_pointer<int*>::value == true, "is_pointer<int*>::value == true");
+            static_assert(is_same<is_pointer<int*>::type, true_type>::value, "is_pointer<int*>::type == true_type");
             static_assert(is_same<is_pointer<int*>::value_type, bool>::value, "is_same<is_pointer<int*>::value_type, bool>::value");
             Assert::IsTrue(is_pointer<int*>() == true, L"is_pointer<int*>() ==true");
             static_assert(is_pointer<int**>::value == true, "is_pointer<int**>::value == true");
@@ -127,6 +133,7 @@ namespace nektest
         {
             using namespace nek;
             static_assert(is_integral<int>::value == true, "is_integral<int>::value == true");
+            static_assert(is_same<is_integral<int>::type, true_type>::value, "is_integral<int>::type == true_type");
             static_assert(is_same<is_integral<int>::value_type, bool>::value, "is_integral<int>:value_type == bool");
             Assert::IsTrue(is_integral<int>() == true, L"is_integral<int>() == true");
             static_assert(is_integral<int*>::value == false, "is_integral<int*>::value == false");
@@ -146,6 +153,7 @@ namespace nektest
         {
             using namespace nek;
             static_assert(is_void<void>::value == true, "is_void<void>::value == true");
+            static_assert(is_same<is_void<void>::type, true_type>::value, "is_void<void>::type == true_type");
             static_assert(is_same<is_void<void>::value_type, bool>::value, "is_void<void>:value_type == bool");
             Assert::IsTrue(is_void<void>() == true, L"is_integral<int>() == true");
             static_assert(is_void<int>::value == false, "is_void<int>::value == false");
@@ -165,6 +173,7 @@ namespace nektest
             };
 
             static_assert(is_union<is_union_test_union>::value == true, "is_union<is_union_test_union>::value == true");
+            static_assert(is_same<is_union<is_union_test_union>::type, true_type>::value, "is_union<is_union_test_union>::type == true_type");
             static_assert(is_same<is_union<is_union_test_union>::value_type, bool>::value,"is_union<is_union_test_union>::value_type == bool");
             Assert::IsTrue(is_union<is_union_test_union>() == true, L"is_union<is_union_test_union>() == true");
             static_assert(is_union<const volatile is_union_test_union>::value == true, "is_union<const volatile is_union_test_union>::value == true");
@@ -187,6 +196,7 @@ namespace nektest
             };
 
             static_assert(is_class<is_class_test_class>::value == true, "is_class<is_class_test_class>::value == true");
+            static_assert(is_same<is_class<is_class_test_class>::type, true_type>::value, "is_class<is_class_test_class>::type == true_type");
             static_assert(is_same<is_union<is_class_test_class>::value_type, bool>::value,"is_class<is_class_test_class>::value_type == bool");
             Assert::IsTrue(is_class<is_class_test_class>() == true, L"is_class<is_class_test_class>() == true");
             static_assert(is_class<const volatile is_class_test_class>::value == true, "is_class<const volatile is_class_test_class>::value == true");
@@ -202,6 +212,7 @@ namespace nektest
         {
             using namespace nek;
             static_assert(is_lvalue_reference<int&>::value == true, "is_lvalue_reference<int&>::value == true");
+            static_assert(is_same<is_lvalue_reference<int&>::type, true_type>::value, "is_lvalue_reference<int&>::type == true_type");
             static_assert(is_same<is_lvalue_reference<int&>::value_type, bool>::value, "is_lvalue_reference<int&>::value_type == bool");
             Assert::IsTrue(is_lvalue_reference<int&>() == true, L"is_lvalue_reference<int&>() == true");
             static_assert(is_lvalue_reference<int>::value == false, "is_lvalue_reference<int>::value == false");
@@ -218,6 +229,7 @@ namespace nektest
         {
             using namespace nek;
             static_assert(is_rvalue_reference<int&&>::value == true, "is_rvalue_reference<int&&>::value == true");
+            static_assert(is_same<is_rvalue_reference<int&&>::type, true_type>::value, "is_rvalue_reference<int&&>::type == true_type");
             static_assert(is_same<is_rvalue_reference<int&&>::value_type, bool>::value, "is_rvalue_reference<int&&>::value_type == bool");
             Assert::IsTrue(is_rvalue_reference<int&&>() == true, L"is_rvalue_reference<int&&>() == true");
             static_assert(is_rvalue_reference<int>::value == false, "is_rvalue_reference<int>::value == false");
@@ -234,6 +246,7 @@ namespace nektest
         {
             using namespace nek;
             static_assert(is_reference<int&>::value == true, "is_reference<int&>::value == true");
+            static_assert(is_same<is_reference<int&>::type, true_type>::value, "is_reference<int&>::type == true_type");
             static_assert(is_same<is_reference<int&>::value_type, bool>::value, "is_reference<int&>::value_type == bool");
             Assert::IsTrue(is_reference<int&>() == true, L"is_reference<int&>() == true");
             static_assert(is_reference<int>::value == false, "is_reference<int>::value == false");
@@ -250,6 +263,7 @@ namespace nektest
         {
             using namespace nek;
             static_assert(is_floating_point<float>::value == true, "is_floating_point<float>::value == true");
+            static_assert(is_same<is_floating_point<float>::type, true_type>::value, "is_floating_point<float>::type == true_type");
             static_assert(is_same<is_floating_point<float>::value_type, bool>::value, "is_floating_point<float>::value_type == bool");
             Assert::IsTrue(is_floating_point<float>() == true, L"is_floating_point<float>() == true");
             static_assert(is_floating_point<int>::value == false, "is_floating_point<int>::value == false");
