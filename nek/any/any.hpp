@@ -33,11 +33,12 @@ namespace nek
 		~any()
 		{
 			delete held_;
+            held_ = nullptr;
 		}
 
-		any& operator=(any right)
+		any& operator=(const any& right)
 		{
-			swap(right);
+			any(right).swap(*this);
 			return *this;
 		}
 
@@ -87,12 +88,12 @@ namespace nek
 			{
 			}
 
-			virtual holder_base* clone() const override final
+			holder_base* clone() const override
 			{
 				return new holder(value_);
 			}
 
-			virtual const std::type_info& type() const override final
+			const std::type_info& type() const override
 			{
 				return typeid(value_);
 			}

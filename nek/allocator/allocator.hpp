@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <exception>
+#include <new>
 #include <nek/type_traits/remove_cv.hpp>
 #include <nek/utility/addressof.hpp>
 #include <nek/utility/forward.hpp>
@@ -62,9 +63,9 @@ namespace nek
 		}
 
 		template <class U, class... Args>
-		void construct(U* other, Args... args) const
+		void construct(U* other, Args&&... args) const
 		{
-			new (reinterpret_cast<void*>(other)) U(forward<Args>(args)...);
+			::new (reinterpret_cast<void*>(other)) U(forward<Args>(args)...);
 		}
 
 		template <class U>
