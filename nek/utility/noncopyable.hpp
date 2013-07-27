@@ -3,10 +3,10 @@
 
 namespace nek
 {
-    //protection from adl
+    //protection from ADL
     namespace noncopyable_
     {
-        //using crtp is a solution of EBCO with multiple inheritance.
+        //using CRTP is a solution of EBCO with multiple inheritance.
         template <class T>
         class noncopyable
         {
