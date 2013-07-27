@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <typeinfo>
+#include <nek/any/any_fwd.hpp>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/utility/swap.hpp>
@@ -11,8 +12,6 @@ namespace nek
 {
     class any
     {
-        template <class T>
-        friend T* any_cast(any* pointer);
     public:
         any()
             : held_(nullptr)
@@ -106,6 +105,10 @@ namespace nek
         };
 
         holder_base* held_;
+
+    private:
+        template <class T>
+        friend T* any_cast(any* pointer);
     };
 
     inline void swap(any& left, any& right)
@@ -113,7 +116,7 @@ namespace nek
         left.swap(right);
     }
 
-    class bad_any_cast
+    class bad_any_cast_exception
         : public std::bad_cast
     {
     public:
@@ -145,7 +148,7 @@ namespace nek
         nonref_type* result = any_cast<nonref_type>(&value);
         if (!result)
         {
-            throw bad_any_cast();
+            throw bad_any_cast_exception();
         }
         return *result;
     }
