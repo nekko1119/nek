@@ -1,8 +1,6 @@
 ﻿#ifndef NEK_TYPE_TRAITS_INTEGRAL_CONSTANT_HPP
 #define NEK_TYPE_TRAITS_INTEGRAL_CONSTANT_HPP
 
-#include <type_traits>
-
 namespace nek
 {
     template <class T, T Value>
