@@ -2,6 +2,7 @@
 #define NEK_MPL_INTEGRAL_C_HPP
 
 #include <nek/mpl/integral_c_fwd.hpp>
+#include <nek/mpl/integral_c_tag.hpp>
 
 namespace nek
 {
@@ -11,6 +12,7 @@ namespace nek
         struct integral_c
         {
             static const T value = N;
+            typedef integral_c_tag tag;
             typedef integral_c type;
             typedef T value_type;
             typedef integral_c<T, N + 1> next;
@@ -26,6 +28,7 @@ namespace nek
         struct integral_c<bool, C>
         {
             static const bool value = C;
+            typedef integral_c_tag tag;
             typedef integral_c type;
             typedef bool value_type;
             operator bool() const
