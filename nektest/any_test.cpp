@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "CppUnitTest.h"
-#include <nek/any/any.hpp>
+#include <nek/any.hpp>
+#include <nek/type_traits/is_same.hpp>
 #include <string>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -99,7 +100,7 @@ namespace nektest
             std::string text("test");
             any value = text;
 
-            Assert::ExpectException<bad_any_cast>([&value](){any_cast<const char*>(value);}, L"any_cast throw bad_any_cast");
+            Assert::ExpectException<bad_any_cast_exception>([&value](){any_cast<const char*>(value);}, L"any_cast throw bad_any_cast");
         }
 
         TEST_METHOD(swap_test)
@@ -152,10 +153,22 @@ namespace nektest
             ++ra;
             int incremented = any_cast<int>(a);
             Assert::AreEqual(11, incremented, L"incremented == 11");
-            Assert::ExpectException<bad_any_cast>([&a]()
+            Assert::ExpectException<bad_any_cast_exception>([&a]()
             {
                 any_cast<char&>(a);
             }, L"any_cast to incorrect reference type");
+        }
+
+        TEST_METHOD(is_any_test)
+        {
+            using namespace nek;
+            static_assert(is_any<any>::value == true, "is_any<any>::value == true");
+            static_assert(is_same<is_any<any>::type, true_type>::value, "is_any<any>::type == true_type");
+            static_assert(is_same<is_any<any>::value_type, bool>::value, "is_any<any>::value_type == bool");
+            Assert::IsTrue(is_any<any>() == true, L"is_any<any>() ==true");
+            static_assert(is_any<int>::value == false, "is_any<int>::value == false");
+            static_assert(is_any<any*>::value == false, "is_any<any*>::value == false");
+            static_assert(is_any<const volatile any>::value == true, "is_any<const volatile any>::value == true");
         }
     };
 }

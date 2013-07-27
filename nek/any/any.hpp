@@ -1,9 +1,8 @@
-﻿#ifndef NEK_ANY_HPP
-#define NEK_ANY_HPP
+﻿#ifndef NEK_ANY_ANY_HPP
+#define NEK_ANY_ANY_HPP
 
-#include <stdexcept>
-#include <typeinfo>
 #include <nek/any/any_fwd.hpp>
+#include <nek/any/exception.hpp>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/utility/swap.hpp>
@@ -115,16 +114,6 @@ namespace nek
     {
         left.swap(right);
     }
-
-    class bad_any_cast_exception
-        : public std::bad_cast
-    {
-    public:
-        virtual const char* what() const override
-        {
-            return "nek::bad_any_cast";
-        }
-    };
 
     template <class T>
     T* any_cast(any* pointer)
