@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <exception>
 #include <new>
-#include <nek/type_traits/remove_cv.hpp>
 #include <nek/utility/addressof.hpp>
 #include <nek/utility/forward.hpp>
 
@@ -14,13 +13,13 @@ namespace nek
     class allocator
     {
     public:
-        typedef typename remove_cv<T>::type value_type;
-        typedef value_type* pointer;
-        typedef value_type& reference;
-        typedef const pointer const_pointer;
-        typedef const reference const_reference;
         typedef std::size_t size_type;
         typedef std::ptrdiff_t difference_type;
+        typedef T* pointer;
+        typedef const T* const_pointer;
+        typedef T& reference;
+        typedef const T& const_reference;
+        typedef T value_type;
 
         template <class U>
         struct rebind
@@ -50,11 +49,11 @@ namespace nek
         pointer allocate(size_type count, const void* = nullptr) const
         {
             void* ptr = nullptr;
-            if (count < 1U || max_size() < count || (ptr = ::operator new(count * sizeof(value_type))) == nullptr)
+            if (max_size() < count)
             {
                 throw std::bad_alloc();
             }
-            return static_cast<pointer>(ptr);
+            return static_cast<pointer>(::operator new(count * sizeof(value_type)));
         }
 
         void deallocate(pointer ptr, size_type) const
@@ -94,13 +93,13 @@ namespace nek
     class allocator<void>
     {
     public:
-        typedef void value_type;
-        typedef value_type* pointer;
-        typedef value_type* void_pointer;
-        typedef const pointer const_pointer;
-        typedef const void_pointer const_void_pointer;
         typedef std::size_t size_type;
         typedef std::ptrdiff_t difference_type;
+        typedef void value_type;
+        typedef void* pointer;
+        typedef const void* const_pointer;
+        typedef void* void_pointer;
+        typedef const void* const_void_pointer;
 
         template <class U>
         struct rebind

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
+#include <nek/type_traits/is_same.hpp>
 #include <nek/allocator/allocator.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -45,16 +46,22 @@ namespace nektest
         TEST_METHOD(default_allocator_test)
         {
             using namespace nek;
+            typedef allocator<int> int_alloc;
+            static_assert(is_same<int_alloc::value_type, int>::value, "allocator<int>::value_type == int");
+            static_assert(is_same<int_alloc::pointer, int*>::value, "allocator<int>::pointer == int*");
+            static_assert(is_same<int_alloc::const_pointer, const int*>::value, "allocator<int>::const_pointer == const int*");
+            static_assert(is_same<int_alloc::reference, int&>::value, "allocator<int>::reference == int&");
+            static_assert(is_same<int_alloc::const_reference, const int&>::value, "allocator<int>::const_reference == const int&");
+            static_assert(is_same<int_alloc::difference_type, std::ptrdiff_t>::value, "allocator<int>::difference_type == std::ptrdiff_t");
+            static_assert(is_same<int_alloc::size_type, std::size_t>::value, "allocator<int>::size_type == std::size_t");
+
             allocator<allocator_test_class> alloc_test;
             allocator_test_class* arr = alloc_test.allocate(10);
             Assert::ExpectException<std::bad_alloc>([&alloc_test]()
             {
                 alloc_test.allocate(alloc_test.max_size() + 1);
             }, L"throw std::bad_alloc");
-            Assert::ExpectException<std::bad_alloc>([&alloc_test]()
-            {
-                alloc_test.allocate(0);
-            }, L"throw std::bad_alloc");
+
             arr[9] = allocator_test_class(1, 1.0);
             Assert::AreEqual(1, arr[9].a, L"arr[9].a == 1");
             alloc_test.construct(&arr[3], 2, 2.0);
