@@ -5,6 +5,7 @@
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/type_traits/is_same.hpp>
 #include <nek/type_traits/enable_if.hpp>
+#include <nek/type_traits/has_element_type.hpp>
 #include <nek/type_traits/has_type.hpp>
 #include <nek/type_traits/has_value_type.hpp>
 #include <nek/type_traits/is_pointer.hpp>
@@ -104,6 +105,21 @@ namespace nektest
             double d = 0.0;
             static_assert(is_same<decltype(enable_test_func(i)), true_type>::value, "true_type f(T)");
             static_assert(is_same<decltype(enable_test_func(d)), false_type>::value, "false_type f(T)");
+        }
+
+        TEST_METHOD(has_element_type_test)
+        {
+            using namespace nek;
+            struct yes
+            {
+                typedef int element_type;
+            };
+            struct no
+            {
+                int type;
+            };
+            static_assert(has_element_type<yes>::value, "has_element_type<yes> == true");
+            static_assert(!has_element_type<no>::value, "has_element_type<no> == false");
         }
 
         TEST_METHOD(has_type_test)
