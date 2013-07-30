@@ -3,7 +3,7 @@
 
 namespace nek
 {
-    template <bool Val, class T = void>
+    template <bool C, class T = void>
     struct enable_if_c
     {
         typedef T type;
@@ -20,7 +20,7 @@ namespace nek
     {
     };
 
-    template <bool Val, class T = void>
+    template <bool C, class T = void>
     struct disable_if_c
     {
         typedef T type;
