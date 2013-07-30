@@ -1,9 +1,11 @@
 ﻿#include "stdafx.h"
 #include "CppUnitTest.h"
+#include <memory>
 #include <nek/utility/move.hpp>
 #include <nek/utility/swap.hpp>
 #include <nek/utility/addressof.hpp>
 #include <nek/utility/forward.hpp>
+#include <nek/utility/pointer_traits.hpp>
 #include <nek/type_traits/integral_constant.hpp>
 #include <nek/type_traits/is_same.hpp>
 
@@ -99,6 +101,47 @@ namespace nektest
             int a = 0;
             forward_test_func(move(a));
             forward_test_func(a);
+        }
+
+        TEST_METHOD(pointer_traits1_test)
+        {
+            using namespace nek;
+            typedef pointer_traits<std::shared_ptr<int>> shared;
+            static_assert(is_same<shared::pointer, std::shared_ptr<int>>::value, "pointer_traits<shared_ptr<int>>::pointer == shared_ptr<int>");
+            static_assert(is_same<shared::element_type, int>::value, "pointer_traits<shared_ptr<int>>::element_type == int");
+            static_assert(is_same<shared::difference_type, std::ptrdiff_t>::value, "pointer_traits<shared_ptr<int>>::difference_type == ptrdiff_t");
+            typedef shared::rebind<double>::other another;
+            static_assert(is_same<another, std::shared_ptr<double>>::value, "pointer_traits<shared_ptr<int>::rebind<double>::other == shared_ptr<double>");
+            //this expression is compile error. it is right action. [20.6.3.2]
+            //int a;
+            //Assert::AreEqual(&a, shared::pointer_to(a).get(), L"&a == pointer_traits<shared_ptr<int>>::pointer_to(a)");
+            typedef pointer_traits<std::shared_ptr<void>> shared_void;
+            static_assert(is_same<shared_void::pointer, std::shared_ptr<void>> ::value, "pointer_traits<shared_ptr<void>>::pointer == shared_ptr<void>");
+            static_assert(is_same<shared_void::element_type, void>::value, "pointer_traits<shared_ptr<void>>::element_type == void");
+            static_assert(is_same<shared_void::difference_type, std::ptrdiff_t>::value, "pointer_traits<shared_ptr<void>>::difference_type == ptrdiff_t");
+            typedef shared::rebind<double>::other another;
+            static_assert(is_same<another, std::shared_ptr<double>>::value, "pointer_traits<shared_ptr<void>::rebind<double>::other == shared_ptr<double>");
+        }
+
+        TEST_METHOD(pointer_traits2_test)
+        {
+            using namespace nek;
+            typedef pointer_traits<int*> int_ptr;
+            static_assert(is_same<int_ptr::pointer, int*>::value, "pointer_traits<int*>::pointer == int*");
+            static_assert(is_same<int_ptr::element_type, int>::value, "pointer_traits<int*>::element_type == int");
+            static_assert(is_same<int_ptr::difference_type, std::ptrdiff_t>::value, "pointer_traits<int*>::difference_type == ptrdiff_t");
+            static_assert(is_same<int_ptr::rebind<double>::other, double*>::value, "pointer_traits<int>::rebind<double>::other == double*");
+            int a;
+            Assert::AreEqual(&a, int_ptr::pointer_to(a), L"&a == pointer_traits<int>::pointer_to(a)");
+            typedef pointer_traits<void*> void_ptr;
+            static_assert(is_same<void_ptr::pointer, void*>::value, "pointer_traits<void*>::pointer == void*");
+            static_assert(is_same<void_ptr::element_type, void>::value, "pointer_traits<void*>::element_type == void");
+            static_assert(is_same<void_ptr::difference_type, std::ptrdiff_t>::value, "pointer_traits<void*>::difference_type == ptrdiff_t");
+            static_assert(is_same<void_ptr::rebind<double>::other, double*>::value, "pointer_traits<void>::rebind<double>::other == double*");
+
+            //if element_type is void, type of `value` is unspecified. [20.6.3.2]
+            //int b;
+            //Assert::AreEqual(&b, int_ptr::pointer_to(b), L"&a == pointer_traits<void>::pointer_to(a)");
         }
     };
 }
