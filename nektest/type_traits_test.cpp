@@ -5,6 +5,7 @@
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/type_traits/is_same.hpp>
 #include <nek/type_traits/enable_if.hpp>
+#include <nek/type_traits/has_difference_type.hpp>
 #include <nek/type_traits/has_element_type.hpp>
 #include <nek/type_traits/has_iterator.hpp>
 #include <nek/type_traits/has_type.hpp>
@@ -126,6 +127,7 @@ namespace nektest
             static_assert(is_same<decltype(enable_test_func(d)), false_type>::value, "false_type f(T)");
         }
 
+        NEK_HAS_XXX_TEST_METHOD(difference_type)
         NEK_HAS_XXX_TEST_METHOD(element_type)
         NEK_HAS_XXX_TEST_METHOD(iterator)
         NEK_HAS_XXX_TEST_METHOD(type)
