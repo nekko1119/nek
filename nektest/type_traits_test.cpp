@@ -6,6 +6,7 @@
 #include <nek/type_traits/is_same.hpp>
 #include <nek/type_traits/enable_if.hpp>
 #include <nek/type_traits/has_element_type.hpp>
+#include <nek/type_traits/has_iterator.hpp>
 #include <nek/type_traits/has_type.hpp>
 #include <nek/type_traits/has_value_type.hpp>
 #include <nek/type_traits/is_pointer.hpp>
@@ -19,6 +20,24 @@
 #include <nek/type_traits/is_floating_point.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+#define NEK_STRINGIZE(str) #str
+#define NEK_HAS_XXX_TEST_METHOD(xxx)\
+TEST_METHOD(has_##xxx##_test)\
+{\
+    using namespace nek;\
+    struct yes\
+    {\
+        typedef int xxx;\
+    };\
+    struct no\
+    {\
+        int xxx;\
+    };\
+    static_assert(has_##xxx##<yes>::value, NEK_STRINGIZE(has_##xxx##<yes> == true));\
+    static_assert(!has_##xxx##<no>::value, NEK_STRINGIZE(has_##xxx##<no> == false)); \
+}
+
 
 namespace nektest
 {
@@ -107,50 +126,10 @@ namespace nektest
             static_assert(is_same<decltype(enable_test_func(d)), false_type>::value, "false_type f(T)");
         }
 
-        TEST_METHOD(has_element_type_test)
-        {
-            using namespace nek;
-            struct yes
-            {
-                typedef int element_type;
-            };
-            struct no
-            {
-                int type;
-            };
-            static_assert(has_element_type<yes>::value, "has_element_type<yes> == true");
-            static_assert(!has_element_type<no>::value, "has_element_type<no> == false");
-        }
-
-        TEST_METHOD(has_type_test)
-        {
-            using namespace nek;
-            struct yes
-            {
-                typedef int type;
-            };
-            struct no
-            {
-                int type;
-            };
-            static_assert(has_type<yes>::value, "has_type<yes> == true");
-            static_assert(!has_type<no>::value, "has_type<no> == false");
-        }
-
-        TEST_METHOD(has_value_type_test)
-        {
-            using namespace nek;
-            struct yes
-            {
-                typedef int value_type;
-            };
-            struct no
-            {
-                int value_type;
-            };
-            static_assert(has_value_type<yes>::value, "has_value_type<yes> == true");
-            static_assert(!has_value_type<no>::value, "has_value_type<no> == false");
-        }
+        NEK_HAS_XXX_TEST_METHOD(element_type)
+        NEK_HAS_XXX_TEST_METHOD(iterator)
+        NEK_HAS_XXX_TEST_METHOD(type)
+        NEK_HAS_XXX_TEST_METHOD(value_type)
 
         TEST_METHOD(is_pointer_test)
         {
