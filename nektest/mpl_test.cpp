@@ -3,6 +3,7 @@
 #include <nek/type_traits/is_void.hpp>
 #include <nek/type_traits/is_same.hpp>
 #include <nek/mpl/bool.hpp>
+#include <nek/mpl/identity.hpp>
 #include <nek/mpl/if.hpp>
 #include <nek/mpl/integral_c.hpp>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -41,6 +42,13 @@ namespace nektest
             static_assert(is_same<mpl::false_::value_type, bool>::value, "mpl::false_::value_type == bool");
             Assert::IsTrue(mpl::false_() == false, L"mpl::false_() == false");
 
+        }
+
+        TEST_METHOD(identity_test)
+        {
+            using namespace nek::mpl;
+            static_assert(nek::is_same<identity<int>::type, int>::value, "identity<int>::type == int");
+            static_assert(nek::is_same<identity<const volatile int>::type, const volatile int>::value, "identity<cv int>::type == cv int");
         }
 
         TEST_METHOD(if_test)
