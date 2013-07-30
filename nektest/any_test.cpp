@@ -94,7 +94,7 @@ namespace nektest
             Assert::AreNotEqual(&text, any_cast<std::string>(&assign), L"&text == casted &assign");
         }
 
-        TEST_METHOD(bad_cast_test)
+        TEST_METHOD(bad_any_cast_exception_test)
         {
             using namespace nek;
             std::string text("test");
