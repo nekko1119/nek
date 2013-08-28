@@ -1,0 +1,24 @@
+﻿#ifndef NEK_TYPE_TRAITS_HAS_POINTER_HPP
+#define NEK_TYPE_TRAITS_HAS_POINTER_HPP
+
+#include <nek/type_traits/integral_constant.hpp>
+
+namespace nek
+{
+    namespace detail
+    {
+        template <class T, class U = T::pointer>
+        true_type has_pointer(int);
+
+        template <class>
+        false_type has_pointer(long);
+    }
+
+    template <class T>
+    struct has_pointer
+        : public decltype(detail::has_pointer<T>(0))
+    {
+    };
+}
+
+#endif

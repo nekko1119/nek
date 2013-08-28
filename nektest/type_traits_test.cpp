@@ -8,6 +8,7 @@
 #include <nek/type_traits/has_difference_type.hpp>
 #include <nek/type_traits/has_element_type.hpp>
 #include <nek/type_traits/has_iterator.hpp>
+#include <nek/type_traits/has_pointer.hpp>
 #include <nek/type_traits/has_type.hpp>
 #include <nek/type_traits/has_value_type.hpp>
 #include <nek/type_traits/is_pointer.hpp>
@@ -130,6 +131,7 @@ namespace nektest
         NEK_HAS_XXX_TEST_METHOD(difference_type)
         NEK_HAS_XXX_TEST_METHOD(element_type)
         NEK_HAS_XXX_TEST_METHOD(iterator)
+        NEK_HAS_XXX_TEST_METHOD(pointer)
         NEK_HAS_XXX_TEST_METHOD(type)
         NEK_HAS_XXX_TEST_METHOD(value_type)
 
