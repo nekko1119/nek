@@ -11,6 +11,7 @@
 #include <nek/type_traits/has_pointer.hpp>
 #include <nek/type_traits/has_type.hpp>
 #include <nek/type_traits/has_value_type.hpp>
+#include <nek/type_traits/is_const.hpp>
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/type_traits/is_void.hpp>
@@ -135,13 +136,32 @@ namespace nektest
         NEK_HAS_XXX_TEST_METHOD(type)
         NEK_HAS_XXX_TEST_METHOD(value_type)
 
+        TEST_METHOD(is_const_test)
+        {
+            using namespace nek;
+            static_assert(is_const<const int>::value == true, "is_const<const int>::value == true");
+            static_assert(is_same<is_const<const int>::value_type, bool>::value, "is_const<const int>::value_type == bool");
+            static_assert(is_same<is_const<const int>::type, true_type>::value, "is_const<const int>::type == true_type");
+            Assert::IsTrue(is_const<const int>() == true, L"is_const<const int>() == true");
+
+            static_assert(is_const<int>::value == false, "is_const<const int>::value == false");
+            static_assert(is_same<is_const<int>::value_type, bool>::value, "is_const<int>::value_type == bool");
+            static_assert(is_same<is_const<int>::type, false_type>::value, "is_const<int>::type == false_type");
+            Assert::IsTrue(is_const<int>() == false, L"is_const<int>() == false");
+
+            static_assert(is_const<const volatile int>::value == true, "is_const<const volatile int>::value == true");
+            static_assert(is_const<const int&>::value == false, "is_const<const int&>::value == false");
+            static_assert(is_const<const int*>::value == false, "is_const<const int*>::value == false");
+            static_assert(is_const<int* const>::value == true, "is_const<int* const>::value == true");
+        }
+
         TEST_METHOD(is_pointer_test)
         {
             using namespace nek;
             static_assert(is_pointer<int*>::value == true, "is_pointer<int*>::value == true");
             static_assert(is_same<is_pointer<int*>::type, true_type>::value, "is_pointer<int*>::type == true_type");
             static_assert(is_same<is_pointer<int*>::value_type, bool>::value, "is_same<is_pointer<int*>::value_type, bool>::value");
-            Assert::IsTrue(is_pointer<int*>() == true, L"is_pointer<int*>() ==true");
+            Assert::IsTrue(is_pointer<int*>() == true, L"is_pointer<int*>() == true");
             static_assert(is_pointer<int**>::value == true, "is_pointer<int**>::value == true");
             static_assert(is_pointer<int>::value == false, "is_pointer<int>::value == false");
             static_assert(is_pointer<int*&>::value == false, "is_pointer<int*&>::value == false");
