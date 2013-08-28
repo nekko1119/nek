@@ -13,6 +13,7 @@
 #include <nek/type_traits/has_value_type.hpp>
 #include <nek/type_traits/is_const.hpp>
 #include <nek/type_traits/is_pointer.hpp>
+#include <nek/type_traits/is_volatile.hpp>
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/type_traits/is_void.hpp>
 #include <nek/type_traits/is_union.hpp>
@@ -153,6 +154,25 @@ namespace nektest
             static_assert(is_const<const int&>::value == false, "is_const<const int&>::value == false");
             static_assert(is_const<const int*>::value == false, "is_const<const int*>::value == false");
             static_assert(is_const<int* const>::value == true, "is_const<int* const>::value == true");
+        }
+
+        TEST_METHOD(is_volatile_test)
+        {
+            using namespace nek;
+            static_assert(is_volatile<volatile int>::value == true, "is_volatile<volatile int>::value == true");
+            static_assert(is_same<is_volatile<volatile int>::value_type, bool>::value, "is_volatile<volatile int>::value_type == bool");
+            static_assert(is_same<is_volatile<volatile int>::type, true_type>::value, "is_volatile<volatile int>::type == true_type");
+            Assert::IsTrue(is_volatile<volatile int>() == true, L"is_volatile<volatile int>() == true");
+
+            static_assert(is_volatile<int>::value == false, "is_volatile<int>::value == false");
+            static_assert(is_same<is_volatile<int>::value_type, bool>::value, "is_volatile<int>::value_type == bool");
+            static_assert(is_same<is_volatile<int>::type, false_type>::value, "is_volatile<int>::type == false_type");
+            Assert::IsTrue(is_volatile<int>() == false, L"is_volatile<int>() == false");
+
+            static_assert(is_volatile<const volatile int>::value == true, "is_volatile<const volatile int>::value == true");
+            static_assert(is_volatile<volatile int&>::value == false, "is_volatile<volatile int&>::value == false");
+            static_assert(is_volatile<volatile int*>::value == false, "is_volatile<volatile int*>::value == false");
+            static_assert(is_volatile<int* volatile>::value == true, "is_volatile<int* volatile>::value == true");
         }
 
         TEST_METHOD(is_pointer_test)
