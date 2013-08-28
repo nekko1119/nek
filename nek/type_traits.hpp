@@ -1,6 +1,8 @@
 ﻿#ifndef NEK_TYPE_TRAITS_HPP
 #define NEK_TYPE_TRAITS_HPP
 
+#include <nek/type_traits/enable_if.hpp>
+#include <nek/type_traits/enabler.hpp>
 #include <nek/type_traits/has_value_type.hpp>
 #include <nek/type_traits/is_class.hpp>
 #include <nek/type_traits/is_floating_point.hpp>
