@@ -4,6 +4,9 @@
 #include <nek/any/any_fwd.hpp>
 #include <nek/utility/is_xxx.hpp>
 
-NEK_IS_XXX(any)
+namespace nek
+{
+    NEK_IS_XXX(any);
+}
 
 #endif
