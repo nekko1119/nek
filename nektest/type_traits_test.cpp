@@ -12,6 +12,7 @@
 #include <nek/type_traits/has_type.hpp>
 #include <nek/type_traits/has_value_type.hpp>
 #include <nek/type_traits/is_const.hpp>
+#include <nek/type_traits/is_enum.hpp>
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_volatile.hpp>
 #include <nek/type_traits/is_integral.hpp>
@@ -254,6 +255,33 @@ namespace nektest
             static_assert(is_union<is_union_test_union&>::value == false, "is_union<is_union_test_union&>::value == false");
             static_assert(is_union<is_union_test_union ()>::value == false, "is_union<is_union_test_union ()>::value == false");
             static_assert(is_union<is_union_test_union []>::value == false, "is_union<is_union_test_union []>::value == false");
+        }
+
+        TEST_METHOD(is_enum_test)
+        {
+            using namespace nek;
+            enum e {};
+            enum class ec {};
+
+            static_assert(is_enum<e>::value == true, "is_enum<e>::value == true");
+            static_assert(is_same<is_enum<e>::value_type, bool>::value, "is_enum<e>::value_type == bool");
+            static_assert(is_same<is_enum<e>::type, true_type>::value, "is_enum<e>::type == true_type");
+            Assert::IsTrue(is_enum<e>() == true, L"is_enum<e>() == true");
+
+            static_assert(is_enum<int>::value == false, "is_enum<int>::value == false");
+            static_assert(is_same<is_enum<int>::value_type, bool>::value, "is_enum<int>::value_type == bool");
+            static_assert(is_same<is_enum<int>::type, false_type>::value, "is_enum<int>::type == false_type");
+            Assert::IsTrue(is_enum<int>() == false, L"is_enum<int>() == false");
+
+            static_assert(is_enum<const e>::value == true, "is_enum<const e>::value == true");
+            static_assert(is_enum<volatile e>::value == true, "is_enum<volatile e>::value == true");
+            static_assert(is_enum<const volatile e>::value == true, "is_enum<const volatile e>::value == true");
+            static_assert(is_enum<ec>::value == true, "is_enum<ec>::value == true");
+
+            static_assert(is_enum<e*>::value == false, "is_enum<e*>::value == false");
+            static_assert(is_enum<e&>::value == false, "is_enum<e&>::value == false");
+            static_assert(is_enum<e()>::value == false, "is_enum<e()>::value == false");
+            static_assert(is_enum<e[]>::value == false, "is_enum<e[]>::value == false");
         }
 
         TEST_METHOD(is_class_test)
