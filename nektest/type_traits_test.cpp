@@ -24,6 +24,7 @@
 #include <nek/type_traits/is_rvalue_reference.hpp>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/is_floating_point.hpp>
+#include <nek/type_traits/make_unsigned.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -397,6 +398,19 @@ namespace nektest
             static_assert(is_floating_point<double&>::value == false, "is_floating_point<double&>::value == false");
             static_assert(is_floating_point<long double[1]>::value == false, "is_floating_point<long double[1]>::value == false");
             static_assert(is_floating_point<double ()>::value == false, "is_floating_point<double ()>::value == false");
+        }
+
+        TEST_METHOD(make_unsigned_test)
+        {
+            using namespace nek;
+            enum E1 {AA, BB, CC};
+            enum class E2 : char {AA, BB, CC};
+            static_assert(is_same<make_unsigned<int>::type, unsigned int>::value, "make_unsigned<int> == unsigned int");
+            static_assert(is_same<make_unsigned<unsigned char>::type, unsigned char>::value, "make_unsigned<unsigned char> == unsigned char");
+            static_assert(is_same<make_unsigned<const short>::type, const unsigned short>::value, " make_unsigned<const short> == const unsinged short");
+            static_assert(is_same<make_unsigned<const volatile unsigned long>::type, const volatile unsigned long>::value, "make_unsigned<const volatile long> == const volatile unsigned long");
+            static_assert(is_same<make_unsigned<E1>::type, unsigned int>::value, "make_unsigned<enum> == unsigned int");
+            static_assert(is_same<make_unsigned<E2>::type, unsigned char>::value, "make_unsigned<enum class : char> == unsigned char");
         }
     };
 }
