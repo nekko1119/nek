@@ -11,6 +11,7 @@
 #include <nek/type_traits/has_pointer.hpp>
 #include <nek/type_traits/has_type.hpp>
 #include <nek/type_traits/has_value_type.hpp>
+#include <nek/type_traits/add_cv.hpp>
 #include <nek/type_traits/is_const.hpp>
 #include <nek/type_traits/is_enum.hpp>
 #include <nek/type_traits/is_pointer.hpp>
@@ -68,6 +69,28 @@ namespace nektest
             static_assert(is_same<zero_type::type, zero_type>::value, "zero_type::type == zero_type");
             static_assert(zero_type::value == 0, "integral_constant<int, 0>::value == 0");
             static_assert(is_same<zero_type::value_type, int>::value, "integral_constant<int, 0>::value_type == int");
+        }
+
+        TEST_METHOD(add_cv_test)
+        {
+            using namespace nek;
+            static_assert(is_const<add_const<int>::type>::value, "add_const<int> == const int");
+            static_assert(is_const<add_const<const int>::type>::value, "add_const<const int> == const int");
+            static_assert(is_const<add_const<const int*>::type>::value, "add_const<const int*> == const int* const");
+            static_assert(is_const<add_const<int* const>::type>::value, "add_const<int* const> == int* const");
+            static_assert(!is_const<add_const<const int&>::type>::value, "add_const<const int&> != const type");
+
+            static_assert(is_volatile<add_volatile<int>::type>::value, "add_volatile<int> == volatile int");
+            static_assert(is_volatile<add_volatile<volatile int>::type>::value, "add_volatile<volatile int> == volatile int");
+            static_assert(is_volatile<add_volatile<volatile int*>::type>::value, "add_volatile<volatile int*> == volatile int* volatile");
+            static_assert(is_volatile<add_volatile<int* volatile>::type>::value, "add_volatile<int* volatile> == int* volatile");
+            static_assert(!is_volatile<add_volatile<volatile int&>::type>::value, "add_volatile<volatile int&> != volatile type");
+
+            typedef const volatile int cv_int;
+            static_assert(is_same<add_cv<int>::type, cv_int>::value, "add_cv<int> == cv int");
+            static_assert(is_same<add_cv<const int>::type, cv_int>::value, "add_cv<const int> == cv int");
+            static_assert(is_same<add_cv<volatile int>::type, cv_int>::value, "add_cv<volatile int> == cv int");
+            static_assert(is_same<add_cv<const volatile int>::type, cv_int>::value, "add_cv<const volatile int> == cv int");
         }
 
         TEST_METHOD(remove_cv_test)
