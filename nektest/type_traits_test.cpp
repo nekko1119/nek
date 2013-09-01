@@ -25,6 +25,7 @@
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/is_floating_point.hpp>
 #include <nek/type_traits/make_unsigned.hpp>
+#include <nek/type_traits/propagate_cv.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -411,6 +412,23 @@ namespace nektest
             static_assert(is_same<make_unsigned<const volatile unsigned long>::type, const volatile unsigned long>::value, "make_unsigned<const volatile long> == const volatile unsigned long");
             static_assert(is_same<make_unsigned<E1>::type, unsigned int>::value, "make_unsigned<enum> == unsigned int");
             static_assert(is_same<make_unsigned<E2>::type, unsigned char>::value, "make_unsigned<enum class : char> == unsigned char");
+        }
+
+        TEST_METHOD(propagate_cv_test)
+        {
+            using namespace nek;
+            typedef const int cint;
+            typedef volatile int vint;
+            typedef const volatile int cvint;
+            static_assert(is_same<propagate_cv<int, int>::type, int>::value, "propagate_cv<int, int>::type == int");
+            static_assert(is_same<propagate_cv<cint, int>::type, cint>::value, "propagate_cv<cint, int>::type == cint");
+            static_assert(is_same<propagate_cv<vint, int>::type, vint>::value, "propagate_cv<vint, int>::type == vint");
+            static_assert(is_same<propagate_cv<cvint, int>::type, cvint>::value, "propagate_cv<cvint, int>::type == cvint");
+
+            static_assert(is_same<propagate_cv<int, cint>::type, cint>::value, "propagate_cv<int, cint>::type == cint");
+            static_assert(is_same<propagate_cv<cint, cint>::type, cint>::value, "propagate_cv<cint, cint>::type == cint");
+            static_assert(is_same<propagate_cv<vint, cint>::type, cvint>::value, "propagate_cv<vint, cint>::type == cvint");
+            static_assert(is_same<propagate_cv<cvint, cint>::type, cvint>::value, "propagate_cv<cvint, cint>::type == cvint");
         }
     };
 }
