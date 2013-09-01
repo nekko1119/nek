@@ -3,15 +3,12 @@
 
 #include <cstddef>
 #include <nek/mpl/if.hpp>
-#include <nek/type_traits/add_const.hpp>
-#include <nek/type_traits/add_volatile.hpp>
 #include <nek/type_traits/integral_constant.hpp>
-#include <nek/type_traits/is_const.hpp>
-#include <nek/type_traits/is_volatile.hpp>
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/type_traits/is_enum.hpp>
 #include <nek/type_traits/is_same.hpp>
 #include <nek/type_traits/remove_cv.hpp>
+#include <nek/type_traits/propagate_cv.hpp>
 
 namespace nek
 {
@@ -89,17 +86,6 @@ namespace nek
         {
             typedef typename make_unsigned_from_enum<T>::type type;
         };
-
-        template <class Source, class Destination>
-        struct match_cv_qualifiers
-        {
-        private:
-            typedef typename mpl::if_<is_const<Source>, typename add_const<Destination>::type, Destination>::type c_type;
-            typedef typename mpl::if_<is_volatile<Source>, typename add_volatile<c_type>::type, c_type>::type cv_type;
-        
-        public:
-            typedef cv_type type;
-        };
     }
 
     template <class T>
@@ -112,7 +98,7 @@ namespace nek
         typedef typename detail::make_unsigned_impl<typename remove_cv<T>::type>::type noncv_unsigned_type;
     
     public:
-        typedef typename detail::match_cv_qualifiers<T, noncv_unsigned_type>::type type;
+        typedef typename propagate_cv<T, noncv_unsigned_type>::type type;
     };
 }
 
