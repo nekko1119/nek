@@ -21,6 +21,7 @@ std::vectorを再現すること
  * コンパイラ
   - VC11.0 Nov 2012 CTP
   - VC12.0 Preview
+  - VC12.0 RC
 
 ## コンパイラのC++11/C++14対応メモ
 
