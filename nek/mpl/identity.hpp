@@ -8,8 +8,11 @@ namespace nek
         template <class T>
         struct identity
         {
-            typedef T type;
+            using type = T;
         };
+
+        template <class T>
+        using identity_t = typename identity<T>::type;
     }
 }
 

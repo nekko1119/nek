@@ -6,8 +6,11 @@ namespace nek
     template <class T>
     struct add_volatile
     {
-        typedef volatile T type;
+        using type = volatile T;
     };
+
+    template <class T>
+    using add_volatile_t = typename add_volatile<T>::type;
 }
 
 #endif

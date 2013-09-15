@@ -9,8 +9,11 @@ namespace nek
     template <class T>
     struct add_cv
     {
-        typedef typename add_const<typename add_volatile<T>::type>::type type;
+        using type = add_const_t<add_volatile_t<T>>;
     };
+
+    template <class T>
+    using add_cv_t = typename add_cv<T>::type;
 }
 
 #endif

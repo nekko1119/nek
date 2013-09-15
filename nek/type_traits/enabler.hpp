@@ -5,7 +5,7 @@
 
 namespace nek
 {
-    typedef void* enabler_t;
+    using enabler_t = void*;
     extern enabler_t enabler;
 }
 

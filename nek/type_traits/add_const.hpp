@@ -6,8 +6,11 @@ namespace nek
     template <class T>
     struct add_const
     {
-        typedef const T type;
+        using type = const T;
     };
+
+    template <class T>
+    using add_const_t = typename add_const<T>::type;
 }
 
 #endif

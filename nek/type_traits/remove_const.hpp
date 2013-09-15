@@ -6,14 +6,17 @@ namespace nek
     template <class T>
     struct remove_const
     {
-        typedef T type;
+        using type = T;
     };
 
     template <class T>
     struct remove_const<const T>
     {
-        typedef T type;
+        using type = T;
     };
+
+    template <class T>
+    using remove_const_t = typename remove_const<T>::type;
 }
 
 #endif

@@ -12,11 +12,11 @@ namespace nek
         struct integral_c
         {
             static const T value = N;
-            typedef integral_c_tag tag;
-            typedef integral_c type;
-            typedef T value_type;
-            typedef integral_c<T, N + 1> next;
-            typedef integral_c<T, N - 1> prior;
+            using tag = integral_c_tag;
+            using type = integral_c;
+            using value_type = T;;
+            using next = integral_c<T, N + 1>;;
+            using prior = integral_c<T, N - 1>;
             operator value_type() const
             {
                 return value;
@@ -28,9 +28,9 @@ namespace nek
         struct integral_c<bool, C>
         {
             static const bool value = C;
-            typedef integral_c_tag tag;
-            typedef integral_c type;
-            typedef bool value_type;
+            using tag = integral_c_tag;
+            using type = integral_c;
+            using value_type = bool;
             operator bool() const
             {
                 return value;

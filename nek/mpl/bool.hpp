@@ -12,9 +12,9 @@ namespace nek
         struct bool_
         {
             static const bool value = C;
-            typedef integral_c_tag tag;
-            typedef bool_ type;
-            typedef bool value_type;
+            using tag = integral_c_tag;
+            using type = bool_;
+            using value_type = bool;
             operator bool() const
             {
                 return value;

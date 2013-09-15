@@ -26,6 +26,9 @@ namespace nek
     {
         typedef const volatile Destination type;
     };
+
+    template <class Source, class Destination>
+    using propagate_cv_t = typename propagate_cv<Source, Destination>::type;
 }
 
 #endif

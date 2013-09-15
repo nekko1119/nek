@@ -17,59 +17,59 @@ namespace nek
         template <class T>
         struct make_unsigned_from_integral
         {
-            typedef T type;
+            using type = T;
         };
 
         template <>
         struct make_unsigned_from_integral<char>
         {
-            typedef unsigned char type;
+            using type = unsigned char;
         };
 
         template <>
         struct make_unsigned_from_integral<signed char>
         {
-            typedef unsigned char type;
+            using type = unsigned char;
         };
 
         template <>
         struct make_unsigned_from_integral<short>
         {
-            typedef unsigned short type;
+            using type = unsigned short;
         };
 
         template <>
         struct make_unsigned_from_integral<int>
         {
-            typedef unsigned int type;
+            using type = unsigned int;
         };
 
         template <>
         struct make_unsigned_from_integral<long>
         {
-            typedef unsigned long type;
+            using type = unsigned long;
         };
 
         template <>
         struct make_unsigned_from_integral<long long>
         {
-            typedef unsigned long long type;
+            using type = unsigned long long;
         };
 
         template <class E>
         struct make_unsigned_from_enum
         {
         private:
-            typedef unsigned char uc;
-            typedef unsigned short us;
-            typedef unsigned int ui;
-            typedef unsigned long long ull;
-            typedef typename mpl::if_c<sizeof(E) <= sizeof(ui), ui, ull>::type ui_or_big;
-            typedef typename mpl::if_c<sizeof(E) <= sizeof(us), us, ui_or_big>::type us_or_big;
-            typedef typename mpl::if_c<sizeof(E) <= sizeof(uc), uc, us_or_big>::type uc_or_big;
+            using uc = unsigned char;
+            using us = unsigned short;
+            using ui = unsigned int;
+            using ull = unsigned long long;
+            using ui_or_big = mpl::if_c_t<sizeof(E) <= sizeof(ui), ui, ull>;
+            using us_or_big = mpl::if_c_t<sizeof(E) <= sizeof(us), us, ui_or_big>;
+            using uc_or_big = mpl::if_c_t<sizeof(E) <= sizeof(uc), uc, us_or_big>;
 
         public:
-            typedef uc_or_big type;
+            using type = uc_or_big;
         };
 
         template <class T, bool = is_integral<T>::value, bool = is_enum<T>::value>
@@ -78,13 +78,13 @@ namespace nek
         template <class T>
         struct make_unsigned_impl<T, true, false>
         {
-            typedef typename make_unsigned_from_integral<T>::type type;
+            using type = typename make_unsigned_from_integral<T>::type;
         };
 
         template <class T>
         struct make_unsigned_impl<T, false, true>
         {
-            typedef typename make_unsigned_from_enum<T>::type type;
+            using type = typename make_unsigned_from_enum<T>::type;
         };
     }
 
@@ -95,11 +95,14 @@ namespace nek
                       "T must be integral type(except bool and wchar_t) or enumeration type.");
 
     private:
-        typedef typename detail::make_unsigned_impl<typename remove_cv<T>::type>::type noncv_unsigned_type;
+        using noncv_unsigned_type = typename detail::make_unsigned_impl<remove_cv_t<T>>::type;
     
     public:
-        typedef typename propagate_cv<T, noncv_unsigned_type>::type type;
+        using type = propagate_cv_t<T, noncv_unsigned_type>;
     };
+    
+    template <class T>
+    using make_unsigned_t = typename make_unsigned<T>::type;
 }
 
 #endif

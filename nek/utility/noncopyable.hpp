@@ -11,14 +11,15 @@ namespace nek
         class noncopyable
         {
         protected:
-            noncopyable() {}
-            ~noncopyable() {}//protected non virtual destructor
-        private:
-            noncopyable(const noncopyable&);//no defined
-            noncopyable& operator=(const noncopyable&);//no defined
+            noncopyable() = default;
+            ~noncopyable() = default;//protected non virtual destructor
+            noncopyable(const noncopyable&) = delete;
+            noncopyable& operator=(const noncopyable&) = delete;
         };
     }
-    using namespace noncopyable_;
+
+    template <class T>
+    using noncopyable = noncopyable_::noncopyable<T>;
 }
 
 #endif

@@ -13,27 +13,22 @@ namespace nek
     class allocator
     {
     public:
-        typedef std::size_t size_type;
-        typedef std::ptrdiff_t difference_type;
-        typedef T* pointer;
-        typedef const T* const_pointer;
-        typedef T& reference;
-        typedef const T& const_reference;
-        typedef T value_type;
+        using size_type = std::size_t;
+        using difference_type = std::ptrdiff_t;
+        using pointer = T*;
+        using const_pointer = const T*;
+        using reference = T&;
+        using const_reference = const T&;
+        using value_type = T;
 
         template <class U>
         struct rebind
         {
-            typedef allocator<U> other;
+            using other = allocator<U>;
         };
 
-        allocator()
-        {
-        }
-
-        allocator(const allocator<T>&)
-        {
-        }
+        allocator() = default;
+        allocator(const allocator<T>&) = default;
 
         template <class U>
         allocator(const allocator<U>&)
@@ -93,13 +88,13 @@ namespace nek
     class allocator<void>
     {
     public:
-        typedef std::size_t size_type;
-        typedef std::ptrdiff_t difference_type;
-        typedef void value_type;
-        typedef void* pointer;
-        typedef const void* const_pointer;
-        typedef void* void_pointer;
-        typedef const void* const_void_pointer;
+        using size_type = std::size_t;
+        using difference_type = std::ptrdiff_t;
+        using value_type =  void;
+        using pointer = void*;
+        using const_pointer = const void*;;
+        using void_pointer = void*;
+        using const_void_pointer = const void*;
 
         template <class U>
         struct rebind
@@ -107,13 +102,8 @@ namespace nek
             typedef allocator<U> other;
         };
 
-        allocator()
-        {
-        }
-
-        allocator(const allocator<void>&)
-        {
-        }
+        allocator() = default;
+        allocator(const allocator&) = default;
 
         template <class U>
         allocator(const allocator<U>&)

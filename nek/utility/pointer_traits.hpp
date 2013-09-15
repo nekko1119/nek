@@ -15,25 +15,25 @@ namespace nek
         template <class T, bool = nek::has_element_type<T>::value>
         struct element_type
         {
-            typedef typename T::element_type type;
+            using type = typename T::element_type;
         };
 
         template <template <class, class...> class Ptr, class T, class... Args>
         struct element_type<Ptr<T, Args...>, false>
         {
-            typedef T type;
+            using type = T;
         };
 
         template <class T, bool = nek::has_difference_type<T>::value>
         struct difference_type
         {
-            typedef typename T::difference_type type;
+            using type = typename T::difference_type;
         };
 
         template <class T>
         struct difference_type<T, false>
         {
-            typedef std::ptrdiff_t type;
+            using type = std::ptrdiff_t;
         };
 
         template <class T, class U, class V = typename T::template rebind<U>::other>
@@ -51,13 +51,13 @@ namespace nek
         template <class T, class U, bool = has_rebind<T, U>::value>
         struct rebind
         {
-            typedef typename T::template rebind<U>::other type;
+            using type = typename T::template rebind<U>::other;
         };
 
         template <template <class, class...> class Ptr, class U, class T, class... Args>
         struct rebind<Ptr<T, Args...>, U, false>
         {
-            typedef Ptr<U, Args...> type;
+            using type = Ptr<U, Args...>;
         };
     }
 
@@ -65,18 +65,18 @@ namespace nek
     struct pointer_traits
     {
     public:
-        typedef Ptr pointer;
-        typedef typename detail::element_type<Ptr>::type element_type;
-        typedef typename detail::difference_type<Ptr>::type difference_type;
+        using pointer = Ptr;
+        using element_type = typename detail::element_type<Ptr>::type;
+        using difference_type = typename detail::difference_type<Ptr>::type;
 
         template <class U>
         struct rebind
         {
-            typedef typename detail::rebind<Ptr, U>::type other;
+            using other = typename detail::rebind<Ptr, U>::type;
         };
 
     private:
-        typedef typename mpl::if_<is_void<element_type>, char, element_type>::type not_void;
+        using not_void = mpl::if_t<is_void<element_type>, char, element_type>;
 
     public:
         static pointer pointer_to(not_void& value)
@@ -89,18 +89,18 @@ namespace nek
     struct pointer_traits<T*>
     {
     public:
-        typedef T* pointer;
-        typedef T element_type;
-        typedef std::ptrdiff_t difference_type;
+        using pointer = T*;
+        using element_type = T;
+        using difference_type = std::ptrdiff_t;
 
         template <class U>
         struct rebind
         {
-            typedef U* other;
+            using other =  U*;
         };
 
     private:
-        typedef typename mpl::if_<is_void<element_type>, char, element_type>::type not_void;
+        using not_void = mpl::if_t<is_void<element_type>, char, element_type>;
 
     public:
         static pointer pointer_to(not_void& value)

@@ -36,7 +36,7 @@ TEST_METHOD(has_##xxx##_test)\
     using namespace nek;\
     struct yes\
     {\
-        typedef int xxx;\
+        using xxx = int;\
     };\
     struct no\
     {\
@@ -76,12 +76,14 @@ namespace nektest
         TEST_METHOD(add_cv_test)
         {
             using namespace nek;
+            static_assert(is_same<typename add_const<int>::type, add_const_t<int>>::value, "add_const<int>::type == add_const_t<int>");
             static_assert(is_const<add_const<int>::type>::value, "add_const<int> == const int");
             static_assert(is_const<add_const<const int>::type>::value, "add_const<const int> == const int");
             static_assert(is_const<add_const<const int*>::type>::value, "add_const<const int*> == const int* const");
             static_assert(is_const<add_const<int* const>::type>::value, "add_const<int* const> == int* const");
             static_assert(!is_const<add_const<const int&>::type>::value, "add_const<const int&> != const type");
 
+            static_assert(is_same<typename add_volatile<int>::type, add_volatile_t<int>>::value, "add_volatile<int>::type == add_volatile_t<int>");
             static_assert(is_volatile<add_volatile<int>::type>::value, "add_volatile<int> == volatile int");
             static_assert(is_volatile<add_volatile<volatile int>::type>::value, "add_volatile<volatile int> == volatile int");
             static_assert(is_volatile<add_volatile<volatile int*>::type>::value, "add_volatile<volatile int*> == volatile int* volatile");
@@ -89,6 +91,7 @@ namespace nektest
             static_assert(!is_volatile<add_volatile<volatile int&>::type>::value, "add_volatile<volatile int&> != volatile type");
 
             typedef const volatile int cv_int;
+            static_assert(is_same<typename add_cv<int>::type, add_cv_t<int>>::value, "add_cv<int>::type == add_cv_t<int>");
             static_assert(is_same<add_cv<int>::type, cv_int>::value, "add_cv<int> == cv int");
             static_assert(is_same<add_cv<const int>::type, cv_int>::value, "add_cv<const int> == cv int");
             static_assert(is_same<add_cv<volatile int>::type, cv_int>::value, "add_cv<volatile int> == cv int");
@@ -99,6 +102,7 @@ namespace nektest
         {
             using namespace nek;
             typedef volatile int vint_t;
+            static_assert(is_same<typename remove_const<int>::type, remove_const_t<int>>::value, "remove_const<int>::type == remove_const_t<int>");
             static_assert(is_same<remove_volatile<int>::type, int>::value, "remove_volatile<int>::type == int");
             static_assert(is_same<remove_volatile<vint_t>::type, int>::value, "remove_volatile<volatile int>::type == int");
             static_assert(is_same<remove_volatile<const vint_t>::type, const int>::value, "remove_volatile<const volatile int>::type == const int");
@@ -107,6 +111,7 @@ namespace nektest
             static_assert(is_same<remove_volatile<vint_t&>::type, vint_t&>::value, "remove_volatile<volatile int&>::type == int&");
 
             typedef const int cint_t;
+            static_assert(is_same<typename remove_volatile<int>::type, remove_volatile_t<int>>::value, "remove_volatile<int>::type == remove_volatile_t<int>");
             static_assert(is_same<remove_const<int>::type, int>::value, "remove_const<int>::type == int");
             static_assert(is_same<remove_const<cint_t>::type, int>::value, "remove_const<const int>::type == int");
             static_assert(is_same<remove_const<volatile cint_t>::type, volatile int>::value, "remove_const<const volatile int>::type == volatile int");
@@ -115,6 +120,7 @@ namespace nektest
             static_assert(is_same<remove_const<cint_t&>::type, cint_t&>::value, "remove_const<const int&>::type == int&");
 
             typedef const volatile int cvint_t;
+            static_assert(is_same<typename remove_cv<int>::type, remove_cv_t<int>>::value, "remove_cv<int>::type == remove_cv_t<int>");
             static_assert(is_same<remove_cv<int>::type, int>::value, "remove_cv<int>::type == int");
             static_assert(is_same<remove_cv<cvint_t>::type, int>::value, "remove_cv<const volatile int>::type == int");
             static_assert(is_same<remove_cv<cvint_t*>::type, cvint_t*>::value, "remove_cv<const volatile int*>::type == const volatile int*");
@@ -124,6 +130,7 @@ namespace nektest
         TEST_METHOD(remove_reference_test)
         {
             using namespace nek;
+            static_assert(is_same<typename remove_reference<int>::type, remove_reference_t<int>>::value, "remove_reference<int>::type == remove_reference_t<int>");
             static_assert(is_same<remove_reference<int>::type, int>::value, "remove_reference<int>::type == int");
             static_assert(is_same<remove_reference<int&>::type, int>::value, "remove_reference<int&>::type == int");
             static_assert(is_same<remove_reference<int&&>::type, int>::value, "remove_reference<int&&>::type == int");
@@ -142,16 +149,18 @@ namespace nektest
         }
 
         template <class T>
-        typename nek::enable_if<nek::is_same<T, int>, nek::true_type>::type enable_test_func(T);
+        nek::enable_if_t<nek::is_same<T, int>, nek::true_type> enable_test_func(T);
 
         template <class T>
-        typename nek::enable_if<nek::is_same<T, double>, nek::false_type>::type enable_test_func(T);
+        nek::enable_if_t<nek::is_same<T, double>, nek::false_type> enable_test_func(T);
 
         TEST_METHOD(enable_if_test)
         {
             using namespace nek;
             int i = 0;
             double d = 0.0;
+            static_assert(is_same<typename enable_if<true_type>::type, enable_if_t<true_type>>::value, "enable_if<true_type>::type == enable_if_t<true_type>");
+            static_assert(is_same<typename disable_if<false_type>::type, disable_if_t<false_type>>::value, "disable_if<false_type>::type == disable_if_t<false_type>");
             static_assert(is_same<decltype(enable_test_func(i)), true_type>::value, "true_type f(T)");
             static_assert(is_same<decltype(enable_test_func(d)), false_type>::value, "false_type f(T)");
         }
@@ -406,6 +415,7 @@ namespace nektest
             using namespace nek;
             enum E1 {AA, BB, CC};
             enum class E2 : char {AA, BB, CC};
+            static_assert(is_same<typename make_unsigned<int>::type, make_unsigned_t<int>>::value, "make_unsigned<int>::type == make_unsigned_t<int>");
             static_assert(is_same<make_unsigned<int>::type, unsigned int>::value, "make_unsigned<int> == unsigned int");
             static_assert(is_same<make_unsigned<unsigned char>::type, unsigned char>::value, "make_unsigned<unsigned char> == unsigned char");
             static_assert(is_same<make_unsigned<const short>::type, const unsigned short>::value, " make_unsigned<const short> == const unsinged short");
@@ -420,6 +430,7 @@ namespace nektest
             typedef const int cint;
             typedef volatile int vint;
             typedef const volatile int cvint;
+            static_assert(is_same<typename propagate_cv<int, int>::type, propagate_cv_t<int, int>>::value, "propagate_cv<int, int>::type == propagate_cv_t<int, int>");
             static_assert(is_same<propagate_cv<int, int>::type, int>::value, "propagate_cv<int, int>::type == int");
             static_assert(is_same<propagate_cv<cint, int>::type, cint>::value, "propagate_cv<cint, int>::type == cint");
             static_assert(is_same<propagate_cv<vint, int>::type, vint>::value, "propagate_cv<vint, int>::type == vint");

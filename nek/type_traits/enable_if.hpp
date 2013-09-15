@@ -6,7 +6,7 @@ namespace nek
     template <bool C, class T = void>
     struct enable_if_c
     {
-        typedef T type;
+        using type = T;
     };
 
     template <class T>
@@ -20,10 +20,13 @@ namespace nek
     {
     };
 
+    template <class Cond, class T = void>
+    using enable_if_t = typename enable_if<Cond, T>::type;
+
     template <bool C, class T = void>
     struct disable_if_c
     {
-        typedef T type;
+        using type = T;
     };
 
     template <class T>
@@ -36,6 +39,9 @@ namespace nek
         : public disable_if_c<Cond::value, T>
     {
     };
+
+    template <class Cond, class T = void>
+    using disable_if_t = typename disable_if<Cond, T>::type;
 }
 
 #endif

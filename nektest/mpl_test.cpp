@@ -47,8 +47,12 @@ namespace nektest
         TEST_METHOD(eval_if_test)
         {
             using namespace nek::mpl;
+            static_assert(nek::is_same<eval_if_c<true, identity<char>, identity<double>>::type, eval_if_c_t<true, identity<char>, identity<double>>>::value, "eval_if_c<true, identity<char>, identity<double>>::type == "
+                                                                                                                                                                "eval_if_c_t<true, identity<char>, identity<double>>");
             static_assert(nek::is_same<eval_if_c<true, identity<char>, identity<double>>::type, char>::value, "eval_if_c<true, identity<char>, identity<double>>::type == char");
             static_assert(nek::is_same<eval_if_c<false, identity<char>, identity<double>>::type, double>::value, "eval_if_c<false, identity<char>, identity<double>>::type == double");
+            static_assert(nek::is_same<eval_if<true_, identity<char>, identity<double>>::type, eval_if_t<true_, identity<char>, identity<double>>>::value, "eval_if<true_, identity<char>, identity<double>>::type == "
+                                                                                                                                                                "eval_if_t<true_, identity<char>, identity<double>>");
             static_assert(nek::is_same<eval_if<nek::is_void<void>, identity<char>, identity<double>>::type, char>::value, "eval_if<is_void<void>, identity<char>. identity<double>>::type == char");
             static_assert(nek::is_same<eval_if<nek::is_void<int>, identity<char>, identity<double>>::type, double>::value, "eval_if<is_void<int>, identity<char>. identity<double>>::type == double");
         }
@@ -56,6 +60,7 @@ namespace nektest
         TEST_METHOD(identity_test)
         {
             using namespace nek::mpl;
+            static_assert(nek::is_same<identity<int>::type, identity_t<int>>::value, "identity<int>::type == identity_t<int>");
             static_assert(nek::is_same<identity<int>::type, int>::value, "identity<int>::type == int");
             static_assert(nek::is_same<identity<const volatile int>::type, const volatile int>::value, "identity<cv int>::type == cv int");
         }
@@ -63,8 +68,10 @@ namespace nektest
         TEST_METHOD(if_test)
         {
             using namespace nek::mpl;
+            static_assert(nek::is_same<typename if_c<true, int, void>::type, if_c_t<true, int, void>>::value, "if_c<true, int, void>::type == if_c_t<true, int, void>");
             static_assert(nek::is_same<if_c<true, char, double>::type, char>::value, "if_c<true, char, double>::type == char");
             static_assert(nek::is_same<if_c<false, char, double>::type, double>::value, "if_c<false, char, double>::type == double");
+            static_assert(nek::is_same<typename if_<true_, int, void>::type, if_t<true_, int, void>>::value, "if_<true_, int, void>::type == if_t<true_, int, void>");
             static_assert(nek::is_same<if_<nek::is_void<void>, char, double>::type, char>::value, "if_<is_void<void>, char, double> == char");
             static_assert(nek::is_same<if_<nek::is_void<int>, char, double>::type, double>::value, "if_<is_void<int>, char, double> == double");
         }

@@ -10,25 +10,25 @@ namespace nek
     struct integral_constant
         : public mpl::integral_c<T, N>
     {
-        typedef integral_constant<T, N> type;
+        using type = integral_constant<T, N>;
     };
 
     template <>
     struct integral_constant<bool, true>
         : public mpl::true_
     {
-        typedef integral_constant type;
+        using type = integral_constant;
     };
 
     template <>
     struct integral_constant<bool, false>
         : public mpl::false_
     {
-        typedef integral_constant type;
+        using type = integral_constant;
     };
 
-    typedef integral_constant<bool, true> true_type;
-    typedef integral_constant<bool, false> false_type;
+    using true_type = integral_constant<bool, true>;
+    using false_type = integral_constant<bool, false>;
 }
 
 #endif

@@ -8,8 +8,8 @@ namespace nek
         template <bool C>
         struct bool_;
 
-        typedef bool_<true> true_;
-        typedef bool_<false> false_;
+        using true_ = bool_<true>;
+        using false_ = bool_<false>;
     }
 }
 
