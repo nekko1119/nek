@@ -11,7 +11,7 @@ namespace nek
     public:
         virtual const char* what() const override
         {
-            return "nek::bad_any_cast";
+            return "nek::bad_any_cast_exception: failed conversion";
         }
     };
 }

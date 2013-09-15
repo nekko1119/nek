@@ -100,7 +100,7 @@ namespace nektest
             std::string text("test");
             any value = text;
 
-            Assert::ExpectException<bad_any_cast_exception>([&value](){any_cast<const char*>(value);}, L"any_cast throw bad_any_cast");
+            Assert::ExpectException<bad_any_cast_exception>([&value](){any_cast<const char*>(value);}, L"any_cast throw bad_any_cast_exception");
         }
 
         TEST_METHOD(swap_test)
@@ -156,7 +156,7 @@ namespace nektest
             Assert::ExpectException<bad_any_cast_exception>([&a]()
             {
                 any_cast<char&>(a);
-            }, L"any_cast to incorrect reference type");
+            }, L"any_cast_exception to incorrect reference type");
         }
 
         TEST_METHOD(is_any_test)
