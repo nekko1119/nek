@@ -54,9 +54,14 @@ namespace nek
             return *this;
         }
 
-        bool empty() const
+        bool is_empty() const
         {
             return !held_;
+        }
+
+        bool empty() const
+        {
+            return is_empty();
         }
 
         const type_info& type() const
