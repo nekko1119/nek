@@ -3,6 +3,6 @@
 
 #include <nek/any/any_fwd.hpp>
 #include <nek/any/any.hpp>
-#include <nek/any/is_any.hpp>
+#include <nek/any/traits.hpp>
 
 #endif
