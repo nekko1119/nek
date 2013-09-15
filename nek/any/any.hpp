@@ -12,10 +12,7 @@ namespace nek
     class any
     {
     public:
-        any()
-            : held_(nullptr)
-        {
-        }
+        any() = default;
 
         template <class T>
         any(const T& value)
@@ -108,7 +105,7 @@ namespace nek
 
         };
 
-        holder_base* held_;
+        holder_base* held_ = nullptr;
 
     private:
         template <class T>
