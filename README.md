@@ -18,31 +18,14 @@ std::vectorを再現すること
 ## 開発環境
  * OS
   - windows 7 32bit
+  - windows 8 64bit
  * コンパイラ
-  - VC11.0 Nov 2012 CTP
-  - VC12.0 Preview
   - VC12.0 RC
 
 ## コンパイラのC++11/C++14対応メモ
 
 ### constexpr
 未対応
-
-### 関数のdelete/default指定
-未対応
-
-### 初期化リスト
-`vector<int> v({1, 2, 3})`がコンパイルエラーになります。 
-配列メンバ変数を初期化子リストで初期化できません。
-
-    class A
-    {
-        int ar[3];
-    public:
-        A() : ar{1, 2, 3}
-        {
-        }
-    };
 
 ### noexcept
 未対応
