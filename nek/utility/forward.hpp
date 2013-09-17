@@ -6,16 +6,13 @@
 namespace nek
 {
     template <class T>
-    inline T&& forward(typename remove_reference<T>::type& value)
+    inline T&& forward(remove_reference_t<T>& value)
     {
         return static_cast<T&&>(value);
     }
 
     template <class T>
-    inline T&& forward(typename remove_reference<T>::type&& value)
-    {
-        return static_cast<T&&>(value);
-    }
+    inline T&& forward(remove_reference_t<T>&& value) = delete;
 }
 
 #endif
