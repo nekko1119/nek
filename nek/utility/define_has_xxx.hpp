@@ -15,12 +15,12 @@ namespace\
         false_type has_##type##(long);\
     }\
 \
-    template <class T>\
-    struct has_##type##\
-        : public decltype(type##detail::has_##type##<T>(0))\
-    {\
-    };\
 }\
-namespace type##detail {}\
+template <class T>\
+struct has_##type##\
+    : public decltype(type##detail::has_##type##<T>(0))\
+{\
+}; \
+namespace type##detail {}
 
 #endif
