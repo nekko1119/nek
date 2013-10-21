@@ -10,7 +10,7 @@ namespace nek
     };
 
     template <class T>
-    struct remove_volatile<volatile T>
+    struct remove_volatile<T volatile>
     {
         using type = T;
     };

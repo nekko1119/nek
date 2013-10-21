@@ -9,15 +9,15 @@ namespace name##detail\
 {\
     template <class T>\
     struct is_##name\
-        : public false_type\
+    : public false_type\
     {\
-    };\
-\
+    }; \
+    \
     template <>\
     struct is_##name<name>\
-        : public true_type\
+    : public true_type\
     {\
-    };\
+    }; \
 }\
 \
 template <class T>\

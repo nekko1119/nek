@@ -6,7 +6,7 @@ namespace nek
     template <class T>
     struct add_volatile
     {
-        using type = volatile T;
+        using type = T volatile;
     };
 
     template <class T>

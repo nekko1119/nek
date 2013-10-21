@@ -20,7 +20,7 @@ template <class T>\
 struct has_##type##\
     : public decltype(type##detail::has_##type##<T>(0))\
 {\
-}; \
+};\
 namespace type##detail {}
 
 #endif

@@ -13,8 +13,8 @@ namespace nek
         protected:
             noncopyable() = default;
             ~noncopyable() = default;//protected non virtual destructor
-            noncopyable(const noncopyable&) = delete;
-            noncopyable& operator=(const noncopyable&) = delete;
+            noncopyable(noncopyable const&) = delete;
+            noncopyable& operator=(noncopyable const&) = delete;
         };
     }
 

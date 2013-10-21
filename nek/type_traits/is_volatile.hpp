@@ -12,7 +12,7 @@ namespace nek
     };
 
     template <class T>
-    struct is_volatile<volatile T>
+    struct is_volatile<T volatile>
         : public true_type
     {
     };

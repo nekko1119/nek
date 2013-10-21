@@ -6,7 +6,7 @@ namespace nek
     template <class T>
     struct add_const
     {
-        using type = const T;
+        using type = T const;
     };
 
     template <class T>

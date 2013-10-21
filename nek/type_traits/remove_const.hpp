@@ -10,7 +10,7 @@ namespace nek
     };
 
     template <class T>
-    struct remove_const<const T>
+    struct remove_const<T const>
     {
         using type = T;
     };

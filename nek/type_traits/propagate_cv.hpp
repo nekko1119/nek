@@ -6,25 +6,25 @@ namespace nek
     template <class Source, class Destination>
     struct propagate_cv
     {
-        typedef Destination type;
+        using type = Destination;
     };
 
     template <class Source, class Destination>
-    struct propagate_cv<const Source, Destination>
+    struct propagate_cv<Source const, Destination>
     {
-        typedef const Destination type;
+        using type = Destination const;
     };
 
     template <class Source, class Destination>
-    struct propagate_cv<volatile Source, Destination>
+    struct propagate_cv<Source volatile, Destination>
     {
-        typedef volatile Destination type;
+        using type = Destination volatile;
     };
 
     template <class Source, class Destination>
-    struct propagate_cv<const volatile Source, Destination>
+    struct propagate_cv<Source const volatile, Destination>
     {
-        typedef const volatile Destination type;
+        using type = const volatile Destination;
     };
 
     template <class Source, class Destination>

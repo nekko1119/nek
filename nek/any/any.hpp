@@ -15,12 +15,12 @@ namespace nek
         any() = default;
 
         template <class T>
-        any(const T& value)
+        any(T const& value)
             : held_(new holder<T>(value))
         {
         }
 
-        any(const any& right)
+        any(any const& right)
             : held_(right.held_ ? right.held_->clone() : nullptr)
         {
         }
@@ -31,14 +31,14 @@ namespace nek
             held_ = nullptr;
         }
 
-        any& operator=(const any& right)
+        any& operator=(any const& right)
         {
             any(right).swap(*this);
             return *this;
         }
 
         template <class T>
-        any& operator=(const T& value)
+        any& operator=(T const& value)
         {
             any(value).swap(*this);
             return *this;
@@ -61,7 +61,7 @@ namespace nek
             return is_empty();
         }
 
-        const type_info& type() const
+        type_info const& type() const
         {
             return held_ ? held_->type() : typeid(void);
         }
@@ -75,7 +75,7 @@ namespace nek
             }
 
             virtual holder_base* clone() const = 0;
-            virtual const std::type_info& type() const = 0;
+            virtual std::type_info const& type() const = 0;
         };
 
         template <class T>
@@ -93,7 +93,7 @@ namespace nek
                 return new holder(value_);
             }
 
-            const std::type_info& type() const override
+            std::type_info const& type() const override
             {
                 return typeid(value_);
             }
@@ -101,7 +101,7 @@ namespace nek
             T value_;
 
         private:
-            holder& operator=(const holder&);
+            holder& operator=(holder const&) = delete;
 
         };
 
@@ -125,7 +125,7 @@ namespace nek
     }
 
     template <class T>
-    inline const T* any_cast(const any* pointer)
+    inline T const* any_cast(any const* pointer)
     {
         return any_cast<T>(const_cast<any*>(pointer));
     }
@@ -133,7 +133,7 @@ namespace nek
     template <class T>
     T any_cast(any& value)
     {
-        typedef typename remove_reference<T>::type nonref_type;
+        using nonref_type = typename remove_reference<T>::type;
         static_assert(!is_reference<nonref_type>::value, "nek::any_cast : !is_reference<nonref_type>::value");
 
         nonref_type* result = any_cast<nonref_type>(&value);
@@ -145,12 +145,12 @@ namespace nek
     }
 
     template <class T>
-    inline T any_cast(const any& value)
+    inline T any_cast(any const& value)
     {
-        typedef typename remove_reference<T>::type nonref_type;
+        using nonref_type = typename remove_reference<T>::type;
         static_assert(!is_reference<nonref_type>::value, "nek::any_cast : !is_reference<nonref_type>::value");
 
-        return any_cast<const nonref_type&>(const_cast<any&>(value));
+        return any_cast<nonref_type const&>(const_cast<any&>(value));
     }
 }
 

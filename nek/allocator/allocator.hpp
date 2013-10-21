@@ -16,9 +16,9 @@ namespace nek
         using size_type = std::size_t;
         using difference_type = std::ptrdiff_t;
         using pointer = T*;
-        using const_pointer = const T*;
+        using const_pointer = T const*;
         using reference = T&;
-        using const_reference = const T&;
+        using const_reference = T const&;
         using value_type = T;
 
         template <class U>
@@ -28,20 +28,20 @@ namespace nek
         };
 
         allocator() = default;
-        allocator(const allocator<T>&) = default;
+        allocator(allocator<T> const&) = default;
 
         template <class U>
-        allocator(const allocator<U>&)
+        allocator(allocator<U> const&)
         {
         }
 
         template <class U>
-        allocator<T>& operator=(const allocator<U>&)
+        allocator<T>& operator=(allocator<U> const&)
         {
             return *this;
         }
 
-        pointer allocate(size_type count, const void* = nullptr) const
+        pointer allocate(size_type count, void const* = nullptr) const
         {
             void* ptr = nullptr;
             if (max_size() < count)
@@ -92,9 +92,9 @@ namespace nek
         using difference_type = std::ptrdiff_t;
         using value_type =  void;
         using pointer = void*;
-        using const_pointer = const void*;;
+        using const_pointer = void const*;;
         using void_pointer = void*;
-        using const_void_pointer = const void*;
+        using const_void_pointer = void const*;
 
         template <class U>
         struct rebind
@@ -103,28 +103,28 @@ namespace nek
         };
 
         allocator() = default;
-        allocator(const allocator&) = default;
+        allocator(allocator const&) = default;
 
         template <class U>
-        allocator(const allocator<U>&)
+        allocator(allocator<U> const&)
         {
         }
 
         template <class U>
-        allocator<void>& operator=(const allocator<U>&)
+        allocator<void>& operator=(allocator<U> const&)
         {
             return *this;
         }
     };
 
     template <class T, class U>
-    inline bool operator==(const allocator<T>&, const allocator<U>&)
+    inline bool operator==(allocator<T> const&, allocator<U> const&)
     {
         return true;
     }
 
     template <class T, class U>
-    inline bool operator!=(const allocator<T>& left, const allocator<U>& right)
+    inline bool operator!=(allocator<T> const& left, allocator<U> const& right)
     {
         return !(left == right);
     }

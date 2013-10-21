@@ -12,7 +12,7 @@ namespace nek
     };
 
     template <class T>
-    struct is_const<const T>
+    struct is_const<T const>
         : public true_type
     {
     };
