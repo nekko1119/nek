@@ -4,7 +4,7 @@
 #include <nek/type_traits/integral_constant.hpp>
 #include <nek/type_traits/remove_cv.hpp>
 
-#define NEK_IS_XXX(name)\
+#define NEK_IS_XXX_DEF(name)\
 namespace name##detail\
 {\
     template <class T>\
