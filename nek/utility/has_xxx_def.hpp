@@ -3,7 +3,7 @@
 
 #include <nek/type_traits/integral_constant.hpp>
 
-#define NEK_DEFINE_HAS_XXX_TYPE(type)\
+#define NEK_HAS_XXX_TYPE_DEF(type)\
 namespace\
 {\
     namespace type##detail\
