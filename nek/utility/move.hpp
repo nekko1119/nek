@@ -6,7 +6,7 @@
 namespace nek
 {
   template <class T>
-  inline typename remove_reference<T>::type&& move(T&& value)
+  inline remove_reference_t<T>&& move(T&& value)
   {
     return static_cast<remove_reference_t<T>&&>(value);
   }
