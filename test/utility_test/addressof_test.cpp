@@ -1,4 +1,4 @@
-#include <nek/utility/addressof.hpp>
+﻿#include <nek/utility/addressof.hpp>
 #include <gtest/gtest.h>
 
 TEST(addressof_test, enable_apply_address_operator_type)
