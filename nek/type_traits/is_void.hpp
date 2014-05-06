@@ -23,7 +23,7 @@ namespace nek
 
   template <class T>
   struct is_void
-    : public detail::is_void<typename remove_cv<T>::type>
+    : public detail::is_void<remove_cv_t<T>>
   {
   };
 }

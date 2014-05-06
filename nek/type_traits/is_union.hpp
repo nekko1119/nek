@@ -8,7 +8,7 @@ namespace nek
 {
   template <class T>
   struct is_union
-    : public integral_constant<bool, __is_union(typename remove_cv<T>::type)>
+    : public integral_constant<bool, __is_union(remove_cv_t<T>)>
   {
   };
 }

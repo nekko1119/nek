@@ -35,7 +35,7 @@ namespace nek
 
   template <class T>
   struct is_floating_point
-    : public detail::is_floating_point<typename remove_cv<T>::type>
+    : public detail::is_floating_point<remove_cv_t<T>>
   {
   };
 }

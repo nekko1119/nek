@@ -64,6 +64,9 @@ namespace nek
   template <class Ptr>
   struct pointer_traits
   {
+  private:
+    using not_void = mpl::if_t<is_void<Ptr>, char, Ptr>;
+
   public:
     using pointer = Ptr;
     using element_type = typename detail::element_type<Ptr>::type;
@@ -75,10 +78,6 @@ namespace nek
       using other = typename detail::rebind<Ptr, U>::type;
     };
 
-  private:
-    using not_void = mpl::if_t<is_void<element_type>, char, element_type>;
-
-  public:
     static pointer pointer_to(not_void& value)
     {
       return Ptr::pointer_to(value);
@@ -88,6 +87,9 @@ namespace nek
   template <class T>
   struct pointer_traits<T*>
   {
+  private:
+    using not_void = mpl::if_t<is_void<T>, char, T>;
+
   public:
     using pointer = T*;
     using element_type = T;
@@ -99,10 +101,6 @@ namespace nek
       using other = U*;
     };
 
-  private:
-    using not_void = mpl::if_t<is_void<element_type>, char, element_type>;
-
-  public:
     static pointer pointer_to(not_void& value)
     {
       return addressof(value);

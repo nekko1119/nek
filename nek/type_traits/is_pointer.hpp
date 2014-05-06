@@ -23,7 +23,7 @@ namespace nek
 
   template <class T>
   struct is_pointer
-    : public detail::is_pointer<typename remove_cv<T>::type>
+    : public detail::is_pointer<remove_cv_t<T>>
   {
   };
 }

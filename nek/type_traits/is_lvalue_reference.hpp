@@ -23,7 +23,7 @@ namespace nek
 
   template <class T>
   struct is_lvalue_reference
-    : public detail::is_lvalue_reference<typename remove_cv<T>::type>
+    : public detail::is_lvalue_reference<remove_cv_t<T>>
   {
   };
 }

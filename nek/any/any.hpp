@@ -11,6 +11,46 @@ namespace nek
 {
   class any
   {
+  private:
+    class holder_base
+    {
+    public:
+      virtual ~holder_base()
+      {
+      }
+
+      virtual holder_base* clone() const = 0;
+      virtual std::type_info const& type() const = 0;
+    };
+
+    template <class T>
+    class holder
+      : public holder_base
+    {
+    private:
+      T value_;
+
+    public:
+      holder(const T& value)
+        : value_(value)
+      {
+      }
+
+      holder& operator=(holder const&) = delete;
+
+      holder_base* clone() const override
+      {
+        return new holder(value_);
+      }
+
+      std::type_info const& type() const override
+      {
+        return typeid(value_);
+      }
+    };
+
+    holder_base* held_ = nullptr;
+
   public:
     any() = default;
 
@@ -67,47 +107,6 @@ namespace nek
     }
 
   private:
-    class holder_base
-    {
-    public:
-      virtual ~holder_base()
-      {
-      }
-
-      virtual holder_base* clone() const = 0;
-      virtual std::type_info const& type() const = 0;
-    };
-
-    template <class T>
-    class holder
-      : public holder_base
-    {
-    public:
-      holder(const T& value)
-        : value_(value)
-      {
-      }
-
-      holder_base* clone() const override
-      {
-        return new holder(value_);
-      }
-
-      std::type_info const& type() const override
-      {
-        return typeid(value_);
-      }
-
-      T value_;
-
-    private:
-      holder& operator=(holder const&) = delete;
-
-    };
-
-    holder_base* held_ = nullptr;
-
-  private:
     template <class T>
     friend T* any_cast(any* pointer);
   };
@@ -133,7 +132,7 @@ namespace nek
   template <class T>
   T any_cast(any& value)
   {
-    using nonref_type = typename remove_reference<T>::type;
+    using nonref_type = remove_reference_t<T>;
     static_assert(!is_reference<nonref_type>::value, "nek::any_cast : !is_reference<nonref_type>::value");
 
     nonref_type* result = any_cast<nonref_type>(&value);
@@ -146,7 +145,7 @@ namespace nek
   template <class T>
   inline T any_cast(any const& value)
   {
-    using nonref_type = typename remove_reference<T>::type;
+    using nonref_type = remove_reference_t<T>;
     static_assert(!is_reference<nonref_type>::value, "nek::any_cast : !is_reference<nonref_type>::value");
 
     return any_cast<nonref_type const&>(const_cast<any&>(value));

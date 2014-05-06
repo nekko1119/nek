@@ -6,7 +6,9 @@ namespace nek
   template <class T>
   inline T* addressof(T& value)
   {
-    return reinterpret_cast<T*>(&const_cast<char&>(reinterpret_cast<char const volatile&>(value)));
+    return reinterpret_cast<T*>(
+      &const_cast<char&>(
+        reinterpret_cast<char const volatile&>(value)));
   }
 }
 

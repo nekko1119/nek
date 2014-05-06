@@ -8,7 +8,7 @@ namespace nek
 {
   template <class T>
   struct is_enum
-    : public integral_constant<bool, __is_enum(typename remove_cv<T>::type)>
+    : public integral_constant<bool, __is_enum(remove_cv_t<T>)>
   {
   };
 }

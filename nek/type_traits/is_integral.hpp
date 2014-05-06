@@ -95,7 +95,7 @@ namespace nek
 
   template <class T>
   struct is_integral
-    : public detail::is_integral<typename remove_cv<T>::type>
+    : public detail::is_integral<remove_cv_t<T>>
   {
   };
 }

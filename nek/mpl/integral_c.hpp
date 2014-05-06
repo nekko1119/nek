@@ -23,7 +23,7 @@ namespace nek
       }
     };
 
-    //'bool' constant does not have 'next' and 'prior' members.
+    //　'bool' constant does not have 'next' and 'prior' members.
     template <bool C>
     struct integral_c<bool, C>
     {
