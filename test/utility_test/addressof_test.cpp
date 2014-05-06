@@ -1,34 +1,59 @@
 ﻿#include <nek/utility/addressof.hpp>
 #include <gtest/gtest.h>
 
-TEST(addressof_test, enable_apply_address_operator_type)
+template <class T>
+class addressof_test : public ::testing::Test
 {
-  int val = 0;
-  int* val_ptr = nek::addressof(val);
-  EXPECT_EQ(&val, val_ptr);
+};
+
+TYPED_TEST_CASE_P(addressof_test);
+
+TYPED_TEST_P(addressof_test, scalar)
+{
+  TypeParam* ptr = new TypeParam{};
+  TypeParam& val = *ptr;
+  EXPECT_EQ(ptr, nek::addressof(val));
+  delete ptr;
 }
+
+TYPED_TEST_P(addressof_test, array)
+{
+  TypeParam arr[] = {1, 2, 3};
+  TypeParam (*arr_ptr)[3] = &arr;
+  EXPECT_EQ(arr_ptr, nek::addressof(arr));
+}
+
+REGISTER_TYPED_TEST_CASE_P(addressof_test, scalar, array);
+
 namespace
 {
-  struct address_operator_overrided_class
+  struct addressable
   {
   public:
-    void* operator&() const
+    addressable(int = 0)
     {
-      return nullptr;
+    }
+  };
+
+  struct never_use_type
+  {
+  };
+
+  struct nonaddressable
+  {
+  public:
+    nonaddressable(int = 0)
+    {
     }
 
-    bool is_same_address(address_operator_overrided_class* right) const
-    {
-      return this == right;
-    }
+  private:
+    never_use_type operator&() const;
   };
 }
 
-TEST(addressof_test, disable_apply_address_operator_type)
-{
-  address_operator_overrided_class ad;
-  ASSERT_EQ(nullptr, &ad);
-  address_operator_overrided_class* ad_ptr = nek::addressof(ad);
-  EXPECT_NE(nullptr, ad_ptr);
-  EXPECT_TRUE(ad.is_same_address(ad_ptr));
-}
+using types = ::testing::Types<
+  int,
+  addressable,
+  nonaddressable>;
+
+INSTANTIATE_TYPED_TEST_CASE_P(parameterized, addressof_test, types);
