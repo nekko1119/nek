@@ -5,15 +5,15 @@
 
 namespace nek
 {
-    class bad_any_cast_exception
-        : public std::bad_cast
+  class bad_any_cast_exception
+    : public std::bad_cast
+  {
+  public:
+    virtual char const* what() const override
     {
-    public:
-        virtual char const* what() const override
-        {
-            return "nek::bad_any_cast_exception: failed conversion";
-        }
-    };
+      return "nek::bad_any_cast_exception: failed conversion";
+    }
+  };
 }
 
 #endif

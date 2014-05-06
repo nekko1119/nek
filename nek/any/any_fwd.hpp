@@ -3,7 +3,7 @@
 
 namespace nek
 {
-    class any;
+  class any;
 }
 
 #endif

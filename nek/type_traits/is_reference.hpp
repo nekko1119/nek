@@ -6,11 +6,11 @@
 
 namespace nek
 {
-    template <class T>
-    struct is_reference
-        : public integral_constant<bool, is_lvalue_reference<T>::value || is_rvalue_reference<T>::value>
-    {
-    };
+  template <class T>
+  struct is_reference
+    : public integral_constant<bool, is_lvalue_reference<T>::value || is_rvalue_reference<T>::value>
+  {
+  };
 }
 
 #endif

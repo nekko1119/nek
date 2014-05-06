@@ -7,22 +7,22 @@
 #define NEK_IS_XXX_DEF(name)\
 namespace name##detail\
 {\
-    template <class T>\
-    struct is_##name\
-    : public false_type\
-    {\
-    }; \
-    \
-    template <>\
-    struct is_##name<name>\
-    : public true_type\
-    {\
-    }; \
+  template <class T>\
+  struct is_##name\
+  : public false_type\
+  {\
+  }; \
+  \
+  template <>\
+  struct is_##name<name>\
+  : public true_type\
+  {\
+  }; \
 }\
 \
 template <class T>\
 struct is_##name\
-    : public name##detail::is_##name<typename remove_cv<T>::type>\
+  : public name##detail::is_##name<typename remove_cv<T>::type>\
 {\
 }\
 

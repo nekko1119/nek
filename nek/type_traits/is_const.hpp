@@ -5,17 +5,17 @@
 
 namespace nek
 {
-    template <class T>
-    struct is_const
-        : public false_type
-    {
-    };
+  template <class T>
+  struct is_const
+    : public false_type
+  {
+  };
 
-    template <class T>
-    struct is_const<T const>
-        : public true_type
-    {
-    };
+  template <class T>
+  struct is_const<T const>
+    : public true_type
+  {
+  };
 }
 
 #endif

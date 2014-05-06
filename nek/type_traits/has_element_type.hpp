@@ -5,20 +5,20 @@
 
 namespace nek
 {
-    namespace detail
-    {
-        template <class T, class U = T::element_type>
-        true_type has_element_type(int);
+  namespace detail
+  {
+    template <class T, class U = T::element_type>
+    true_type has_element_type(int);
 
-        template <class>
-        false_type has_element_type(long);
-    }
+    template <class>
+    false_type has_element_type(long);
+  }
 
-    template <class T>
-    struct has_element_type
-        : public decltype(detail::has_element_type<T>(0))
-    {
-    };
+  template <class T>
+  struct has_element_type
+    : public decltype(detail::has_element_type<T>(0))
+  {
+  };
 }
 
 #endif

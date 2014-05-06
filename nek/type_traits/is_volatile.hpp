@@ -5,17 +5,17 @@
 
 namespace nek
 {
-    template <class T>
-    struct is_volatile
-        : public false_type
-    {
-    };
+  template <class T>
+  struct is_volatile
+    : public false_type
+  {
+  };
 
-    template <class T>
-    struct is_volatile<T volatile>
-        : public true_type
-    {
-    };
+  template <class T>
+  struct is_volatile<T volatile>
+    : public true_type
+  {
+  };
 }
 
 #endif

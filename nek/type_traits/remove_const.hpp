@@ -3,20 +3,20 @@
 
 namespace nek
 {
-    template <class T>
-    struct remove_const
-    {
-        using type = T;
-    };
+  template <class T>
+  struct remove_const
+  {
+    using type = T;
+  };
 
-    template <class T>
-    struct remove_const<T const>
-    {
-        using type = T;
-    };
+  template <class T>
+  struct remove_const<T const>
+  {
+    using type = T;
+  };
 
-    template <class T>
-    using remove_const_t = typename remove_const<T>::type;
+  template <class T>
+  using remove_const_t = typename remove_const<T>::type;
 }
 
 #endif

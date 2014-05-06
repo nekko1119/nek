@@ -5,8 +5,8 @@
 
 namespace nek
 {
-    using enabler_t = void*;
-    extern enabler_t enabler;
+  using enabler_t = void*;
+  extern enabler_t enabler;
 }
 
 #endif

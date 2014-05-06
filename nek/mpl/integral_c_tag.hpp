@@ -3,12 +3,12 @@
 
 namespace nek
 {
-    namespace mpl
+  namespace mpl
+  {
+    struct integral_c_tag
     {
-        struct integral_c_tag
-        {
-        };
-    }
+    };
+  }
 }
 
 #endif

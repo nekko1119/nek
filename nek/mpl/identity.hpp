@@ -3,17 +3,17 @@
 
 namespace nek
 {
-    namespace mpl
+  namespace mpl
+  {
+    template <class T>
+    struct identity
     {
-        template <class T>
-        struct identity
-        {
-            using type = T;
-        };
+      using type = T;
+    };
 
-        template <class T>
-        using identity_t = typename identity<T>::type;
-    }
+    template <class T>
+    using identity_t = typename identity<T>::type;
+  }
 }
 
 #endif

@@ -5,20 +5,20 @@
 
 namespace nek
 {
-    namespace detail
-    {
-        template <class T, class U = T::pointer>
-        true_type has_pointer(int);
+  namespace detail
+  {
+    template <class T, class U = T::pointer>
+    true_type has_pointer(int);
 
-        template <class>
-        false_type has_pointer(long);
-    }
+    template <class>
+    false_type has_pointer(long);
+  }
 
-    template <class T>
-    struct has_pointer
-        : public decltype(detail::has_pointer<T>(0))
-    {
-    };
+  template <class T>
+  struct has_pointer
+    : public decltype(detail::has_pointer<T>(0))
+  {
+  };
 }
 
 #endif
