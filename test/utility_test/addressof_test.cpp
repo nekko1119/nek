@@ -7,20 +7,22 @@ TEST(addressof_test, enable_apply_address_operator_type)
   int* val_ptr = nek::addressof(val);
   EXPECT_EQ(&val, val_ptr);
 }
-
-struct address_operator_overrided_class
+namespace
 {
-public:
-  void* operator&() const
+  struct address_operator_overrided_class
   {
-    return nullptr;
-  }
+  public:
+    void* operator&() const
+    {
+      return nullptr;
+    }
 
-  bool is_same_address(address_operator_overrided_class* right) const
-  {
-    return this == right;
-  }
-};
+    bool is_same_address(address_operator_overrided_class* right) const
+    {
+      return this == right;
+    }
+  };
+}
 
 TEST(addressof_test, disable_apply_address_operator_type)
 {
