@@ -2,7 +2,8 @@
 #include <gtest/gtest.h>
 
 template <class T>
-class addressof_test : public ::testing::Test
+class addressof_test
+  : public ::testing::Test
 {
 };
 
