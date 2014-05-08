@@ -2,7 +2,7 @@
 #define NEK_UTILITY_SWAP_HPP
 
 #include <nek/utility/move.hpp>
-#include <crtdefs.h>
+#include <cstddef>
 
 namespace nek
 {
