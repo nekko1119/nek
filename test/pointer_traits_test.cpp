@@ -4,6 +4,63 @@
 #include <nek/utility/pointer_traits.hpp>
 #include <gtest/gtest.h>
 
+namespace
+{
+  template <class T>
+  class complete_smart_pointer_mock
+  {
+  private:
+    T* ptr_ = nullptr;
+
+  public:
+    using element_type = T;
+    using difference_type = char;
+
+    complete_smart_pointer_mock() = default;
+
+    explicit complete_smart_pointer_mock(T& p)
+      : ptr_(&p)
+    {
+    }
+
+    template <class U>
+    struct rebind
+    {
+      using other = complete_smart_pointer_mock<U>;
+    };
+
+    static complete_smart_pointer_mock pointer_to(T& p)
+    {
+      return complete_smart_pointer_mock(p);
+    }
+
+    friend bool operator==(complete_smart_pointer_mock const& l, complete_smart_pointer_mock const& r)
+    {
+      return l.ptr_ == r.ptr_;
+    }
+  };
+
+  template <class T>
+  class simple_smart_pointer_mock
+  {
+  private:
+    T* ptr_ = nullptr;
+
+  public:
+    simple_smart_pointer_mock() = default;
+
+    simple_smart_pointer_mock(T* p)
+      : ptr_(p)
+    {
+    }
+
+    friend bool operator==(simple_smart_pointer_mock const& l, simple_smart_pointer_mock const& r)
+    {
+      return l.ptr_ == r.ptr_;
+    }
+  };
+}
+
 template <class T>
 class pointer_traits_test
   : public ::testing::Test
@@ -42,31 +99,24 @@ TYPED_TEST_P(pointer_traits_test, rebind)
   static_assert(std::is_same<actual_t, expect_t>::value, "");
 }
 
-namespace
+TEST(pointer_to_test, raw_type)
 {
-  template <class Ptr, class T>
-  auto address_or_self_helper(T& val, std::true_type)
-  {
-    return &val;
-  }
-
-  template <class Ptr, class T>
-  auto address_or_self_helper(T& val, std::false_type)
-  {
-    return Ptr(val);
-  }
-
-  template <class Ptr, class T>
-  auto address_or_self(T& val)
-  {
-    return address_or_self_helper<Ptr>(val, std::is_pointer<Ptr>());
-  }
+  int val = 0;
+  EXPECT_EQ(&val, nek::pointer_traits<int*>::pointer_to(val));
 }
 
-TYPED_TEST_P(pointer_traits_test, pointer_to)
+TEST(pointer_to_test, complete_smart_ptr)
 {
-  elem_t val = 0;
-  EXPECT_EQ(address_or_self<ptr_t>(val), nek::pointer_traits<ptr_t>::pointer_to(val));
+  int val = 0;
+  EXPECT_EQ(complete_smart_pointer_mock<int>(val), nek::pointer_traits<complete_smart_pointer_mock<int>>::pointer_to(val));
+}
+
+TEST(pointer_to_test, simple_smart_pointer)
+{
+  // when pointer does not provide a static member function pointer_to,
+  // instantiation of this function must be  a compile-time error.
+  //int val = 0;
+  //EXPECT_EQ(simple_smart_pointer_mock<int>(&val), nek::pointer_traits<simple_smart_pointer_mock<int>>::pointer_to(val));
 }
 
 REGISTER_TYPED_TEST_CASE_P(
@@ -74,48 +124,13 @@ REGISTER_TYPED_TEST_CASE_P(
   element_type,
   difference_type,
   pointer,
-  rebind,
-  pointer_to);
+  rebind);
 
-namespace
-{
-  template <class T>
-  class complete_smart_pointer_mock
-  {
-  private:
-    T* ptr_ = nullptr;
-
-  public:
-    using element_type = T;
-    using difference_type = char;
-
-    complete_smart_pointer_mock() = default;
-
-    complete_smart_pointer_mock(T&)
-    {
-    }
-
-    template <class U>
-    struct rebind
-    {
-      using other = complete_smart_pointer_mock<U>;
-    };
-
-    static complete_smart_pointer_mock pointer_to(T& p)
-    {
-      return complete_smart_pointer_mock(p);
-    }
-
-    friend bool operator==(complete_smart_pointer_mock const& l, complete_smart_pointer_mock const& r)
-    {
-      return l.ptr_ == r.ptr_;
-    }
-  };
-}
 using types = ::testing::Types<
   //        <pointer_type,                     element_type, difference_type, pointer,                          rebind<double>::other,
   std::tuple<int*,                             int,          std::ptrdiff_t,  int*,                             double*>,
-  std::tuple<complete_smart_pointer_mock<int>, int,          char,            complete_smart_pointer_mock<int>, complete_smart_pointer_mock<double>>
+  std::tuple<complete_smart_pointer_mock<int>, int,          char,            complete_smart_pointer_mock<int>, complete_smart_pointer_mock<double>>,
+  std::tuple<simple_smart_pointer_mock<int>,   int,          std::ptrdiff_t,  simple_smart_pointer_mock<int>,   simple_smart_pointer_mock<double>>
 >;
 
 INSTANTIATE_TYPED_TEST_CASE_P(parameterized, pointer_traits_test, types);
