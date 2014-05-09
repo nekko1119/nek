@@ -4,11 +4,11 @@
 
 TEST(swap_test, primitive)
 {
-  int x = 42;
-  int y = 91;
+  int x = 1;
+  int y = 2;
   nek::swap(x, y);
-  EXPECT_EQ(91, x);
-  EXPECT_EQ(42, y);
+  EXPECT_EQ(2, x);
+  EXPECT_EQ(1, y);
 }
 
 TEST(swap_test, std_string)
