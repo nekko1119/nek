@@ -1,5 +1,4 @@
 ﻿#include <algorithm>
-#include <iterator>
 #include <string>
 #include <nek/utility/swap.hpp>
 #include <gtest/gtest.h>
