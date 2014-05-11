@@ -135,17 +135,56 @@ TEST(Swap_test, user_class)
 TEST(swap_test, array_of_int)
 {
   // setup
+  using std::begin;
+  using std::end;
+  using std::copy;
+  using std::equal;
+
   int const expect1[] = {1, 2, 3};
   int actual1[3];
-  std::copy(std::begin(expect1), std::end(expect1), std::begin(actual1));
+  copy(begin(expect1), end(expect1), begin(actual1));
   int const expect2[] = {10, 20, 30};
   int actual2[3];
-  std::copy(std::begin(expect2), std::end(expect2), std::begin(actual2));
+  copy(begin(expect2), end(expect2), begin(actual2));
 
   // exersice
   nek::swap(actual1, actual2);
 
   // verify
-  EXPECT_TRUE(std::equal(std::begin(expect1), std::end(expect1), std::begin(actual2)));
-  EXPECT_TRUE(std::equal(std::begin(expect2), std::end(expect2), std::begin(actual1)));
+  EXPECT_TRUE(equal(begin(expect1), end(expect1), begin(actual2)));
+  EXPECT_TRUE(equal(begin(expect2), end(expect2), begin(actual1)));
+}
+
+TEST(swap_test, array_of_array_of_int)
+{
+  // setup
+  using std::begin;
+  using std::end;
+  using std::copy;
+  using std::equal;
+  int const row = 2;
+  int const column = 3;
+
+  int const expect1[column][row] = {{1, 2}, {3, 4}, {5, 6}};
+  int actual1[column][row];
+  for (int i = 0; i < column; ++i) {
+    copy(begin(expect1[i]), end(expect1[i]), begin(actual1[i]));
+  }
+
+  int const expect2[column][row] = {{7, 8}, {9, 10}, {11, 12}};
+  int actual2[column][row];
+  for (int i = 0; i < column; ++i) {
+    copy(begin(expect2[i]), end(expect2[i]), begin(actual2[i]));
+  }
+
+  // exersice
+  nek::swap(actual1, actual2);
+
+  // verify
+  for (int i = 0; i < column; ++i) {
+    EXPECT_TRUE(equal(begin(expect1[i]), end(expect1[i]), begin(actual2[i])));
+  }
+  for (int i = 0; i < column; ++i) {
+    EXPECT_TRUE(equal(begin(expect2[i]), end(expect2[i]), begin(actual1[i])));
+  }
 }
