@@ -113,8 +113,8 @@ TEST(pointer_to_test, complete_smart_ptr)
 
 TEST(pointer_to_test, simple_smart_pointer)
 {
-  // when smart pointer does not provide a static member function pointer_to,
-  // instantiation of this function must be a compile-time error.
+  // if smart pointer does not provide a static member function pointer_to,
+  // instantiation of this test must be a compile time error.
   //int val = 0;
   //EXPECT_EQ(simple_smart_pointer_mock<int>(&val), nek::pointer_traits<simple_smart_pointer_mock<int>>::pointer_to(val));
 }
