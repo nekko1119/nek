@@ -5,7 +5,6 @@
 
 TEST(is_floating_point_test, initialize_true)
 {
-  using namespace type_traits_test;
   STATIC_ASSERT_TRUE(nek::is_floating_point<float>);
   STATIC_ASSERT_EQ(nek::is_floating_point<float>::type, nek::true_type);
   STATIC_ASSERT_EQ(nek::is_floating_point<float>::value_type, bool);
@@ -24,7 +23,6 @@ TEST(is_floating_point_test, initialize_false)
 
 TEST(is_floating_point_test, yes)
 {
-  using namespace type_traits_test;
   STATIC_ASSERT_TRUE(nek::is_floating_point<float>);
   STATIC_ASSERT_TRUE(nek::is_floating_point<float const>);
   STATIC_ASSERT_TRUE(nek::is_floating_point<float volatile>);
