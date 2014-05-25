@@ -67,9 +67,6 @@
     <ClInclude Include="utility\pointer_traits.hpp" />
     <ClInclude Include="utility\swap.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="dummy.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A2637998-650F-4833-9635-05C96B432E36}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
