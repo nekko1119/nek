@@ -112,7 +112,7 @@ TEST(swap_test, std_string)
   EXPECT_EQ(expect2, actual1);
 }
 
-TEST(Swap_test, user_class)
+TEST(swap_test, user_class)
 {
   // setup
   using type = swap_test_ns::swap_test_mock;
