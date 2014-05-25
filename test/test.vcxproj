@@ -102,6 +102,7 @@
     <ClCompile Include="type_traits_test\is_rvalue_reference_test.cpp" />
     <ClCompile Include="type_traits_test\is_same_test.cpp" />
     <ClCompile Include="type_traits_test\is_union_test.cpp" />
+    <ClCompile Include="type_traits_test\is_void_test.cpp" />
     <ClCompile Include="type_traits_test\is_volatile_test.cpp" />
     <ClCompile Include="utility_test\addressof_test.cpp" />
     <ClCompile Include="utility_test\forward_test.cpp" />
