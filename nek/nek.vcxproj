@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="allocator\allocator.hpp" />
+    <ClInclude Include="allocator\allocator_traits.hpp" />
+    <ClInclude Include="any.hpp" />
+    <ClInclude Include="any\any.hpp" />
+    <ClInclude Include="any\any_fwd.hpp" />
+    <ClInclude Include="any\exception.hpp" />
+    <ClInclude Include="any\traits.hpp" />
+    <ClInclude Include="mpl\bool.hpp" />
+    <ClInclude Include="mpl\bool_fwd.hpp" />
+    <ClInclude Include="mpl\eval_if.hpp" />
+    <ClInclude Include="mpl\identity.hpp" />
+    <ClInclude Include="mpl\if.hpp" />
+    <ClInclude Include="mpl\integral_c.hpp" />
+    <ClInclude Include="mpl\integral_c_fwd.hpp" />
+    <ClInclude Include="mpl\integral_c_tag.hpp" />
+    <ClInclude Include="type_traits.hpp" />
+    <ClInclude Include="type_traits\add_const.hpp" />
+    <ClInclude Include="type_traits\add_cv.hpp" />
+    <ClInclude Include="type_traits\add_volatile.hpp" />
+    <ClInclude Include="type_traits\enabler.hpp" />
+    <ClInclude Include="type_traits\enable_if.hpp" />
+    <ClInclude Include="type_traits\has_difference_type.hpp" />
+    <ClInclude Include="type_traits\has_element_type.hpp" />
+    <ClInclude Include="type_traits\has_iterator.hpp" />
+    <ClInclude Include="type_traits\has_pointer.hpp" />
+    <ClInclude Include="type_traits\has_type.hpp" />
+    <ClInclude Include="type_traits\has_value_type.hpp" />
+    <ClInclude Include="type_traits\integral_constant.hpp" />
+    <ClInclude Include="type_traits\is_class.hpp" />
+    <ClInclude Include="type_traits\is_const.hpp" />
+    <ClInclude Include="type_traits\is_enum.hpp" />
+    <ClInclude Include="type_traits\is_floating_point.hpp" />
+    <ClInclude Include="type_traits\is_integral.hpp" />
+    <ClInclude Include="type_traits\is_lvalue_reference.hpp" />
+    <ClInclude Include="type_traits\is_pointer.hpp" />
+    <ClInclude Include="type_traits\is_reference.hpp" />
+    <ClInclude Include="type_traits\is_rvalue_reference.hpp" />
+    <ClInclude Include="type_traits\is_same.hpp" />
+    <ClInclude Include="type_traits\is_union.hpp" />
+    <ClInclude Include="type_traits\is_void.hpp" />
+    <ClInclude Include="type_traits\is_volatile.hpp" />
+    <ClInclude Include="type_traits\make_unsigned.hpp" />
+    <ClInclude Include="type_traits\propagate_cv.hpp" />
+    <ClInclude Include="type_traits\remove_const.hpp" />
+    <ClInclude Include="type_traits\remove_cv.hpp" />
+    <ClInclude Include="type_traits\remove_reference.hpp" />
+    <ClInclude Include="type_traits\remove_volatile.hpp" />
+    <ClInclude Include="utility\addressof.hpp" />
+    <ClInclude Include="utility\forward.hpp" />
+    <ClInclude Include="utility\has_xxx_def.hpp" />
+    <ClInclude Include="utility\is_xxx_def.hpp" />
+    <ClInclude Include="utility\move.hpp" />
+    <ClInclude Include="utility\noncopyable.hpp" />
+    <ClInclude Include="utility\pointer_traits.hpp" />
+    <ClInclude Include="utility\swap.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dummy.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A2637998-650F-4833-9635-05C96B432E36}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
