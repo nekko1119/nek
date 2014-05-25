@@ -87,6 +87,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mpl_test\integral_c_test.cpp" />
     <ClCompile Include="type_traits_test\add_const_test.cpp" />
+    <ClCompile Include="type_traits_test\add_volatile_test.cpp" />
     <ClCompile Include="type_traits_test\enable_if_test.cpp" />
     <ClCompile Include="type_traits_test\has_difference_type_test.cpp" />
     <ClCompile Include="type_traits_test\has_type_test.cpp" />
