@@ -10,9 +10,16 @@ class integral_c_test
 {
 };
 
-TYPED_TEST_CASE_P(integral_c_test);
+using types = ::testing::Types<
+  char,
+  short,
+  int,
+  long
+>;
 
-TYPED_TEST_P(integral_c_test, member)
+TYPED_TEST_CASE(integral_c_test, types);
+
+TYPED_TEST(integral_c_test, member)
 {
   using integral = integral_c<TypeParam, 0>;
   STATIC_ASSERT_EQ(typename integral::value_type, TypeParam);
@@ -25,14 +32,3 @@ TYPED_TEST_P(integral_c_test, member)
   STATIC_ASSERT_EQ(typename integral::prior, prior_type);
   SUCCEED();
 }
-
-REGISTER_TYPED_TEST_CASE_P(integral_c_test, member);
-
-using types = ::testing::Types<
-  char,
-  short,
-  int,
-  long
->;
-
-INSTANTIATE_TYPED_TEST_CASE_P(parameterized, integral_c_test, types);

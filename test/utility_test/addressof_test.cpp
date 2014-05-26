@@ -1,31 +1,6 @@
 ﻿#include <nek/utility/addressof.hpp>
 #include <gtest/gtest.h>
 
-template <class T>
-class addressof_test
-  : public ::testing::Test
-{
-};
-
-TYPED_TEST_CASE_P(addressof_test);
-
-TYPED_TEST_P(addressof_test, scalar)
-{
-  TypeParam* ptr = new TypeParam{};
-  TypeParam& val = *ptr;
-  EXPECT_EQ(ptr, nek::addressof(val));
-  delete ptr;
-}
-
-TYPED_TEST_P(addressof_test, array)
-{
-  TypeParam arr[] = {1, 2, 3};
-  TypeParam (*arr_ptr)[3] = &arr;
-  EXPECT_EQ(arr_ptr, nek::addressof(arr));
-}
-
-REGISTER_TYPED_TEST_CASE_P(addressof_test, scalar, array);
-
 namespace
 {
   struct addressable
@@ -52,9 +27,31 @@ namespace
   };
 }
 
+template <class T>
+class addressof_test
+  : public ::testing::Test
+{
+};
+
 using types = ::testing::Types<
   int,
   addressable,
-  nonaddressable>;
+  nonaddressable
+>;
 
-INSTANTIATE_TYPED_TEST_CASE_P(parameterized, addressof_test, types);
+TYPED_TEST_CASE(addressof_test, types);
+
+TYPED_TEST(addressof_test, scalar)
+{
+  TypeParam* ptr = new TypeParam{};
+  TypeParam& val = *ptr;
+  EXPECT_EQ(ptr, nek::addressof(val));
+  delete ptr;
+}
+
+TYPED_TEST(addressof_test, array)
+{
+  TypeParam arr[] = {1, 2, 3};
+  TypeParam (*arr_ptr)[3] = &arr;
+  EXPECT_EQ(arr_ptr, nek::addressof(arr));
+}

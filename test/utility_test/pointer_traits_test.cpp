@@ -72,27 +72,34 @@ protected:
   using pointer_t = typename std::tuple_element<3, T>::type;
 };
 
-TYPED_TEST_CASE_P(pointer_traits_test);
+using types = ::testing::Types<
+  //        <pointer_type,                     element_type, difference_type, pointer,                          rebind<double>::other,
+  std::tuple<int*, int, std::ptrdiff_t, int*, double*>,
+  std::tuple<complete_smart_pointer_mock<int>, int, char, complete_smart_pointer_mock<int>, complete_smart_pointer_mock<double>>,
+  std::tuple<simple_smart_pointer_mock<int>, int, std::ptrdiff_t, simple_smart_pointer_mock<int>, simple_smart_pointer_mock<double>>
+>;
 
-TYPED_TEST_P(pointer_traits_test, element_type)
+TYPED_TEST_CASE(pointer_traits_test, types);
+
+TYPED_TEST(pointer_traits_test, element_type)
 {
   using actual_t = typename nek::pointer_traits<ptr_t>::element_type;
   static_assert(std::is_same<actual_t, elem_t>::value, "");
 }
 
-TYPED_TEST_P(pointer_traits_test, difference_type)
+TYPED_TEST(pointer_traits_test, difference_type)
 {
   using actual_t = typename nek::pointer_traits<ptr_t>::difference_type;
   static_assert(std::is_same<actual_t, diff_t>::value, "");
 }
 
-TYPED_TEST_P(pointer_traits_test, pointer)
+TYPED_TEST(pointer_traits_test, pointer)
 {
   using actual_t = typename nek::pointer_traits<ptr_t>::pointer;
   static_assert(std::is_same<actual_t, pointer_t>::value, "");
 }
 
-TYPED_TEST_P(pointer_traits_test, rebind)
+TYPED_TEST(pointer_traits_test, rebind)
 {
   using actual_t = typename nek::pointer_traits<ptr_t>::template rebind<double>::other;
   using expect_t = typename std::tuple_element<4, TypeParam>::type;
@@ -118,19 +125,3 @@ TEST(pointer_to_test, simple_smart_pointer)
   //int val = 0;
   //EXPECT_EQ(simple_smart_pointer_mock<int>(&val), nek::pointer_traits<simple_smart_pointer_mock<int>>::pointer_to(val));
 }
-
-REGISTER_TYPED_TEST_CASE_P(
-  pointer_traits_test,
-  element_type,
-  difference_type,
-  pointer,
-  rebind);
-
-using types = ::testing::Types<
-  //        <pointer_type,                     element_type, difference_type, pointer,                          rebind<double>::other,
-  std::tuple<int*,                             int,          std::ptrdiff_t,  int*,                             double*>,
-  std::tuple<complete_smart_pointer_mock<int>, int,          char,            complete_smart_pointer_mock<int>, complete_smart_pointer_mock<double>>,
-  std::tuple<simple_smart_pointer_mock<int>,   int,          std::ptrdiff_t,  simple_smart_pointer_mock<int>,   simple_smart_pointer_mock<double>>
->;
-
-INSTANTIATE_TYPED_TEST_CASE_P(parameterized, pointer_traits_test, types);
