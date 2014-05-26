@@ -26,7 +26,7 @@ TEST(has_type_test, initialize_false)
   SUCCEED();
 }
 
-TEST(has__type_test, check)
+TEST(has_type_test, check)
 {
   NEK_HAS_MEMBER_TYPE(nek::has_type);
   SUCCEED();
