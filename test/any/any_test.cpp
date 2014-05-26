@@ -25,8 +25,11 @@ TEST(any_test, convert_construct)
   // verify
   EXPECT_FALSE(instance.is_empty());
   EXPECT_EQ(typeid(int), instance.type());
+
   EXPECT_EQ(nullptr, nek::any_cast<dummy>(&instance));
   ASSERT_NE(nullptr, nek::any_cast<int>(&instance));
+
+  // values should be equal, but addresses should not be equal
   EXPECT_EQ(expected, *(nek::any_cast<int>(&instance)));
   EXPECT_NE(&expected, nek::any_cast<int>(&instance));
 }
