@@ -27,10 +27,9 @@ namespace nek
     class holder
       : public holder_base
     {
-    private:
+    public:
       T value_;
 
-    public:
       holder(const T& value)
         : value_(value)
       {
@@ -94,11 +93,6 @@ namespace nek
     bool is_empty() const
     {
       return !held_;
-    }
-
-    bool empty() const
-    {
-      return is_empty();
     }
 
     type_info const& type() const
