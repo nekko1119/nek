@@ -84,39 +84,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="any_test\any_test.cpp" />
+    <ClCompile Include="any\any_test.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mpl_test\integral_c_test.cpp" />
-    <ClCompile Include="type_traits_test\add_const_test.cpp" />
-    <ClCompile Include="type_traits_test\add_volatile_test.cpp" />
-    <ClCompile Include="type_traits_test\enable_if_test.cpp" />
-    <ClCompile Include="type_traits_test\has_difference_type_test.cpp" />
-    <ClCompile Include="type_traits_test\has_type_test.cpp" />
-    <ClCompile Include="type_traits_test\has_value_type_test.cpp" />
-    <ClCompile Include="type_traits_test\is_class_test.cpp" />
-    <ClCompile Include="type_traits_test\is_const_test.cpp" />
-    <ClCompile Include="type_traits_test\is_enum_test.cpp" />
-    <ClCompile Include="type_traits_test\is_floating_point_test.cpp" />
-    <ClCompile Include="type_traits_test\is_integral_test.cpp" />
-    <ClCompile Include="type_traits_test\is_lvalue_reference_test.cpp" />
-    <ClCompile Include="type_traits_test\is_pointer_test.cpp" />
-    <ClCompile Include="type_traits_test\is_reference_test.cpp" />
-    <ClCompile Include="type_traits_test\is_rvalue_reference_test.cpp" />
-    <ClCompile Include="type_traits_test\is_same_test.cpp" />
-    <ClCompile Include="type_traits_test\is_union_test.cpp" />
-    <ClCompile Include="type_traits_test\is_void_test.cpp" />
-    <ClCompile Include="type_traits_test\is_volatile_test.cpp" />
-    <ClCompile Include="utility_test\addressof_test.cpp" />
-    <ClCompile Include="utility_test\forward_test.cpp" />
-    <ClCompile Include="utility_test\move_test.cpp" />
-    <ClCompile Include="utility_test\noncopyable_test.cpp" />
-    <ClCompile Include="utility_test\pointer_traits_test.cpp" />
-    <ClCompile Include="utility_test\swap_test.cpp" />
+    <ClCompile Include="mpl\integral_c_test.cpp" />
+    <ClCompile Include="type_traits\add_const_test.cpp" />
+    <ClCompile Include="type_traits\add_volatile_test.cpp" />
+    <ClCompile Include="type_traits\enable_if_test.cpp" />
+    <ClCompile Include="type_traits\has_difference_type_test.cpp" />
+    <ClCompile Include="type_traits\has_type_test.cpp" />
+    <ClCompile Include="type_traits\has_value_type_test.cpp" />
+    <ClCompile Include="type_traits\is_class_test.cpp" />
+    <ClCompile Include="type_traits\is_const_test.cpp" />
+    <ClCompile Include="type_traits\is_enum_test.cpp" />
+    <ClCompile Include="type_traits\is_floating_point_test.cpp" />
+    <ClCompile Include="type_traits\is_integral_test.cpp" />
+    <ClCompile Include="type_traits\is_lvalue_reference_test.cpp" />
+    <ClCompile Include="type_traits\is_pointer_test.cpp" />
+    <ClCompile Include="type_traits\is_reference_test.cpp" />
+    <ClCompile Include="type_traits\is_rvalue_reference_test.cpp" />
+    <ClCompile Include="type_traits\is_same_test.cpp" />
+    <ClCompile Include="type_traits\is_union_test.cpp" />
+    <ClCompile Include="type_traits\is_void_test.cpp" />
+    <ClCompile Include="type_traits\is_volatile_test.cpp" />
+    <ClCompile Include="utility\addressof_test.cpp" />
+    <ClCompile Include="utility\forward_test.cpp" />
+    <ClCompile Include="utility\move_test.cpp" />
+    <ClCompile Include="utility\noncopyable_test.cpp" />
+    <ClCompile Include="utility\pointer_traits_test.cpp" />
+    <ClCompile Include="utility\swap_test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="type_traits_test\has_member_type.hpp" />
-    <ClInclude Include="type_traits_test\static_assert.hpp" />
-    <ClInclude Include="type_traits_test\test_type.hpp" />
+    <ClInclude Include="type_traits\has_member_type.hpp" />
+    <ClInclude Include="type_traits\static_assert.hpp" />
+    <ClInclude Include="type_traits\test_type.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

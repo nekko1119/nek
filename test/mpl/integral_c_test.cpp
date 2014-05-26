@@ -1,6 +1,6 @@
 ﻿#include <nek/mpl/integral_c.hpp>
 #include <gtest/gtest.h>
-#include "../type_traits_test/static_assert.hpp"
+#include "../type_traits/static_assert.hpp"
 
 using nek::mpl::integral_c;
 
