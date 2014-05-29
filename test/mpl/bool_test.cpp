@@ -4,7 +4,7 @@
 
 using nek::mpl::bool_;
 
-TEST(integral_c_test, member)
+TEST(bool_test, member)
 {
   using true_t = bool_<true>;
   STATIC_ASSERT_EQ(typename true_t::value_type, bool);
