@@ -3,6 +3,9 @@
 
 #include <nek/any/any_fwd.hpp>
 #include <nek/any/exception.hpp>
+#include <nek/mpl/if.hpp>
+// TODO add_reference
+#include <type_traits>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/utility/swap.hpp>
@@ -127,21 +130,20 @@ namespace nek
   T any_cast(any& value)
   {
     using nonref_type = remove_reference_t<T>;
-    static_assert(!is_reference<nonref_type>::value, "nek::any_cast : !is_reference<nonref_type>::value");
+    using ref_type = nek::mpl::if_t<nek::is_reference<T>,
+      T, typename std::add_reference<T>::type>;
 
     nonref_type* result = any_cast<nonref_type>(&value);
     if (!result) {
       throw bad_any_cast_exception();
     }
-    return *result;
+    return static_cast<ref_type>(*result);
   }
 
   template <class T>
   inline T any_cast(any const& value)
   {
-    using nonref_type = remove_reference_t<T>;
-    static_assert(!is_reference<nonref_type>::value, "nek::any_cast : !is_reference<nonref_type>::value");
-
+    using nonref_type = remove_reference_t<T>
     return any_cast<nonref_type const&>(const_cast<any&>(value));
   }
 }
