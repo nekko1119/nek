@@ -87,6 +87,7 @@
     <ClCompile Include="any\any_test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mpl\bool_test.cpp" />
+    <ClCompile Include="mpl\eval_if_test.cpp" />
     <ClCompile Include="mpl\if_test.cpp" />
     <ClCompile Include="mpl\integral_c_test.cpp" />
     <ClCompile Include="type_traits\add_const_test.cpp" />
