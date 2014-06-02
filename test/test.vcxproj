@@ -113,6 +113,7 @@
     <ClCompile Include="type_traits\is_union_test.cpp" />
     <ClCompile Include="type_traits\is_void_test.cpp" />
     <ClCompile Include="type_traits\is_volatile_test.cpp" />
+    <ClCompile Include="type_traits\remove_const_test.cpp" />
     <ClCompile Include="utility\addressof_test.cpp" />
     <ClCompile Include="utility\forward_test.cpp" />
     <ClCompile Include="utility\move_test.cpp" />

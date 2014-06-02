@@ -1,6 +1,8 @@
 ﻿#ifndef NEK_TYPE_TRAITS_REMOVE_CONST_HPP
 #define NEK_TYPE_TRAITS_REMOVE_CONST_HPP
 
+#include <cstddef>
+
 namespace nek
 {
   template <class T>
@@ -13,6 +15,18 @@ namespace nek
   struct remove_const<T const>
   {
     using type = T;
+  };
+
+  template <class T>
+  struct remove_const<T const[]>
+  {
+    using type = T[];
+  };
+
+  template <class T, std::size_t N>
+  struct remove_const<T const[N]>
+  {
+    using type = T[N];
   };
 
   template <class T>
