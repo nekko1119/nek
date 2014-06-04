@@ -51,3 +51,10 @@ TEST(any_test, copy_constructor)
   EXPECT_EQ(nek::any_cast<int>(original), nek::any_cast<int>(instance));
   EXPECT_NE(nek::any_cast<int>(&original), nek::any_cast<int>(&instance));
 }
+
+TEST(any_test, bad_cast)
+{
+  int stub = 0;
+  nek::any sut = stub;
+  EXPECT_THROW(nek::any_cast<dummy>(sut);, nek::bad_any_cast_exception);
+}
