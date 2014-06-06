@@ -58,3 +58,25 @@ TEST(any_test, bad_cast)
   nek::any sut = stub;
   EXPECT_THROW(nek::any_cast<dummy>(sut);, nek::bad_any_cast_exception);
 }
+
+TEST(any_test, copy_assign)
+{
+  int expected = 1;
+  nek::any original = expected;
+  nek::any sut;
+
+  ASSERT_TRUE(sut.is_empty());
+  ASSERT_EQ(typeid(void), sut.type());
+
+  // exercise
+  sut = original;
+
+  EXPECT_FALSE(sut.is_empty());
+  EXPECT_EQ(typeid(int), sut.type());
+  EXPECT_EQ(nullptr, nek::any_cast<dummy>(&sut));
+  EXPECT_NE(nullptr, nek::any_cast<int>(&sut));
+  EXPECT_EQ(expected, nek::any_cast<int>(sut));
+  EXPECT_NE(&expected, nek::any_cast<int>(&sut));
+  EXPECT_EQ(nek::any_cast<int>(original), nek::any_cast<int>(sut));
+  EXPECT_NE(nek::any_cast<int>(&original), nek::any_cast<int>(&sut));
+}
