@@ -43,7 +43,6 @@ namespace nek
 
     pointer allocate(size_type count, void const* = nullptr) const
     {
-      void* ptr = nullptr;
       if (max_size() < count)
       {
         throw std::bad_alloc();
