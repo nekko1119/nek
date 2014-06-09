@@ -2,7 +2,13 @@
 #include <gtest/gtest.h>
 #include "../type_traits/static_assert.hpp"
 
-TEST(allocator_test, member_type)
+class allocator_test : public ::testing::Test
+{
+protected:
+  nek::allocator<int> sut;
+};
+
+TEST_F(allocator_test, member_type)
 {
   using type = nek::allocator<int>;
   STATIC_ASSERT_EQ(type::value_type, int);
@@ -13,4 +19,24 @@ TEST(allocator_test, member_type)
   STATIC_ASSERT_EQ(type::difference_type, std::ptrdiff_t);
   STATIC_ASSERT_EQ(type::size_type, std::size_t);
   STATIC_ASSERT_EQ(type::rebind<double>::other, nek::allocator<double>);
+}
+
+TEST_F(allocator_test, allocate_construct_destroy_deallocate)
+{
+  int* actual = sut.allocate(3);
+  sut.construct(&actual[1], 42);
+  EXPECT_EQ(42, actual[1]);
+  sut.destroy(actual);
+  sut.deallocate(actual, 3);
+}
+
+TEST_F(allocator_test, max_size)
+{
+  EXPECT_EQ(static_cast<unsigned>(-1) / sizeof(int), sut.max_size());
+}
+
+TEST_F(allocator_test, address)
+{
+  int value = 0;
+  EXPECT_EQ(&value, sut.address(value));
 }
