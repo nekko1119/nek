@@ -63,8 +63,10 @@ namespace nek
       using uc = unsigned char;
       using us = unsigned short;
       using ui = unsigned int;
+      using ul = unsigned long;
       using ull = unsigned long long;
-      using ui_or_big = mpl::if_c_t<sizeof(E) <= sizeof(ui), ui, ull>;
+      using ul_or_big = mpl::if_c_t<sizeof(E) <= sizeof(ul), ul, ull>;
+      using ui_or_big = mpl::if_c_t<sizeof(E) <= sizeof(ui), ui, ul_or_big>;
       using us_or_big = mpl::if_c_t<sizeof(E) <= sizeof(us), us, ui_or_big>;
       using uc_or_big = mpl::if_c_t<sizeof(E) <= sizeof(uc), uc, us_or_big>;
 

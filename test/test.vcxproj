@@ -114,6 +114,9 @@
     <ClCompile Include="type_traits\is_union_test.cpp" />
     <ClCompile Include="type_traits\is_void_test.cpp" />
     <ClCompile Include="type_traits\is_volatile_test.cpp" />
+    <ClCompile Include="type_traits\make_unsigned\enum.cpp" />
+    <ClCompile Include="type_traits\make_unsigned\signed.cpp" />
+    <ClCompile Include="type_traits\make_unsigned\unsigned.cpp" />
     <ClCompile Include="type_traits\propagate_cv_test.cpp" />
     <ClCompile Include="type_traits\remove_const_test.cpp" />
     <ClCompile Include="type_traits\remove_reference_test.cpp" />
@@ -126,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="type_traits\has_member_type.hpp" />
+    <ClInclude Include="type_traits\make_unsigned\make_unsigned_test.hpp" />
     <ClInclude Include="type_traits\static_assert.hpp" />
     <ClInclude Include="type_traits\test_type.hpp" />
   </ItemGroup>

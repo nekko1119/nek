@@ -10,7 +10,7 @@ protected:
 
 TEST_F(allocator_test, member_type)
 {
-  using type = nek::allocator<int>;
+  using type = decltype(sut);
   STATIC_ASSERT_EQ(type::value_type, int);
   STATIC_ASSERT_EQ(type::reference, int&);
   STATIC_ASSERT_EQ(type::const_reference, int const&);
