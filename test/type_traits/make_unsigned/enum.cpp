@@ -1,7 +1,7 @@
 ﻿#include "make_unsigned_test.hpp"
 
 enum e1 : char {};
-enum class e2 : int {}; // TODO : is this valid that enum (underlying type is int) -> unsigned long ?
+enum class e2 : int {}; // TODO : is this valid that enum that underlying type is int -> unsigned long ?
 enum class e3 : long {};
 
 using types = ::testing::Types<
