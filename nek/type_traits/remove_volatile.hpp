@@ -1,6 +1,8 @@
 ﻿#ifndef NEK_TYPE_TRAITS_REMOVE_VOLATILE_HPP
 #define NEK_TYPE_TRAITS_REMOVE_VOLATILE_HPP
 
+#include <cstddef>
+
 namespace nek
 {
   template <class T>
@@ -13,6 +15,20 @@ namespace nek
   struct remove_volatile<T volatile>
   {
     using type = T;
+  };
+
+
+  // TODO : workaround
+  template <class T>
+  struct remove_volatile<T volatile[]>
+  {
+    using type = T[];
+  };
+
+  template <class T, std::size_t N>
+  struct remove_volatile<T volatile[N]>
+  {
+    using type = T[N];
   };
 
   template <class T>

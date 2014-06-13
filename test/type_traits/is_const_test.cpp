@@ -31,7 +31,7 @@ TEST(is_const_test, yes)
   STATIC_ASSERT_TRUE(nek::is_const<void const>);
   STATIC_ASSERT_TRUE(nek::is_const<void (*const)()>);
   STATIC_ASSERT_TRUE(nek::is_const<int* const>);
-  // there is a bug that std::is_const<int const[]>::value is false in Visual C++ 12.0.
+  // TODO : workaround
   //STATIC_ASSERT_TRUE(nek::is_const<int const[]>);
   SUCCEED();
 }

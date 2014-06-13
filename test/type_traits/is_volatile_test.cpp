@@ -31,7 +31,7 @@ TEST(is_volatile_test, yes)
   STATIC_ASSERT_TRUE(nek::is_volatile<void volatile>);
   STATIC_ASSERT_TRUE(nek::is_volatile<void(*volatile)()>);
   STATIC_ASSERT_TRUE(nek::is_volatile<int* volatile>);
-  // there is a bug that std::is_volatile<int volatile[]>::value is false in Visual C++ 12.0.
+  // TODO : workaround
   //STATIC_ASSERT_TRUE(nek::is_volatile<int volatile[]>);
   SUCCEED();
 }

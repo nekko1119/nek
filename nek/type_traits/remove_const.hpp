@@ -17,6 +17,7 @@ namespace nek
     using type = T;
   };
 
+  // TODO : workaround
   template <class T>
   struct remove_const<T const[]>
   {
