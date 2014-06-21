@@ -52,31 +52,68 @@ TEST(any_test, copy_constructor)
   EXPECT_NE(nek::any_cast<int>(&original), nek::any_cast<int>(&instance));
 }
 
-TEST(any_test, bad_cast)
-{
-  int stub = 0;
-  nek::any sut = stub;
-  EXPECT_THROW(nek::any_cast<dummy>(sut);, nek::bad_any_cast_exception);
-}
-
 TEST(any_test, copy_assign)
 {
   int expected = 1;
   nek::any original = expected;
   nek::any sut;
 
-  ASSERT_TRUE(sut.is_empty());
-  ASSERT_EQ(typeid(void), sut.type());
-
   // exercise
   sut = original;
 
   EXPECT_FALSE(sut.is_empty());
   EXPECT_EQ(typeid(int), sut.type());
+
   EXPECT_EQ(nullptr, nek::any_cast<dummy>(&sut));
   EXPECT_NE(nullptr, nek::any_cast<int>(&sut));
+
   EXPECT_EQ(expected, nek::any_cast<int>(sut));
   EXPECT_NE(&expected, nek::any_cast<int>(&sut));
+
   EXPECT_EQ(nek::any_cast<int>(original), nek::any_cast<int>(sut));
   EXPECT_NE(nek::any_cast<int>(&original), nek::any_cast<int>(&sut));
+}
+
+TEST(any_test, convert_assign)
+{
+  int expected = 1;
+  nek::any sut;
+
+  // exercise
+  sut = expected;
+
+  EXPECT_FALSE(sut.is_empty());
+  EXPECT_EQ(typeid(int), sut.type());
+
+  EXPECT_EQ(nullptr, nek::any_cast<dummy>(&sut));
+  EXPECT_NE(nullptr, nek::any_cast<int>(&sut));
+
+  EXPECT_EQ(expected, nek::any_cast<int>(sut));
+  EXPECT_NE(&expected, nek::any_cast<int>(&sut));
+}
+
+TEST(any_test, swap)
+{
+  int value = 1;
+  nek::any original = value;
+  nek::any swapped;
+  
+  // exercise
+  original.swap(swapped);
+
+  EXPECT_TRUE(original.is_empty());
+  EXPECT_EQ(typeid(void), original.type());
+
+  EXPECT_FALSE(swapped.is_empty());
+  EXPECT_EQ(typeid(int), swapped.type());
+
+  EXPECT_EQ(value, nek::any_cast<int>(swapped));
+  EXPECT_NE(&value, nek::any_cast<int>(&swapped));
+}
+
+TEST(any_test, bad_cast)
+{
+  int stub = 0;
+  nek::any sut = stub;
+  EXPECT_THROW(nek::any_cast<dummy>(sut); , nek::bad_any_cast_exception);
 }
