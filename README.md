@@ -30,6 +30,7 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
  - [ ] iteratorのタグ、`iterator_traits`、`next`、`prev`、`advance`、`distance`周り　
  - [ ] `std::allcator`、`std::allcator_traits`、`std::pointer_traits`、`std::addressof`
  - [x] `boost::any`
+ - [x] `boost::noncopyable`
  - [x] `<utility>`より、`move`、`forward`、`swap`
  - [ ] `boost::mpl`から簡単なもの(`integral_c`、`bool_`、`if_`、`eval_if`、`identity`)と上記実装に使いそうなもの
  - [ ] `<type_traits>`より、上記の実装に必要なもの
@@ -46,6 +47,7 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
 ## 開発環境
  * OS
   - windows 8 64bit
+  - windows 8.1 64bit
  * コンパイラ
   - VC12.0 CTP
 
