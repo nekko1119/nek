@@ -34,6 +34,7 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
  - [x] `<utility>`より、`move`、`forward`、`swap`
  - [ ] `boost::mpl`から簡単なもの(`integral_c`、`bool_`、`if_`、`eval_if`、`identity`)と上記実装に使いそうなもの
  - [ ] `<type_traits>`より、上記の実装に必要なもの
+ - [ ] その他、標準、boostには無いが作ってみたもの
 
 ### 作らないもの
 
