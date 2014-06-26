@@ -111,6 +111,21 @@ TEST(any_test, swap)
   EXPECT_NE(&value, nek::any_cast<int>(&swapped));
 }
 
+TEST(any_test, clear)
+{
+  nek::any sut = 1;
+
+  EXPECT_FALSE(sut.is_empty());
+  nek::clear(sut);
+  EXPECT_TRUE(sut.is_empty());
+  nek::clear(sut);
+  EXPECT_TRUE(sut.is_empty());
+  sut = 1;
+  EXPECT_FALSE(sut.is_empty());
+  nek::clear(sut);
+  EXPECT_TRUE(sut.is_empty());
+}
+
 TEST(any_test, bad_cast)
 {
   int stub = 0;

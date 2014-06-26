@@ -113,6 +113,11 @@ namespace nek
     left.swap(right);
   }
 
+  inline void clear(any& value)
+  {
+    any{}.swap(value);
+  }
+
   template <class T>
   T* any_cast(any* pointer)
   {
