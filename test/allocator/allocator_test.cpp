@@ -40,3 +40,13 @@ TEST_F(allocator_test, address)
   int value = 0;
   EXPECT_EQ(&value, sut.address(value));
 }
+
+TEST_F(allocator_test, equal)
+{
+  EXPECT_TRUE(sut == nek::allocator<double>{});
+}
+
+TEST_F(allocator_test, not_equal)
+{
+  EXPECT_FALSE(sut != nek::allocator<double>{});
+}
