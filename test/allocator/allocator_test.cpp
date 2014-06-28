@@ -50,3 +50,10 @@ TEST_F(allocator_test, not_equal)
 {
   EXPECT_FALSE(sut != nek::allocator<double>{});
 }
+
+TEST_F(allocator_test, void_member_type)
+{
+  using type = nek::allocator<void>;
+  STATIC_ASSERT_EQ(type::void_pointer, void*);
+  STATIC_ASSERT_EQ(type::const_void_pointer, void const*);
+}
