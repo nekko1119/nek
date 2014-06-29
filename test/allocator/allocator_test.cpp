@@ -54,6 +54,12 @@ TEST_F(allocator_test, not_equal)
 TEST_F(allocator_test, void_member_type)
 {
   using type = nek::allocator<void>;
+  STATIC_ASSERT_EQ(type::value_type, void);
+  STATIC_ASSERT_EQ(type::pointer, void*);
+  STATIC_ASSERT_EQ(type::const_pointer, void const*);
+  STATIC_ASSERT_EQ(type::difference_type, std::ptrdiff_t);
+  STATIC_ASSERT_EQ(type::size_type, std::size_t);
+  STATIC_ASSERT_EQ(type::rebind<double>::other, nek::allocator<double>);
   STATIC_ASSERT_EQ(type::void_pointer, void*);
   STATIC_ASSERT_EQ(type::const_void_pointer, void const*);
 }
