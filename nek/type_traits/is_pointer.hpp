@@ -6,7 +6,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace is_pointer_detail
   {
     template <class T>
     struct is_pointer
@@ -23,7 +23,7 @@ namespace nek
 
   template <class T>
   struct is_pointer
-    : public detail::is_pointer<remove_cv_t<T>>
+    : public is_pointer_detail::is_pointer<remove_cv_t<T>>
   {
   };
 }

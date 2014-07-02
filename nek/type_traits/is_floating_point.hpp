@@ -6,7 +6,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace is_floating_point_detail
   {
     template <class T>
     struct is_floating_point
@@ -35,7 +35,7 @@ namespace nek
 
   template <class T>
   struct is_floating_point
-    : public detail::is_floating_point<remove_cv_t<T>>
+    : public is_floating_point_detail::is_floating_point<remove_cv_t<T>>
   {
   };
 }

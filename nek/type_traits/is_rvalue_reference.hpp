@@ -6,7 +6,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace is_rvalue_reference_detail
   {
     template <class T>
     struct is_rvalue_reference
@@ -23,7 +23,7 @@ namespace nek
 
   template <class T>
   struct is_rvalue_reference
-    : public detail::is_rvalue_reference<remove_cv_t<T>>
+    : public is_rvalue_reference_detail::is_rvalue_reference<remove_cv_t<T>>
   {
   };
 }

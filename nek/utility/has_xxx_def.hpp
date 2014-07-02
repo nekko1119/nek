@@ -4,23 +4,18 @@
 #include <nek/type_traits/integral_constant.hpp>
 
 #define NEK_HAS_XXX_TYPE_DEF(type)\
-namespace\
+namespace type##_detail\
 {\
-  namespace type##detail\
-  {\
-    template <class T, class = T::##type##>\
-    true_type has_##type##(int);\
-  \
-    template <class>\
-    false_type has_##type##(long);\
-  }\
+  template <class T, class = T::##type>\
+  nek::true_type has_##type(int);\
 \
+  template <class>\
+  nek::false_type has_##type(long);\
 }\
 template <class T>\
-struct has_##type##\
-  : public decltype(type##detail::has_##type##<T>(0))\
+struct has_##type\
+  : public decltype(type##_detail::has_##type<T>(0))\
 {\
-};\
-namespace type##detail {}
+}
 
 #endif

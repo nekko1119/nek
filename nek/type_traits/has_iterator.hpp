@@ -5,7 +5,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace has_iterator_detail
   {
     template <class T, class U = T::iterator>
     true_type has_iterator(int);
@@ -16,7 +16,7 @@ namespace nek
 
   template <class T>
   struct has_iterator
-    : public decltype(detail::has_iterator<T>(0))
+    : public decltype(has_iterator_detail::has_iterator<T>(0))
   {
   };
 }

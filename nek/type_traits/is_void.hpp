@@ -6,7 +6,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace is_void_detail
   {
     template <class T>
     struct is_void
@@ -23,7 +23,7 @@ namespace nek
 
   template <class T>
   struct is_void
-    : public detail::is_void<remove_cv_t<T>>
+    : public is_void_detail::is_void<remove_cv_t<T>>
   {
   };
 }

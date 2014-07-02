@@ -10,7 +10,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace pointer_traits_detail
   {
     template <class T, bool = nek::has_element_type<T>::value>
     struct element_type
@@ -66,13 +66,13 @@ namespace nek
   {
   public:
     using pointer = Ptr;
-    using element_type = typename detail::element_type<Ptr>::type;
-    using difference_type = typename detail::difference_type<Ptr>::type;
+    using element_type = typename pointer_traits_detail::element_type<Ptr>::type;
+    using difference_type = typename pointer_traits_detail::difference_type<Ptr>::type;
 
     template <class U>
     struct rebind
     {
-      using other = typename detail::rebind<Ptr, U>::type;
+      using other = typename pointer_traits_detail::rebind<Ptr, U>::type;
     };
 
   private:

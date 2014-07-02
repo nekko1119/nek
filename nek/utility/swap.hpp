@@ -6,7 +6,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace swap_detail
   {
     template <class T>
     inline void swap(T& left, T& right)
@@ -34,7 +34,7 @@ namespace nek
   template <class T>
   inline void swap(T& left, T& right)
   {
-    using nek::detail::swap;
+    using nek::swap_detail::swap;
     swap(left, right);
   }
 }

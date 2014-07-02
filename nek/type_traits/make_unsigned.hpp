@@ -12,7 +12,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace make_unsigned_detail
   {
     template <class T>
     struct make_unsigned_from_integral
@@ -97,7 +97,7 @@ namespace nek
     "T must be integral type(except bool and wchar_t) or enumeration type.");
 
   private:
-    using noncv_unsigned_type = typename detail::make_unsigned_impl<remove_cv_t<T>>::type;
+    using noncv_unsigned_type = typename make_unsigned_detail::make_unsigned_impl<remove_cv_t<T>>::type;
 
   public:
     using type = propagate_cv_t<T, noncv_unsigned_type>;

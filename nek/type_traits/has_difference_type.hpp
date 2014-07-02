@@ -5,7 +5,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace difference_type_
   {
     template <class T, class U = T::difference_type>
     true_type has_difference_type(int);
@@ -16,7 +16,7 @@ namespace nek
 
   template <class T>
   struct has_difference_type
-    : public decltype(detail::has_difference_type<T>(0))
+    : public decltype(difference_type_::has_difference_type<T>(0))
   {
   };
 }

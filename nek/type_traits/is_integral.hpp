@@ -6,7 +6,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace is_integral_detail
   {
     template <class T>
     struct is_integral
@@ -95,7 +95,7 @@ namespace nek
 
   template <class T>
   struct is_integral
-    : public detail::is_integral<remove_cv_t<T>>
+    : public is_integral_detail::is_integral<remove_cv_t<T>>
   {
   };
 }

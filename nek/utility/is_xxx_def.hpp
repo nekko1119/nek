@@ -5,7 +5,7 @@
 #include <nek/type_traits/remove_cv.hpp>
 
 #define NEK_IS_XXX_DEF(name)\
-namespace name##detail\
+namespace name##_detail\
 {\
   template <class T>\
   struct is_##name\
@@ -22,7 +22,7 @@ namespace name##detail\
 \
 template <class T>\
 struct is_##name\
-  : public name##detail::is_##name<typename remove_cv<T>::type>\
+  : public name##_detail::is_##name<typename remove_cv<T>::type>\
 {\
 }\
 

@@ -5,7 +5,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace has_pointer_detail
   {
     template <class T, class U = T::pointer>
     true_type has_pointer(int);
@@ -16,7 +16,7 @@ namespace nek
 
   template <class T>
   struct has_pointer
-    : public decltype(detail::has_pointer<T>(0))
+    : public decltype(has_pointer_detail::has_pointer<T>(0))
   {
   };
 }

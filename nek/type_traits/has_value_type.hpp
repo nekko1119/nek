@@ -5,7 +5,7 @@
 
 namespace nek
 {
-  namespace detail
+  namespace has_value_type_detail
   {
     template <class T, class = T::value_type>
     true_type has_value_type(int);
@@ -16,7 +16,7 @@ namespace nek
 
   template <class T>
   struct has_value_type
-    : public decltype(detail::has_value_type<T>(0))
+    : public decltype(has_value_type_detail::has_value_type<T>(0))
   {
   };
 }
