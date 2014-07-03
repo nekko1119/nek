@@ -17,4 +17,6 @@ TEST(allocator_traits_test, allocator_member_type)
   STATIC_ASSERT_EQ(type::propagate_on_container_copy_assignment, nek::false_type);
   STATIC_ASSERT_EQ(type::propagate_on_container_move_assignment, nek::false_type);
   STATIC_ASSERT_EQ(type::propagate_on_container_swap, nek::false_type);
+  STATIC_ASSERT_EQ(type::rebind_alloc<char>, nek::allocator<char>);
+  STATIC_ASSERT_EQ(type::rebind_traits<char>, nek::allocator_traits<nek::allocator<char>>);
 }

@@ -18,6 +18,20 @@ namespace nek
     NEK_HAS_XXX_TYPE_DEF(propagate_on_container_copy_assignment);
     NEK_HAS_XXX_TYPE_DEF(propagate_on_container_move_assignment);
     NEK_HAS_XXX_TYPE_DEF(propagate_on_container_swap);
+    namespace detail
+    {
+      template <class Allocator, class T, class = Allocator::template rebind<T>::type>
+      nek::true_type has_rebind(int);
+
+      template <class, class>
+      nek::false_type has_rebind(long);
+    }
+
+    template <class Allocator, class T>
+    struct has_rebind
+      : public decltype(detail::has_rebind<Allocator, T>(0))
+    {
+    };
 
     template <class T, bool = nek::has_pointer<T>::value>
     struct pointer
@@ -147,6 +161,18 @@ namespace nek
     {
       using type = false_type;
     };
+
+    template <class Allocator, class T, bool = has_rebind<Allocator, T>::value>
+    struct rebind_alloc
+    {
+      using type = typename Allocator::template rebind<T>::other;
+    };
+
+    template <template <class, class...> class Allocator, class T, class U, class... Args>
+    struct rebind_alloc<Allocator<U, Args...>, T, false>
+    {
+      using type = Allocator<T, Args...>;
+    };
   }
 
   template <class Allocator>
@@ -163,6 +189,10 @@ namespace nek
     using propagate_on_container_copy_assignment = typename allocator_traits_detail::propagate_on_container_copy_assignment<Allocator>::type;
     using propagate_on_container_move_assignment = typename allocator_traits_detail::propagate_on_container_move_assignment<Allocator>::type;
     using propagate_on_container_swap = typename allocator_traits_detail::propagate_on_container_swap<Allocator>::type;
+    template <class T>
+    using rebind_alloc = typename allocator_traits_detail::rebind_alloc<Allocator, T>::type;
+    template <class T>
+    using rebind_traits = allocator_traits<rebind_alloc<T>>;
   };
 }
 
