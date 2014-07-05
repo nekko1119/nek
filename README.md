@@ -30,7 +30,7 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
  - [ ] `std::list`
  - [ ] `std::array`
  - [ ] iteratorのタグ、`iterator_traits`、`next`、`prev`、`advance`、`distance`周り　
- - [ ] `std::allcator`、`std::allcator_traits`、`std::pointer_traits`、`std::addressof`
+ - [x] `std::allcator`、`std::allcator_traits`、`std::pointer_traits`、`std::addressof`
  - [x] `boost::any`
  - [x] `boost::noncopyable`
  - [x] `<utility>`より、`move`、`forward`、`swap`

@@ -2,6 +2,8 @@
 #define NEK_ALLOCATOR_ALLOCATOR_TRAITS_HPP
 
 #include <new>
+#include <limits>
+
 #include <nek/type_traits/has_difference_type.hpp>
 #include <nek/type_traits/has_pointer.hpp>
 #include <nek/type_traits/make_unsigned.hpp>
@@ -219,6 +221,34 @@ namespace nek
       {
         p->~T();
       }
+
+      template <class Allocator>
+      static auto max_size(int, Allocator& allocator)
+        -> decltype(allocator.max_size())
+      {
+        return allocator.max_size();
+      }
+
+      template <class Allocator>
+      static auto max_size(long, Allocator& allocator)
+        -> typename size_type<Allocator>::type
+      {
+        return std::numeric_limits<typename size_type<Allocator>::type>::max();
+      }
+
+      template <class Allocator>
+      static auto select_on_container_copy_construction(int, Allocator& allocator)
+        -> decltype(allocator.select_on_container_copy_construction())
+      {
+        return allocator.select_on_container_copy_construction();
+      }
+
+      template <class Allocator>
+      static auto select_on_container_copy_construction(long, Allocator& allocator)
+        -> Allocator
+      {
+        return allocator;
+      }
     };
   }
 
@@ -266,6 +296,16 @@ namespace nek
     static void destroy(Allocator& allocator, T* p)
     {
       allocator_traits_detail::dispatcher::destroy(0, allocator, p);
+    }
+
+    static size_type max_size(Allocator& allocator)
+    {
+      return allocator_traits_detail::dispatcher::max_size(0, allocator);
+    }
+
+    static Allocator select_on_container_copy_construction(Allocator& allocator)
+    {
+      return allocator_traits_detail::dispatcher::select_on_container_copy_construction(0, allocator);
     }
   };
 }
