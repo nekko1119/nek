@@ -4,7 +4,6 @@
 #include <nek/type_traits/add_cv.hpp>
 #include <nek/type_traits/enable_if.hpp>
 #include <nek/type_traits/enabler.hpp>
-#include <nek/type_traits/has_value_type.hpp>
 #include <nek/type_traits/is_class.hpp>
 #include <nek/type_traits/is_const.hpp>
 #include <nek/type_traits/is_enum.hpp>
