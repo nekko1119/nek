@@ -20,6 +20,7 @@
     <ClInclude Include="any\exception.hpp" />
     <ClInclude Include="any\traits.hpp" />
     <ClInclude Include="iterator\iterator.hpp" />
+    <ClInclude Include="iterator\iterator_traits.hpp" />
     <ClInclude Include="iterator\tag.hpp" />
     <ClInclude Include="mpl\bool.hpp" />
     <ClInclude Include="mpl\bool_fwd.hpp" />
