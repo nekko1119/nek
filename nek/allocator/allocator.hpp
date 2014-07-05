@@ -28,17 +28,10 @@ namespace nek
     };
 
     allocator() = default;
-    allocator(allocator<T> const&) = default;
 
     template <class U>
     allocator(allocator<U> const&)
     {
-    }
-
-    template <class U>
-    allocator<T>& operator=(allocator<U> const&)
-    {
-      return *this;
     }
 
     pointer allocate(size_type count, void const* = nullptr) const
@@ -58,7 +51,7 @@ namespace nek
     template <class U, class... Args>
     void construct(U* other, Args&&... args) const
     {
-      ::new (reinterpret_cast<void*>(other)) U(nek::forward<Args>(args)...);
+      ::new (static_cast<void*>(other)) U(nek::forward<Args>(args)...);
     }
 
     template <class U>

@@ -1,9 +1,11 @@
 ﻿#ifndef NEK_ALLOCATOR_ALLOCATOR_TRAITS_HPP
 #define NEK_ALLOCATOR_ALLOCATOR_TRAITS_HPP
 
+#include <new>
 #include <nek/type_traits/has_difference_type.hpp>
 #include <nek/type_traits/has_pointer.hpp>
 #include <nek/type_traits/make_unsigned.hpp>
+#include <nek/utility/forward.hpp>
 #include <nek/utility/has_xxx_def.hpp>
 #include <nek/utility/pointer_traits.hpp>
 
@@ -173,6 +175,51 @@ namespace nek
     {
       using type = Allocator<T, Args...>;
     };
+
+    struct dispatcher
+    {
+      template <class Allocator, class Size, class ConstVoidPointer>
+      static auto allocate(int, Allocator& allocator, Size count, ConstVoidPointer hint)
+        -> decltype(allocator.allocate(count, hint))
+      {
+        return allocator.allocate(count, hint);
+      }
+
+      template <class Allocator, class Size, class ConstVoidPointer>
+      static auto allocate(long, Allocator& allocator, Size count, ConstVoidPointer)
+        -> decltype(allocator.allocate(count))
+      {
+        return allocator.allocate(count);
+      }
+
+      template <class Allocator, class T, class... Args>
+      static auto construct(int, Allocator& allocator, T* p, Args&&... args)
+        -> decltype(allocator.construct(p, nek::forward<Args>(args)...))
+      {
+        allocator.construct(p, nek::forward<Args>(args)...);
+      }
+
+      template <class Allocator, class T, class... Args>
+      static auto construct(long, Allocator& allocator, T* p, Args&&... args)
+        -> void
+      {
+        ::new (static_cast<void*>(p)) T(nek::forward<Args>(args)...);
+      }
+
+      template <class Allocator, class T>
+      static auto destroy(int, Allocator& allocator, T* p)
+        -> decltype(allocator.destroy(p))
+      {
+        allocator.destroy(p);
+      }
+
+      template <class Allocator, class T>
+      static auto destroy(long, Allocator& allocator, T* p)
+        -> void
+      {
+        p->~T();
+      }
+    };
   }
 
   template <class Allocator>
@@ -193,6 +240,33 @@ namespace nek
     using rebind_alloc = typename allocator_traits_detail::rebind_alloc<Allocator, T>::type;
     template <class T>
     using rebind_traits = allocator_traits<rebind_alloc<T>>;
+
+    static pointer allocate(Allocator& allocator, size_type count)
+    {
+      return allocator.allocate(count);
+    }
+
+    static pointer allocate(Allocator& allocator, size_type count, const_void_pointer hint)
+    {
+      return allocator_traits_detail::dispatcher::allocate(0, allocator, count, hint);
+    }
+
+    static void deallocate(Allocator& allocator, pointer p, size_type count)
+    {
+      allocator.deallocate(p, count);
+    }
+
+    template <class T, class... Args>
+    static void construct(Allocator& allocator, T* p, Args... args)
+    {
+      allocator_traits_detail::dispatcher::construct(0, allocator, p, nek::forward<Args>(args)...);
+    }
+
+    template <class T>
+    static void destroy(Allocator& allocator, T* p)
+    {
+      allocator_traits_detail::dispatcher::destroy(0, allocator, p);
+    }
   };
 }
 
