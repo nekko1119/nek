@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="allocator.hpp" />
     <ClInclude Include="allocator\allocator.hpp" />
     <ClInclude Include="allocator\allocator_traits.hpp" />
     <ClInclude Include="any.hpp" />
@@ -18,6 +19,8 @@
     <ClInclude Include="any\any_fwd.hpp" />
     <ClInclude Include="any\exception.hpp" />
     <ClInclude Include="any\traits.hpp" />
+    <ClInclude Include="iterator\iterator.hpp" />
+    <ClInclude Include="iterator\tag.hpp" />
     <ClInclude Include="mpl\bool.hpp" />
     <ClInclude Include="mpl\bool_fwd.hpp" />
     <ClInclude Include="mpl\eval_if.hpp" />

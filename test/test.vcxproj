@@ -131,6 +131,7 @@
     <ClCompile Include="utility\swap_test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="iterator\iterator_test.hpp" />
     <ClInclude Include="type_traits\has_member_type.hpp" />
     <ClInclude Include="type_traits\make_unsigned\make_unsigned_test.hpp" />
     <ClInclude Include="type_traits\static_assert.hpp" />
