@@ -87,6 +87,7 @@
     <ClCompile Include="allocator\allocator_test.cpp" />
     <ClCompile Include="allocator\allocator_traits_test.cpp" />
     <ClCompile Include="any\any_test.cpp" />
+    <ClCompile Include="container\vector_test.cpp" />
     <ClCompile Include="iterator\iterator_traits_test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mpl\bool_test.cpp" />

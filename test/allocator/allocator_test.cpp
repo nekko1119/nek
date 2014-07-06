@@ -2,7 +2,8 @@
 #include <gtest/gtest.h>
 #include "../type_traits/static_assert.hpp"
 
-class allocator_test : public ::testing::Test
+class allocator_test
+  : public ::testing::Test
 {
 protected:
   nek::allocator<int> sut;
