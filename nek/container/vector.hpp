@@ -13,7 +13,7 @@ namespace nek
     {
     protected:
       using base_type = typename nek::allocator_traits<Allocator>::template rebind_alloc<T>;
-      using alloc_type = base_type; // TODO : workaround. base_type::base_type is not allow.
+      using alloc_type = base_type; // TODO : workaround. base_type::base_type is not allowed.
       using pointer = typename nek::allocator_traits<base_type>::pointer;
 
       pointer first_; // head pointer to reserved and initialized storage
@@ -36,11 +36,9 @@ namespace nek
 
       ~vector_base()
       {
-        if (!first_) {
-          return;
+        if (first_) {
+          base_type::deallocate(first_, end_ - last_);
         }
-
-        base_type::deallocate(first_, end_ - last_);
       }
     };
   }
