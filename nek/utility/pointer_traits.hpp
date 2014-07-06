@@ -103,7 +103,7 @@ namespace nek
     using not_void = mpl::if_t<is_void<element_type>, char, element_type>;
 
   public:
-    static pointer pointer_to(not_void& value)
+    static pointer pointer_to(not_void& value) noexcept
     {
       return addressof(value);
     }

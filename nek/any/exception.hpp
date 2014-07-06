@@ -9,7 +9,7 @@ namespace nek
     : public std::bad_cast
   {
   public:
-    virtual char const* what() const override
+    virtual char const* what() const noexcept override
     {
       return "nek::bad_any_cast_exception: failed conversion";
     }

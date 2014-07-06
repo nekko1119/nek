@@ -9,7 +9,7 @@ namespace nek
   namespace swap_detail
   {
     template <class T>
-    inline void swap(T& left, T& right)
+    inline void swap(T& left, T& right) noexcept
     {
       T swap_temp = move(left);
       left = move(right);
@@ -17,7 +17,7 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline void swap(T (&left)[N], T (&right)[N])
+    inline void swap(T (&left)[N], T (&right)[N]) noexcept
     {
       if (&left == &right) {
         return;
@@ -32,7 +32,7 @@ namespace nek
   }
 
   template <class T>
-  inline void swap(T& left, T& right)
+  inline void swap(T& left, T& right) noexcept
   {
     using nek::swap_detail::swap;
     swap(left, right);

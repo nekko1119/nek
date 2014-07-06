@@ -23,7 +23,7 @@ namespace nek
       }
 
       virtual holder_base* clone() const = 0;
-      virtual std::type_info const& type() const = 0;
+      virtual std::type_info const& type() const noexcept = 0;
     };
 
     template <class T>
@@ -45,7 +45,7 @@ namespace nek
         return new holder(value_);
       }
 
-      std::type_info const& type() const override
+      std::type_info const& type() const noexcept override
       {
         return typeid(value_);
       }
@@ -54,7 +54,7 @@ namespace nek
     holder_base* held_ = nullptr;
 
   public:
-    any() = default;
+    any() noexcept = default;
 
     template <class T>
     any(T const& value)
@@ -67,7 +67,7 @@ namespace nek
     {
     }
 
-    ~any()
+    ~any() noexcept
     {
       delete held_;
       held_ = nullptr;
@@ -86,47 +86,47 @@ namespace nek
       return *this;
     }
 
-    any& swap(any& right)
+    any& swap(any& right) noexcept
     {
       using nek::swap;
       swap(held_, right.held_);
       return *this;
     }
 
-    bool is_empty() const
+    bool is_empty() const noexcept
     {
       return !held_;
     }
 
-    type_info const& type() const
+    type_info const& type() const noexcept
     {
       return held_ ? held_->type() : typeid(void);
     }
 
   private:
     template <class T>
-    friend T* any_cast(any* pointer);
+    friend T* any_cast(any* pointer) noexcept;
   };
 
-  inline void swap(any& left, any& right)
+  inline void swap(any& left, any& right) noexcept
   {
     left.swap(right);
   }
 
-  inline void clear(any& value)
+  inline void clear(any& value) noexcept
   {
     any{}.swap(value);
   }
 
   template <class T>
-  T* any_cast(any* pointer)
+  T* any_cast(any* pointer) noexcept
   {
     return pointer && pointer->type() == typeid(T) ?
       &(static_cast<any::holder<T>*>(pointer->held_)->value_) : nullptr;
   }
 
   template <class T>
-  inline T const* any_cast(any const* pointer)
+  inline T const* any_cast(any const* pointer) noexcept
   {
     return any_cast<T>(const_cast<any*>(pointer));
   }
