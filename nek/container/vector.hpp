@@ -14,23 +14,36 @@ namespace nek
     protected:
       using base_type = typename nek::allocator_traits<Allocator>::template rebind_alloc<T>;
       using alloc_type = base_type; // TODO : workaround. base_type::base_type is not allowed.
-      using pointer = typename nek::allocator_traits<base_type>::pointer;
+      using pointer = typename nek::allocator_traits<alloc_type>::pointer;
 
       pointer first_; // head pointer to reserved and initialized storage
       pointer last_; // initialized storage end
       pointer end_; // reserved storage end
 
-      alloc_type allocator()
+      alloc_type& allocator() noexcept
       {
         return *(static_cast<alloc_type*>(this));
       }
 
+      alloc_type const& allocator() const noexcept
+      {
+        return *(static_cast<alloc_type const*>(this));
+      }
+
     public:
       vector_base()
-        : base_type(),
-        first_(nullptr),
-        last_(nullptr),
-        end_(nullptr)
+        : base_type{},
+        first_{nullptr},
+        last_{nullptr},
+        end_{nullptr}
+      {
+      }
+
+      explicit vector_base(Allocator const& allocator)
+        : base_type{allocator},
+        first_{nullptr},
+        last_{nullptr},
+        end_{nullptr}
       {
       }
 
@@ -65,9 +78,24 @@ namespace nek
     {
     }
 
+    explicit vector(Allocator const& allocator)
+      : base_type{allocator}
+    {
+    }
+
     ~vector()
     {
       container_detail::destroy(first_, last_, allocator());
+    }
+
+    allocator_type get_allocator() const noexcept
+    {
+      return allocator_type{allocator()};
+    }
+
+    size_type size() const noexcept
+    {
+      return static_cast<size_type>(last_ - first_);
     }
   };
 }

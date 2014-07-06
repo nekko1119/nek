@@ -3,6 +3,53 @@
 #include <cstddef>
 #include "../type_traits/static_assert.hpp"
 
+namespace
+{
+  template <class T>
+  struct min_state_allocator
+  {
+    using value_type = T;
+
+    int n;
+    min_state_allocator()
+      : n{0}
+    {
+    }
+
+    min_state_allocator(int n)
+      : n{n}
+    {
+    }
+
+    template <class U>
+    min_state_allocator(min_state_allocator<U> const&)
+    {
+    }
+
+    T* allocate(std::size_t count)
+    {
+      return new T[count];
+    }
+
+    void deallocate(T* p, std::size_t)
+    {
+      delete[] p;
+    }
+  };
+
+  template <class T, class U>
+  bool operator==(min_state_allocator<T> const& l, min_state_allocator<U> const& r)
+  {
+    return l.n == r.n;
+  }
+
+  template <class T, class U>
+  bool operator!=(min_state_allocator<T> const& l, min_state_allocator<U> const& r)
+  {
+    return !(l == r);
+  }
+}
+
 class vector_test
   : public ::testing::Test
 {
@@ -21,4 +68,19 @@ TEST_F(vector_test, member_type)
   STATIC_ASSERT_EQ(type::const_reference, int const&);
   STATIC_ASSERT_EQ(type::pointer, int*);
   STATIC_ASSERT_EQ(type::const_pointer, int const*);
+}
+
+TEST_F(vector_test, default_constructor)
+{
+  nek::vector<int> instance;
+  nek::allocator<int> alloc;
+  EXPECT_EQ(alloc, instance.get_allocator());
+  EXPECT_EQ(0, instance.size());
+}
+
+TEST_F(vector_test, get_allocator)
+{
+  min_state_allocator<int> alloc{42};
+  nek::vector<int, min_state_allocator<int>> v{alloc};
+  EXPECT_EQ(alloc, v.get_allocator());
 }
