@@ -70,6 +70,7 @@
     <ClInclude Include="utility\has_xxx_def.hpp" />
     <ClInclude Include="utility\is_xxx_def.hpp" />
     <ClInclude Include="utility\move.hpp" />
+    <ClInclude Include="utility\move_if_noexcept.hpp" />
     <ClInclude Include="utility\noncopyable.hpp" />
     <ClInclude Include="utility\pointer_traits.hpp" />
     <ClInclude Include="utility\swap.hpp" />

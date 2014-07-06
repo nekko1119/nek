@@ -127,6 +127,7 @@
     <ClCompile Include="type_traits\remove_volatile_test.cpp" />
     <ClCompile Include="utility\addressof_test.cpp" />
     <ClCompile Include="utility\forward_test.cpp" />
+    <ClCompile Include="utility\move_if_noexcept_test.cpp" />
     <ClCompile Include="utility\move_test.cpp" />
     <ClCompile Include="utility\noncopyable_test.cpp" />
     <ClCompile Include="utility\pointer_traits_test.cpp" />
