@@ -18,6 +18,9 @@ namespace nek
     class holder_base
     {
     public:
+      holder_base() = default;
+      holder_base(holder_base const&) = default;
+
       virtual ~holder_base()
       {
       }

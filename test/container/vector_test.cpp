@@ -82,5 +82,7 @@ TEST_F(vector_test, get_allocator)
 {
   min_state_allocator<int> alloc{42};
   nek::vector<int, min_state_allocator<int>> v{alloc};
-  EXPECT_EQ(alloc, v.get_allocator());
+  min_state_allocator<int> actual = v.get_allocator();
+  EXPECT_EQ(alloc, actual);
+  EXPECT_NE(&alloc, &actual);
 }
