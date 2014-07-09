@@ -36,8 +36,7 @@ namespace nek
 
     pointer allocate(size_type count, void const* = nullptr) const
     {
-      if (max_size() < count)
-      {
+      if (max_size() < count) {
         throw std::bad_alloc();
       }
       return static_cast<pointer>(::operator new(count * sizeof(value_type)));

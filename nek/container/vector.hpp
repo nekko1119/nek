@@ -15,6 +15,7 @@ namespace nek
       using base_type = typename nek::allocator_traits<Allocator>::template rebind_alloc<T>;
       using alloc_type = base_type; // TODO : workaround. base_type::base_type is not allowed.
       using pointer = typename nek::allocator_traits<alloc_type>::pointer;
+      using size_type = typename nek::allocator_traits<alloc_type>::size_type;
 
       pointer first_; // head pointer to reserved and initialized storage
       pointer last_; // initialized storage end
@@ -47,6 +48,14 @@ namespace nek
       {
       }
 
+      explicit vector_base(size_type count)
+        : base_type{}
+      {
+        first_ = base_type::allocate(count);
+        last_ = first_;
+        end_ = first_ + count;
+      }
+
       ~vector_base()
       {
         if (first_) {
@@ -66,7 +75,7 @@ namespace nek
   public:
     using value_type = T;
     using allocator_type = Allocator;
-    using size_type = typename alloc_traits::size_type;
+    using size_type = typename base_type::size_type;
     using difference_type = typename alloc_traits::difference_type;
     using reference = T&;
     using const_reference = T const&;
