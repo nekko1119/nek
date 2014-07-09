@@ -125,6 +125,7 @@
     <ClCompile Include="type_traits\remove_cv_test.cpp" />
     <ClCompile Include="type_traits\remove_reference_test.cpp" />
     <ClCompile Include="type_traits\remove_volatile_test.cpp" />
+    <ClCompile Include="uninitialized\uninitialized_default_test.cpp" />
     <ClCompile Include="utility\addressof_test.cpp" />
     <ClCompile Include="utility\forward_test.cpp" />
     <ClCompile Include="utility\move_if_noexcept_test.cpp" />

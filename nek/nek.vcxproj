@@ -19,8 +19,9 @@
     <ClInclude Include="any\any_fwd.hpp" />
     <ClInclude Include="any\exception.hpp" />
     <ClInclude Include="any\traits.hpp" />
-    <ClInclude Include="container\detail\destroy.hpp" />
     <ClInclude Include="container\vector.hpp" />
+    <ClInclude Include="detail\construct.hpp" />
+    <ClInclude Include="detail\destroy.hpp" />
     <ClInclude Include="iterator\iterator.hpp" />
     <ClInclude Include="iterator\iterator_traits.hpp" />
     <ClInclude Include="iterator\tag.hpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="type_traits\remove_cv.hpp" />
     <ClInclude Include="type_traits\remove_reference.hpp" />
     <ClInclude Include="type_traits\remove_volatile.hpp" />
+    <ClInclude Include="uninitialized\unitiliazed_default.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="utility\addressof.hpp" />
     <ClInclude Include="utility\forward.hpp" />

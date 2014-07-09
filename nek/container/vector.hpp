@@ -1,6 +1,7 @@
-﻿#include <nek/container/detail/destroy.hpp>
+﻿#include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
+#include <nek/uninitialized/unitiliazed_default.hpp>
 #include <vector>
 
 namespace nek
@@ -92,9 +93,16 @@ namespace nek
     {
     }
 
+    explicit vector(size_type count)
+      : base_type{count}
+    {
+      nek::uninitialized_default_n(first_, count, allocator());
+      last_ = end_;
+    }
+
     ~vector()
     {
-      container_detail::destroy(first_, last_, allocator());
+      detail::destroy(first_, last_, allocator());
     }
 
     allocator_type get_allocator() const noexcept

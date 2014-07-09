@@ -78,6 +78,15 @@ TEST_F(vector_test, default_constructor)
   EXPECT_EQ(0, instance.size());
 }
 
+TEST_F(vector_test, resize_constructor)
+{
+  std::size_t size = 4U;
+  nek::allocator<int> alloc;
+  nek::vector<int> instance{size};
+  EXPECT_EQ(alloc, instance.get_allocator());
+  EXPECT_EQ(size, instance.size());
+}
+
 TEST_F(vector_test, get_allocator)
 {
   min_state_allocator<int> alloc{42};
