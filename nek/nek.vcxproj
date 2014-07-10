@@ -56,6 +56,7 @@
     <ClInclude Include="type_traits\is_reference.hpp" />
     <ClInclude Include="type_traits\is_rvalue_reference.hpp" />
     <ClInclude Include="type_traits\is_same.hpp" />
+    <ClInclude Include="type_traits\is_trivially_destructible.hpp" />
     <ClInclude Include="type_traits\is_union.hpp" />
     <ClInclude Include="type_traits\is_void.hpp" />
     <ClInclude Include="type_traits\is_volatile.hpp" />

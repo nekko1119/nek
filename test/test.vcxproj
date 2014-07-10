@@ -114,6 +114,7 @@
     <ClCompile Include="type_traits\is_reference_test.cpp" />
     <ClCompile Include="type_traits\is_rvalue_reference_test.cpp" />
     <ClCompile Include="type_traits\is_same_test.cpp" />
+    <ClCompile Include="type_traits\is_trivially_destructible_test.cpp" />
     <ClCompile Include="type_traits\is_union_test.cpp" />
     <ClCompile Include="type_traits\is_void_test.cpp" />
     <ClCompile Include="type_traits\is_volatile_test.cpp" />

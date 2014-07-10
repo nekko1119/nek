@@ -1,10 +1,10 @@
 ﻿#ifndef NEK_DETAIL_DESTROY_HPP
 #define NEK_DETAIL_DESTROY_HPP
 
-#include <type_traits> // TODO : is_trivially_destructible
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
 #include <nek/iterator/iterator_traits.hpp>
+#include <nek/type_traits/is_trivially_destructible.hpp>
 #include <nek/utility/addressof.hpp>
 
 namespace nek
@@ -20,12 +20,12 @@ namespace nek
       }
 
       template <class ForwardIterator>
-      void destroy_(ForwardIterator, ForwardIterator, std::true_type)
+      void destroy_(ForwardIterator, ForwardIterator, true_type)
       {
       }
 
       template <class ForwardIterator>
-      void destroy_(ForwardIterator first, ForwardIterator last, std::false_type)
+      void destroy_(ForwardIterator first, ForwardIterator last, false_type)
       {
         for (; first != last; ++first) {
           destroy_(nek::addressof(*first));
@@ -37,7 +37,7 @@ namespace nek
     void destroy(ForwardIterator first, ForwardIterator last)
     {
       using value_type = typename nek::iterator_traits<ForwardIterator>::value_type;
-      destroy_detail::destroy_(first, last, std::is_trivially_destructible<value_type>{});
+      destroy_detail::destroy_(first, last, nek::is_trivially_destructible<value_type>{});
     }
 
     template <class ForwardIterator, class Allocator>

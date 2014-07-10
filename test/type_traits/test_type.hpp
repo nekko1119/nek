@@ -71,10 +71,10 @@ namespace type_traits_test
 
   class nothrow_type
   {
-    nothrow_type() throw() {}
-    ~nothrow_type() throw() {}
-    nothrow_type(nothrow_type const&) throw() {}
-    nothrow_type& operator=(nothrow_type const&) throw() { return *this; }
+    nothrow_type() noexcept {}
+    ~nothrow_type() noexcept {}
+    nothrow_type(nothrow_type const&) noexcept {}
+    nothrow_type& operator=(nothrow_type const&) noexcept { return *this; }
   };
 
   using f1_type = void (*)();
