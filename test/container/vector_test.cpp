@@ -80,7 +80,7 @@ TEST_F(vector_test, default_constructor)
 
 TEST_F(vector_test, resize_constructor)
 {
-  std::size_t size = 4U;
+  std::size_t constexpr size = 4U;
   nek::allocator<int> alloc;
   nek::vector<int> instance{size};
   EXPECT_EQ(alloc, instance.get_allocator());

@@ -18,9 +18,41 @@ namespace nek
       using pointer = typename nek::allocator_traits<alloc_type>::pointer;
       using size_type = typename nek::allocator_traits<alloc_type>::size_type;
 
+    private:
       pointer first_; // head pointer to reserved and initialized storage
       pointer last_; // initialized storage end
-      pointer end_; // reserved storage end
+      pointer capacity_end_; // reserved storage end
+
+    protected:
+      pointer& first() noexcept
+      {
+        return first_;
+      }
+
+      pointer const& first() const noexcept
+      {
+        return first_;
+      }
+
+      pointer& last() noexcept
+      {
+        return last_;
+      }
+
+      pointer const& last() const noexcept
+      {
+        return last_;
+      }
+
+      pointer& capacity_end() noexcept
+      {
+        return capacity_end_;
+      }
+
+      pointer const& capacity_end() const noexcept
+      {
+        return capacity_end_;
+      }
 
       alloc_type& allocator() noexcept
       {
@@ -37,7 +69,7 @@ namespace nek
         : base_type{},
         first_{nullptr},
         last_{nullptr},
-        end_{nullptr}
+        capacity_end_{nullptr}
       {
       }
 
@@ -45,7 +77,7 @@ namespace nek
         : base_type{allocator},
         first_{nullptr},
         last_{nullptr},
-        end_{nullptr}
+        capacity_end_{nullptr}
       {
       }
 
@@ -54,13 +86,13 @@ namespace nek
       {
         first_ = base_type::allocate(count);
         last_ = first_;
-        end_ = first_ + count;
+        capacity_end_ = first_ + count;
       }
 
       ~vector_base()
       {
         if (first_) {
-          base_type::deallocate(first_, end_ - last_);
+          base_type::deallocate(first_, capacity_end_ - last_);
         }
       }
     };
@@ -96,13 +128,13 @@ namespace nek
     explicit vector(size_type count)
       : base_type{count}
     {
-      nek::uninitialized_default_n(first_, count, allocator());
-      last_ = end_;
+      nek::uninitialized_default_n(first(), count, allocator());
+      last() = capacity_end();
     }
 
     ~vector()
     {
-      detail::destroy(first_, last_, allocator());
+      detail::destroy(first(), last(), allocator());
     }
 
     allocator_type get_allocator() const noexcept
@@ -112,7 +144,7 @@ namespace nek
 
     size_type size() const noexcept
     {
-      return static_cast<size_type>(last_ - first_);
+      return static_cast<size_type>(last() - first());
     }
   };
 }

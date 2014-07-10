@@ -19,11 +19,11 @@ namespace nek
     {
       auto current = first;
       try {
-        for (; 0 < count; --count, ++first) {
-          nek::detail::construct(nek::addressof(*first));
+        for (; 0 < count; --count, ++current) {
+          nek::detail::construct(nek::addressof(*current));
         }
       } catch (...) {
-        nek::detail::destroy(current, first);
+        nek::detail::destroy(first, current);
         throw;
       }
     }
