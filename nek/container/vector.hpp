@@ -146,5 +146,10 @@ namespace nek
     {
       return static_cast<size_type>(last() - first());
     }
+
+    size_type capacity() const noexcept
+    {
+      return static_cast<size_type>(capacity_end() - first());
+    }
   };
 }

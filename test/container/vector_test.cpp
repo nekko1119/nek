@@ -76,6 +76,7 @@ TEST_F(vector_test, default_constructor)
   nek::allocator<int> alloc;
   EXPECT_EQ(alloc, instance.get_allocator());
   EXPECT_EQ(0, instance.size());
+  EXPECT_GE(instance.capacity(), instance.size());
 }
 
 TEST_F(vector_test, resize_constructor)
@@ -85,6 +86,7 @@ TEST_F(vector_test, resize_constructor)
   nek::vector<int> instance{size};
   EXPECT_EQ(alloc, instance.get_allocator());
   EXPECT_EQ(size, instance.size());
+  EXPECT_GE(instance.capacity(), instance.size());
 }
 
 TEST_F(vector_test, get_allocator)
