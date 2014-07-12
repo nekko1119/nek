@@ -7,6 +7,7 @@
 
 namespace nek
 {
+  // TODO : mpl::and, mpl::not
   template <class T>
   inline auto move_if_noexcept(T& value) noexcept
     -> nek::mpl::if_c_t<

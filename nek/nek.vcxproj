@@ -24,6 +24,7 @@
     <ClInclude Include="detail\destroy.hpp" />
     <ClInclude Include="iterator\iterator.hpp" />
     <ClInclude Include="iterator\iterator_traits.hpp" />
+    <ClInclude Include="iterator\move_iterator.hpp" />
     <ClInclude Include="iterator\tag.hpp" />
     <ClInclude Include="mpl\bool.hpp" />
     <ClInclude Include="mpl\bool_fwd.hpp" />
@@ -86,13 +87,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>CTP_Nov2013</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
