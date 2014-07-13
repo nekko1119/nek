@@ -5,6 +5,7 @@
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/mpl/and.hpp>
 #include <nek/mpl/if.hpp>
+#include <nek/mpl/not.hpp>
 #include <nek/utility/move.hpp>
 
 namespace nek
@@ -160,14 +161,13 @@ namespace nek
 
   namespace move_iterator_detail
   {
-    // TODO : mpl::not
     template <class Iterator,
     class ValueType =
       typename iterator_traits<Iterator>::value_type,
     class Return =
       mpl::if_t<
-      mpl::and_c<!std::is_nothrow_move_constructible<ValueType>::value,
-      std::is_copy_constructible<ValueType>::value>,
+      mpl::and_<mpl::not_<std::is_nothrow_move_constructible<ValueType>>,
+      std::is_copy_constructible<ValueType>>,
       Iterator, move_iterator<Iterator>>
       >
       Return make_move_if_noexcept_iterator_(Iterator it)

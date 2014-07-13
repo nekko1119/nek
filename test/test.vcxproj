@@ -96,6 +96,7 @@
     <ClCompile Include="mpl\eval_if_test.cpp" />
     <ClCompile Include="mpl\if_test.cpp" />
     <ClCompile Include="mpl\integral_c_test.cpp" />
+    <ClCompile Include="mpl\not.cpp" />
     <ClCompile Include="type_traits\add_const_test.cpp" />
     <ClCompile Include="type_traits\add_cv_test.cpp" />
     <ClCompile Include="type_traits\add_volatile_test.cpp" />

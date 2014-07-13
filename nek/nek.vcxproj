@@ -35,6 +35,7 @@
     <ClInclude Include="mpl\integral_c.hpp" />
     <ClInclude Include="mpl\integral_c_fwd.hpp" />
     <ClInclude Include="mpl\integral_c_tag.hpp" />
+    <ClInclude Include="mpl\not.hpp" />
     <ClInclude Include="type_traits.hpp" />
     <ClInclude Include="type_traits\add_const.hpp" />
     <ClInclude Include="type_traits\add_cv.hpp" />
