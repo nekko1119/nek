@@ -11,7 +11,7 @@ namespace nek
     template <bool C>
     struct bool_
     {
-      static const bool value = C;
+      static constexpr bool value = C;
       using tag = integral_c_tag;
       using type = bool_;
       using value_type = bool;
