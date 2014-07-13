@@ -1,7 +1,9 @@
 ﻿#ifndef NEK_ITERATOR_MOVE_ITERATOR_HPP
 #define NEK_ITERATOR_MOVE_ITERATOR_HPP
 
+#include <type_traits>
 #include <nek/iterator/iterator_traits.hpp>
+#include <nek/mpl/if.hpp>
 #include <nek/utility/move.hpp>
 
 namespace nek
@@ -153,6 +155,28 @@ namespace nek
   inline move_iterator<Iterator> make_move_iterator(Iterator it)
   {
     return move_iterator<Iterator>{it};
+  }
+
+  namespace move_iterator_detail
+  {
+    template <class Iterator,
+    class ValueType =
+      typename nek::iterator_traits<Iterator>::value_type,
+    class Return =
+      mpl::if_c_t<!std::is_nothrow_move_constructible<ValueType>::value &&
+      std::is_copy_constructible<ValueType>::value,
+      Iterator, move_iterator<Iterator>>
+      >
+      Return make_move_if_noexcept_iterator_(Iterator it)
+    {
+      return Return{it};
+    }
+  }
+
+  template <class Iterator>
+  inline auto make_if_noexcept_iterator(Iterator it)
+  {
+    return move_iterator_detail::make_move_if_noexcept_iterator_(it);
   }
 }
 

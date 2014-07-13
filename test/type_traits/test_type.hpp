@@ -69,12 +69,14 @@ namespace type_traits_test
     pod_type& operator=(pod_type const&) = default;
   };
 
-  class nothrow_type
+  struct nothrow_type
   {
     nothrow_type() noexcept {}
     ~nothrow_type() noexcept {}
     nothrow_type(nothrow_type const&) noexcept {}
     nothrow_type& operator=(nothrow_type const&) noexcept { return *this; }
+    nothrow_type(nothrow_type&&) noexcept {}
+    nothrow_type& operator=(nothrow_type&&) noexcept { return *this; }
   };
 
   using f1_type = void (*)();
