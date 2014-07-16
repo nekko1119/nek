@@ -9,7 +9,7 @@ namespace nek
   {
     namespace and_detail
     {
-      template <bool C, bool...>
+      template <bool...>
       struct and_c_impl
         : public false_
       {
@@ -21,13 +21,13 @@ namespace nek
       {
       };
 
-      template <bool C, bool... Cs>
-      struct and_c_impl<true, C, Cs...>
-        : public and_c_impl<C, Cs...>
+      template <bool... Cs>
+      struct and_c_impl<true, Cs...>
+        : public and_c_impl<Cs...>
       {
       };
 
-      template <bool C, class... Ts>
+      template <bool, class...>
       struct and_impl
         : public false_
       {
@@ -46,9 +46,9 @@ namespace nek
       };
     }
 
-    template <bool C, bool... Cs>
+    template <bool... Cs>
     struct and_c
-      : public and_detail::and_c_impl<C, Cs...>
+      : public and_detail::and_c_impl<Cs...>
     {
     };
 
