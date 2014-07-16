@@ -44,7 +44,7 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
  - atomic、mutex、thread、futureなど
  - exception、stdexceptなど
  - initializer_list
- - numeric_limits、cstdint、climit、limits、cstdio、cstdlib、cstddefなど
+ - cstdint、climit、limits、cstdio、cstdlib、cstddefなど
  - locale、codecvtなど
 
 ## 開発環境
