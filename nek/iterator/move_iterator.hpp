@@ -161,16 +161,21 @@ namespace nek
 
   namespace move_iterator_detail
   {
+    using mpl::and_;
+    using mpl::if_t;
+    using mpl::not_;
     template <class Iterator,
     class ValueType =
       typename iterator_traits<Iterator>::value_type,
     class Return =
-      mpl::if_t<
-      mpl::and_<mpl::not_<std::is_nothrow_move_constructible<ValueType>>,
-      std::is_copy_constructible<ValueType>>,
-      Iterator, move_iterator<Iterator>>
+      if_t<
+        and_<
+          not_<std::is_nothrow_move_constructible<ValueType>>,
+            std::is_copy_constructible<ValueType>
+        >,
+        Iterator, move_iterator<Iterator>>
       >
-      Return make_move_if_noexcept_iterator_(Iterator it)
+    inline Return make_move_if_noexcept_iterator_(Iterator it)
     {
       return Return{it};
     }
