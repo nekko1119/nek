@@ -90,6 +90,7 @@
     <ClCompile Include="container\vector_test.cpp" />
     <ClCompile Include="iterator\iterator_traits_test.cpp" />
     <ClCompile Include="iterator\move_iterator_test.cpp" />
+    <ClCompile Include="iterator\normal_iterator_test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mpl\and_test.cpp" />
     <ClCompile Include="mpl\bool_test.cpp" />
