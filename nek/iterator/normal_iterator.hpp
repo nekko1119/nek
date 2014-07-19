@@ -7,7 +7,7 @@
 
 namespace nek
 {
-  template <class Iterator, class Container>
+  template <class Iterator>
   class normal_iterator
   {
     Iterator current_;
@@ -22,14 +22,14 @@ namespace nek
 
     normal_iterator() = default;
 
-    normal_iterator(normal_iterator const&) = default;
+    explicit normal_iterator(iterator_type const& it)
+      : current_{it}
+    {
+    }
 
     template <class OtherIterator>
-    normal_iterator(normal_iterator<OtherIterator, 
-      typename enable_if_t<
-        typename is_same<OtherIterator, typename Container::pointer>::type,
-      Container>> const& it)
-      : current_{it.base()}
+    normal_iterator(normal_iterator<OtherIterator> const& right)
+      : current_{right.base()}
     {
     }
 
@@ -45,7 +45,7 @@ namespace nek
 
     pointer operator->() const
     {
-      return current_;
+      return &*current_;
     }
 
     normal_iterator& operator++()
@@ -98,8 +98,56 @@ namespace nek
     }
   };
 
-  //template <class LeftIterator, class RightIterator, class Container>
-  //inline bool operator==(normal_iterator
+  template <class Iterator>
+  inline normal_iterator<Iterator> operator+(
+    typename normal_iterator<Iterator>::difference_type n,
+    normal_iterator<Iterator> const& it)
+  {
+    return normal_iterator<Iterator>{it.base() + n};
+  }
+
+  template <class LeftIterator, class RightIterator>
+  inline auto operator-(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
+  {
+    return left.base() - right.base();
+  }
+
+  template <class LeftIterator, class RightIterator>
+  inline bool operator==(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
+  {
+    return left.base() == right.base();
+  }
+
+  template <class LeftIterator, class RightIterator>
+  inline bool operator!=(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
+  {
+    return !(left == right);
+  }
+
+  template <class LeftIterator, class RightIterator>
+  inline bool operator<(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
+  {
+    return left.base() < right.base();
+  }
+
+  template <class LeftIterator, class RightIterator>
+  inline bool operator>(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
+  {
+    return right.base() < left.base();
+  }
+
+  template <class LeftIterator, class RightIterator>
+  inline bool operator<=(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
+  {
+    return !(right.base() < left.base());
+  }
+
+  template <class LeftIterator, class RightIterator>
+  inline bool operator>=(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
+  {
+    return !(left.base() < right.base());
+  }
+
 }
 
 #endif
