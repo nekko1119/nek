@@ -1,6 +1,8 @@
-﻿#include <nek/detail/destroy.hpp>
+﻿#include <nek/container/function.hpp>
+#include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
+#include <nek/iterator/normal_iterator.hpp>
 #include <nek/uninitialized/unitiliazed_default.hpp>
 #include <vector>
 
@@ -14,7 +16,7 @@ namespace nek
     {
     protected:
       using base_type = typename nek::allocator_traits<Allocator>::template rebind_alloc<T>;
-      using alloc_type = base_type; // TODO : workaround. base_type::base_type is not allowed.
+      using alloc_type = base_type; // NOTE : workaround. base_type::base_type is not allowed.
       using pointer = typename nek::allocator_traits<alloc_type>::pointer;
       using size_type = typename nek::allocator_traits<alloc_type>::size_type;
 
@@ -114,6 +116,8 @@ namespace nek
     using const_reference = T const&;
     using pointer = typename base_type::pointer;
     using const_pointer = typename alloc_traits::const_pointer;
+    using iterator = normal_iterator<pointer>;
+    using const_iterator = normal_iterator<const_pointer>;
 
     vector()
       : base_type{}
@@ -142,14 +146,35 @@ namespace nek
       return allocator_type{allocator()};
     }
 
-    size_type size() const noexcept
-    {
-      return static_cast<size_type>(last() - first());
-    }
-
     size_type capacity() const noexcept
     {
       return static_cast<size_type>(capacity_end() - first());
     }
+
+    iterator begin() noexcept
+    {
+      return iterator{first()};
+    }
+
+    const_iterator begin() const noexcept
+    {
+      return const_iterator{first()};
+    }
+
+    iterator end() noexcept
+    {
+      return iterator{last()};
+    }
+
+    const_iterator end() const noexcept
+    {
+      return const_iterator{last()};
+    }
   };
+
+  template <class T>
+  auto size(vector<T> const& v) noexcept
+  {
+    return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
+  }
 }
