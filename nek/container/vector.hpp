@@ -1,9 +1,14 @@
-﻿#include <nek/container/function.hpp>
+﻿#ifndef NEK_CONTAINER_VECTOR_HPP
+#define NEK_CONTAINER_VECTOR_HPP
+
+#include <stdexcept>
+
+#include <nek/container/function.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
 #include <nek/iterator/normal_iterator.hpp>
-#include <nek/uninitialized/unitiliazed_default.hpp>
+#include <nek/uninitialized/uninitialized_default.hpp>
 #include <vector>
 
 namespace nek
@@ -151,6 +156,19 @@ namespace nek
       return static_cast<size_type>(capacity_end() - first());
     }
 
+    void reserve(size_type size)
+    {
+      /*if (allocator().max_size() < size) {
+        throw std::length_error{"nek::vector<T>::reserve : size is too long."};
+      }
+
+      if (size < capacity()) {
+        return;
+      }
+
+      pointer new_buffer = allocator().allocate(size);*/
+    }
+
     iterator begin() noexcept
     {
       return iterator{first()};
@@ -184,3 +202,5 @@ namespace nek
     return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
   }
 }
+
+#endif

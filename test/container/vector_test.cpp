@@ -97,3 +97,8 @@ TEST_F(vector_test, get_allocator)
   EXPECT_EQ(alloc, actual);
   EXPECT_NE(&alloc, &actual);
 }
+
+TEST_F(vector_test, reserve)
+{
+  sut.reserve(4);
+}

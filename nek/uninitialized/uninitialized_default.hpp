@@ -1,5 +1,5 @@
 #ifndef NEK_UNINITIALIZED_DEFAULT_HPP
-#define NEK_UNINITILIAZED_DEFAULT_HPP
+#define NEK_UNINITIALIZED_DEFAULT_HPP
 
 #include <algorithm> // TODO : fill_n
 #include <type_traits> // TODO : is_trivial

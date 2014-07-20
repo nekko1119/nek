@@ -1,4 +1,4 @@
-#include <nek/uninitialized/uninitialized_default.hpp>
+﻿#include <nek/uninitialized/uninitialized_copy.hpp>
 #include <gtest/gtest.h>
 
 namespace
@@ -14,7 +14,7 @@ namespace
   };
 }
 
-class uninitialized_default_test
+class uninitialized_copy_test
   : public ::testing::Test
 {
 protected:
@@ -37,18 +37,6 @@ protected:
   }
 };
 
-TEST_F(uninitialized_default_test, check)
+TEST(uninitialized_copy_test, check)
 {
-  // setup
-  mock* first = reinterpret_cast<mock*>(buffer);
-  ASSERT_NE(nullptr, first);
-
-  // exercise
-  nek::uninitialized_default_n(first, size());
-
-  // verify
-  for (int i = 0; i < size(); ++i)
-  {
-    EXPECT_EQ(42, first[i].n);
-  }
 }
