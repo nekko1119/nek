@@ -20,6 +20,7 @@
     <ClInclude Include="any\exception.hpp" />
     <ClInclude Include="any\traits.hpp" />
     <ClInclude Include="container\function.hpp" />
+    <ClInclude Include="container\function\is_empty.hpp" />
     <ClInclude Include="container\function\size.hpp" />
     <ClInclude Include="container\vector.hpp" />
     <ClInclude Include="detail\construct.hpp" />

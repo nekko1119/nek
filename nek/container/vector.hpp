@@ -172,8 +172,14 @@ namespace nek
     }
   };
 
-  template <class T>
-  auto size(vector<T> const& v) noexcept
+  template <class T, class Allocator>
+  bool is_empty(vector<T, Allocator> const& v) noexcept
+  {
+    return v.begin() == v.end();
+  }
+
+  template <class T, class Allocator>
+  auto size(vector<T, Allocator> const& v) noexcept
   {
     return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
   }

@@ -75,13 +75,13 @@ TEST_F(vector_test, default_constructor)
   nek::vector<int> instance;
   nek::allocator<int> alloc;
   EXPECT_EQ(alloc, instance.get_allocator());
-  EXPECT_EQ(0, nek::size(instance));
+  EXPECT_TRUE(nek::is_empty(instance));
   EXPECT_GE(instance.capacity(), nek::size(instance));
 }
 
-TEST_F(vector_test, resize_constructor)
+TEST_F(vector_test, sized_constructor)
 {
-  std::size_t constexpr size = 4U;
+  constexpr std::size_t size = 4U;
   nek::allocator<int> alloc;
   nek::vector<int> instance{size};
   EXPECT_EQ(alloc, instance.get_allocator());

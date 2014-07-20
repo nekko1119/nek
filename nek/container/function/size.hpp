@@ -6,13 +6,13 @@
 namespace nek
 {
   template <class Container>
-  auto size(Container const& con) noexcept
+  inline auto size(Container const& con) noexcept
   {
     return con.size();
   }
 
   template <class T, std::size_t N>
-  std::size_t size(T (&arr)[N]) noexcept
+  inline constexpr std::size_t size(T(&arr)[N]) noexcept
   {
     return N;
   }
