@@ -4,8 +4,7 @@
 #include <nek/any/any_fwd.hpp>
 #include <nek/any/exception.hpp>
 #include <nek/mpl/if.hpp>
-// TODO : add_reference
-#include <type_traits>
+#include <nek/type_traits/add_lvalue_reference.hpp>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/utility/swap.hpp>
@@ -139,7 +138,7 @@ namespace nek
   {
     using nonref_type = remove_reference_t<T>;
     using ref_type = nek::mpl::if_t<nek::is_reference<T>,
-      T, typename std::add_reference<T>::type>;
+      T, typename add_lvalue_reference_t<T>>;
 
     nonref_type* result = any_cast<nonref_type>(&value);
     if (!result) {

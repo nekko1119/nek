@@ -102,6 +102,7 @@
     <ClCompile Include="mpl\not.cpp" />
     <ClCompile Include="type_traits\add_const_test.cpp" />
     <ClCompile Include="type_traits\add_cv_test.cpp" />
+    <ClCompile Include="type_traits\add_lvalue_reference_test.cpp" />
     <ClCompile Include="type_traits\add_volatile_test.cpp" />
     <ClCompile Include="type_traits\enable_if_test.cpp" />
     <ClCompile Include="type_traits\has_difference_type_test.cpp" />
