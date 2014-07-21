@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algorithm\copy.hpp" />
     <ClInclude Include="allocator.hpp" />
     <ClInclude Include="allocator\allocator.hpp" />
     <ClInclude Include="allocator\allocator_traits.hpp" />

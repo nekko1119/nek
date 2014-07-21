@@ -2,6 +2,7 @@
 #define NEK_CONTAINER_VECTOR_HPP
 
 #include <stdexcept>
+#include <iostream> // debug
 
 #include <nek/container/function.hpp>
 #include <nek/detail/destroy.hpp>
@@ -184,6 +185,12 @@ namespace nek
         throw;
       }
 
+      // debug
+      std::cout << "before :\n";
+      for (auto i = first(); i != capacity_end(); ++i) {
+        std::cout << *i << std::endl;
+      }
+
       // destruct and deallocate old buffer
       detail::destroy(first(), last(), allocator());
       allocator().deallocate(first(), capacity_end() - first());
@@ -192,6 +199,12 @@ namespace nek
       first() = new_buffer;
       last() = new_buffer + size;
       capacity_end() = new_buffer + count;
+
+      // debug
+      std::cout << "after :\n";
+      for (auto i = first(); i != capacity_end(); ++i) {
+        std::cout << *i << std::endl;
+      }
     }
 
     iterator begin() noexcept
@@ -212,6 +225,16 @@ namespace nek
     const_iterator end() const noexcept
     {
       return const_iterator{last()};
+    }
+
+    reference operator[](size_type n)
+    {
+      return *(first() + n);
+    }
+
+    const_reference operator[](size_type n) const
+    {
+      return *(first() + n);
     }
   };
 

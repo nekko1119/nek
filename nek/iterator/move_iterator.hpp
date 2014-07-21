@@ -6,6 +6,8 @@
 #include <nek/mpl/and.hpp>
 #include <nek/mpl/if.hpp>
 #include <nek/mpl/not.hpp>
+#include <nek/type_traits/integral_constant.hpp>
+#include <nek/type_traits/remove_cv.hpp>
 #include <nek/utility/move.hpp>
 
 namespace nek
@@ -186,6 +188,26 @@ namespace nek
   {
     return move_iterator_detail::make_move_if_noexcept_iterator_(it);
   }
+
+  namespace move_iterator_detail
+  {
+    template <class T>
+    struct is_move_iterator_
+      : public nek::false_type
+    {
+    };
+
+    template <class T>
+    struct is_move_iterator_<move_iterator<T>>
+      : public nek::true_type
+    {
+    };
+  }
+  template <class T>
+  struct is_move_iterator
+    : public move_iterator_detail::is_move_iterator_<T>
+  {
+  };
 }
 
 #endif

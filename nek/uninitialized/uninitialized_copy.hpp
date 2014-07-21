@@ -1,8 +1,8 @@
 ﻿#ifndef NEK_UNINITIALIZED_COPY_HPP
 #define NEK_UNINITIALIZED_COPY_HPP
 
-#include <algorithm> // TODO : copy
 #include <type_traits> // TODO : is_trivial
+#include <nek/algorithm/copy.hpp>
 #include <nek/detail/construct.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/iterator/iterator_traits.hpp>
@@ -31,7 +31,7 @@ namespace nek
     template <class InputIterator, class ForwardIterator>
     ForwardIterator uninitialized_copy_(InputIterator first, InputIterator last, ForwardIterator dest, std::true_type)
     {
-      return std::copy(first, last, dest);
+      return nek::copy(first, last, dest);
     }
   }
 

@@ -83,7 +83,7 @@ TEST_F(vector_test, sized_constructor)
 {
   constexpr std::size_t size = 4U;
   nek::allocator<int> alloc;
-  nek::vector<int> instance{size};
+  nek::vector<int> instance(size);
   EXPECT_EQ(alloc, instance.get_allocator());
   EXPECT_EQ(size, nek::size(instance));
   EXPECT_GE(instance.capacity(), nek::size(instance));
@@ -100,10 +100,29 @@ TEST_F(vector_test, get_allocator)
 
 TEST_F(vector_test, reserve)
 {
-  ASSERT_EQ(0, sut.capacity());
-  sut.reserve(4);
-  EXPECT_EQ(4, sut.capacity());
-  sut.reserve(1);
-  EXPECT_EQ(4, sut.capacity());
-  EXPECT_THROW(sut.reserve((unsigned)-1), std::length_error);
+  nek::vector<int> v{4};
+  v[2] = 42;
+  ASSERT_GE(4U, v.capacity());
+  v.reserve(5);
+  EXPECT_EQ(5, v.capacity());
+  v.reserve(1);
+  EXPECT_EQ(5, v.capacity());
+  EXPECT_THROW(v.reserve((unsigned)-1), std::length_error);
+  v.reserve(7);
+  EXPECT_EQ(7, v.capacity());
+  EXPECT_EQ(42, v[2]);
+}
+
+TEST_F(vector_test, subscript)
+{
+  constexpr std::size_t size = 4U;
+  nek::vector<int> v(size);
+  v[0] = 11;
+  v[1] = 22;
+  v[2] = 33;
+  v[3] = 44;
+  EXPECT_EQ(11, v[0]);
+  EXPECT_EQ(22, v[1]);
+  EXPECT_EQ(33, v[2]);
+  EXPECT_EQ(44, v[3]);
 }
