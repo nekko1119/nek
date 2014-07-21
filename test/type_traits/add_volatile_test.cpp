@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(add_volatile_test, check)
+TEST(add_volatile_test, normal)
 {
   STATIC_ASSERT_EQ(nek::add_volatile<int>::type, int volatile);
   STATIC_ASSERT_EQ(nek::add_volatile<int volatile>::type, int volatile);

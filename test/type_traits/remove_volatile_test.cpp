@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(remove_volatile_test, check)
+TEST(remove_volatile_test, normal)
 {
   STATIC_ASSERT_EQ(nek::remove_volatile<int>::type, int);
   STATIC_ASSERT_EQ(nek::remove_volatile<int const>::type, int const);

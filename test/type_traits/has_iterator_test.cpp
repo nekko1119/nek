@@ -26,7 +26,7 @@ TEST(has_iterator_test, initialize_false)
   SUCCEED();
 }
 
-TEST(has_iterator_test, check)
+TEST(has_iterator_test, normal)
 {
   NEK_HAS_MEMBER_TYPE(nek::has_iterator);
   SUCCEED();

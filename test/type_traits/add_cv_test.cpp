@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(add_cv_test, check)
+TEST(add_cv_test, normal)
 {
   STATIC_ASSERT_EQ(nek::add_cv<int>::type, int const volatile);
   STATIC_ASSERT_EQ(nek::add_cv<int const>::type, int const volatile);

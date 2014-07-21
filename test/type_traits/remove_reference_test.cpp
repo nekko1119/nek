@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(remove_reference_test, check)
+TEST(remove_reference_test, normal)
 {
   STATIC_ASSERT_EQ(nek::remove_reference<int>::type, int);
   STATIC_ASSERT_EQ(nek::remove_reference<int const>::type, int const);

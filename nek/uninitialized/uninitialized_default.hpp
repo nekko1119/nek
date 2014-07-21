@@ -63,7 +63,7 @@ namespace nek
   template <class ForwardIterator, class Size, class T>
   void uninitialized_default_n(ForwardIterator first, Size count, nek::allocator<T>&)
   {
-    uninitialized_default_n(first, count);
+    nek::uninitialized_default_n(first, count);
   }
 }
 

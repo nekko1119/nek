@@ -37,7 +37,7 @@ protected:
   }
 };
 
-TEST_F(uninitialized_default_test, check)
+TEST_F(uninitialized_default_test, normal)
 {
   // setup
   mock* first = reinterpret_cast<mock*>(buffer);

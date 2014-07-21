@@ -26,7 +26,7 @@ auto func(T const&) -> typename nek::disable_if<nek::is_integral<T>, bool>::type
   return false;
 }
 
-TEST(enable_if_c_test, check)
+TEST(enable_if_c_test, normal)
 {
   EXPECT_TRUE(func_c(0));
   EXPECT_FALSE(func_c(0.0));

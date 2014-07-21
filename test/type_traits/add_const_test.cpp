@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(add_const_test, check)
+TEST(add_const_test, normal)
 {
   STATIC_ASSERT_EQ(nek::add_const<int>::type, int const);
   STATIC_ASSERT_EQ(nek::add_const<int const>::type, int const);

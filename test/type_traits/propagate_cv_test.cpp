@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(propagate_cv_test, check)
+TEST(propagate_cv_test, normal)
 {
   using no_to_no = nek::propagate_cv<int, char>::type;
   using no_to_c = nek::propagate_cv<int, char const>::type;

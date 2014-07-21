@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(remove_const_test, check)
+TEST(remove_const_test, normal)
 {
   STATIC_ASSERT_EQ(nek::remove_const<int>::type, int);
   STATIC_ASSERT_EQ(nek::remove_const<int const>::type, int);

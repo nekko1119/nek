@@ -26,7 +26,7 @@ TEST(has_difference_type_test, initialize_false)
   SUCCEED();
 }
 
-TEST(has_difference_type_test, check)
+TEST(has_difference_type_test, normal)
 {
   NEK_HAS_MEMBER_TYPE(nek::has_difference_type);
   SUCCEED();

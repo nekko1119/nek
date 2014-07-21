@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(remove_cv_test, check)
+TEST(remove_cv_test, normal)
 {
   STATIC_ASSERT_EQ(nek::remove_cv<int>::type, int);
   STATIC_ASSERT_EQ(nek::remove_cv<int const>::type, int);

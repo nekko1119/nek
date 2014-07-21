@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "static_assert.hpp"
 
-TEST(add_lvalue_reference_test, check)
+TEST(add_lvalue_reference_test, normal)
 {
   // non-spec, lref, rref
   STATIC_ASSERT_EQ(nek::add_lvalue_reference<int>::type, int&);

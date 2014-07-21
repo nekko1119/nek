@@ -25,7 +25,7 @@ TEST(has_pointer_test, initialize_false)
   SUCCEED();
 }
 
-TEST(has_pointer_test, check)
+TEST(has_pointer_test, normal)
 {
   NEK_HAS_MEMBER_TYPE(nek::has_pointer);
   SUCCEED();

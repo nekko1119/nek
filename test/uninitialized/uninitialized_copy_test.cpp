@@ -1,42 +1,42 @@
 ﻿#include <nek/uninitialized/uninitialized_copy.hpp>
 #include <gtest/gtest.h>
+#include <vector>
 
-namespace
+TEST(uninitialized_copy_test, normal)
 {
-  struct mock
-  {
-    int n;
+  std::vector<int> v = {1, 2, 3};
+  std::allocator<int> alloc;
+  constexpr std::size_t size = 3;
+  auto buf = alloc.allocate(3);
+  
+  nek::uninitialized_copy(v.begin(), v.end(), buf);
 
-    mock()
-      : n{42}
-    {
-    }
-  };
+  EXPECT_EQ(1, buf[0]);
+  EXPECT_EQ(2, buf[1]);
+  EXPECT_EQ(3, buf[2]);
+
+  for (int i = 0; i < size; ++i) {
+    alloc.destroy(buf + i);
+  }
+
+  alloc.deallocate(buf, size);
 }
 
-class uninitialized_copy_test
-  : public ::testing::Test
+TEST(uninitialized_copy_n_test, normal)
 {
-protected:
-  char* buffer = nullptr;
+  std::vector<int> v = {1, 2, 3};
+  std::allocator<int> alloc;
+  constexpr std::size_t size = 3;
+  auto buf = alloc.allocate(3);
 
-  void SetUp() override
-  {
-    buffer = new char[sizeof(mock) * size()];
+  nek::uninitialized_copy_n(v.begin(), size, buf);
+  EXPECT_EQ(1, buf[0]);
+  EXPECT_EQ(2, buf[1]);
+  EXPECT_EQ(3, buf[2]);
+
+  for (int i = 0; i < size; ++i) {
+    alloc.destroy(buf + i);
   }
 
-  void TearDown() override
-  {
-    delete[] buffer;
-    buffer = nullptr;
-  }
-
-  static constexpr int size()
-  {
-    return 3;
-  }
-};
-
-TEST(uninitialized_copy_test, check)
-{
+  alloc.deallocate(buf, size);
 }
