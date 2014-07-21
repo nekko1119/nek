@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <iterator>
 #include <nek/iterator/tag.hpp>
-#include <nek/type_traits/integral_constant.hpp>
 
 namespace nek
 {

@@ -100,5 +100,10 @@ TEST_F(vector_test, get_allocator)
 
 TEST_F(vector_test, reserve)
 {
+  ASSERT_EQ(0, sut.capacity());
   sut.reserve(4);
+  EXPECT_EQ(4, sut.capacity());
+  sut.reserve(1);
+  EXPECT_EQ(4, sut.capacity());
+  EXPECT_THROW(sut.reserve((unsigned)-1), std::length_error);
 }

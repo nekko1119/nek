@@ -182,7 +182,7 @@ namespace nek
   }
 
   template <class Iterator>
-  inline auto make_if_noexcept_iterator(Iterator it)
+  inline auto make_move_if_noexcept_iterator(Iterator it)
   {
     return move_iterator_detail::make_move_if_noexcept_iterator_(it);
   }

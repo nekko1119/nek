@@ -7,7 +7,9 @@
 #include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
+#include <nek/iterator/move_iterator.hpp>
 #include <nek/iterator/normal_iterator.hpp>
+#include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
 #include <vector>
 
@@ -156,17 +158,40 @@ namespace nek
       return static_cast<size_type>(capacity_end() - first());
     }
 
-    void reserve(size_type size)
+    void reserve(size_type count)
     {
-      /*if (allocator().max_size() < size) {
+      // validate
+      if (allocator().max_size() < count) {
         throw std::length_error{"nek::vector<T>::reserve : size is too long."};
       }
-
-      if (size < capacity()) {
+      if (count < capacity()) {
         return;
       }
 
-      pointer new_buffer = allocator().allocate(size);*/
+      // allocate new buffer
+      pointer new_buffer = allocator().allocate(count);
+
+      size_type const size = nek::size(*this);
+
+      // copy or move new buffer
+      try {
+        nek::uninitialized_copy(
+          nek::make_move_if_noexcept_iterator(first()),
+          nek::make_move_if_noexcept_iterator(last()),
+          new_buffer, allocator());
+      } catch (...) {
+        allocator().deallocate(new_buffer, count);
+        throw;
+      }
+
+      // destruct and deallocate old buffer
+      detail::destroy(first(), last(), allocator());
+      allocator().deallocate(first(), capacity_end() - first());
+
+      // update pointers
+      first() = new_buffer;
+      last() = new_buffer + size;
+      capacity_end() = new_buffer + count;
     }
 
     iterator begin() noexcept

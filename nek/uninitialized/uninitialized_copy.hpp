@@ -44,6 +44,12 @@ namespace nek
       std::integral_constant<bool, std::is_trivial<in_value_type>::value && std::is_trivial<out_value_type>::value>{});
   }
 
+  template <class InputIterator, class ForwardIterator, class T>
+  ForwardIterator uninitialized_copy(InputIterator first, InputIterator last, ForwardIterator dest, nek::allocator<T>&)
+  {
+    return uninitialized_copy(first, last, dest);
+  }
+
   // uninitialized_copy_n
   namespace uninitialized_copy_detail
   {

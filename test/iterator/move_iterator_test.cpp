@@ -158,11 +158,11 @@ TEST_F(move_iterator_test, make_move_iterator)
 TEST_F(move_iterator_test, make_move_if_noexcept_iterator)
 {
   std::vector<throwable> v;
-  auto actual = nek::make_if_noexcept_iterator(v.begin());
+  auto actual = nek::make_move_if_noexcept_iterator(v.begin());
   STATIC_ASSERT_EQ(decltype(actual), decltype(v)::iterator);
 
   std::vector<type_traits_test::nothrow_type> v2;
-  auto actual2 = nek::make_if_noexcept_iterator(v2.begin());
+  auto actual2 = nek::make_move_if_noexcept_iterator(v2.begin());
   using it_type = decltype(v2)::iterator;
   STATIC_ASSERT_EQ(decltype(actual2), nek::move_iterator<it_type>);
 }
