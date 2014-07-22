@@ -1,6 +1,7 @@
 ﻿#ifndef NEK_CONTAINER_VECTOR_HPP
 #define NEK_CONTAINER_VECTOR_HPP
 
+#include <cassert>
 #include <stdexcept>
 
 #include <algorithm> // TODO : std::max
@@ -216,13 +217,15 @@ namespace nek
       return const_iterator{last()};
     }
 
-    reference operator[](size_type n)
+    inline reference operator[](size_type n)
     {
+      assert(n < nek::size(*this));
       return *(first() + n);
     }
 
-    const_reference operator[](size_type n) const
+    inline const_reference operator[](size_type n) const
     {
+      assert(n < nek::size(*this));
       return *(first() + n);
     }
 
