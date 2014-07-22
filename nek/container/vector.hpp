@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 
+#include <algorithm> // TODO : std::max
 #include <nek/container/function.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
@@ -11,6 +12,7 @@
 #include <nek/iterator/normal_iterator.hpp>
 #include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
+#include <nek/utility/forward.hpp>
 #include <vector>
 
 namespace nek
@@ -222,6 +224,16 @@ namespace nek
     const_reference operator[](size_type n) const
     {
       return *(first() + n);
+    }
+
+    template <class... Args>
+    void emplace_back(Args&&... args)
+    {
+      if (last() == capacity_end()) {
+        reserve(std::max(static_cast<size_type>(capacity() * 1.5), capacity() + 1));
+      }
+      allocator().construct(last(), nek::forward<Args>(args)...);
+      ++last();
     }
   };
 

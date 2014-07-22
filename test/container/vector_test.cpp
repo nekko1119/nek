@@ -102,7 +102,7 @@ TEST_F(vector_test, reserve)
 {
   nek::vector<int> v{4};
   v[2] = 42;
-  ASSERT_GE(4U, v.capacity());
+  ASSERT_LE(4U, v.capacity());
   v.reserve(5);
   EXPECT_EQ(5, v.capacity());
   v.reserve(1);
@@ -125,4 +125,26 @@ TEST_F(vector_test, subscript)
   EXPECT_EQ(22, v[1]);
   EXPECT_EQ(33, v[2]);
   EXPECT_EQ(44, v[3]);
+}
+
+TEST_F(vector_test, emplace_back)
+{
+  // setup
+  sut.reserve(2);
+
+  sut.emplace_back(13);
+  EXPECT_EQ(1, nek::size(sut));
+  EXPECT_LE(2U, sut.capacity());
+  EXPECT_EQ(13, sut[0]);
+
+  sut.emplace_back(17);
+  sut.emplace_back(19);
+  sut.emplace_back(23);
+  sut.emplace_back(29);
+  EXPECT_LE(5U, sut.capacity());
+  EXPECT_EQ(5, nek::size(sut));
+  EXPECT_EQ(17, sut[1]);
+  EXPECT_EQ(19, sut[2]);
+  EXPECT_EQ(23, sut[3]);
+  EXPECT_EQ(29, sut[4]);
 }
