@@ -85,6 +85,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="algorithm\copy_test.cpp" />
+    <ClCompile Include="algorithm\iter_swap_test.cpp" />
     <ClCompile Include="allocator\allocator_test.cpp" />
     <ClCompile Include="allocator\allocator_traits_test.cpp" />
     <ClCompile Include="any\any_test.cpp" />
