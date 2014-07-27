@@ -1,4 +1,4 @@
-#ifndef NEK_ALGORITHM_REVERSE_HPP
+﻿#ifndef NEK_ALGORITHM_REVERSE_HPP
 #define NEK_ALGORITHM_REVERSE_HPP
 
 #include <nek/algorithm/iter_swap.hpp>

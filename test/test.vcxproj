@@ -87,12 +87,14 @@
     <ClCompile Include="algorithm\copy_test.cpp" />
     <ClCompile Include="algorithm\iter_swap_test.cpp" />
     <ClCompile Include="algorithm\reverse_test.cpp" />
+    <ClCompile Include="algorithm\rotate_test.cpp" />
     <ClCompile Include="allocator\allocator_test.cpp" />
     <ClCompile Include="allocator\allocator_traits_test.cpp" />
     <ClCompile Include="any\any_test.cpp" />
     <ClCompile Include="container\function\is_emtpy_test.cpp" />
     <ClCompile Include="container\function\size_test.cpp" />
     <ClCompile Include="container\vector_test.cpp" />
+    <ClCompile Include="iterator\advance_test.cpp" />
     <ClCompile Include="iterator\iterator_traits_test.cpp" />
     <ClCompile Include="iterator\move_iterator_test.cpp" />
     <ClCompile Include="iterator\normal_iterator_test.cpp" />
