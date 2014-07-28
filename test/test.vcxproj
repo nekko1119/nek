@@ -95,6 +95,7 @@
     <ClCompile Include="container\function\size_test.cpp" />
     <ClCompile Include="container\vector_test.cpp" />
     <ClCompile Include="iterator\advance_test.cpp" />
+    <ClCompile Include="iterator\distance_test.cpp" />
     <ClCompile Include="iterator\iterator_traits_test.cpp" />
     <ClCompile Include="iterator\move_iterator_test.cpp" />
     <ClCompile Include="iterator\normal_iterator_test.cpp" />

@@ -30,6 +30,7 @@
     <ClInclude Include="detail\construct.hpp" />
     <ClInclude Include="detail\destroy.hpp" />
     <ClInclude Include="iterator\advance.hpp" />
+    <ClInclude Include="iterator\distance.hpp" />
     <ClInclude Include="iterator\iterator.hpp" />
     <ClInclude Include="iterator\iterator_traits.hpp" />
     <ClInclude Include="iterator\move_iterator.hpp" />
