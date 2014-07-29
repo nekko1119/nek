@@ -255,6 +255,12 @@ namespace nek
   {
     return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
   }
+
+  template <class T, class Allocator, class... Args>
+  auto emplace_back(vector<T, Allocator>& v, Args&&... args)
+  {
+    return v.emplace(v.end(), nek::forward<Args>(args)...);
+  }
 }
 
 #endif
