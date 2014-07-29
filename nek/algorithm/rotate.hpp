@@ -42,15 +42,6 @@ namespace nek
         ++current_middle;
         if (first == middle) {
           middle = current_middle;
-        }
-      }
-      current_middle = middle;
-      while (current_middle != last) {
-        nek::iter_swap(first, current_middle);
-        ++first;
-        ++current_middle;
-        if (first == middle) {
-          middle = current_middle;
         } else if (current_middle == last) {
           current_middle = middle;
         }
