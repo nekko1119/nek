@@ -15,6 +15,7 @@
 #include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
 #include <nek/utility/forward.hpp>
+#include <nek/utility/swap.hpp>
 #include <vector>
 
 namespace nek
@@ -160,6 +161,15 @@ namespace nek
     size_type capacity() const noexcept
     {
       return static_cast<size_type>(capacity_end() - first());
+    }
+
+    void swap(vector& right)
+    {
+      using nek::swap;
+      swap(first(), right.first());
+      swap(last(), right.last());
+      swap(capacity_end(), right.capacity_end());
+      alloc_traits::swap(allocator(), right.allocator());
     }
 
     void reserve(size_type count)

@@ -10,6 +10,7 @@
 #include <nek/utility/forward.hpp>
 #include <nek/utility/has_xxx_def.hpp>
 #include <nek/utility/pointer_traits.hpp>
+#include <nek/utility/swap.hpp>
 
 namespace nek
 {
@@ -250,6 +251,18 @@ namespace nek
         return allocator;
       }
     };
+    template <class Allocator>
+    inline void swap_(Allocator& left, Allocator& right, nek::true_type)
+    {
+      using nek::swap;
+      swap(left, right);
+    }
+
+    template <class Allocator>
+    inline void swap_(Allocator&, Allocator&, nek::false_type)
+    {
+      // do nothing
+    }
   }
 
   template <class Allocator>
@@ -306,6 +319,11 @@ namespace nek
     static Allocator select_on_container_copy_construction(Allocator& allocator)
     {
       return allocator_traits_detail::dispatcher::select_on_container_copy_construction(0, allocator);
+    }
+
+    inline static void swap(Allocator& left, Allocator& right)
+    {
+      allocator_traits_detail::swap_(left, right, propagate_on_container_swap{});
     }
   };
 }

@@ -89,6 +89,22 @@ TEST_F(vector_test, sized_constructor)
   EXPECT_GE(instance.capacity(), nek::size(instance));
 }
 
+TEST_F(vector_test, swap)
+{
+  nek::emplace_back(sut, 1);
+  nek::emplace_back(sut, 2);
+  nek::emplace_back(sut, 3);
+  nek::vector<int> other;
+  nek::emplace_back(other, 10);
+  nek::emplace_back(other, 20);
+
+  sut.swap(other);
+  EXPECT_EQ(nek::size(sut), 2);
+  EXPECT_EQ(nek::size(other), 3);
+  EXPECT_EQ(sut[0], 10);
+  EXPECT_EQ(other[0], 1);
+}
+
 TEST_F(vector_test, get_allocator)
 {
   min_state_allocator<int> alloc{42};
@@ -148,4 +164,15 @@ TEST_F(vector_test, emplace)
   EXPECT_EQ(13, sut[2]);
   EXPECT_EQ(17, sut[3]);
   EXPECT_EQ(19, sut[4]);
+}
+
+TEST_F(vector_test, at)
+{
+  nek::emplace_back(sut, 1);
+  nek::emplace_back(sut, 2);
+  nek::emplace_back(sut, 3);
+  EXPECT_EQ(1, nek::at(sut, 0));
+  nek::at(sut, 1) = 10;
+  EXPECT_EQ(10, sut[1]);
+  EXPECT_THROW(nek::at(sut, 4), std::out_of_range);
 }
