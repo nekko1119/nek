@@ -70,7 +70,7 @@ namespace nek
   namespace uninitialized_copy_detail
   {
     template <class InputIterator, class Size, class ForwardIterator>
-    ForwardIterator uninitialized_copy_n_(InputIterator first, Size count, ForwardIterator dest, input_iterator_tag)
+    ForwardIterator uninitialized_copy_n_(InputIterator first, Size count, ForwardIterator dest, std::input_iterator_tag)
     {
       auto current = dest;
       try {
@@ -85,7 +85,7 @@ namespace nek
     }
 
     template <class RandomAccessIterator, class Size, class ForwardIterator>
-    ForwardIterator uninitialized_copy_n_(RandomAccessIterator first, Size count, ForwardIterator dest, random_access_iterator_tag)
+    ForwardIterator uninitialized_copy_n_(RandomAccessIterator first, Size count, ForwardIterator dest, std::random_access_iterator_tag)
     {
       return nek::uninitialized_copy(first, first + count, dest);
     }

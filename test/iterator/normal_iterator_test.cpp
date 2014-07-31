@@ -27,7 +27,7 @@ TEST_F(normal_iterator_test, member_type)
 {
   STATIC_ASSERT_EQ(type::value_type, std::string);
   STATIC_ASSERT_EQ(type::iterator_type, iter_type);
-  STATIC_ASSERT_EQ(type::iterator_category, nek::random_access_iterator_tag);
+  STATIC_ASSERT_EQ(type::iterator_category, std::random_access_iterator_tag);
   STATIC_ASSERT_EQ(type::pointer, mock_type::pointer);
   STATIC_ASSERT_EQ(type::difference_type, std::ptrdiff_t);
   STATIC_ASSERT_EQ(type::reference, std::string&);

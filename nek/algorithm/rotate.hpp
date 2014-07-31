@@ -30,7 +30,7 @@ namespace nek
     [ABCDE12]f[3]ml
     */
     template <class ForwardIterator>
-    inline void rotate_(ForwardIterator first, ForwardIterator middle, ForwardIterator last, nek::forward_iterator_tag)
+    inline void rotate_(ForwardIterator first, ForwardIterator middle, ForwardIterator last, std::forward_iterator_tag)
     {
       if (first == middle || middle == last) {
         return;
@@ -49,7 +49,7 @@ namespace nek
     }
 
     template <class BidirectionalIterator>
-    inline void rotate_(BidirectionalIterator first, BidirectionalIterator middle, BidirectionalIterator last, nek::bidirectional_iterator_tag)
+    inline void rotate_(BidirectionalIterator first, BidirectionalIterator middle, BidirectionalIterator last, std::bidirectional_iterator_tag)
     {
       if (first == middle || middle == last) {
         return;
@@ -60,7 +60,7 @@ namespace nek
     }
 
     template <class RandomAccessIterator>
-    inline void rotate_(RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last, nek::random_access_iterator_tag)
+    inline void rotate_(RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last, std::random_access_iterator_tag)
     {
       if (first == middle || middle == last) {
         return;

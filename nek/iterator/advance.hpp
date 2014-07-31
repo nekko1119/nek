@@ -9,7 +9,7 @@ namespace nek
   namespace advance_detail
   {
     template <class InputIterator, class Difference>
-    inline void advance_(InputIterator& it, Difference diff, nek::input_iterator_tag)
+    inline void advance_(InputIterator& it, Difference diff, std::input_iterator_tag)
     {
       assert(0 < diff && "nek::advance: it is inupt iterator, so diff must be more larger than 0.");
       for (; 0 < diff; --diff) {
@@ -18,7 +18,7 @@ namespace nek
     }
 
     template <class ForwardIterator, class Difference>
-    inline void advance_(ForwardIterator& it, Difference diff, nek::forward_iterator_tag)
+    inline void advance_(ForwardIterator& it, Difference diff, std::forward_iterator_tag)
     {
       assert(0 < diff && "nek::advance: it is inupt iterator, so diff must be more larger than 0.");
       for (; 0 < diff; --diff) {
@@ -27,7 +27,7 @@ namespace nek
     }
 
     template <class BidirectionalIterator, class Difference>
-    inline void advance_(BidirectionalIterator& it, Difference diff, nek::bidirectional_iterator_tag)
+    inline void advance_(BidirectionalIterator& it, Difference diff, std::bidirectional_iterator_tag)
     {
       if (0 < diff) {
         for (; 0 < diff; --diff) {
@@ -41,7 +41,7 @@ namespace nek
     }
 
     template <class RandomAccessIterator, class Difference>
-    inline void advance_(RandomAccessIterator& it, Difference diff, nek::random_access_iterator_tag)
+    inline void advance_(RandomAccessIterator& it, Difference diff, std::random_access_iterator_tag)
     {
       it += diff;
     }

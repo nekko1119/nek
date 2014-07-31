@@ -8,7 +8,7 @@ namespace nek
   namespace distance_detail
   {
     template <class Difference, class InputIterator>
-    Difference distance_(InputIterator first, InputIterator last, nek::input_iterator_tag)
+    Difference distance_(InputIterator first, InputIterator last, std::input_iterator_tag)
     {
       Difference diff = static_cast<Difference>(0);
       for (; first != last; ++first) {
@@ -18,7 +18,7 @@ namespace nek
     }
 
     template <class Difference, class ForwardIterator>
-    Difference distance_(ForwardIterator first, ForwardIterator last, nek::forward_iterator_tag)
+    Difference distance_(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
     {
       Difference diff = static_cast<Difference>(0);
       for (; first != last; ++first) {
@@ -28,7 +28,7 @@ namespace nek
     }
 
     template <class Difference, class BidirectionalIterator>
-    Difference distance_(BidirectionalIterator first, BidirectionalIterator last, nek::bidirectional_iterator_tag)
+    Difference distance_(BidirectionalIterator first, BidirectionalIterator last, std::bidirectional_iterator_tag)
     {
       Difference diff = static_cast<Difference>(0);
       for (; first != last; ++first) {
@@ -38,7 +38,7 @@ namespace nek
     }
 
     template <class Difference, class RandomAccessIterator>
-    Difference distance_(RandomAccessIterator first, RandomAccessIterator last, nek::random_access_iterator_tag)
+    Difference distance_(RandomAccessIterator first, RandomAccessIterator last, std::random_access_iterator_tag)
     {
       return static_cast<Difference>(last - first);
     }
