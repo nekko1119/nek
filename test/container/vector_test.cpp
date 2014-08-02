@@ -1,6 +1,7 @@
 #include <nek/container/vector.hpp>
 #include <gtest/gtest.h>
 #include <cstddef>
+#include <list>
 #include "../type_traits/static_assert.hpp"
 
 namespace
@@ -87,6 +88,25 @@ TEST_F(vector_test, sized_constructor)
   EXPECT_EQ(alloc, instance.get_allocator());
   EXPECT_EQ(size, nek::size(instance));
   EXPECT_GE(instance.capacity(), nek::size(instance));
+}
+
+TEST_F(vector_test, range_constructor)
+{
+  std::list<int> original = {1, 2, 3};
+  nek::vector<int> instance{original.begin(), original.end()};
+  EXPECT_EQ(3, nek::size(instance));
+  EXPECT_EQ(1, instance[0]);
+  EXPECT_EQ(2, instance[1]);
+  EXPECT_EQ(3, instance[2]);
+}
+
+TEST_F(vector_test, initializer_list_constructor)
+{
+  nek::vector<int> instance = {1, 2, 3};
+  EXPECT_EQ(3, nek::size(instance));
+  EXPECT_EQ(1, instance[0]);
+  EXPECT_EQ(2, instance[1]);
+  EXPECT_EQ(3, instance[2]);
 }
 
 TEST_F(vector_test, copy_constructor)

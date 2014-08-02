@@ -63,7 +63,7 @@ namespace nek
   template <class InputIterator, class ForwardIterator, class T>
   ForwardIterator uninitialized_copy(InputIterator first, InputIterator last, ForwardIterator dest, nek::allocator<T>&)
   {
-    return uninitialized_copy(first, last, dest);
+    return nek::uninitialized_copy(first, last, dest);
   }
 
   // uninitialized_copy_n

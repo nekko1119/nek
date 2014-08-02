@@ -17,15 +17,6 @@ namespace nek
       }
     }
 
-    template <class ForwardIterator, class Difference>
-    inline void advance_(ForwardIterator& it, Difference diff, std::forward_iterator_tag)
-    {
-      assert(0 < diff && "nek::advance: it is inupt iterator, so diff must be more larger than 0.");
-      for (; 0 < diff; --diff) {
-        ++it;
-      }
-    }
-
     template <class BidirectionalIterator, class Difference>
     inline void advance_(BidirectionalIterator& it, Difference diff, std::bidirectional_iterator_tag)
     {

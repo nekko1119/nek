@@ -2,6 +2,7 @@
 #define NEK_CONTAINER_VECTOR_HPP
 
 #include <cassert>
+#include <initializer_list>
 #include <stdexcept>
 
 #include <algorithm> // TODO : std::max
@@ -10,6 +11,8 @@
 #include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
+#include <nek/iterator/distance.hpp>
+#include <nek/iterator/iterator_traits.hpp>
 #include <nek/iterator/move_iterator.hpp>
 #include <nek/iterator/normal_iterator.hpp>
 #include <nek/uninitialized/uninitialized_copy.hpp>
@@ -117,7 +120,7 @@ namespace nek
       ~vector_base()
       {
         if (first_) {
-          base_type::deallocate(first_, capacity_end_ - last_);
+          base_type::deallocate(first_, capacity_end_ - first_);
         }
       }
     };
@@ -130,9 +133,33 @@ namespace nek
     using base_type = vector_detail::vector_base<T, Allocator>;
     using alloc_traits = nek::allocator_traits<typename base_type::alloc_type>;
 
-    static constexpr double rate() noexcept
+    static constexpr inline double rate() noexcept
     {
       return 1.5;
+    }
+
+    template <class InputIterator>
+    void range_initialize(InputIterator first, InputIterator last, std::input_iterator_tag)
+    {
+      for (; first != last; ++first) {
+        nek::emplace_back(*this, *first);
+      }
+    }
+
+    template <class ForwardIterator>
+    void range_initialize(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
+    {
+      size_type const count = nek::distance(first, last);
+      this->first() = allocator().allocate(count);
+      this->capacity_end() = this->first() + count;
+      this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
+    }
+
+    template <class Iterator>
+    void range_initialize(Iterator first, Iterator last)
+    {
+      using tag = typename nek::iterator_traits<Iterator>::iterator_category;
+      range_initialize(first, last, tag{});
     }
 
   public:
@@ -162,6 +189,31 @@ namespace nek
     {
       nek::uninitialized_default_n(first(), count, allocator());
       last() = capacity_end();
+    }
+
+    template <class InputIterator>
+    vector(InputIterator first, InputIterator last)
+      : vector{first, last, allocator_type{}}
+    {
+    }
+
+    template <class InputIterator>
+    vector(InputIterator first, InputIterator last, Allocator const& allocator)
+      : base_type{allocator}
+    {
+      range_initialize(first, last);
+    }
+
+    vector(std::initializer_list<value_type> list)
+      : vector{list, allocator_type{}}
+    {
+      range_initialize(list.begin(), list.end(), std::random_access_iterator_tag{});
+    }
+
+    vector(std::initializer_list<value_type> list, Allocator const& allocator)
+      : base_type{allocator}
+    {
+      range_initialize(list.begin(), list.end(), std::random_access_iterator_tag{});
     }
 
     vector(vector const& right)
