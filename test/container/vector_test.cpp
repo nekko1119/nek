@@ -149,7 +149,7 @@ TEST_F(vector_test, get_allocator)
 
 TEST_F(vector_test, reserve)
 {
-  nek::vector<int> v{4};
+  nek::vector<int> v(4);
   v[2] = 42;
   ASSERT_LE(4U, v.capacity());
   v.reserve(5);
@@ -166,6 +166,7 @@ TEST_F(vector_test, subscript)
 {
   constexpr std::size_t size = 4U;
   nek::vector<int> v(size);
+  ASSERT_EQ(4,nek::size(v));
   v[0] = 11;
   v[1] = 22;
   v[2] = 33;

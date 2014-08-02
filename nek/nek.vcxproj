@@ -31,12 +31,16 @@
     <ClInclude Include="container\vector.hpp" />
     <ClInclude Include="detail\construct.hpp" />
     <ClInclude Include="detail\destroy.hpp" />
+    <ClInclude Include="iterator.hpp" />
     <ClInclude Include="iterator\advance.hpp" />
+    <ClInclude Include="iterator\begin.hpp" />
     <ClInclude Include="iterator\distance.hpp" />
+    <ClInclude Include="iterator\end.hpp" />
     <ClInclude Include="iterator\iterator.hpp" />
     <ClInclude Include="iterator\iterator_traits.hpp" />
     <ClInclude Include="iterator\move_iterator.hpp" />
     <ClInclude Include="iterator\normal_iterator.hpp" />
+    <ClInclude Include="iterator\range.hpp" />
     <ClInclude Include="mpl\and.hpp" />
     <ClInclude Include="mpl\bool.hpp" />
     <ClInclude Include="mpl\bool_fwd.hpp" />
