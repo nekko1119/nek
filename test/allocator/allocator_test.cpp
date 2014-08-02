@@ -20,6 +20,16 @@ TEST_F(allocator_test, member_type)
   STATIC_ASSERT_EQ(type::difference_type, std::ptrdiff_t);
   STATIC_ASSERT_EQ(type::size_type, std::size_t);
   STATIC_ASSERT_EQ(type::rebind<double>::other, nek::allocator<double>);
+  STATIC_ASSERT_EQ(type::propagate_on_container_copy_assignment, nek::false_type);
+  STATIC_ASSERT_EQ(type::propagate_on_container_move_assignment, nek::false_type);
+  STATIC_ASSERT_EQ(type::propagate_on_container_swap, nek::false_type);
+}
+
+TEST_F(allocator_test, select_on_container_copy_construction)
+{
+  nek::allocator<int> copied = sut.select_on_container_copy_construction();
+  EXPECT_EQ(sut, copied);
+  EXPECT_NE(&sut, &copied);
 }
 
 TEST_F(allocator_test, allocate_construct_destroy_deallocate)

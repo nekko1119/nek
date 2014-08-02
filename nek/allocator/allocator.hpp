@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <exception>
 #include <new>
+#include <nek/type_traits/integral_constant.hpp>
 #include <nek/utility/addressof.hpp>
 #include <nek/utility/forward.hpp>
 
@@ -20,6 +21,9 @@ namespace nek
     using reference = T&;
     using const_reference = T const&;
     using value_type = T;
+    using propagate_on_container_copy_assignment = false_type;
+    using propagate_on_container_move_assignment = false_type;
+    using propagate_on_container_swap = false_type;
 
     template <class U>
     struct rebind
@@ -32,6 +36,12 @@ namespace nek
     template <class U>
     allocator(allocator<U> const&)
     {
+    }
+
+
+    allocator  select_on_container_copy_construction() const
+    {
+      return *this;
     }
 
     pointer allocate(size_type count, void const* = nullptr) const

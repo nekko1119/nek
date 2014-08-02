@@ -89,6 +89,19 @@ TEST_F(vector_test, sized_constructor)
   EXPECT_GE(instance.capacity(), nek::size(instance));
 }
 
+TEST_F(vector_test, copy_constructor)
+{
+  nek::emplace_back(sut, 0);
+  nek::emplace_back(sut, 1);
+  nek::emplace_back(sut, 2);
+  nek::vector<int> copied{sut};
+  EXPECT_EQ(nek::size(sut), size(copied));
+  EXPECT_EQ(0, copied[0]);
+  EXPECT_EQ(1, copied[1]);
+  EXPECT_EQ(2, copied[2]);
+  EXPECT_NE(sut.begin(), copied.begin());
+}
+
 TEST_F(vector_test, swap)
 {
   nek::emplace_back(sut, 1);

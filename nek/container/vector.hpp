@@ -37,6 +37,13 @@ namespace nek
       pointer last_; // initialized storage end
       pointer capacity_end_; // reserved storage end
 
+      void reserve(size_type count)
+      {
+        first_ = base_type::allocate(count);
+        last_ = first_;
+        capacity_end_ = first_ + count;
+      }
+
     protected:
       pointer& first() noexcept
       {
@@ -98,9 +105,13 @@ namespace nek
       explicit vector_base(size_type count)
         : base_type{}
       {
-        first_ = base_type::allocate(count);
-        last_ = first_;
-        capacity_end_ = first_ + count;
+        reserve(count);
+      }
+
+      vector_base(size_type count, Allocator const& allocator)
+        : base_type{allocator}
+      {
+        reserve(count);
       }
 
       ~vector_base()
@@ -118,6 +129,11 @@ namespace nek
   {
     using base_type = vector_detail::vector_base<T, Allocator>;
     using alloc_traits = nek::allocator_traits<typename base_type::alloc_type>;
+
+    static constexpr double rate() noexcept
+    {
+      return 1.5;
+    }
 
   public:
     using value_type = T;
@@ -146,6 +162,12 @@ namespace nek
     {
       nek::uninitialized_default_n(first(), count, allocator());
       last() = capacity_end();
+    }
+
+    vector(vector const& right)
+      : base_type{nek::size(right), alloc_traits::select_on_container_copy_construction(right.get_allocator())}
+    {
+      last() = nek::uninitialized_copy(right.begin(), right.end(), first());
     }
 
     ~vector()
@@ -245,11 +267,11 @@ namespace nek
     {
       auto const diff = position - begin();
       if (last() == capacity_end()) {
-        reserve(std::max(static_cast<size_type>(capacity() * 1.5), capacity() + 1));
+        reserve(std::max(static_cast<size_type>(capacity() * rate()), capacity() + 1));
       }
       allocator().construct(last(), nek::forward<Args>(args)...);
       ++last();
-      nek::rotate(begin() + diff, end() - 1, end());
+      nek::rotate(first() + diff, last() - 1, last());
       return begin() + diff;
     }
   };
