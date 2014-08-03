@@ -8,7 +8,7 @@ namespace nek
   template <class Container, class... Args>
   auto emplace_back(Container& con, Args&&... args)
   {
-    return con.emplace_back(nek::forward<Args>(args)...);
+    return con.emplace(con.end(), nek::forward<Args>(args)...);
   }
 }
 

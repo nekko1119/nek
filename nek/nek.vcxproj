@@ -88,6 +88,7 @@
     <ClInclude Include="type_traits\remove_volatile.hpp" />
     <ClInclude Include="uninitialized\uninitialized_copy.hpp" />
     <ClInclude Include="uninitialized\uninitialized_default.hpp" />
+    <ClInclude Include="uninitialized\uninitialized_move.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="utility\addressof.hpp" />
     <ClInclude Include="utility\forward.hpp" />

@@ -329,6 +329,11 @@ namespace nek
       return *(first() + n);
     }
 
+    template <class InputIterator>
+    iterator insert(const_iterator position, InputIterator first, InputIterator last)
+    {
+    }
+
     template <class... Args>
     iterator emplace(const_iterator position, Args&&... args)
     {
@@ -347,12 +352,6 @@ namespace nek
   auto size(vector<T, Allocator> const& v) noexcept
   {
     return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
-  }
-
-  template <class T, class Allocator, class... Args>
-  auto emplace_back(vector<T, Allocator>& v, Args&&... args)
-  {
-    return v.emplace(v.end(), nek::forward<Args>(args)...);
   }
 }
 
