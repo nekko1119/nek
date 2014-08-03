@@ -187,8 +187,8 @@ TEST_F(vector_test, emplace)
   EXPECT_LE(2U, sut.capacity());
   EXPECT_EQ(13, sut[0]);
 
-  nek::emplace_back(sut, 17);
-  nek::emplace_back(sut, 19);
+  sut.emplace(sut.end(), 17);
+  sut.emplace(sut.end(), 19);
   sut.emplace(sut.begin(), 23);
   sut.emplace(sut.begin(), 29);
   EXPECT_LE(5U, sut.capacity());
@@ -209,4 +209,20 @@ TEST_F(vector_test, at)
   nek::at(sut, 1) = 10;
   EXPECT_EQ(10, sut[1]);
   EXPECT_THROW(nek::at(sut, 4), std::out_of_range);
+}
+
+TEST_F(vector_test, emplace_back)
+{
+  nek::emplace_back(sut, 1);
+  nek::emplace_back(sut, 2);
+  nek::emplace_back(sut, 3);
+}
+
+TEST_F(vector_test, push_back)
+{
+  nek::push_back(sut, 1);
+  int a = 2;
+  nek::push_back(sut, 2);
+  EXPECT_EQ(1, sut[0]);
+  EXPECT_EQ(2, sut[1]);
 }

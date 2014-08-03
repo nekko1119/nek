@@ -8,8 +8,7 @@ namespace nek
   template <class Container>
   inline bool is_empty(Container const& con) noexcept
   {
-    // to be able to apply std containers.
-    return con.empty();
+    return con.begin() == con.end();
   }
 
   template <class T, std::size_t N>
