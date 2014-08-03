@@ -237,6 +237,21 @@ namespace nek
       return static_cast<size_type>(capacity_end() - first());
     }
 
+    size_type max_size() const noexcept
+    {
+      return allocator().max_size();
+    }
+
+    pointer data() noexcept
+    {
+      return first();
+    }
+
+    const_pointer data() const noexcept
+    {
+      return first();
+    }
+
     void swap(vector& right)
     {
       using nek::swap;

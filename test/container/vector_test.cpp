@@ -147,6 +147,25 @@ TEST_F(vector_test, get_allocator)
   EXPECT_NE(&alloc, &actual);
 }
 
+TEST_F(vector_test, max_size)
+{
+  nek::allocator<int> alloc;
+  nek::vector<int, nek::allocator<int>> v(alloc);
+  EXPECT_EQ(alloc.max_size(), v.max_size());
+}
+
+TEST_F(vector_test, data)
+{
+  emplace_back(sut, 1);
+  emplace_back(sut, 2);
+  emplace_back(sut, 3);
+  int const* p = sut.data();
+  EXPECT_EQ(&sut[0], &p[0]);
+  EXPECT_EQ(1, sut[0]);
+  EXPECT_EQ(2, sut[1]);
+  EXPECT_EQ(3, sut[2]);
+}
+
 TEST_F(vector_test, reserve)
 {
   nek::vector<int> v(4);
