@@ -144,6 +144,7 @@
     <ClCompile Include="type_traits\remove_volatile_test.cpp" />
     <ClCompile Include="uninitialized\uninitialized_copy_test.cpp" />
     <ClCompile Include="uninitialized\uninitialized_default_test.cpp" />
+    <ClCompile Include="uninitialized\uninitialized_move_test.cpp" />
     <ClCompile Include="utility\addressof_test.cpp" />
     <ClCompile Include="utility\forward_test.cpp" />
     <ClCompile Include="utility\move_if_noexcept_test.cpp" />
