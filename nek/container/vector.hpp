@@ -133,35 +133,6 @@ namespace nek
     using base_type = vector_detail::vector_base<T, Allocator>;
     using alloc_traits = nek::allocator_traits<typename base_type::alloc_type>;
 
-    static constexpr inline double rate() noexcept
-    {
-      return 1.5;
-    }
-
-    template <class InputIterator>
-    void range_initialize(InputIterator first, InputIterator last, std::input_iterator_tag)
-    {
-      for (; first != last; ++first) {
-        nek::emplace_back(*this, *first);
-      }
-    }
-
-    template <class ForwardIterator>
-    void range_initialize(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
-    {
-      size_type const count = nek::distance(first, last);
-      this->first() = allocator().allocate(count);
-      this->capacity_end() = this->first() + count;
-      this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
-    }
-
-    template <class Iterator>
-    void range_initialize(Iterator first, Iterator last)
-    {
-      using tag = typename nek::iterator_traits<Iterator>::iterator_category;
-      range_initialize(first, last, tag{});
-    }
-
   public:
     using value_type = T;
     using allocator_type = Allocator;
@@ -332,6 +303,10 @@ namespace nek
     template <class InputIterator>
     iterator insert(const_iterator position, InputIterator first, InputIterator last)
     {
+      using tag = typename nek::iterator_traits<InputIterator>::iterator_category;
+      insert_(position, first, last, tag{});
+      size_type const pos = position - begin();
+      return pos;
     }
 
     template <class... Args>
@@ -346,6 +321,50 @@ namespace nek
       nek::rotate(first() + diff, last() - 1, last());
       return begin() + diff;
     }
+    private:
+      static constexpr inline double rate() noexcept
+      {
+        return 1.5;
+      }
+
+        template <class InputIterator>
+      void range_initialize(InputIterator first, InputIterator last, std::input_iterator_tag)
+      {
+        for (; first != last; ++first) {
+          nek::emplace_back(*this, *first);
+        }
+      }
+
+      template <class ForwardIterator>
+      void range_initialize(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
+      {
+        size_type const count = nek::distance(first, last);
+        this->first() = allocator().allocate(count);
+        this->capacity_end() = this->first() + count;
+        this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
+      }
+
+      template <class Iterator>
+      void range_initialize(Iterator first, Iterator last)
+      {
+        using tag = typename nek::iterator_traits<Iterator>::iterator_category;
+        range_initialize(first, last, tag{});
+      }
+
+      template <class InputIterator>
+      void insert_(const_iterator position, InputIterator first, InputIterator last, std::input_iterator_tag)
+      {
+        size_type const pos = position - begin();
+        size_type const before_size = nek::size(*this);
+        try {
+          for (; first != last; ++first) {
+            emplace(end(), *first);
+          }
+        } catch (...) {
+          // TODO : erase
+        }
+        nek::rotate(begin() + pos, begin() + before_size, end());
+      }
   };
 
   template <class T, class Allocator>
