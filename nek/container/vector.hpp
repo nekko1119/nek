@@ -5,7 +5,8 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::max
+#include <algorithm> // TODO : std::max, std::move
+#include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/container/function.hpp>
 #include <nek/detail/destroy.hpp>
@@ -321,50 +322,72 @@ namespace nek
       nek::rotate(first() + diff, last() - 1, last());
       return begin() + diff;
     }
-    private:
-      static constexpr inline double rate() noexcept
-      {
-        return 1.5;
+
+    iterator erase(const_iterator first, const_iterator last)
+    {
+      if (first == last) {
+        return make_iter(first);
       }
 
-        template <class InputIterator>
-      void range_initialize(InputIterator first, InputIterator last, std::input_iterator_tag)
-      {
+      auto f = make_iter(first);
+      auto l = make_iter(last);
+
+      iterator new_last = std::move(l, end(), f);
+      detail::destroy(new_last.base(), this->last(), allocator());
+      this->last() = new_last.base();
+
+      return make_iter(first);
+    }
+
+  private:
+    static constexpr inline double rate() noexcept
+    {
+      return 1.5;
+    }
+
+    template <class InputIterator>
+    void range_initialize(InputIterator first, InputIterator last, std::input_iterator_tag)
+    {
+      for (; first != last; ++first) {
+        nek::emplace_back(*this, *first);
+      }
+    }
+
+    template <class ForwardIterator>
+    void range_initialize(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
+    {
+      size_type const count = nek::distance(first, last);
+      this->first() = allocator().allocate(count);
+      this->capacity_end() = this->first() + count;
+      this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
+    }
+
+    template <class Iterator>
+    void range_initialize(Iterator first, Iterator last)
+    {
+      using tag = typename nek::iterator_traits<Iterator>::iterator_category;
+      range_initialize(first, last, tag{});
+    }
+
+    template <class InputIterator>
+    void insert_(const_iterator position, InputIterator first, InputIterator last, std::input_iterator_tag)
+    {
+      size_type const pos = position - begin();
+      size_type const before_size = nek::size(*this);
+      try {
         for (; first != last; ++first) {
-          nek::emplace_back(*this, *first);
+          emplace(end(), *first);
         }
+      } catch (...) {
+        // TODO : erase
       }
+      nek::rotate(begin() + pos, begin() + before_size, end());
+    }
 
-      template <class ForwardIterator>
-      void range_initialize(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
-      {
-        size_type const count = nek::distance(first, last);
-        this->first() = allocator().allocate(count);
-        this->capacity_end() = this->first() + count;
-        this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
-      }
-
-      template <class Iterator>
-      void range_initialize(Iterator first, Iterator last)
-      {
-        using tag = typename nek::iterator_traits<Iterator>::iterator_category;
-        range_initialize(first, last, tag{});
-      }
-
-      template <class InputIterator>
-      void insert_(const_iterator position, InputIterator first, InputIterator last, std::input_iterator_tag)
-      {
-        size_type const pos = position - begin();
-        size_type const before_size = nek::size(*this);
-        try {
-          for (; first != last; ++first) {
-            emplace(end(), *first);
-          }
-        } catch (...) {
-          // TODO : erase
-        }
-        nek::rotate(begin() + pos, begin() + before_size, end());
-      }
+    iterator make_iter(const_iterator it) const
+    {
+      return iterator(const_cast<pointer>(it.base()));
+    }
   };
 
   template <class T, class Allocator>

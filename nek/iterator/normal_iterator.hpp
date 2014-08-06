@@ -2,8 +2,6 @@
 #define NEK_ITERATOR_NORMAL_ITERATOR_HPP
 
 #include <nek/iterator/iterator_traits.hpp>
-#include <nek/type_traits/enable_if.hpp>
-#include <nek/type_traits/is_same.hpp>
 
 namespace nek
 {

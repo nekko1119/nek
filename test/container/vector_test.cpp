@@ -219,6 +219,16 @@ TEST_F(vector_test, emplace)
   EXPECT_EQ(19, sut[4]);
 }
 
+TEST_F(vector_test, erase)
+{
+  nek::vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  v.erase(v.begin() + 1, v.begin() + 7);
+  EXPECT_EQ(3, nek::size(v));
+  EXPECT_EQ(1, v[0]);
+  EXPECT_EQ(8, v[1]);
+  EXPECT_EQ(9, v[2]);
+}
+
 TEST_F(vector_test, at)
 {
   nek::emplace_back(sut, 1);
