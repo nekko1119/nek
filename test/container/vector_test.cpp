@@ -196,6 +196,21 @@ TEST_F(vector_test, subscript)
   EXPECT_EQ(44, v[3]);
 }
 
+TEST_F(vector_test, insert)
+{
+  nek::vector<int> v = {1, 2, 3};
+  int a[] = {10, 20, 30};
+  v.insert(v.begin() + 1, a, a + 3);
+  EXPECT_EQ(6, nek::size(v));
+  EXPECT_EQ(1, v[0]);
+  EXPECT_EQ(10, v[1]);
+  EXPECT_EQ(20, v[2]);
+  EXPECT_EQ(30, v[3]);
+  EXPECT_EQ(2, v[4]);
+  EXPECT_EQ(3, v[5]);
+  EXPECT_THROW(v.insert(v.begin(), a, a + v.max_size()), std::length_error);
+}
+
 TEST_F(vector_test, emplace)
 {
   // setup

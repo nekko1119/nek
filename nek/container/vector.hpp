@@ -307,7 +307,7 @@ namespace nek
     {
       using tag = typename nek::iterator_traits<InputIterator>::iterator_category;
       insert_(position, first, last, tag{});
-      size_type const pos = nek::distance(begin(), position);
+      size_type const pos = nek::distance<const_iterator>(begin(), position);
       return begin() + pos;
     }
 
@@ -316,7 +316,7 @@ namespace nek
     {
       auto const diff = nek::distance<const_iterator>(begin(), position);
       if (last() == capacity_end()) {
-        reserve(std::max(static_cast<size_type>(capacity() * rate()), capacity() + 1));
+        reserve(larger_size(nek::size(*this)));
       }
       allocator().construct(last(), nek::forward<Args>(args)...);
       ++last();
@@ -344,6 +344,11 @@ namespace nek
     static constexpr inline double rate() noexcept
     {
       return 1.5;
+    }
+
+    inline size_type larger_size(size_type size) const noexcept
+    {
+      return std::max(static_cast<size_type>(size * rate()), size + 1);
     }
 
     template <class InputIterator>
@@ -397,8 +402,44 @@ namespace nek
       // has enough size
       if (insert_size <= static_cast<size_type>(capacity_end() - this->last())) {
         nek::uninitialized_move(first, last, this->last(), get_allocator());
-        nek::rotate(position, this->last(), this->last() + insert_size);
+        nek::rotate(remove_const(position).base(), this->last(), this->last() + insert_size);
         this->last() += insert_size;
+      } else {
+        // validate
+        if (max_size() - nek::size(*this) < insert_size) {
+          throw std::length_error{"nek::vector::insert : insert elements size is too large"};
+        }
+
+        // allocate new buffer
+        size_type const new_capacity_size = larger_size(nek::size(*this) + insert_size);
+        pointer new_first = allocator().allocate(new_capacity_size);
+        pointer new_last = new_first;
+        // move to new buffer from
+        // old buffer (before insert position) + insert elements + old buffer (after insert position)
+        try {
+          new_last = nek::uninitialized_copy(
+            nek::make_move_if_noexcept_iterator(this->first()),
+            nek::make_move_if_noexcept_iterator(remove_const(position).base()),
+            new_first, get_allocator()
+            );
+          new_last = nek::uninitialized_copy(first, last, new_last, get_allocator());
+          new_last = nek::uninitialized_copy(
+            nek::make_move_if_noexcept_iterator(remove_const(position).base()),
+            nek::make_move_if_noexcept_iterator(this->last()),
+            new_last, get_allocator());
+        } catch (...) {
+          nek::detail::destroy(new_first, new_last, get_allocator());
+          allocator().deallocate(new_first, new_capacity_size);
+          throw;
+        }
+        // release old buffer
+        nek::detail::destroy(this->first(), this->last(), get_allocator());
+        allocator().deallocate(this->first(), nek::distance(this->first(), this->capacity_end()));
+
+        // update pointer
+        this->first() = new_first;
+        this->last() = new_last;
+        this->capacity_end() = new_first + new_capacity_size;
       }
     }
 
