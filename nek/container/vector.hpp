@@ -308,13 +308,13 @@ namespace nek
       using tag = typename nek::iterator_traits<InputIterator>::iterator_category;
       insert_(position, first, last, tag{});
       size_type const pos = nek::distance(begin(), position);
-      return pos;
+      return begin() + pos;
     }
 
     template <class... Args>
     iterator emplace(const_iterator position, Args&&... args)
     {
-      auto const diff = nek::distance(begin(), position);
+      auto const diff = nek::distance<const_iterator>(begin(), position);
       if (last() == capacity_end()) {
         reserve(std::max(static_cast<size_type>(capacity() * rate()), capacity() + 1));
       }
