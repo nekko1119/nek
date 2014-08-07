@@ -18,6 +18,7 @@
 #include <nek/iterator/normal_iterator.hpp>
 #include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
+#include <nek/uninitialized/uninitialized_move.hpp>
 #include <nek/utility/forward.hpp>
 #include <nek/utility/swap.hpp>
 #include <vector>
@@ -306,14 +307,14 @@ namespace nek
     {
       using tag = typename nek::iterator_traits<InputIterator>::iterator_category;
       insert_(position, first, last, tag{});
-      size_type const pos = position - begin();
+      size_type const pos = nek::distance(begin(), position);
       return pos;
     }
 
     template <class... Args>
     iterator emplace(const_iterator position, Args&&... args)
     {
-      auto const diff = position - begin();
+      auto const diff = nek::distance(begin(), position);
       if (last() == capacity_end()) {
         reserve(std::max(static_cast<size_type>(capacity() * rate()), capacity() + 1));
       }
@@ -326,17 +327,17 @@ namespace nek
     iterator erase(const_iterator first, const_iterator last)
     {
       if (first == last) {
-        return make_iter(first);
+        return remove_const(first);
       }
 
-      auto f = make_iter(first);
-      auto l = make_iter(last);
+      auto f = remove_const(first);
+      auto l = remove_const(last);
 
       iterator new_last = std::move(l, end(), f);
       detail::destroy(new_last.base(), this->last(), allocator());
       this->last() = new_last.base();
 
-      return make_iter(first);
+      return remove_const(first);
     }
 
   private:
@@ -372,19 +373,36 @@ namespace nek
     template <class InputIterator>
     void insert_(const_iterator position, InputIterator first, InputIterator last, std::input_iterator_tag)
     {
-      size_type const pos = position - begin();
+      size_type const pos = nek::distance(begin(), position);
       size_type const before_size = nek::size(*this);
       try {
         for (; first != last; ++first) {
           emplace(end(), *first);
         }
       } catch (...) {
-        // TODO : erase
+        erase(begin() + before_size, end());
       }
       nek::rotate(begin() + pos, begin() + before_size, end());
     }
 
-    iterator make_iter(const_iterator it) const
+    template <class InputIterator>
+    void insert_(const_iterator position, InputIterator first, InputIterator last, std::forward_iterator_tag)
+    {
+      if (first == last) {
+        return;
+      }
+
+      size_type const insert_size = nek::distance(first, last);
+
+      // has enough size
+      if (insert_size <= static_cast<size_type>(capacity_end() - this->last())) {
+        nek::uninitialized_move(first, last, this->last(), get_allocator());
+        nek::rotate(position, this->last(), this->last() + insert_size);
+        this->last() += insert_size;
+      }
+    }
+
+    iterator remove_const(const_iterator it) const
     {
       return iterator(const_cast<pointer>(it.base()));
     }
