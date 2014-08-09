@@ -2,6 +2,7 @@
 #define NEK_CONTAINER_FUNCTION_PUSH_BACK_HPP
 
 #include <nek/container/function/emplace_back.hpp>
+#include <nek/container/function/insert.hpp>
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/utility/move.hpp>
 
@@ -10,7 +11,7 @@ namespace nek
   template <class Container, class Value>
   void push_back(Container& con, Value const& value)
   {
-    nek::emplace_back(con, value);
+    nek::insert(con, con.end(), value);
   }
 
   template <class Container, class Value>

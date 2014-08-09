@@ -5,7 +5,7 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::max, std::move
+#include <algorithm> // TODO : std::max, std::move, std::fill_n
 #include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/container/function.hpp>
@@ -401,7 +401,7 @@ namespace nek
 
       // has enough size
       if (insert_size <= static_cast<size_type>(capacity_end() - this->last())) {
-        nek::uninitialized_move(first, last, this->last(), get_allocator());
+        nek::uninitialized_copy(first, last, this->last(), get_allocator());
         nek::rotate(remove_const(position).base(), this->last(), this->last() + insert_size);
         this->last() += insert_size;
       } else {

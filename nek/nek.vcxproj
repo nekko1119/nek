@@ -27,6 +27,7 @@
     <ClInclude Include="container\function.hpp" />
     <ClInclude Include="container\function\at.hpp" />
     <ClInclude Include="container\function\emplace_back.hpp" />
+    <ClInclude Include="container\function\insert.hpp" />
     <ClInclude Include="container\function\is_empty.hpp" />
     <ClInclude Include="container\function\push_back.hpp" />
     <ClInclude Include="container\function\size.hpp" />
