@@ -262,6 +262,47 @@ TEST_F(vector_test, emplace_back)
   nek::emplace_back(sut, 3);
 }
 
+TEST_F(vector_test, insert_family)
+{
+  nek::insert(sut, sut.end(), 10);
+  EXPECT_EQ(1, nek::size(sut));
+  EXPECT_EQ(10, sut[0]);
+
+  int n = 20;
+  nek::insert(sut, sut.end(), n);
+  EXPECT_EQ(2, nek::size(sut));
+  EXPECT_EQ(10, sut[0]);
+  EXPECT_EQ(20, sut[1]);
+
+  nek::insert(sut, sut.end(), 3, 30);
+  EXPECT_EQ(5, nek::size(sut));
+  EXPECT_EQ(10, sut[0]);
+  EXPECT_EQ(20, sut[1]);
+  EXPECT_EQ(30, sut[2]);
+  EXPECT_EQ(30, sut[3]);
+  EXPECT_EQ(30, sut[4]);
+
+  nek::insert(sut, sut.end(), {40, 50, 60});
+  EXPECT_EQ(8, nek::size(sut));
+  EXPECT_EQ(10, sut[0]);
+  EXPECT_EQ(20, sut[1]);
+  EXPECT_EQ(30, sut[2]);
+  EXPECT_EQ(30, sut[3]);
+  EXPECT_EQ(30, sut[4]);
+  EXPECT_EQ(40, sut[5]);
+  EXPECT_EQ(50, sut[6]);
+  EXPECT_EQ(60, sut[7]);
+}
+
+TEST_F(vector_test, pop_back)
+{
+  nek::vector<int> v = {1, 2, 3};
+  nek::pop_back(v);
+  EXPECT_EQ(2, nek::size(v));
+  EXPECT_EQ(1, v[0]);
+  EXPECT_EQ(2, v[1]);
+}
+
 TEST_F(vector_test, push_back)
 {
   nek::push_back(sut, 1);

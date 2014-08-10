@@ -4,6 +4,7 @@
 #include <nek/container/function/at.hpp>
 #include <nek/container/function/emplace_back.hpp>
 #include <nek/container/function/is_empty.hpp>
+#include <nek/container/function/pop_back.hpp>
 #include <nek/container/function/push_back.hpp>
 #include <nek/container/function/size.hpp>
 
