@@ -311,3 +311,12 @@ TEST_F(vector_test, push_back)
   EXPECT_EQ(1, sut[0]);
   EXPECT_EQ(2, sut[1]);
 }
+
+TEST_F(vector_test, clear)
+{
+  nek::push_back(sut, 1);
+  nek::push_back(sut, 2);
+  nek::push_back(sut, 3);
+  nek::clear(sut);
+  EXPECT_TRUE(nek::is_empty(sut));
+}
