@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorithm\copy.hpp" />
+    <ClInclude Include="algorithm\fill_n.hpp" />
     <ClInclude Include="algorithm\iter_swap.hpp" />
     <ClInclude Include="algorithm\reverse.hpp" />
     <ClInclude Include="algorithm\rotate.hpp" />

@@ -5,7 +5,7 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::max, std::move, std::fill_n
+#include <algorithm> // TODO : std::max, std::move
 #include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/container/function.hpp>
