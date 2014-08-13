@@ -1,7 +1,7 @@
 #ifndef NEK_UNINITIALIZED_DEFAULT_HPP
 #define NEK_UNINITIALIZED_DEFAULT_HPP
 
-#include <algorithm> // TODO : fill_n
+#include <nek/algorithm/fill_n.hpp>
 #include <type_traits> // TODO : is_trivial
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
@@ -32,7 +32,7 @@ namespace nek
     void uninitialized_default_n_(ForwardIterator first, Size count, std::true_type)
     {
       using value_type = typename nek::iterator_traits<ForwardIterator>::value_type;
-      std::fill_n(first, count, value_type{});
+      nek::fill_n(first, count, value_type{});
     }
   }
 

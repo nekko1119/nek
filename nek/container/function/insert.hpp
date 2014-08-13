@@ -3,7 +3,7 @@
 
 #include <initializer_list>
 
-#include <algorithm> // TODO std::fill_n
+#include <nek/algorithm/fill_n.hpp>
 #include <nek/container/container_fwd.hpp>
 #include <nek/container/function/emplace_back.hpp>
 #include <nek/utility/move.hpp>
@@ -36,7 +36,7 @@ namespace nek
     }
 
     nek::vector<Value> temp(count);
-    std::fill_n(temp.begin(), count, value);
+    nek::fill_n(temp.begin(), count, value);
     return v.insert(position, temp.begin(), temp.end());
   }
 }
