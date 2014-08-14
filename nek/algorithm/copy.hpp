@@ -2,11 +2,11 @@
 #define NEK_ALGORITHM_COPY_HPP
 
 #include <cstring>
-#include <type_traits> // TODO : is_trivial
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/iterator/move_iterator.hpp>
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_same.hpp>
+#include <nek/type_traits/is_trivial.hpp>
 #include <nek/utility/addressof.hpp>
 #include <nek/utility/move.hpp> 
 
@@ -62,7 +62,7 @@ namespace nek
       using out_value_type = typename iterator_traits<OutputIterator>::value_type;
       using iterator_category = typename iterator_traits<InputIterator>::iterator_category;
       using is_memmovable = nek::integral_constant<bool, mpl::and_<
-        std::is_trivial<in_value_type>,
+        nek::is_trivial<in_value_type>,
         nek::is_pointer<InputIterator>,
         nek::is_pointer<OutputIterator>,
         nek::is_same<in_value_type, out_value_type>>::value>;

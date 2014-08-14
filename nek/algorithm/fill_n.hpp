@@ -16,8 +16,7 @@ namespace nek
       return dest;
     }
 
-    template <>
-    inline char* fill_n_<char*, std::size_t, char>(char* dest, std::size_t count, char const& value)
+    inline char* fill_n_(char* dest, std::size_t count, char const& value)
     {
       std::memset(dest, value, count);
       return dest + count;

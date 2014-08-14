@@ -1,11 +1,11 @@
 ﻿#ifndef NEK_UNINITIALIZED_COPY_HPP
 #define NEK_UNINITIALIZED_COPY_HPP
 
-#include <type_traits> // TODO : is_trivial
 #include <nek/algorithm/copy.hpp>
 #include <nek/detail/construct.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/iterator/iterator_traits.hpp>
+#include <nek/type_traits/is_trivial.hpp>
 #include <nek/utility/addressof.hpp>
 
 namespace nek
@@ -14,7 +14,7 @@ namespace nek
   namespace uninitialized_copy_detail
   {
     template <class InputIterator, class ForwardIterator>
-    ForwardIterator uninitialized_copy_(InputIterator first, InputIterator last, ForwardIterator dest, std::false_type)
+    ForwardIterator uninitialized_copy_(InputIterator first, InputIterator last, ForwardIterator dest, nek::false_type)
     {
       auto current = dest;
       try {
@@ -29,7 +29,7 @@ namespace nek
     }
 
     template <class InputIterator, class ForwardIterator>
-    ForwardIterator uninitialized_copy_(InputIterator first, InputIterator last, ForwardIterator dest, std::true_type)
+    ForwardIterator uninitialized_copy_(InputIterator first, InputIterator last, ForwardIterator dest, nek::true_type)
     {
       return nek::copy(first, last, dest);
     }
@@ -41,7 +41,7 @@ namespace nek
     using in_value_type = typename iterator_traits<InputIterator>::value_type;
     using out_value_type = typename iterator_traits<ForwardIterator>::value_type;
     return uninitialized_copy_detail::uninitialized_copy_(first, last, dest,
-      std::integral_constant<bool, std::is_trivial<in_value_type>::value && std::is_trivial<out_value_type>::value>{});
+      nek::integral_constant<bool, nek::is_trivial<in_value_type>::value && nek::is_trivial<out_value_type>::value>{});
   }
 
   template <class InputIterator, class ForwardIterator, class Allocator>
