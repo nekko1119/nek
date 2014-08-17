@@ -31,7 +31,7 @@ namespace nek
     {
     }
 
-    iterator_type const& base() const
+    iterator_type base() const
     {
       return current_;
     }
@@ -68,29 +68,29 @@ namespace nek
       return normal_iterator{current_--};
     }
 
-    normal_iterator& operator+=(difference_type const& n)
+    normal_iterator& operator+=(difference_type n)
     {
       current_ += n;
       return *this;
     }
 
-    normal_iterator operator+(difference_type const& n) const
+    normal_iterator operator+(difference_type n) const
     {
       return normal_iterator{current_ + n};
     }
 
-    normal_iterator& operator-=(difference_type const& n)
+    normal_iterator& operator-=(difference_type n)
     {
       current_ -= n;
       return *this;
     }
 
-    normal_iterator operator-(difference_type const& n) const
+    normal_iterator operator-(difference_type n) const
     {
       return normal_iterator{current_ - n};
     }
 
-    reference operator[](difference_type const& n) const
+    reference operator[](difference_type n) const
     {
       return current_[n];
     }
@@ -145,7 +145,6 @@ namespace nek
   {
     return !(left.base() < right.base());
   }
-
 }
 
 #endif

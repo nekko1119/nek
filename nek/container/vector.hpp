@@ -5,7 +5,8 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::max, std::move
+#include <algorithm> // TODO : std::move
+#include <nek/algorithm/max.hpp>
 #include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/container/function.hpp>
@@ -348,7 +349,7 @@ namespace nek
 
     inline size_type larger_size(size_type size) const noexcept
     {
-      return std::max(static_cast<size_type>(size * rate()), size + 1);
+      return nek::max(static_cast<size_type>(size * rate()), size + 1);
     }
 
     template <class InputIterator>
@@ -426,7 +427,8 @@ namespace nek
           new_last = nek::uninitialized_copy(
             nek::make_move_if_noexcept_iterator(remove_const(position).base()),
             nek::make_move_if_noexcept_iterator(this->last()),
-            new_last, get_allocator());
+            new_last, get_allocator()
+            );
         } catch (...) {
           nek::detail::destroy(new_first, new_last, get_allocator());
           allocator().deallocate(new_first, new_capacity_size);
