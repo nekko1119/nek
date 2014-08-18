@@ -17,6 +17,7 @@
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/iterator/move_iterator.hpp>
 #include <nek/iterator/normal_iterator.hpp>
+#include <nek/iterator/reverse_iterator.hpp>
 #include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
 #include <nek/uninitialized/uninitialized_move.hpp>
@@ -147,6 +148,8 @@ namespace nek
     using const_pointer = typename alloc_traits::const_pointer;
     using iterator = normal_iterator<pointer>;
     using const_iterator = normal_iterator<const_pointer>;
+    using reverse_iterator = nek::reverse_iterator<iterator>;
+    using const_reverse_iterator = nek::reverse_iterator<const_iterator>;
 
     vector()
       : base_type{}

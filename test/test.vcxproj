@@ -104,6 +104,7 @@
     <ClCompile Include="iterator\move_iterator_test.cpp" />
     <ClCompile Include="iterator\normal_iterator_test.cpp" />
     <ClCompile Include="iterator\range_test.cpp" />
+    <ClCompile Include="iterator\reverse_iterator_test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mpl\and_test.cpp" />
     <ClCompile Include="mpl\bool_test.cpp" />

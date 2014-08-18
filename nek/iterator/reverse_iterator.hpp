@@ -55,25 +55,25 @@ namespace nek
 
     pointer operator->() const
     {
-      std::pointer_traits<pointer>::pointer_to(**this);
+      return std::pointer_traits<pointer>::pointer_to(**this);
     }
 
     reverse_iterator& operator++()
     {
       --current_;
-      return +this;
+      return *this;
     }
 
     reverse_iterator operator++(int)
     {
       reverse_iterator temp = *this;
       --current_;
-      return return temp;
+      return temp;
     }
 
     reverse_iterator& operator--()
     {
-      ++current;
+      ++current_;
       return *this;
     }
 
@@ -120,7 +120,7 @@ namespace nek
     return reverse_iterator<Iterator>{it.base() - n};
   }
 
-  template <class LeftIterator, class RightItarator>
+  template <class LeftIterator, class RightIterator>
   inline auto operator-(reverse_iterator<LeftIterator> const& left, reverse_iterator<RightIterator> const& right)
   {
     return left.base() - right.base();

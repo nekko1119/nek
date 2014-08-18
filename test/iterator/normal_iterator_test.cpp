@@ -40,7 +40,7 @@ TEST_F(normal_iterator_test, default_constructor)
 
 TEST_F(normal_iterator_test, assign_constructor)
 {
-  nek::normal_iterator<iter_type>instance{mock.begin()};
+  nek::normal_iterator<iter_type> instance{mock.begin()};
   EXPECT_EQ(mock.begin(), instance.base());
   EXPECT_EQ(*mock.begin(), *instance);
 }
