@@ -92,7 +92,7 @@ namespace nek
 
     reverse_iterator operator+(difference_type n) const
     {
-      return reverse_iterator{current_ + n};
+      return reverse_iterator{current_ - n};
     }
 
     reverse_iterator& operator-=(difference_type n)
@@ -114,8 +114,8 @@ namespace nek
 
   template <class Iterator>
   inline reverse_iterator<Iterator> operator+(
-    typename reverse_iterator<Iterator>::diffrence_type n,
-    reverse_iterator<Iterator> it)
+    typename reverse_iterator<Iterator>::difference_type n,
+    reverse_iterator<Iterator> const& it)
   {
     return reverse_iterator<Iterator>{it.base() - n};
   }
@@ -141,13 +141,13 @@ namespace nek
   template <class LeftIterator, class RightIterator>
   inline bool operator<(reverse_iterator<LeftIterator> const left, reverse_iterator<RightIterator> const& right)
   {
-    return left.base() < right.base();
+    return right.base() < left.base();
   }
 
   template <class LeftIterator, class RightIterator>
   inline bool operator>(reverse_iterator<LeftIterator> const left, reverse_iterator<RightIterator> const& right)
   {
-    return left.base() > right.base();
+    return right < left;
   }
 
   template <class LeftIterator, class RightIterator>

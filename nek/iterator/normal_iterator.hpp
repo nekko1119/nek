@@ -131,19 +131,19 @@ namespace nek
   template <class LeftIterator, class RightIterator>
   inline bool operator>(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
   {
-    return right.base() < left.base();
+    return right < left;
   }
 
   template <class LeftIterator, class RightIterator>
   inline bool operator<=(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
   {
-    return !(right.base() < left.base());
+    return !(right < left);
   }
 
   template <class LeftIterator, class RightIterator>
   inline bool operator>=(normal_iterator<LeftIterator> const& left, normal_iterator<RightIterator> const& right)
   {
-    return !(left.base() < right.base());
+    return !(left < right);
   }
 }
 

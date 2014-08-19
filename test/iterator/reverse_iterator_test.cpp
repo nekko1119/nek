@@ -87,3 +87,47 @@ TEST_F(reverse_iterator_test, prefix_decrement)
   auto expected = mock.begin();
   EXPECT_EQ(*expected, *end);
 }
+
+TEST_F(reverse_iterator_test, subscript)
+{
+  EXPECT_EQ(sut[3], mock[0]);
+}
+
+TEST_F(reverse_iterator_test, plus)
+{
+  auto actual1 = sut + 2;
+  auto actual2 = 2 + sut;
+  sut += 2;
+  auto expected = mock.end() - 2;
+  EXPECT_EQ(expected, actual1.base());
+  EXPECT_EQ(expected, actual2.base());
+  EXPECT_EQ(expected, sut.base());
+}
+
+TEST_F(reverse_iterator_test, minus)
+{
+  type end{mock.begin()};
+  auto actual = end - 2;
+  end -= 2;
+  auto expected = mock.begin() + 2;
+  EXPECT_EQ(expected, actual.base());
+  EXPECT_EQ(expected, end.base());
+}
+
+TEST_F(reverse_iterator_test, compare)
+{
+  nek::reverse_iterator<iter_type> begin{mock.end()};
+  nek::reverse_iterator<iter_type> end{mock.begin()};
+  EXPECT_LT(begin, end);
+  EXPECT_LE(begin, end);
+  EXPECT_GT(end, begin);
+  EXPECT_GE(end, begin);
+}
+
+TEST_F(reverse_iterator_test, equal)
+{
+  nek::reverse_iterator<iter_type> begin{mock.end()};
+  nek::reverse_iterator<iter_type> end{mock.begin()};
+  EXPECT_EQ(begin, begin);
+  EXPECT_NE(begin, end);
+}
