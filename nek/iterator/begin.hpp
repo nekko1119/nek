@@ -2,6 +2,7 @@
 #define NEK_ITERATOR_BEGIN_HPP
 
 #include <cstddef>
+#include <nek/iterator/reverse_iterator.hpp>
 
 namespace nek
 {
@@ -27,6 +28,45 @@ namespace nek
   inline auto cbegin(Container const& con) -> decltype(con.begin())
   {
     return con.begin();
+  }
+
+  template <class T, std::size_t N>
+  inline T const* cbegin(T const (&array)[N])
+  {
+    return array;
+  }
+
+  template <class Container>
+  inline auto rbegin(Container& con)
+    //-> decltype(nek::reverse_iterator<typename Container::iterator>{con.end()})
+  {
+    return nek::reverse_iterator<typename Container::iterator>{con.end()};
+  }
+
+  template <class Container>
+  inline auto rbegin(Container const& con)
+    //-> decltype(nek::reverse_iterator<typename Container::const_iterator>{con.end()})
+  {
+    return nek::reverse_iterator<typename Container::const_iterator>{con.end()};
+  }
+
+  template <class T, std::size_t N>
+  inline nek::reverse_iterator<T*> rbegin(T (&array)[N])
+  {
+    return nek::reverse_iterator<T*>{array + N};
+  }
+
+  template <class Container>
+  inline auto crbegin(Container const& con)
+    -> decltype(nek::reverse_iterator<typename Container::const_iterator>{con.end()})
+  {
+    return nek::reverse_iterator<typename Container::const_iterator>{con.end()};
+  }
+
+  template <class T, std::size_t N>
+  inline nek::reverse_iterator<T const*> crbegin(T const (&array)[N])
+  {
+    return nek::reverse_iterator<T const*>{array + N};
   }
 }
 

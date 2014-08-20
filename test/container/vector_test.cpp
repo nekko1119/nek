@@ -1,4 +1,5 @@
 #include <nek/container/vector.hpp>
+#include <nek/iterator/range.hpp>
 #include <gtest/gtest.h>
 #include <cstddef>
 #include <list>
@@ -69,6 +70,8 @@ TEST_F(vector_test, member_type)
   STATIC_ASSERT_EQ(type::const_reference, int const&);
   STATIC_ASSERT_EQ(type::pointer, int*);
   STATIC_ASSERT_EQ(type::const_pointer, int const*);
+  STATIC_ASSERT_EQ(type::reverse_iterator, nek::reverse_iterator<type::iterator>);
+  STATIC_ASSERT_EQ(type::const_reverse_iterator, nek::reverse_iterator<type::const_iterator>);
 }
 
 TEST_F(vector_test, default_constructor)
@@ -179,6 +182,26 @@ TEST_F(vector_test, reserve)
   v.reserve(7);
   EXPECT_EQ(7, v.capacity());
   EXPECT_EQ(42, v[2]);
+}
+
+TEST_F(vector_test, iterator)
+{
+  nek::vector<int> const v = {1, 2, 3, 4};
+  int expected[] = {1, 2, 3, 4};
+  int index = 0;
+  for (auto it = v.begin(); it != v.end(); ++it) {
+    EXPECT_EQ(expected[index++], *it);
+  }
+}
+
+TEST_F(vector_test, reverse_iterator)
+{
+  nek::vector<int> const v = {1, 2, 3, 4};
+  int expected[] = {4, 3, 2, 1};
+  int index = 0;
+  for (auto it = nek::rbegin(v); it != nek::rend(v); ++it) {
+    EXPECT_EQ(expected[index++], *it);
+  }
 }
 
 TEST_F(vector_test, subscript)

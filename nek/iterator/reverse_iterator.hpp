@@ -101,7 +101,7 @@ namespace nek
       return *this;
     }
 
-    reverse_iterator operator-(difference_type n)
+    reverse_iterator operator-(difference_type n) const
     {
       return reverse_iterator{current_ + n};
     }

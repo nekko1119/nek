@@ -24,3 +24,22 @@ TEST(range_test, list)
   --last;
   EXPECT_EQ(list.back(), *last);
 }
+
+TEST(range_test, reverse_array)
+{
+  int arr[] = {1, 2, 3};
+  auto const first = nek::rbegin(arr);
+  EXPECT_EQ(arr[2], *first);
+  EXPECT_EQ(&arr[2], &*first);
+  auto const last = nek::rend(arr);
+  EXPECT_EQ(arr[0], *(last - 1));
+  EXPECT_EQ(&arr[0], &*(last - 1));
+}
+
+TEST(range_test, reverse_list)
+{
+  std::list<int> list = {1, 2, 3};
+  auto const first = nek::rbegin(list);
+  EXPECT_EQ(list.back(), *first);
+  EXPECT_EQ(list.end(), first.base());
+}
