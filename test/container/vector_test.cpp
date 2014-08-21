@@ -125,6 +125,18 @@ TEST_F(vector_test, copy_constructor)
   EXPECT_NE(sut.begin(), copied.begin());
 }
 
+TEST_F(vector_test, move_constructor)
+{
+  nek::emplace_back(sut, 0);
+  nek::emplace_back(sut, 1);
+  nek::emplace_back(sut, 2);
+  nek::vector<int> moved = nek::move(sut);
+  EXPECT_EQ(3, nek::size(moved));
+  EXPECT_EQ(0, moved[0]);
+  EXPECT_EQ(1, moved[1]);
+  EXPECT_EQ(2, moved[2]);
+}
+
 TEST_F(vector_test, swap)
 {
   nek::emplace_back(sut, 1);

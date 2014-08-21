@@ -39,7 +39,7 @@ namespace nek
     }
 
 
-    allocator  select_on_container_copy_construction() const
+    allocator select_on_container_copy_construction() const
     {
       return *this;
     }

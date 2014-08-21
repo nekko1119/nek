@@ -194,9 +194,25 @@ namespace nek
     }
 
     vector(vector const& right)
-      : base_type{nek::size(right), alloc_traits::select_on_container_copy_construction(right.get_allocator())}
+      : vector{right, allocator_type{}}
+    {
+    }
+
+    vector(vector const& right, Allocator const& allocator)
+      : base_type{nek::size(right), alloc_traits::select_on_container_copy_construction(allocator)}
     {
       last() = nek::uninitialized_copy(right.begin(), right.end(), first());
+    }
+
+    vector(vector&& right)
+      : vector(nek::move(right), allocator_type{})
+    {
+    }
+
+    vector(vector&& right, Allocator const& allocator)
+      : base_type{allocator}
+    {
+      move_assign(nek::move(right), alloc_traits::propagate_on_container_move_assignment{});
     }
 
     ~vector()
@@ -377,6 +393,70 @@ namespace nek
     {
       using tag = typename nek::iterator_traits<Iterator>::iterator_category;
       range_initialize(first, last, tag{});
+    }
+
+    void move_assign(vector&& other, nek::true_type) noexcept
+    {
+      this->swap(static_cast<vector&>(other));
+    }
+
+    void move_assign(vector&& other, nek::false_type) noexcept
+    {
+      if (other.get_allocator() == this->get_allocator()) {
+        move_assign(nek::move(other), nek::true_type{});
+      } else {
+        assign_(
+          nek::make_move_iterator(other.begin()),
+          nek::make_move_iterator(other.end())
+          );
+      }
+    }
+
+    template <class InputIterator>
+    void assign_(InputIterator first, InputIterator last)
+    {
+      using tag = typename nek::iterator_traits<InputIterator>::iterator_category;
+      assign_(first, last, tag{});
+    }
+
+    template <class InputIterator>
+    void assign_(InputIterator first, InputIterator last, std::input_iterator_tag)
+    {
+      for (; first != last; ++first) {
+        nek::emplace_back(*this, *first);
+      }
+    }
+
+    template <class ForwardIterator>
+    void assign_(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
+    {
+      size_type const assign_size = nek::distance(first, last);
+      // has enough size
+      if (assign_size <= capacity()) {
+        this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
+      } else {
+        // validate
+        if (max_size() < assign_size) {
+          throw std::length_error{"nek::vector::assign : assign elements size is too large"};
+        }
+
+        // allocate new buffer
+        size_type const new_capacity_size = larger_size(assign_size);
+        pointer new_first = allocator().allocate(new_capacity_size);
+        pointer new_last = new_first;
+
+        // move to new buffer from other range.
+        new_last = nek::uninitialized_copy(first, last, new_first, get_allocator());
+
+        // release old buffer
+        nek::detail::destroy(this->first(), this->last(), get_allocator());
+        allocator().deallocate(this->first(), nek::distance(this->first(), this->capacity_end()));
+
+        // update pointer
+        this->first() = new_first;
+        this->last() = new_last;
+        this->capacity_end() = new_first + new_capacity_size;
+      }
     }
 
     template <class InputIterator>

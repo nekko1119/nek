@@ -238,14 +238,14 @@ namespace nek
       }
 
       template <class Allocator>
-      static auto select_on_container_copy_construction(int, Allocator& allocator)
+      static auto select_on_container_copy_construction(int, Allocator const& allocator)
         -> decltype(allocator.select_on_container_copy_construction())
       {
         return allocator.select_on_container_copy_construction();
       }
 
       template <class Allocator>
-      static auto select_on_container_copy_construction(long, Allocator& allocator)
+      static auto select_on_container_copy_construction(long, Allocator const& allocator)
         -> Allocator
       {
         return allocator;
@@ -316,7 +316,7 @@ namespace nek
       return allocator_traits_detail::dispatcher::max_size(0, allocator);
     }
 
-    static Allocator select_on_container_copy_construction(Allocator& allocator)
+    static Allocator select_on_container_copy_construction(Allocator const& allocator)
     {
       return allocator_traits_detail::dispatcher::select_on_container_copy_construction(0, allocator);
     }
