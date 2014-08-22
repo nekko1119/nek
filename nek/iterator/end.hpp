@@ -37,17 +37,15 @@ namespace nek
   }
 
   template <class Container>
-  inline auto rend(Container& con)
-//    -> decltype(nek::reverse_iterator<typename Container::iterator>{con.begin()})
+  inline auto rend(Container& con) -> decltype(con.rend())
   {
-    return nek::reverse_iterator<typename Container::iterator>{con.begin()};
+    return con.rend();
   }
 
   template <class Container>
-  inline auto rend(Container const& con)
-//    -> decltype(nek::reverse_iterator<typename Container::const_iterator>{con.begin()})
+  inline auto rend(Container const& con) -> decltype(con.rend())
   {
-    return nek::reverse_iterator<typename Container::const_iterator>{con.begin()};
+    return con.rend();
   }
 
   template <class T, std::size_t N>
@@ -57,10 +55,9 @@ namespace nek
   }
 
   template <class Container>
-  inline auto crend(Container const& con)
-    -> decltype(nek::reverse_iterator<typename Container::const_iterator>{con.begin()})
+  inline auto crend(Container const& con) -> decltype(con.rend())
   {
-    return nek::reverse_iterator<typename Container::const_iterator>{con,begin()};
+    return con.rend();
   }
 
   template <class T, std::size_t N>

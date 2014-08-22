@@ -37,17 +37,15 @@ namespace nek
   }
 
   template <class Container>
-  inline auto rbegin(Container& con)
-    //-> decltype(nek::reverse_iterator<typename Container::iterator>{con.end()})
+  inline auto rbegin(Container& con) -> decltype(con.rbegin())
   {
-    return nek::reverse_iterator<typename Container::iterator>{con.end()};
+    return con.rbegin();
   }
 
   template <class Container>
-  inline auto rbegin(Container const& con)
-    //-> decltype(nek::reverse_iterator<typename Container::const_iterator>{con.end()})
+  inline auto rbegin(Container const& con) -> decltype(con.rbegin())
   {
-    return nek::reverse_iterator<typename Container::const_iterator>{con.end()};
+    return con.rbegin();
   }
 
   template <class T, std::size_t N>
@@ -57,10 +55,9 @@ namespace nek
   }
 
   template <class Container>
-  inline auto crbegin(Container const& con)
-    -> decltype(nek::reverse_iterator<typename Container::const_iterator>{con.end()})
+  inline auto crbegin(Container const& con) -> decltype(con.rbegin())
   {
-    return nek::reverse_iterator<typename Container::const_iterator>{con.end()};
+    return con.rbegin();
   }
 
   template <class T, std::size_t N>
