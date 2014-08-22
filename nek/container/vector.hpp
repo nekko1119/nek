@@ -212,7 +212,7 @@ namespace nek
     vector(vector&& right, Allocator const& allocator)
       : base_type{allocator}
     {
-      move_assign(nek::move(right), alloc_traits::propagate_on_container_move_assignment{});
+      move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment{});
     }
 
     ~vector()
@@ -252,6 +252,13 @@ namespace nek
       swap(last(), right.last());
       swap(capacity_end(), right.capacity_end());
       alloc_traits::swap(allocator(), right.allocator());
+    }
+
+    template <class InputIterator>
+    void assign(InputIterator first, InputIterator last)
+    {
+      nek::clear(*this);
+      assign_(first, last);
     }
 
     void reserve(size_type count)
@@ -395,17 +402,17 @@ namespace nek
       range_initialize(first, last, tag{});
     }
 
-    void move_assign(vector&& other, nek::true_type) noexcept
+    void move_construct(vector&& other, nek::true_type) noexcept
     {
       this->swap(static_cast<vector&>(other));
     }
 
-    void move_assign(vector&& other, nek::false_type) noexcept
+    void move_construct(vector&& other, nek::false_type) noexcept
     {
       if (other.get_allocator() == this->get_allocator()) {
-        move_assign(nek::move(other), nek::true_type{});
+        move_construct(nek::move(other), nek::true_type{});
       } else {
-        assign_(
+        range_initialize(
           nek::make_move_iterator(other.begin()),
           nek::make_move_iterator(other.end())
           );
@@ -431,32 +438,14 @@ namespace nek
     void assign_(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag)
     {
       size_type const assign_size = nek::distance(first, last);
-      // has enough size
-      if (assign_size <= capacity()) {
-        this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
-      } else {
-        // validate
-        if (max_size() < assign_size) {
-          throw std::length_error{"nek::vector::assign : assign elements size is too large"};
-        }
-
-        // allocate new buffer
-        size_type const new_capacity_size = larger_size(assign_size);
-        pointer new_first = allocator().allocate(new_capacity_size);
-        pointer new_last = new_first;
-
-        // move to new buffer from other range.
-        new_last = nek::uninitialized_copy(first, last, new_first, get_allocator());
-
-        // release old buffer
-        nek::detail::destroy(this->first(), this->last(), get_allocator());
+      if (capacity() < assign_size) {
         allocator().deallocate(this->first(), nek::distance(this->first(), this->capacity_end()));
-
-        // update pointer
-        this->first() = new_first;
-        this->last() = new_last;
-        this->capacity_end() = new_first + new_capacity_size;
+        size_type const new_capacity_size = larger_size(assign_size);
+        this->first() = allocator().allocate(new_capacity_size);
+        this->last() = this->first();
+        this->capacity_end() = this->first() + count;
       }
+      this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
     }
 
     template <class InputIterator>
