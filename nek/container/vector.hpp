@@ -536,6 +536,15 @@ namespace nek
           allocator().deallocate(new_first, new_capacity_size);
           throw;
         }
+        // release old buffer
+        nek::detail::destroy(first(), last(), get_allocator());
+        allocator().deallocate(first(), nek::distance(first(), capacity_end()));
+
+        // update pointer
+        first() = new_first;
+        last() = new_last;
+        capacity_end() = new_first + new_capacity_size;
+
       }
       return begin() + offset;
     }
