@@ -28,16 +28,10 @@ namespace nek
     return nek::emplace_back(con, nek::move(value));
   }
 
-  template <class Container, class Iterator, class Size, class Value>
-  auto insert(Container& v, Iterator position, Size count, Value const& value)
+  template <class Container>
+  auto insert(Container& con, typename Container::iterator position, typename Container::size_type count, typename Container::value_type const& value)
   {
-    if (count == 0) {
-      return position;
-    }
-
-    nek::vector<Value> temp(count);
-    nek::fill_n(temp.begin(), count, value);
-    return v.insert(position, temp.begin(), temp.end());
+    return con.insert(position, count, value);
   }
 }
 

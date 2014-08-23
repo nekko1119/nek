@@ -5,7 +5,8 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::move
+#include <algorithm> // TODO : std::move, std::copy_backward, std::fill
+#include <memory> // TODO : std::uninitialized_fill
 #include <nek/algorithm/max.hpp>
 #include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
@@ -349,6 +350,11 @@ namespace nek
       return *(first() + n);
     }
 
+    iterator insert(const_iterator position, size_type count, value_type const& value)
+    {
+      return fill_insert(position, count, value);
+    }
+
     template <class InputIterator>
     iterator insert(const_iterator position, InputIterator first, InputIterator last)
     {
@@ -465,7 +471,73 @@ namespace nek
         this->last() = this->first();
         this->capacity_end() = this->first() + count;
       }
-      this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
+      this->last() = nek::uninitialized_copy(first, last, this->first(), get_allocator());
+    }
+
+    iterator fill_insert(const_iterator position, size_type count, value_type const& value)
+    {
+      size_type offset = remove_const(position).base() - first();
+
+      if (count == 0) {
+        return begin() + offset;
+      }
+
+      // has enough size
+      if (count <= static_cast<size_type>(capacity_end() - last())) {
+        pointer old_last = last();
+        value_type temp = value;
+        size_type const position_after_size = static_cast<size_type>(end() - position);
+        // position + count is inner of last()
+        if (count < position_after_size) {
+          // move last elements
+          last() = nek::uninitialized_move(last() - count, last(), last());
+          // move insert position to backward
+          std::copy_backward(remove_const(position).base(), old_last - count, old_last);
+          std::fill(remove_const(position).base(), remove_const(position).base() + count, temp);
+        } else {
+          std::uninitialized_fill_n(
+            last(), count - position_after_size, temp/*, get_allocator()*/);
+          last() += count - position_after_size;
+
+          nek::uninitialized_move(remove_const(position).base(), old_last, last(), get_allocator());
+          last() += position_after_size;
+
+          std::fill(remove_const(position).base(), old_last, temp);
+        }
+      } else {
+        // validate
+        if (max_size() - nek::size(*this) < count) {
+          throw std::length_error{"nek::vector::insert : count is too large"};
+        }
+        // allocate new buffer
+        size_type const new_capacity_size = larger_size(nek::size(*this) + count);
+        pointer new_first = allocator().allocate(new_capacity_size);
+        pointer new_last = new_first;
+        try {
+          std::uninitialized_fill_n(new_first + offset, count, value/*, get_allocator()*/);
+          new_last = nullptr;
+          
+          new_last = nek::uninitialized_copy(
+            nek::make_move_if_noexcept_iterator(first()),
+            nek::make_move_if_noexcept_iterator(remove_const(position).base()),
+            new_first, get_allocator());
+          new_last += count;
+
+          new_last = nek::uninitialized_copy(
+            nek::make_move_if_noexcept_iterator(remove_const(position).base()),
+            nek::make_move_if_noexcept_iterator(last()),
+            new_last, get_allocator());
+        } catch (...) {
+          if (!new_last) {
+            nek::detail::destroy(new_first + offset, new_first + offset + count, get_allocator());
+          } else {
+            nek::detail::destroy(new_first, new_last, get_allocator());
+          }
+          allocator().deallocate(new_first, new_capacity_size);
+          throw;
+        }
+      }
+      return begin() + offset;
     }
 
     template <class InputIterator>
