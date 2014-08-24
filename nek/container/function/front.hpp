@@ -1,6 +1,8 @@
 ﻿#ifndef NEK_CONTAINER_FUNCTION_FRONT_HPP
 #define NEK_CONTAINER_FUNCTION_FRONT_HPP
 
+#include <cstddef>
+
 namespace nek
 {
   template <class Container>
@@ -13,6 +15,18 @@ namespace nek
   decltype(auto) front(Container const& con)
   {
     return *con.begin();
+  }
+
+  template <class T, std::size_t N>
+  decltype(auto) front(T (&array)[N])
+  {
+    return array[0];
+  }
+
+  template <class T, std::size_t N>
+  decltype(auto) front(T const (&array)[N])
+  {
+    return array[0];
   }
 }
 
