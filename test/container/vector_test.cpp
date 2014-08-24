@@ -395,3 +395,23 @@ TEST_F(vector_test, clear)
   nek::clear(sut);
   EXPECT_TRUE(nek::is_empty(sut));
 }
+
+TEST_F(vector_test, shrink_to_fit)
+{
+  sut.reserve(32);
+  ASSERT_GE(sut.capacity(), 32U);
+  
+  nek::shrink_to_fit(sut);
+
+  EXPECT_EQ(0, sut.capacity());
+  
+  sut.reserve(32);
+  nek::emplace_back(sut, 123);
+  nek::emplace_back(sut, 456);
+  nek::emplace_back(sut, 789);
+  ASSERT_GE(sut.capacity(), 32U);
+
+  nek::shrink_to_fit(sut);
+
+  EXPECT_EQ(3, sut.capacity());
+}

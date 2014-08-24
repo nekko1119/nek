@@ -629,6 +629,19 @@ namespace nek
   {
     return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
   }
+
+  template <class T, class Allocator>
+  void shrink_to_fit(vector<T, Allocator>& v)
+  {
+    if (nek::size(v) == v.capacity()) {
+      return;
+    }
+
+    nek::vector<T, Allocator>(
+      nek::make_move_if_noexcept_iterator(v.begin()),
+      nek::make_move_if_noexcept_iterator(v.end()),
+      v.get_allocator()).swap(v);
+  }
 }
 
 #endif
