@@ -396,6 +396,26 @@ TEST_F(vector_test, clear)
   EXPECT_TRUE(nek::is_empty(sut));
 }
 
+TEST_F(vector_test, resize)
+{
+  {
+    nek::vector<int> v = {1, 2, 3};
+    nek::resize(v, 5);
+    EXPECT_EQ(5, nek::size(v));
+    EXPECT_EQ(1, v[0]);
+    EXPECT_EQ(2, v[1]);
+    EXPECT_EQ(3, v[2]);
+    EXPECT_EQ(0, v[3]);
+    EXPECT_EQ(0, v[4]);
+  }
+  {
+    nek::vector<int> v = {1, 2, 3};
+    nek::resize(v, 1);
+    EXPECT_EQ(1, nek::size(v));
+    EXPECT_EQ(1, v[0]);
+  }
+}
+
 TEST_F(vector_test, shrink_to_fit)
 {
   sut.reserve(32);

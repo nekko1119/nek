@@ -1,13 +1,13 @@
 ﻿#ifndef NEK_ANY_ANY_HPP
 #define NEK_ANY_ANY_HPP
 
+#include <utility>
 #include <nek/any/any_fwd.hpp>
 #include <nek/any/exception.hpp>
 #include <nek/mpl/if.hpp>
 #include <nek/type_traits/add_lvalue_reference.hpp>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/remove_reference.hpp>
-#include <nek/utility/swap.hpp>
 
 namespace nek
 {
@@ -90,7 +90,7 @@ namespace nek
 
     any& swap(any& right) noexcept
     {
-      using nek::swap;
+      using std::swap;
       swap(held_, right.held_);
       return *this;
     }

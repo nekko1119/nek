@@ -6,7 +6,8 @@
 #include <stdexcept>
 
 #include <algorithm> // TODO : std::move, std::copy_backward, std::fill
-#include <memory> // TODO : std::uninitialized_fill
+#include <memory> // TODO : std::uninitialized_fill, std::uninitialized_fill_n
+#include <utility>
 #include <nek/algorithm/max.hpp>
 #include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
@@ -23,7 +24,6 @@
 #include <nek/uninitialized/uninitialized_default.hpp>
 #include <nek/uninitialized/uninitialized_move.hpp>
 #include <nek/utility/forward.hpp>
-#include <nek/utility/swap.hpp>
 #include <vector>
 
 namespace nek
@@ -248,7 +248,7 @@ namespace nek
 
       void swap(vector& right)
     {
-      using nek::swap;
+      using std::swap;
       swap(first(), right.first());
       swap(last(), right.last());
       swap(capacity_end(), right.capacity_end());
@@ -630,7 +630,7 @@ namespace nek
     return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
   }
 
-    template <class T, class Allocator>
+  template <class T, class Allocator>
   void shrink_to_fit(vector<T, Allocator>& v)
   {
     if (nek::size(v) == v.capacity()) {
@@ -641,6 +641,22 @@ namespace nek
       nek::make_move_if_noexcept_iterator(v.begin()),
       nek::make_move_if_noexcept_iterator(v.end()),
       v.get_allocator()).swap(v);
+  }
+
+  template <class T, class Allocator>
+  void resize(vector<T, Allocator>& v, typename vector<T, Allocator>::size_type new_size, T const& value)
+  {
+    if (new_size < nek::size(v)) {
+      v.erase(v.begin() + new_size, v.end());
+    } else if (nek::size(v) < new_size) {
+      v.insert(v.end(), new_size - nek::size(v), value);
+    }
+  }
+
+  template <class T, class Allocator>
+  void resize(vector<T, Allocator>& v, typename vector<T, Allocator>::size_type new_size)
+  {
+    nek::resize(v, new_size, T());
   }
 }
 
