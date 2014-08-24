@@ -6,7 +6,6 @@
 #include <nek/algorithm/fill_n.hpp>
 #include <nek/container/container_fwd.hpp>
 #include <nek/container/function/emplace_back.hpp>
-#include <nek/utility/move.hpp>
 
 namespace nek
 {
