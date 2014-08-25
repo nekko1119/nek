@@ -240,8 +240,16 @@ namespace nek
         nek::copy(right.first(), right.first() + nek::size(*this), first());
         nek::uninitialized_copy(right.first() + nek::size(*this), right.last(), last(), get_allocator());
       } else {
+        pointer new_first = allocator().allocate(new_size);
+        try {
+          nek::uninitialized_copy(right.first(), right.last(), new_first, get_allocator());
+        } catch (...) {
+          allocator().deallocate(new_first, new_size);
+          throw;
+        }
         destruct();
-        range_initialize(right.first(), right.last());
+        first() = new_first;
+        capacity_end() = new_first + new_size;
       }
       last() = first() + new_size;
       return *this;
