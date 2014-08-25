@@ -8,6 +8,7 @@
 #include <algorithm> // TODO : std::move, std::copy_backward, std::fill
 #include <memory> // TODO : std::uninitialized_fill, std::uninitialized_fill_n
 #include <utility>
+#include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/max.hpp>
 #include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
@@ -58,37 +59,37 @@ namespace nek
         return first_;
       }
 
-        pointer const& first() const noexcept
+      pointer const& first() const noexcept
       {
         return first_;
       }
 
-        pointer& last() noexcept
+      pointer& last() noexcept
       {
         return last_;
       }
 
-        pointer const& last() const noexcept
+      pointer const& last() const noexcept
       {
         return last_;
       }
 
-        pointer& capacity_end() noexcept
+      pointer& capacity_end() noexcept
       {
         return capacity_end_;
       }
 
-        pointer const& capacity_end() const noexcept
+      pointer const& capacity_end() const noexcept
       {
         return capacity_end_;
       }
 
-        alloc_type& allocator() noexcept
+      alloc_type& allocator() noexcept
       {
         return *(static_cast<alloc_type*>(this));
       }
 
-        alloc_type const& allocator() const noexcept
+      alloc_type const& allocator() const noexcept
       {
         return *(static_cast<alloc_type const*>(this));
       }
@@ -216,6 +217,36 @@ namespace nek
       move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment{});
     }
 
+    vector& operator=(vector const& right)
+    {
+      if (this == &right) {
+        return *this;
+      }
+
+      if (get_allocator() != right.get_allocator()) {
+        destruct();
+        alloc_traits::copy(allocator(), right.allocator());
+      }
+
+      if (nek::is_empty(right)) {
+        nek::clear(*this);
+        return *this;
+      }
+
+      size_type const new_size = nek::size(right);
+      if (new_size <= nek::size(*this)) {
+        nek::detail::destroy(nek::copy(right.first(), right.last(), first()), last(), get_allocator());
+      } else if (new_size <= capacity()) {
+        nek::copy(right.first(), right.first() + nek::size(*this), first());
+        nek::uninitialized_copy(right.first() + nek::size(*this), right.last(), last(), get_allocator());
+      } else {
+        destruct();
+        range_initialize(right.first(), right.last());
+      }
+      last() = first() + new_size;
+      return *this;
+    }
+
     ~vector()
     {
       detail::destroy(first(), last(), allocator());
@@ -226,27 +257,27 @@ namespace nek
       return allocator_type{allocator()};
     }
 
-      size_type capacity() const noexcept
+    size_type capacity() const noexcept
     {
       return static_cast<size_type>(capacity_end() - first());
     }
 
-      size_type max_size() const noexcept
+    size_type max_size() const noexcept
     {
       return allocator().max_size();
     }
 
-      pointer data() noexcept
+    pointer data() noexcept
     {
       return first();
     }
 
-      const_pointer data() const noexcept
+    const_pointer data() const noexcept
     {
       return first();
     }
 
-      void swap(vector& right)
+    void swap(vector& right)
     {
       using std::swap;
       swap(first(), right.first());
@@ -289,8 +320,7 @@ namespace nek
       }
 
       // destruct and deallocate old buffer
-      detail::destroy(first(), last(), allocator());
-      allocator().deallocate(first(), capacity_end() - first());
+      destruct();
 
       // update pointers
       first() = new_buffer;
@@ -303,22 +333,22 @@ namespace nek
       return iterator{first()};
     }
 
-      const_iterator begin() const noexcept
+    const_iterator begin() const noexcept
     {
       return const_iterator{first()};
     }
 
-      iterator end() noexcept
+    iterator end() noexcept
     {
       return iterator{last()};
     }
 
-      const_iterator end() const noexcept
+    const_iterator end() const noexcept
     {
       return const_iterator{last()};
     }
 
-      reverse_iterator rbegin()
+    reverse_iterator rbegin()
     {
       return reverse_iterator{end()};
     }
@@ -399,12 +429,23 @@ namespace nek
       return 1.5;
     }
 
-      inline size_type larger_size(size_type size) const noexcept
+    inline size_type larger_size(size_type size) const noexcept
     {
       return nek::max(static_cast<size_type>(size * rate()), size + 1);
     }
 
-      template <class InputIterator>
+    void destruct() noexcept
+    {
+      if (first()) {
+        detail::destroy(first(), last(), allocator());
+        allocator().deallocate(first(), nek::distance(first(), capacity_end()));
+        first() = nullptr;
+        last() = nullptr;
+        capacity_end() = nullptr;
+      }
+    }
+
+    template <class InputIterator>
     void range_initialize(InputIterator first, InputIterator last, std::input_iterator_tag)
     {
       for (; first != last; ++first) {
@@ -417,8 +458,8 @@ namespace nek
     {
       size_type const count = nek::distance(first, last);
       this->first() = allocator().allocate(count);
-      this->capacity_end() = this->first() + count;
       this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
+      this->capacity_end() = this->first() + count;
     }
 
     template <class Iterator>
@@ -433,7 +474,7 @@ namespace nek
       this->swap(static_cast<vector&>(other));
     }
 
-      void move_construct(vector&& other, nek::false_type) noexcept
+    void move_construct(vector&& other, nek::false_type) noexcept
     {
       if (other.get_allocator() == this->get_allocator()) {
         move_construct(nek::move(other), nek::true_type{});
@@ -445,7 +486,7 @@ namespace nek
       }
     }
 
-      template <class InputIterator>
+    template <class InputIterator>
     void assign_(InputIterator first, InputIterator last)
     {
       using tag = typename nek::iterator_traits<InputIterator>::iterator_category;
@@ -465,7 +506,7 @@ namespace nek
     {
       size_type const assign_size = nek::distance(first, last);
       if (capacity() < assign_size) {
-        allocator().deallocate(this->first(), nek::distance(this->first(), this->capacity_end()));
+        destruct();
         size_type const new_capacity_size = larger_size(assign_size);
         this->first() = allocator().allocate(new_capacity_size);
         this->last() = this->first();
@@ -537,8 +578,7 @@ namespace nek
           throw;
         }
         // release old buffer
-        nek::detail::destroy(first(), last(), get_allocator());
-        allocator().deallocate(first(), nek::distance(first(), capacity_end()));
+        destruct();
 
         // update pointer
         first() = new_first;
@@ -608,8 +648,7 @@ namespace nek
           throw;
         }
         // release old buffer
-        nek::detail::destroy(this->first(), this->last(), get_allocator());
-        allocator().deallocate(this->first(), nek::distance(this->first(), this->capacity_end()));
+        destruct();
 
         // update pointer
         this->first() = new_first;

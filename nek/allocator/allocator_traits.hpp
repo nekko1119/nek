@@ -263,6 +263,18 @@ namespace nek
     {
       // do nothing
     }
+
+    template <class Allocator>
+    inline void copy_(Allocator& dest, Allocator const& src, nek::true_type)
+    {
+      dest = src;
+    }
+
+    template <class Allocator>
+    inline void copy_(Allocator&, Allocator const&, nek::false_type)
+    {
+      // do nothing
+    }
   }
 
   template <class Allocator>
@@ -319,6 +331,11 @@ namespace nek
     static Allocator select_on_container_copy_construction(Allocator const& allocator)
     {
       return allocator_traits_detail::dispatcher::select_on_container_copy_construction(0, allocator);
+    }
+
+    inline static void copy(Allocator& dest, Allocator const & src)
+    {
+      allocator_traits_detail::copy_(dest, src, propagate_on_container_copy_assignment{});
     }
 
     inline static void swap(Allocator& left, Allocator& right)
