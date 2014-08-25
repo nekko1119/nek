@@ -10,6 +10,8 @@ TEST(front_test, list)
 
 TEST(front_test, array)
 {
-  int a[] = {1, 2, 3};
+  constexpr int a[] = {1, 2, 3};
+  // CTP 2013's constexpr is very poor.
+  //static_assert(1 == nek::front(a), "");
   EXPECT_EQ(1, nek::front(a));
 }
