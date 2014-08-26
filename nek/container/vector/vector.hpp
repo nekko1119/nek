@@ -5,7 +5,7 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::move, std::copy_backward, std::fill
+#include <algorithm> // TODO : std::move, std::copy_backward, std::fill, std::equal
 #include <memory> // TODO : std::uninitialized_fill, std::uninitialized_fill_n
 #include <utility>
 #include <nek/algorithm/copy.hpp>
@@ -704,6 +704,12 @@ namespace nek
   void resize(vector<T, Allocator>& v, typename vector<T, Allocator>::size_type new_size)
   {
     nek::resize(v, new_size, T());
+  }
+
+  template <class T, class Allocator>
+  inline bool operator==(vector<T, Allocator> const& left, vector<T, Allocator> const& right)
+  {
+    return nek::size(left) == nek::size(right) && std::equal(left.begin(), left.end(), right.begin());
   }
 }
 
