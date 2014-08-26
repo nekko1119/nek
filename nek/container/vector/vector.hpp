@@ -219,6 +219,8 @@ namespace nek
 
     vector& operator=(vector const& right)
     {
+      // NOTE : it is not possible to use swap to implement copy assignment
+      // because it always allocates memory if it uses swap.
       if (this == &right) {
         return *this;
       }
@@ -710,6 +712,12 @@ namespace nek
   inline bool operator==(vector<T, Allocator> const& left, vector<T, Allocator> const& right)
   {
     return nek::size(left) == nek::size(right) && std::equal(left.begin(), left.end(), right.begin());
+  }
+
+  template <class T, class Allocator>
+  inline bool operator!=(vector<T, Allocator> const& left, vector<T, Allocator> const& right)
+  {
+    return !(left == right);
   }
 }
 

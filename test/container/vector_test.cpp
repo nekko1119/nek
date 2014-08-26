@@ -137,6 +137,20 @@ TEST_F(vector_test, move_constructor)
   EXPECT_EQ(2, moved[2]);
 }
 
+TEST_F(vector_test, copy_assignment)
+{
+  nek::emplace_back(sut, 0);
+  nek::emplace_back(sut, 1);
+  nek::emplace_back(sut, 2);
+  nek::vector<int> copied = {10, 20, 30, 40};
+  copied = sut;
+  EXPECT_EQ(3, nek::size(copied));
+  EXPECT_EQ(0, copied[0]);
+  EXPECT_EQ(1, copied[1]);
+  EXPECT_EQ(2, copied[2]);
+  EXPECT_NE(copied.data(), sut.data());
+}
+
 TEST_F(vector_test, swap)
 {
   nek::emplace_back(sut, 1);
@@ -434,4 +448,15 @@ TEST_F(vector_test, shrink_to_fit)
   nek::shrink_to_fit(sut);
 
   EXPECT_EQ(3, sut.capacity());
+}
+
+TEST_F(vector_test, equal)
+{
+  nek::vector<int> other = {1, 2, 3};
+  sut = other;
+  EXPECT_EQ(other, sut);
+  other[2] = 4;
+  EXPECT_NE(other, sut);
+  other.erase(other.end() - 1, other.end());
+  EXPECT_NE(other, sut);
 }
