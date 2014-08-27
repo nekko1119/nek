@@ -30,6 +30,7 @@
     <ClInclude Include="container\function\at.hpp" />
     <ClInclude Include="container\function\clear.hpp" />
     <ClInclude Include="container\function\emplace_back.hpp" />
+    <ClInclude Include="container\function\erase.hpp" />
     <ClInclude Include="container\function\front.hpp" />
     <ClInclude Include="container\function\insert.hpp" />
     <ClInclude Include="container\function\is_empty.hpp" />

@@ -10,6 +10,12 @@
 namespace nek
 {
   template <class Container, class Iterator>
+  auto insert(Container& con, Iterator first, Iterator last)
+  {
+    return con.insert(first, last);
+  }
+  
+  template <class Container, class Iterator>
   auto insert(Container& con, Iterator position, std::initializer_list<typename Container::value_type> list)
   {
     return con.insert(position, list.begin(), list.end());
