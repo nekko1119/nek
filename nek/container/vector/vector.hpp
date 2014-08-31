@@ -257,6 +257,13 @@ namespace nek
       return *this;
     }
 
+    vector& operator=(std::initializer_list<value_type> list)
+    {
+      nek::clear(*this);
+      assign_(list.begin(), list.end());
+      return *this;
+    }
+
     ~vector()
     {
       detail::destroy(first(), last(), allocator());
@@ -491,8 +498,7 @@ namespace nek
       } else {
         range_initialize(
           nek::make_move_iterator(other.begin()),
-          nek::make_move_iterator(other.end())
-          );
+          nek::make_move_iterator(other.end()));
       }
     }
 
@@ -520,7 +526,7 @@ namespace nek
         size_type const new_capacity_size = larger_size(assign_size);
         this->first() = allocator().allocate(new_capacity_size);
         this->last() = this->first();
-        this->capacity_end() = this->first() + count;
+        this->capacity_end() = this->first() + new_capacity_size;
       }
       this->last() = nek::uninitialized_copy(first, last, this->first(), get_allocator());
     }
