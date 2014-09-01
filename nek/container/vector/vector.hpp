@@ -689,6 +689,26 @@ namespace nek
     }
   };
 
+  template <class T, class Allocator, class InputIterator>
+  inline void assign(vector<T, Allocator>& v, InputIterator first, InputIterator last)
+  {
+    nek::clear(v);
+    nek::insert(v, first, last);
+  }
+  
+  template <class T, class Allocator>
+  inline void assign(vector<T, Allocator>& v, std::initializer_list<T> list)
+  {
+    v = list;
+  }
+
+  template <class T, class Allocator, class Size>
+  inline void assign(vector<T, Allocator>& v, Size count, T const& value)
+  {
+    nek::clear(v);
+    v.insert(v.begin(), count, value);
+  }
+
   template <class T, class Allocator>
   auto size(vector<T, Allocator> const& v) noexcept
   {
