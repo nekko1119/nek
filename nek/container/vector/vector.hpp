@@ -257,6 +257,16 @@ namespace nek
       return *this;
     }
 
+    vector& operator=(vector&& right)
+    {
+      if (this == &right) {
+        return *this;
+      }
+      destruct();
+      move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment{});
+      return *this;
+    }
+
     vector& operator=(std::initializer_list<value_type> list)
     {
       nek::clear(*this);
