@@ -424,6 +424,18 @@ namespace nek
       return begin() + pos;
     }
 
+    // workaround
+    iterator insert(const_iterator position, std::initializer_list<value_type> list)
+    {
+      return insert(position, list.begin(), list.end());
+    }
+
+    // workaround
+    iterator insert(const_iterator position, value_type const& value)
+    {
+      return insert(position, static_cast<size_type>(1), value);
+    }
+    
     template <class... Args>
     iterator emplace(const_iterator position, Args&&... args)
     {
@@ -696,7 +708,7 @@ namespace nek
   inline enable_if_t<nek::mpl::not_<nek::is_integral<InputIterator>>> assign(vector<T, Allocator>& v, InputIterator first, InputIterator last)
   {
     nek::clear(v);
-    nek::insert(v, first, last);
+    v.insert(first, last);
   }
   
   template <class T, class Allocator>

@@ -15,17 +15,18 @@ namespace nek
     return con.insert(first, last);
   }
   
-  template <class Container, class Iterator>
-  auto insert(Container& con, Iterator position, std::initializer_list<typename Container::value_type> list)
-  {
-    return con.insert(position, list.begin(), list.end());
-  }
+  // workaround
+  //template <class Container, class Iterator>
+  //auto insert(Container& con, Iterator position, std::initializer_list<typename Container::value_type> list)
+  //{
+  // return con.insert(position, list.begin(), list.end());
+  //}
 
-  template <class Container, class Iterator, class Value>
-  auto insert(Container& con, Iterator position, Value const& value)
-  {
-    return nek::insert(con, position, {value});
-  }
+  //template <class container, class iterator, class value>
+  //auto insert(container& con, iterator position, value const& value)
+  //{
+  //  return nek::insert(con, position, {value});
+  //}
 
   template <class Container, class Iterator, class Value>
   auto insert(Container& con, Iterator position, Value&& value)
