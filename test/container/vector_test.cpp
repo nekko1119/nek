@@ -151,6 +151,58 @@ TEST_F(vector_test, copy_assignment)
   EXPECT_NE(copied.data(), sut.data());
 }
 
+TEST_F(vector_test, move_assignment)
+{
+  nek::emplace_back(sut, 0);
+  nek::emplace_back(sut, 1);
+  nek::emplace_back(sut, 2);
+  nek::vector<int> moved = {10, 20, 30, 40};
+  moved = nek::move(sut);
+  EXPECT_EQ(3, nek::size(moved));
+  EXPECT_EQ(0, moved[0]);
+  EXPECT_EQ(1, moved[1]);
+  EXPECT_EQ(2, moved[2]);
+}
+
+TEST_F(vector_test, initializer_list_assignment)
+{
+  nek::emplace_back(sut, 10);
+  nek::emplace_back(sut, 20);
+  nek::emplace_back(sut, 30);
+  nek::emplace_back(sut, 40);
+  sut = {0, 1, 2};
+  EXPECT_EQ(3, nek::size(sut));
+  EXPECT_EQ(0, sut[0]);
+  EXPECT_EQ(1, sut[1]);
+  EXPECT_EQ(2, sut[2]);
+}
+
+TEST_F(vector_test, assign_fill_n)
+{
+  nek::emplace_back(sut, 10);
+  nek::emplace_back(sut, 20);
+  nek::emplace_back(sut, 30);
+  nek::emplace_back(sut, 40);
+  nek::assign(sut, 3, 100);
+  EXPECT_EQ(nek::size(sut), 3);
+  EXPECT_EQ(100, sut[0]);
+  EXPECT_EQ(100, sut[1]);
+  EXPECT_EQ(100, sut[2]);
+}
+
+TEST_F(vector_test, assign_initializer_list)
+{
+  nek::emplace_back(sut, 10);
+  nek::emplace_back(sut, 20);
+  nek::emplace_back(sut, 30);
+  nek::emplace_back(sut, 40);
+  nek::assign(sut, {0, 1, 2});
+  EXPECT_EQ(3, nek::size(sut));
+  EXPECT_EQ(0, sut[0]);
+  EXPECT_EQ(1, sut[1]);
+  EXPECT_EQ(2, sut[2]);
+}
+
 TEST_F(vector_test, swap)
 {
   nek::emplace_back(sut, 1);

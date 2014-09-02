@@ -21,6 +21,9 @@
 #include <nek/iterator/move_iterator.hpp>
 #include <nek/iterator/normal_iterator.hpp>
 #include <nek/iterator/reverse_iterator.hpp>
+#include <nek/mpl/not.hpp>
+#include <nek/type_traits/enable_if.hpp>
+#include <nek/type_traits/is_integral.hpp>
 #include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
 #include <nek/uninitialized/uninitialized_move.hpp>
@@ -690,7 +693,7 @@ namespace nek
   };
 
   template <class T, class Allocator, class InputIterator>
-  inline void assign(vector<T, Allocator>& v, InputIterator first, InputIterator last)
+  inline enable_if_t<nek::mpl::not_<nek::is_integral<InputIterator>>> assign(vector<T, Allocator>& v, InputIterator first, InputIterator last)
   {
     nek::clear(v);
     nek::insert(v, first, last);
@@ -702,8 +705,8 @@ namespace nek
     v = list;
   }
 
-  template <class T, class Allocator, class Size>
-  inline void assign(vector<T, Allocator>& v, Size count, T const& value)
+  template <class T, class Allocator>
+  inline void assign(vector<T, Allocator>& v, typename vector<T, Allocator>::size_type count, T const& value)
   {
     nek::clear(v);
     v.insert(v.begin(), count, value);
