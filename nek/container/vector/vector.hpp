@@ -698,7 +698,7 @@ namespace nek
   inline enable_if_t<nek::mpl::not_<nek::is_integral<InputIterator>>> assign(vector<T, Allocator>& v, InputIterator first, InputIterator last)
   {
     nek::clear(v);
-    v.insert(first, last);
+    nek::insert(v, first, last);
   }
   
   template <class T, class Allocator>

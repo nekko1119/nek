@@ -22,7 +22,7 @@ namespace nek
   template <class Container, class Iterator, class T = typename Container::value_type>
   auto insert(Container& con, Iterator position, T const& value)
   {
-    return con.insert(position, static_cast<typename Container::size_type>(value), value);
+    return con.insert(position, static_cast<typename Container::size_type>(1), value);
   }
 
   template <class Container, class Iterator, class Value>
