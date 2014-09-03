@@ -1,16 +1,18 @@
 ﻿#ifndef NEK_CONTAINER_VECTOR_VECTOR_HPP
 #define NEK_CONTAINER_VECTOR_VECTOR_HPP
 
+#include <nek/container/vector/vector_fwd.hpp>
+
 #include <cassert>
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::move, std::copy_backward, std::fill, std::equal
+#include <algorithm> // TODO : std::move, std::copy_backward, std::fill
 #include <memory> // TODO : std::uninitialized_fill, std::uninitialized_fill_n
 #include <utility>
 #include <nek/algorithm/copy.hpp>
+#include <nek/algorithm/equal.hpp>
 #include <nek/algorithm/max.hpp>
-#include <nek/container/container_fwd.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/container/function.hpp>
 #include <nek/detail/destroy.hpp>
@@ -762,7 +764,7 @@ namespace nek
   template <class T, class Allocator>
   inline bool operator==(vector<T, Allocator> const& left, vector<T, Allocator> const& right)
   {
-    return nek::size(left) == nek::size(right) && std::equal(left.begin(), left.end(), right.begin());
+    return nek::size(left) == nek::size(right) && nek::equal(left.begin(), left.end(), right.begin());
   }
 
   template <class T, class Allocator>

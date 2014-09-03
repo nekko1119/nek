@@ -1,10 +1,8 @@
 ﻿#ifndef NEK_CONTAINER_FUNCTION_INSERT_HPP
 #define NEK_CONTAINER_FUNCTION_INSERT_HPP
 
-#include <initializer_list>
+//#include <initializer_list>
 
-#include <nek/algorithm/fill_n.hpp>
-#include <nek/container/container_fwd.hpp>
 #include <nek/container/function/emplace_back.hpp>
 
 namespace nek
