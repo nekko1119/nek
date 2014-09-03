@@ -1,7 +1,7 @@
 ﻿#ifndef NEK_CONTAINER_FUNCTION_INSERT_HPP
 #define NEK_CONTAINER_FUNCTION_INSERT_HPP
 
-//#include <initializer_list>
+#include <initializer_list>
 
 #include <nek/container/function/emplace_back.hpp>
 
@@ -13,18 +13,17 @@ namespace nek
     return con.insert(first, last);
   }
   
-  // workaround
-  //template <class Container, class Iterator>
-  //auto insert(Container& con, Iterator position, std::initializer_list<typename Container::value_type> list)
-  //{
-  // return con.insert(position, list.begin(), list.end());
-  //}
+  template <class Container, class Iterator>
+  auto insert(Container& con, Iterator position, std::initializer_list<typename Container::value_type> list)
+  {
+    return con.insert(position, list.begin(), list.end());
+  }
 
-  //template <class container, class iterator, class value>
-  //auto insert(container& con, iterator position, value const& value)
-  //{
-  //  return nek::insert(con, position, {value});
-  //}
+  template <class Container, class Iterator, class T = typename Container::value_type>
+  auto insert(Container& con, Iterator position, T const& value)
+  {
+    return con.insert(position, static_cast<typename Container::size_type>(value), value);
+  }
 
   template <class Container, class Iterator, class Value>
   auto insert(Container& con, Iterator position, Value&& value)

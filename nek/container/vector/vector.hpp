@@ -425,18 +425,6 @@ namespace nek
       size_type const pos = nek::distance<const_iterator>(begin(), position);
       return begin() + pos;
     }
-
-    // workaround
-    iterator insert(const_iterator position, std::initializer_list<value_type> list)
-    {
-      return insert(position, list.begin(), list.end());
-    }
-
-    // workaround
-    iterator insert(const_iterator position, value_type const& value)
-    {
-      return insert(position, static_cast<size_type>(1), value);
-    }
     
     template <class... Args>
     iterator emplace(const_iterator position, Args&&... args)
