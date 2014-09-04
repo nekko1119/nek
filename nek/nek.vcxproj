@@ -97,6 +97,7 @@
     <ClInclude Include="type_traits\propagate_cv.hpp" />
     <ClInclude Include="type_traits\remove_const.hpp" />
     <ClInclude Include="type_traits\remove_cv.hpp" />
+    <ClInclude Include="type_traits\remove_extends.hpp" />
     <ClInclude Include="type_traits\remove_reference.hpp" />
     <ClInclude Include="type_traits\remove_volatile.hpp" />
     <ClInclude Include="type_traits\is_trivial.hpp" />

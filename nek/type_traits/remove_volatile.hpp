@@ -18,7 +18,7 @@ namespace nek
   };
 
 
-  // TODO : remove_extent
+  // workaround Visual C++
   template <class T>
   struct remove_volatile<T volatile[]>
   {
