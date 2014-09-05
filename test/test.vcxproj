@@ -89,6 +89,7 @@
     <ClCompile Include="algorithm\copy_test.cpp" />
     <ClCompile Include="algorithm\fill_n_test.cpp" />
     <ClCompile Include="algorithm\iter_swap_test.cpp" />
+    <ClCompile Include="algorithm\liexicographical_compare_test.cpp" />
     <ClCompile Include="algorithm\max_test.cpp" />
     <ClCompile Include="algorithm\reverse_test.cpp" />
     <ClCompile Include="algorithm\rotate_test.cpp" />
