@@ -13,6 +13,7 @@
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/is_same.hpp>
+#include <nek/type_traits/is_trivial.hpp>
 #include <nek/type_traits/is_trivially_destructible.hpp>
 #include <nek/type_traits/is_union.hpp>
 #include <nek/type_traits/is_void.hpp>
@@ -20,6 +21,7 @@
 #include <nek/type_traits/make_unsigned.hpp>
 #include <nek/type_traits/propagate_cv.hpp>
 #include <nek/type_traits/remove_cv.hpp>
+#include <nek/type_traits/remove_extends.hpp>
 #include <nek/type_traits/remove_reference.hpp>
 
 #endif

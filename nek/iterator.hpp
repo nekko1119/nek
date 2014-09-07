@@ -7,6 +7,7 @@
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/iterator/move_iterator.hpp>
 #include <nek/iterator/normal_iterator.hpp>
+#include <nek/iterator/reverse_iterator.hpp>
 #include <nek/iterator/range.hpp>
 
 #endif

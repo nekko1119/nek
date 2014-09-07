@@ -15,7 +15,6 @@
 #include <nek/algorithm/lexicographical_compare.hpp>
 #include <nek/algorithm/max.hpp>
 #include <nek/algorithm/rotate.hpp>
-#include <nek/container/function.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
