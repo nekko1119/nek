@@ -12,6 +12,7 @@
 #include <utility>
 #include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/equal.hpp>
+#include <nek/algorithm/lexicographical_compare.hpp>
 #include <nek/algorithm/max.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/container/function.hpp>
@@ -764,6 +765,30 @@ namespace nek
   inline bool operator!=(vector<T, Allocator> const& left, vector<T, Allocator> const& right)
   {
     return !(left == right);
+  }
+
+  template <class T, class Allocator>
+  inline bool operator<(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
+  {
+    return nek::lexicographical_compare(left.begin(), left.end(), right.begin(), right.end());
+  }
+
+  template <class T, class Allocator>
+  inline bool operator>(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
+  {
+    return right < left;
+  }
+
+  template <class T, class Allocator>
+  inline bool operator<=(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
+  {
+    return !(right < left);
+  }
+
+  template <class T, class Allocator>
+  inline bool operator>=(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
+  {
+    return !(left < right);
   }
 }
 

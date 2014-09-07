@@ -524,3 +524,13 @@ TEST_F(vector_test, equal)
   other.erase(other.end() - 1, other.end());
   EXPECT_NE(other, sut);
 }
+
+TEST_F(vector_test, compare)
+{
+  sut = {1, 2, 3};
+  type const v = {10, 20, 30};
+  EXPECT_LT(sut, v);
+  EXPECT_LE(sut, v);
+  EXPECT_GT(v, sut);
+  EXPECT_GE(v, sut);
+}
