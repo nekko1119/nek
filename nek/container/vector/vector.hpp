@@ -175,6 +175,18 @@ namespace nek
       last() = capacity_end();
     }
 
+    vector(size_type count, T const& value)
+      : vector{count, value, allocator_type{}}
+    {
+    }
+
+    vector(size_type count, T const& value, Allocator const& allocator)
+      : base_type{count, allocator}
+    {
+      std::uninitialized_fill_n(first(), count, value);
+      last() = capacity_end();
+    }
+
     template <class InputIterator>
     vector(InputIterator first, InputIterator last)
       : vector{first, last, allocator_type{}}
@@ -316,13 +328,6 @@ namespace nek
       swap(last(), right.last());
       swap(capacity_end(), right.capacity_end());
       alloc_traits::swap(allocator(), right.allocator());
-    }
-
-    template <class InputIterator>
-    void assign(InputIterator first, InputIterator last)
-    {
-      nek::clear(*this);
-      assign_(first, last);
     }
 
     void reserve(size_type count)

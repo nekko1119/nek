@@ -93,6 +93,18 @@ TEST_F(vector_test, sized_constructor)
   EXPECT_GE(instance.capacity(), nek::size(instance));
 }
 
+TEST_F(vector_test, fill_constructor)
+{
+  constexpr std::size_t size = 4U;
+  int const& value = 123;
+  nek::vector<int> instance(size, value);
+  EXPECT_EQ(size, nek::size(instance));
+  EXPECT_GE(instance.capacity(), nek::size(instance));
+  EXPECT_EQ(value, instance[0]);
+  EXPECT_EQ(value, instance[1]);
+  EXPECT_EQ(value, instance[2]);
+}
+
 TEST_F(vector_test, range_constructor)
 {
   std::list<int> original = {1, 2, 3};
