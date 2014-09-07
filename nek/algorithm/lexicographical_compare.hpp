@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <cstring>
 
-#include <algorithm> // TODO ; std::min
 #include <type_traits> // TODO : std::is_signed
+#include <nek/algorithm/min.hpp>
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/type_traits/integral_constant.hpp>
 #include <nek/type_traits/is_integral.hpp>
@@ -34,7 +34,7 @@ namespace nek
     {
       std::ptrdiff_t const length1 = last1 - first1;
       std::ptrdiff_t const length2 = last2 - first2;
-      int const result = std::memcmp(first1, first2, std::min(length1, length2));
+      int const result = std::memcmp(first1, first2, nek::min(length1, length2));
       return result != 0 ? result < 0 : length1 < length2;
     }
   }
