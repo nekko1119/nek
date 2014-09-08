@@ -3,12 +3,14 @@
 
 #include <cstring>
 
+#include <nek/type_traits/is_byte.hpp>
+
 namespace nek
 {
   namespace fill_n_detail
   {
     template <class OutputIterator, class Size, class T>
-    inline OutputIterator fill_n_(OutputIterator dest, Size count, T const& value)
+    inline OutputIterator fill_n_(OutputIterator dest, Size count, T const& value, nek::false_type)
     {
       for (; 0 < count; --count, ++dest) {
         *dest = value;
@@ -16,19 +18,8 @@ namespace nek
       return dest;
     }
 
-    inline char* fill_n_(char* dest, std::size_t count, char const& value)
-    {
-      std::memset(dest, value, count);
-      return dest + count;
-    }
-
-    inline signed char* fill_n_(signed char* dest, std::size_t count, signed char value)
-    {
-      std::memset(dest, value, count);
-      return dest + count;
-    }
-
-    inline unsigned char* fill_n_(unsigned char* dest, std::size_t count, unsigned char value)
+    template <class T, class Size>
+    inline char* fill_n_(T* dest, Size count, T const& value, nek::true_type)
     {
       std::memset(dest, value, count);
       return dest + count;
@@ -38,7 +29,7 @@ namespace nek
   template <class OutputIterator, class Size, class T>
   inline OutputIterator fill_n(OutputIterator dest, Size count, T const& value)
   {
-    return fill_n_detail::fill_n_(dest, count, value);
+    return fill_n_detail::fill_n_(dest, count, value, is_byte<T>{});
   }
 }
 

@@ -8,6 +8,7 @@
 #include <nek/algorithm/min.hpp>
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/type_traits/integral_constant.hpp>
+#include <nek/type_traits/is_byte.hpp>
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_same.hpp>
@@ -47,7 +48,7 @@ namespace nek
     
     using is_byte_comparable = nek::integral_constant<bool,
       nek::is_pointer<InputIterator1>::value &&
-      nek::is_integral<value_type1>::value && std::is_signed<value_type1>::value &&
+      nek::is_byte<value_type1>::value && std::is_signed<value_type1>::value &&
       nek::is_same<InputIterator1, InputIterator2>::value>;
     return lexicographical_compare_detail::lexicographical_compare_(first1, last1, first2, last2, is_byte_comparable{});
   }

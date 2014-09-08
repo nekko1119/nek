@@ -4,6 +4,7 @@
 #include <cstring>
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/type_traits/integral_constant.hpp>
+#include <nek/type_traits/is_byte.hpp>
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_same.hpp>
@@ -36,7 +37,7 @@ namespace nek
     using value_type1 = typename nek::iterator_traits<InputIterator1>::value_type;
     using value_type2 = typename nek::iterator_traits<InputIterator2>::value_type;
     using is_byte_comparable_type = nek::integral_constant<bool,
-      (nek::is_integral<value_type1>::value || nek::is_pointer<value_type1>::value)
+      (nek::is_byte<value_type1>::value || nek::is_pointer<value_type1>::value)
       && nek::is_pointer<InputIterator1>::value && nek::is_pointer<InputIterator2>::value
       && nek::is_same<InputIterator1, InputIterator2>::value>;
     return equal_detail::equal_(first1, last1, first2, is_byte_comparable_type{});
