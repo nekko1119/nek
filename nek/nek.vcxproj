@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="algorithm\copy.hpp" />
     <ClInclude Include="algorithm\equal.hpp" />
+    <ClInclude Include="algorithm\fill.hpp" />
     <ClInclude Include="algorithm\fill_n.hpp" />
     <ClInclude Include="algorithm\iter_swap.hpp" />
     <ClInclude Include="algorithm\lexicographical_compare.hpp" />
