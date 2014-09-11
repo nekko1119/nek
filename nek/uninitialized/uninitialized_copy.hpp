@@ -55,7 +55,9 @@ namespace nek
       }
       return current;
     } catch (...) {
-      detail::destroy(dest, current);
+      for (; dest != current; ++dest) {
+        traits::destroy(allocator, nek::addressof(*dest));
+      }
       throw;
     }
   }

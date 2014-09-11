@@ -49,12 +49,12 @@ namespace nek
     using traits = nek::allocator_traits<Allocator>;
     auto current = first;
     try {
-      for (; 0 < count; --count, ++first) {
-        traits::construct(allocator, nek::addressof(*first_));
+      for (; 0 < count; --count, ++current) {
+        traits::construct(allocator, nek::addressof(*current_));
       }
     } catch (...) {
-      for (; current != first; ++current) {
-        traits::destroy(allocator, nek::addressof(*current));
+      for (; first != current; ++first) {
+        traits::destroy(allocator, nek::addressof(*first));
       }
       throw;
     }
