@@ -7,11 +7,12 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::move, std::copy_backward, std::fill
-#include <memory> // TODO : std::uninitialized_fill, std::uninitialized_fill_n
+#include <algorithm> // TODO : std::move, std::copy_backward
+#include <memory> // TODO : std::uninitialized_fill_n
 #include <utility>
 #include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/equal.hpp>
+#include <nek/algorithm/fill.hpp>
 #include <nek/algorithm/lexicographical_compare.hpp>
 #include <nek/algorithm/max.hpp>
 #include <nek/algorithm/rotate.hpp>
@@ -28,6 +29,7 @@
 #include <nek/type_traits/is_integral.hpp>
 #include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
+#include <nek/uninitialized/uninitialized_fill.hpp>
 #include <nek/uninitialized/uninitialized_move.hpp>
 #include <nek/utility/forward.hpp>
 #include <vector>
@@ -570,7 +572,7 @@ namespace nek
           last() = nek::uninitialized_move(last() - count, last(), last());
           // move insert position to backward
           std::copy_backward(remove_const(position).base(), old_last - count, old_last);
-          std::fill(remove_const(position).base(), remove_const(position).base() + count, temp);
+          nek::fill(remove_const(position).base(), remove_const(position).base() + count, temp);
         } else {
           std::uninitialized_fill_n(
             last(), count - position_after_size, temp/*, get_allocator()*/);
@@ -579,7 +581,7 @@ namespace nek
           nek::uninitialized_move(remove_const(position).base(), old_last, last(), get_allocator());
           last() += position_after_size;
 
-          std::fill(remove_const(position).base(), old_last, temp);
+          nek::fill(remove_const(position).base(), old_last, temp);
         }
       } else {
         // validate
