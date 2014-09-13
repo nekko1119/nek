@@ -89,7 +89,7 @@ namespace nek
   template <class ForwardIterator, class Size, class T>
   ForwardIterator uninitialized_fill_n(ForwardIterator first, Size count, T const& value)
   {
-    return uninitialized_fill_n_detail::uninitialized_fill_n(first, count, value);
+    return uninitialized_fill_n_detail::uninitialized_fill_n_(first, count, value, nek::is_trivial<T>{});
   }
 
   template <class ForwardIterator, class Size, class T, class Allocator>
@@ -109,6 +109,11 @@ namespace nek
       throw;
     }
   }
+
+  template <class ForwardIterator, class Size, class T>
+  inline ForwardIterator uninitialized_fill_n(ForwardIterator first, Size count, T const& value, nek::allocator<T>&)
+  {
+    return uninitialized_fill_n(first, count, value);
   }
 }
 

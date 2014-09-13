@@ -48,8 +48,8 @@ namespace nek
   ForwardIterator uninitialized_copy(InputIterator first, InputIterator last, ForwardIterator dest, Allocator& allocator)
   {
     auto current = dest;
+    using traits = nek::allocator_traits<Allocator>;
     try {
-      using traits = nek::allocator_traits<Allocator>;
       for (; first != last; ++first, ++current) {
         traits::construct(allocator, addressof(*current), *first);
       }

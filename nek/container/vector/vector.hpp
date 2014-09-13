@@ -8,7 +8,6 @@
 #include <stdexcept>
 
 #include <algorithm> // TODO : std::move, std::copy_backward
-#include <memory> // TODO : std::uninitialized_fill_n
 #include <utility>
 #include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/equal.hpp>
@@ -185,7 +184,7 @@ namespace nek
     vector(size_type count, T const& value, Allocator const& allocator)
       : base_type{count, allocator}
     {
-      std::uninitialized_fill_n(first(), count, value);
+      nek::uninitialized_fill_n(first(), count, value, allocator);
       last() = capacity_end();
     }
 
@@ -574,8 +573,8 @@ namespace nek
           std::copy_backward(remove_const(position).base(), old_last - count, old_last);
           nek::fill(remove_const(position).base(), remove_const(position).base() + count, temp);
         } else {
-          std::uninitialized_fill_n(
-            last(), count - position_after_size, temp/*, get_allocator()*/);
+          nek::uninitialized_fill_n(
+            last(), count - position_after_size, temp, get_allocator());
           last() += count - position_after_size;
 
           nek::uninitialized_move(remove_const(position).base(), old_last, last(), get_allocator());
@@ -593,7 +592,7 @@ namespace nek
         pointer new_first = allocator().allocate(new_capacity_size);
         pointer new_last = new_first;
         try {
-          std::uninitialized_fill_n(new_first + offset, count, value/*, get_allocator()*/);
+          nek::uninitialized_fill_n(new_first + offset, count, value, get_allocator());
           new_last = nullptr;
 
           new_last = nek::uninitialized_copy(
