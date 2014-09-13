@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algorithm\copy_backward_test.cpp" />
     <ClCompile Include="algorithm\copy_test.cpp" />
     <ClCompile Include="algorithm\fill_n_test.cpp" />
     <ClCompile Include="algorithm\fill_test.cpp" />

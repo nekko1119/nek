@@ -71,6 +71,7 @@ namespace nek
         IsMoveIterator, is_memmovable, iterator_category>::copy(first, last, dest);
     }
   }
+
   template <class InputIterator, class OutputIterator>
   OutputIterator copy(InputIterator first, InputIterator last, OutputIterator dest)
   {

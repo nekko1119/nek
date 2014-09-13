@@ -1,15 +1,15 @@
-#include <algorithm>
-#include <nek/algorithm/copy.hpp>
+﻿#include <algorithm>
+#include <nek/algorithm/copy_backward.hpp>
 #include <gtest/gtest.h>
 
-TEST(copy_test, raw_array)
+TEST(copy_backward_test, raw_array)
 {
   // setup
   int src[4] = {1, 2, 3, 4};
   int dest[4] = {};
 
   // exercise
-  nek::copy(src, src + 4, dest);
+  nek::copy_backward(src, src + 4, dest + 4);
 
   // verify
   EXPECT_EQ(1, dest[0]);
@@ -18,7 +18,7 @@ TEST(copy_test, raw_array)
   EXPECT_EQ(4, dest[3]);
 }
 
-TEST(copy_test, dynamic_array)
+TEST(copy_backward_test, dynamic_array)
 {
   // setup
   int* src = new int[4];
@@ -29,7 +29,7 @@ TEST(copy_test, dynamic_array)
   int* dest = new int[4]{};
 
   // exercise
-  nek::copy(src, src + 4, dest);
+  nek::copy_backward(src, src + 4, dest + 4);
 
   // verify
   EXPECT_EQ(1, dest[0]);
@@ -42,10 +42,10 @@ TEST(copy_test, dynamic_array)
   delete[] dest;
 }
 
-TEST(copy_test, forward)
+TEST(copy_backward_test, backward)
 {
   int a[] = {0, 1, 2, 3};
-  int expected[] = {1, 2, 3, 3};
-  nek::copy(a + 1, a + 4, a);
+  int expected[] = {0, 0, 1, 2};
+  nek::copy_backward(a, a + 3, a + 4);
   EXPECT_TRUE(std::equal(a, a + 4, expected));
 }
