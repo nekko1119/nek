@@ -31,8 +31,7 @@ TEST(is_const_test, yes)
   STATIC_ASSERT_TRUE(nek::is_const<void const>);
   STATIC_ASSERT_TRUE(nek::is_const<void (*const)()>);
   STATIC_ASSERT_TRUE(nek::is_const<int* const>);
-  // TODO : workaround
-  //STATIC_ASSERT_TRUE(nek::is_const<int const[]>);
+  STATIC_ASSERT_TRUE(nek::is_const<int const[]>);
   SUCCEED();
 }
 

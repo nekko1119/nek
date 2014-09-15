@@ -91,7 +91,7 @@
     <ClCompile Include="algorithm\fill_n_test.cpp" />
     <ClCompile Include="algorithm\fill_test.cpp" />
     <ClCompile Include="algorithm\iter_swap_test.cpp" />
-    <ClCompile Include="algorithm\liexicographical_compare_test.cpp" />
+    <ClCompile Include="algorithm\lexicographical_compare_test.cpp" />
     <ClCompile Include="algorithm\max_test.cpp" />
     <ClCompile Include="algorithm\min_test.cpp" />
     <ClCompile Include="algorithm\reverse_test.cpp" />
@@ -140,6 +140,7 @@
     <ClCompile Include="type_traits\is_reference_test.cpp" />
     <ClCompile Include="type_traits\is_rvalue_reference_test.cpp" />
     <ClCompile Include="type_traits\is_same_test.cpp" />
+    <ClCompile Include="type_traits\is_signed_test.cpp" />
     <ClCompile Include="type_traits\is_trival_test.cpp" />
     <ClCompile Include="type_traits\is_trivially_destructible_test.cpp" />
     <ClCompile Include="type_traits\is_union_test.cpp" />

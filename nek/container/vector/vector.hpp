@@ -7,9 +7,10 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::move, std::copy_backward
+#include <algorithm> // TODO : std::move
 #include <utility>
 #include <nek/algorithm/copy.hpp>
+#include <nek/algorithm/copy_backward.hpp>
 #include <nek/algorithm/equal.hpp>
 #include <nek/algorithm/fill.hpp>
 #include <nek/algorithm/lexicographical_compare.hpp>
@@ -570,7 +571,7 @@ namespace nek
           // move last elements
           last() = nek::uninitialized_move(last() - count, last(), last());
           // move insert position to backward
-          std::copy_backward(remove_const(position).base(), old_last - count, old_last);
+          nek::copy_backward(remove_const(position).base(), old_last - count, old_last);
           nek::fill(remove_const(position).base(), remove_const(position).base() + count, temp);
         } else {
           nek::uninitialized_fill_n(

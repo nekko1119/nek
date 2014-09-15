@@ -13,6 +13,7 @@
 #include <nek/type_traits/is_pointer.hpp>
 #include <nek/type_traits/is_reference.hpp>
 #include <nek/type_traits/is_same.hpp>
+#include <nek/type_traits/is_signed.hpp>
 #include <nek/type_traits/is_trivial.hpp>
 #include <nek/type_traits/is_trivially_destructible.hpp>
 #include <nek/type_traits/is_union.hpp>

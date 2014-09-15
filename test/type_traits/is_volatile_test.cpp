@@ -31,8 +31,7 @@ TEST(is_volatile_test, yes)
   STATIC_ASSERT_TRUE(nek::is_volatile<void volatile>);
   STATIC_ASSERT_TRUE(nek::is_volatile<void(*volatile)()>);
   STATIC_ASSERT_TRUE(nek::is_volatile<int* volatile>);
-  // TODO : workaround
-  //STATIC_ASSERT_TRUE(nek::is_volatile<int volatile[]>);
+  STATIC_ASSERT_TRUE(nek::is_volatile<int volatile[]>);
   SUCCEED();
 }
 
