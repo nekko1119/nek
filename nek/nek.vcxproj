@@ -73,6 +73,7 @@
     <ClInclude Include="type_traits\add_const.hpp" />
     <ClInclude Include="type_traits\add_cv.hpp" />
     <ClInclude Include="type_traits\add_lvalue_reference.hpp" />
+    <ClInclude Include="type_traits\add_rvalue_reference.hpp" />
     <ClInclude Include="type_traits\add_volatile.hpp" />
     <ClInclude Include="type_traits\enabler.hpp" />
     <ClInclude Include="type_traits\enable_if.hpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="uninitialized\uninitialized_move.hpp" />
     <ClInclude Include="utility.hpp" />
     <ClInclude Include="utility\addressof.hpp" />
+    <ClInclude Include="utility\declval.hpp" />
     <ClInclude Include="utility\forward.hpp" />
     <ClInclude Include="utility\has_xxx_def.hpp" />
     <ClInclude Include="utility\is_xxx_def.hpp" />

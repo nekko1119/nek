@@ -3,6 +3,7 @@
 
 #include <nek/type_traits/add_cv.hpp>
 #include <nek/type_traits/add_lvalue_reference.hpp>
+#include <nek/type_traits/add_rvalue_reference.hpp>
 #include <nek/type_traits/enable_if.hpp>
 #include <nek/type_traits/enabler.hpp>
 #include <nek/type_traits/is_class.hpp>
