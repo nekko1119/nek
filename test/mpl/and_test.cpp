@@ -11,7 +11,7 @@ TEST(and_c_test, true)
   STATIC_ASSERT_TRUE(and2);
   using and3 = mpl::and_c<true, true, true>;
   STATIC_ASSERT_TRUE(and3);
-  using and4 = mpl::and_c<true, true, true>;
+  using and4 = mpl::and_c<true, true, true, true>;
   STATIC_ASSERT_TRUE(and4);
 }
 
@@ -22,7 +22,7 @@ TEST(and_c_test, false)
   STATIC_ASSERT_FALSE(and1);
   using and2_1 = mpl::and_c<true, false>;
   STATIC_ASSERT_FALSE(and2_1);
-  using and2_2 = mpl::and_c<true, false>;
+  using and2_2 = mpl::and_c<false, true>;
   STATIC_ASSERT_FALSE(and2_2);
   using and2_3 = mpl::and_c<false, false>;
   STATIC_ASSERT_FALSE(and2_3);
@@ -51,7 +51,7 @@ TEST(and_test, true_)
   STATIC_ASSERT_TRUE(and2);
   using and3 = mpl::and_<mpl::true_, mpl::true_, mpl::true_>;
   STATIC_ASSERT_TRUE(and3);
-  using and4 = mpl::and_<mpl::true_, mpl::true_, mpl::true_>;
+  using and4 = mpl::and_<mpl::true_, mpl::true_, mpl::true_, mpl::true_>;
   STATIC_ASSERT_TRUE(and4);
 }
 
