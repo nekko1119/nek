@@ -152,6 +152,7 @@
     <ClCompile Include="type_traits\make_unsigned\signed.cpp" />
     <ClCompile Include="type_traits\make_unsigned\unsigned.cpp" />
     <ClCompile Include="type_traits\propagate_cv_test.cpp" />
+    <ClCompile Include="type_traits\remove_all_extends.cpp" />
     <ClCompile Include="type_traits\remove_const_test.cpp" />
     <ClCompile Include="type_traits\remove_cv_test.cpp" />
     <ClCompile Include="type_traits\remove_extends_test.cpp" />
