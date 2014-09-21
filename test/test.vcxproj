@@ -135,6 +135,7 @@
     <ClCompile Include="type_traits\is_byte_test.cpp" />
     <ClCompile Include="type_traits\is_class_test.cpp" />
     <ClCompile Include="type_traits\is_const_test.cpp" />
+    <ClCompile Include="type_traits\is_default_constructible_test.cpp" />
     <ClCompile Include="type_traits\is_enum_test.cpp" />
     <ClCompile Include="type_traits\is_floating_point_test.cpp" />
     <ClCompile Include="type_traits\is_integral_test.cpp" />
