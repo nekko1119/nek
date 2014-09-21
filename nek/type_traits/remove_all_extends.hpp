@@ -22,6 +22,9 @@ namespace nek
   {
     using type = typename remove_all_extends<T>::type;
   };
+
+  template <class T>
+  using remove_all_extends_t = typename remove_all_extends<T>::type;
 }
 
 #endif
