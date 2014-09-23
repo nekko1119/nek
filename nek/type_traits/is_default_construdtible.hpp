@@ -55,6 +55,13 @@ namespace nek
     : public nek::integral_constant<bool, is_default_constructible_detail::is_default_constructible_is_array<T>::value>
   {
   };
+
+  // MSVC 12.0Nov CTP workaround 
+  template <class T>
+  struct is_default_constructible<T&&>
+    : false_type
+  {
+  };
 }
 
 #endif
