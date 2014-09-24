@@ -132,6 +132,7 @@
     <ClCompile Include="type_traits\has_type_test.cpp" />
     <ClCompile Include="type_traits\has_value_type_test.cpp" />
     <ClCompile Include="type_traits\is_array_test.cpp" />
+    <ClCompile Include="type_traits\is_base_of_test.cpp" />
     <ClCompile Include="type_traits\is_byte_test.cpp" />
     <ClCompile Include="type_traits\is_class_test.cpp" />
     <ClCompile Include="type_traits\is_const_test.cpp" />
