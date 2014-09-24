@@ -12,16 +12,18 @@ namespace nek
 {
   namespace is_base_of_detail
   {
-    template <class Base, class Derived, bool = mpl::and_c<nek::is_class<Base>::value, nek::is_class<Derived>::value, mpl::not_c<nek::is_same<Base, Derived>::value>::value>::value>
+    template <class Base, class Derived, bool = mpl::and_c<nek::is_class<Base>::value, nek::is_class<Derived>::value, mpl::not_<nek::is_same<Base, Derived>>::value>::value>
     struct is_base_of_
     {
+      static_assert(!is_same<Base, Derived>::value, "");
     private:
-      static nek::true_type check(Derived&, int);
-      static nek::false_type check(Base&, long);
+      template <class T>
+      static nek::true_type check(Derived&, T);
+      static nek::false_type check(Base&, int);
 
       struct host
       {
-        operator Base&();
+        operator Base&() const;
         operator Derived&();
       };
 
@@ -38,9 +40,11 @@ namespace nek
     template <class Base, class Derived>
     struct is_base_of_is_class
     {
+      using non_cv_base = nek::remove_cv_t<Base>;
+      using non_cv_derived = nek::remove_cv_t<Derived>;
       static constexpr bool value =
-        is_base_of_<Base, Derived>::type::value ||
-        nek::is_class<Base>::value && nek::is_same<Base, Derived>::value;
+        is_base_of_<non_cv_base, non_cv_derived>::type::value ||
+        (nek::is_class<non_cv_base>::value && nek::is_same<non_cv_base, non_cv_derived>::value);
     };
   }
 
