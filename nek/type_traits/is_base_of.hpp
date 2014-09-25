@@ -13,8 +13,8 @@ namespace nek
 {
   namespace is_base_of_detail
   {
-    template <class Base, class Derived, bool = mpl::and_<nek::is_class<Base>, nek::is_class<Derived>, mpl::not_<nek::is_same<Base, Derived>>>::value>
-    struct is_base_of_
+    template <class Base, class Derived>
+    struct is_base_of_impl
     {
     private:
       template <class T>
@@ -31,10 +31,16 @@ namespace nek
       using type = decltype(check(host{}, 0));
     };
 
+    template <class Base, class Derived, bool = mpl::and_<nek::is_class<Base>, nek::is_class<Derived>, mpl::not_<nek::is_same<Base, Derived>>>::value>
+    struct is_base_of_
+      : public is_base_of_impl<Base, Derived>::type
+    {
+    };
+
     template <class Base, class Derived>
     struct is_base_of_<Base, Derived, false>
+      : public nek::false_type
     {
-      using type = nek::false_type;
     };
 
     template <class Base, class Derived>
@@ -46,7 +52,7 @@ namespace nek
 
     public:
       static constexpr bool value = mpl::or_<
-        is_base_of_<non_cv_base, non_cv_derived>::type,
+        is_base_of_<non_cv_base, non_cv_derived>,
           mpl::and_<nek::is_class<non_cv_base>, nek::is_same<non_cv_base, non_cv_derived>>
         >::value;
     };

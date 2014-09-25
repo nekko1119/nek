@@ -90,6 +90,7 @@
     <ClInclude Include="type_traits\is_byte.hpp" />
     <ClInclude Include="type_traits\is_class.hpp" />
     <ClInclude Include="type_traits\is_const.hpp" />
+    <ClInclude Include="type_traits\is_constructible.hpp" />
     <ClInclude Include="type_traits\is_default_construdtible.hpp" />
     <ClInclude Include="type_traits\is_enum.hpp" />
     <ClInclude Include="type_traits\is_floating_point.hpp" />

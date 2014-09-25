@@ -19,7 +19,7 @@ namespace nek
       template <class U, class = decltype(U())>
       static nek::true_type check(int);
 
-      template <class U>
+      template <class>
       static nek::false_type check(long);
 
     public:
