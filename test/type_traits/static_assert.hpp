@@ -8,7 +8,7 @@
   static_assert(pred::value, #pred "::value == true")
 
 #define STATIC_ASSERT_FALSE(pred)\
-  static_assert(!pred::value, #pred "::value == true")
+  static_assert(!pred::value, #pred "::value == false")
 
 #define STATIC_ASSERT_EQ(actual_type, expect_type)\
   static_assert(std::is_same<actual_type, expect_type>::value, "std::is_same<" #actual_type ", " #expect_type ">::value")

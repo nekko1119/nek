@@ -33,11 +33,11 @@ namespace nek
     public:
       using type =
         mpl::and_<
-        mpl::not_<std::is_function<From>>,
-        mpl::or_<
-        nek::is_same<from_type, to_type>,
-        nek::is_base_of<from_type, to_type>
-        >
+          mpl::not_<std::is_function<From>>,
+          mpl::or_<
+            nek::is_same<from_type, to_type>,
+            nek::is_base_of<from_type, to_type>
+          >
         >;
     };
 
@@ -66,8 +66,8 @@ namespace nek
     public:
       using type =
         mpl::and_<
-        mpl::not_<nek::is_same<base_type, derived_type>>,
-        nek::is_base_of<base_type, derived_type>
+          mpl::not_<nek::is_same<base_type, derived_type>>,
+          nek::is_base_of<base_type, derived_type>
         >;
     };
 
@@ -77,6 +77,18 @@ namespace nek
     template <class Base, class Derived>
     struct is_base_to_derived_ref<Base, Derived, true>
       : public is_base_to_derived_ref_impl<Base, Derived>::type
+    {
+    };
+
+    template <class T, class Arg>
+    struct is_direct_constructible_ref
+      : public mpl::and_<
+          nek::is_static_castable<Arg, T>,
+          mpl::not_<mpl::or_<
+            is_base_to_derived_ref<Arg, T>,
+            is_l_ref_to_r_ref<Arg, T>
+          >>
+        >
     {
     };
 
@@ -108,7 +120,7 @@ namespace nek
 
     template <class T, class Arg>
     struct is_direct_cosntructible
-      : public mpl::if_t<nek::is_reference<T>, is_base_to_derived_ref<T, Arg>, is_able_to_placement_new<T, Arg>>
+      : public mpl::if_t<nek::is_reference<T>, is_direct_constructible_ref<T, Arg>, is_able_to_placement_new<T, Arg>>
     {
     };
 

@@ -1,5 +1,7 @@
 ﻿#include <nek/type_traits/is_constructible.hpp>
 #include <gtest/gtest.h>
+#include <string>
+#include <vector>
 #include "static_assert.hpp"
 
 namespace
@@ -14,12 +16,39 @@ namespace
   {
     y() {}
   };
+
+  struct base
+  {
+    virtual ~base() {}
+  };
+
+  struct derived
+    : public base
+  {
+  };
 }
 
 TEST(is_constructible_test, yes)
 {
+  using i_type = nek::is_constructible<int>;
+  using ii_type = nek::is_constructible<int, int>;
+  using id_type = nek::is_constructible<int, double>;
   using xi_type = nek::is_constructible<x, int>;
+  using iter_type = std::vector<double>::iterator;
+  using vin_type = nek::is_constructible<std::vector<int>, std::initializer_list<int>>;
+  using vii_type = nek::is_constructible<std::vector<int>, iter_type, iter_type>; // vector(Iterator, Iterator)
+  using bd_type = nek::is_constructible<base, derived>;
+  using pbpd_type = nek::is_constructible<base*, derived*>;
+  using rbrd_type = nek::is_constructible<base&, derived&>;
+  STATIC_ASSERT_TRUE(i_type);
+  STATIC_ASSERT_TRUE(ii_type);
+  STATIC_ASSERT_TRUE(id_type);
   STATIC_ASSERT_TRUE(xi_type);
+  STATIC_ASSERT_TRUE(vin_type);
+  STATIC_ASSERT_TRUE(vii_type);
+  STATIC_ASSERT_TRUE(bd_type);
+  STATIC_ASSERT_TRUE(pbpd_type);
+  STATIC_ASSERT_TRUE(rbrd_type);
 }
 
 TEST(is_constructible_test, no)
@@ -28,8 +57,12 @@ TEST(is_constructible_test, no)
   using fi_type = nek::is_constructible<void (*)(int), int>;
   using vi_type = nek::is_constructible<void, int>;
   using y_type = nek::is_constructible<y>;
+  using vvv_type = nek::is_constructible<std::vector<int>, void, void>;
+  using rbd_type = nek::is_constructible<base&, derived>;
   STATIC_ASSERT_FALSE(xx_type);
-  STATIC_ASSERT_FALSE(fi_type); // TODO
-  STATIC_ASSERT_FALSE(vi_type); // TODO
+  STATIC_ASSERT_FALSE(fi_type);
+  STATIC_ASSERT_FALSE(vi_type);
   STATIC_ASSERT_FALSE(y_type);
+  STATIC_ASSERT_FALSE(vvv_type);
+  STATIC_ASSERT_FALSE(rbd_type);
 }
