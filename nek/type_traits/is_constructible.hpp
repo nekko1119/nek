@@ -19,6 +19,8 @@
 #include <nek/type_traits/remove_reference.hpp>
 #include <nek/utility/declval.hpp>
 
+#include <boost/mpl/print.hpp>
+#include <boost/mpl/vector.hpp>
 namespace nek
 {
   namespace is_constructible_detail
@@ -33,19 +35,16 @@ namespace nek
     public:
       using type =
         mpl::and_<
-          mpl::not_<std::is_function<From>>,
+          mpl::not_<std::is_function<from_type>>,
           mpl::or_<
             nek::is_same<from_type, to_type>,
-            nek::is_base_of<from_type, to_type>
+            nek::is_base_of<to_type, from_type>
           >
         >;
     };
 
     template <class From, class To, bool = mpl::and_<nek::is_lvalue_reference<From>, nek::is_rvalue_reference<To>>::value>
-    struct is_l_ref_to_r_ref;
-
-    template <class From, class To>
-    struct is_l_ref_to_r_ref<From, To, true>
+    struct is_l_ref_to_r_ref
       : public is_l_ref_to_r_ref_impl<From, To>::type
     {
     };
@@ -72,29 +71,26 @@ namespace nek
     };
 
     template <class Base, class Derived, bool = mpl::not_<mpl::or_<nek::is_void<Base>, std::is_function<Base>>>::value>
-    struct is_base_to_derived_ref;
-
-    template <class Base, class Derived>
-    struct is_base_to_derived_ref<Base, Derived, true>
+    struct is_base_to_derived_ref
       : public is_base_to_derived_ref_impl<Base, Derived>::type
-    {
-    };
-
-    template <class T, class Arg>
-    struct is_direct_constructible_ref
-      : public mpl::and_<
-          nek::is_static_castable<Arg, T>,
-          mpl::not_<mpl::or_<
-            is_base_to_derived_ref<Arg, T>,
-            is_l_ref_to_r_ref<Arg, T>
-          >>
-        >
     {
     };
 
     template <class Base, class Derived>
     struct is_base_to_derived_ref<Base, Derived, false>
       : public nek::false_type
+    {
+    };
+
+    template <class T, class Arg>
+    struct is_direct_constructible_ref
+      : public mpl::and_<
+          nek::is_static_castable<T, Arg>,
+          mpl::not_<mpl::or_<
+            is_base_to_derived_ref<Arg, T>,
+            is_l_ref_to_r_ref<Arg, T>
+          >>
+        >
     {
     };
 
@@ -120,7 +116,9 @@ namespace nek
 
     template <class T, class Arg>
     struct is_direct_cosntructible
-      : public mpl::if_t<nek::is_reference<T>, is_direct_constructible_ref<T, Arg>, is_able_to_placement_new<T, Arg>>
+      : public mpl::if_t<nek::is_reference<T>,
+          is_direct_constructible_ref<T, Arg>,
+          is_able_to_placement_new<T, Arg>>
     {
     };
 
