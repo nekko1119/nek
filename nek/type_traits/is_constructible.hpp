@@ -144,7 +144,7 @@ namespace nek
 
     template <class T, class Arg>
     struct is_constructible_<T, Arg>
-      : public is_direct_cosntructible<T, Arg>
+      : public nek::integral_constant<bool, is_direct_cosntructible<T, Arg>::value>
     {
     };
 

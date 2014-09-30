@@ -28,6 +28,24 @@ namespace
   };
 }
 
+TEST(is_constructible_test, initialize_true)
+{
+  using actual_type = nek::is_constructible<int, int>;
+  STATIC_ASSERT_TRUE(actual_type);
+  STATIC_ASSERT_EQ(actual_type::type, nek::true_type);
+  STATIC_ASSERT_EQ(actual_type::value_type, bool);
+  EXPECT_EQ(true, actual_type());
+}
+
+TEST(is_constructible_test, initialize_false)
+{
+  using actual_type = nek::is_constructible<int, void>;
+  STATIC_ASSERT_FALSE(actual_type);
+  STATIC_ASSERT_EQ(actual_type::type, nek::false_type);
+  STATIC_ASSERT_EQ(actual_type::value_type, bool);
+  EXPECT_EQ(false, actual_type());
+}
+
 TEST(is_constructible_test, yes)
 {
   using i_type = nek::is_constructible<int>;
@@ -40,6 +58,7 @@ TEST(is_constructible_test, yes)
   using bd_type = nek::is_constructible<base, derived>;
   using pbpd_type = nek::is_constructible<base*, derived*>;
   using rbrd_type = nek::is_constructible<base&, derived&>;
+  using brd_type = nek::is_constructible<base, derived&>;
   STATIC_ASSERT_TRUE(i_type);
   STATIC_ASSERT_TRUE(ii_type);
   STATIC_ASSERT_TRUE(id_type);
@@ -49,6 +68,7 @@ TEST(is_constructible_test, yes)
   STATIC_ASSERT_TRUE(bd_type);
   STATIC_ASSERT_TRUE(pbpd_type);
   STATIC_ASSERT_TRUE(rbrd_type);
+  STATIC_ASSERT_TRUE(brd_type);
 }
 
 TEST(is_constructible_test, no)
@@ -59,6 +79,7 @@ TEST(is_constructible_test, no)
   using y_type = nek::is_constructible<y>;
   using vvv_type = nek::is_constructible<std::vector<int>, void, void>;
   using rbd_type = nek::is_constructible<base&, derived>;
+  
   STATIC_ASSERT_FALSE(xx_type);
   STATIC_ASSERT_FALSE(fi_type);
   STATIC_ASSERT_FALSE(vi_type);
