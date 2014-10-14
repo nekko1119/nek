@@ -5,13 +5,13 @@
 
 namespace nek
 {
-  template <class BidirectionalIterator>
-  inline void reverse(BidirectionalIterator first, BidirectionalIterator last)
-  {
-    for (; first != last && first != --last; ++first) {
-      nek::iter_swap(first, last);
-    }
-  }
+	template <class BidirectionalIterator>
+	inline void reverse(BidirectionalIterator first, BidirectionalIterator last)
+	{
+		for (; first != last && first != --last; ++first) {
+			nek::iter_swap(first, last);
+		}
+	}
 }
 
 #endif

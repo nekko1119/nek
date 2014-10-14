@@ -5,12 +5,12 @@
 
 namespace nek
 {
-  template <class LeftForwardIterator, class RightForwardIterator>
-  inline void iter_swap(LeftForwardIterator left, RightForwardIterator right) noexcept
-  {
-    using nek::swap;
-    swap(*left, *right);
-  }
+	template <class LeftForwardIterator, class RightForwardIterator>
+	inline void iter_swap(LeftForwardIterator left, RightForwardIterator right) noexcept
+	{
+		using nek::swap;
+		swap(*left, *right);
+	}
 }
 
 #endif
