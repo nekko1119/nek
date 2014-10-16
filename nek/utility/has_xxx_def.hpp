@@ -6,15 +6,15 @@
 #define NEK_HAS_XXX_TYPE_DEF(type)\
 namespace type##_detail\
 {\
-  template <class T, class = T::##type>\
-  nek::true_type has_##type(int);\
+	template <class T, class = T::##type>\
+	nek::true_type has_##type(int);\
 \
-  template <class>\
-  nek::false_type has_##type(long);\
+	template <class>\
+	nek::false_type has_##type(long);\
 }\
 template <class T>\
 struct has_##type\
-  : public decltype(type##_detail::has_##type<T>(0))\
+	: public decltype(type##_detail::has_##type<T>(0))\
 {\
 }
 

@@ -6,29 +6,29 @@ using nek::mpl::integral_c;
 
 template <class T>
 class integral_c_test
-  : public ::testing::Test
+	: public ::testing::Test
 {
 };
 
 using types = ::testing::Types<
-  char,
-  short,
-  int,
-  long
+	char,
+	short,
+	int,
+	long
 >;
 
 TYPED_TEST_CASE(integral_c_test, types);
 
 TYPED_TEST(integral_c_test, member)
 {
-  using integral = integral_c<TypeParam, 0>;
-  STATIC_ASSERT_EQ(typename integral::value_type, TypeParam);
-  STATIC_ASSERT_EQ(typename integral::type, integral);
-  STATIC_ASSERT_EQ(typename integral::tag, nek::mpl::integral_c_tag);
-  EXPECT_EQ(0, integral::value);
-  using next_type = integral_c<TypeParam, 1>;
-  STATIC_ASSERT_EQ(typename integral::next, next_type);
-  using prior_type = integral_c<TypeParam, -1>;
-  STATIC_ASSERT_EQ(typename integral::prior, prior_type);
-  SUCCEED();
+	using integral = integral_c<TypeParam, 0>;
+	STATIC_ASSERT_EQ(typename integral::value_type, TypeParam);
+	STATIC_ASSERT_EQ(typename integral::type, integral);
+	STATIC_ASSERT_EQ(typename integral::tag, nek::mpl::integral_c_tag);
+	EXPECT_EQ(0, integral::value);
+	using next_type = integral_c<TypeParam, 1>;
+	STATIC_ASSERT_EQ(typename integral::next, next_type);
+	using prior_type = integral_c<TypeParam, -1>;
+	STATIC_ASSERT_EQ(typename integral::prior, prior_type);
+	SUCCEED();
 }

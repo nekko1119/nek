@@ -5,11 +5,11 @@
 
 namespace nek
 {
-  template <class T>
-  struct is_trivially_destructible
-    : public nek::integral_constant<bool, __has_trivial_destructor(T)>
-  {
-  };
+	template <class T>
+	struct is_trivially_destructible
+		: public nek::integral_constant<bool, __has_trivial_destructor(T)>
+	{
+	};
 }
 
 #endif

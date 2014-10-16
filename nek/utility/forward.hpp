@@ -5,14 +5,14 @@
 
 namespace nek
 {
-  template <class T>
-  inline T&& forward(remove_reference_t<T>& value) noexcept
-  {
-    return static_cast<T&&>(value);
-  }
+	template <class T>
+	inline T&& forward(remove_reference_t<T>& value) noexcept
+	{
+		return static_cast<T&&>(value);
+	}
 
-  template <class T>
-  inline T&& forward(remove_reference_t<T>&& value) noexcept = delete;
+	template <class T>
+	inline T&& forward(remove_reference_t<T>&& value) noexcept = delete;
 }
 
 #endif

@@ -6,26 +6,26 @@
 
 namespace nek
 {
-  namespace is_pointer_detail
-  {
-    template <class T>
-    struct is_pointer
-      : public false_type
-    {
-    };
+	namespace is_pointer_detail
+	{
+		template <class T>
+		struct is_pointer
+			: public false_type
+		{
+		};
 
-    template <class T>
-    struct is_pointer<T*>
-      : public true_type
-    {
-    };
-  }
+		template <class T>
+		struct is_pointer<T*>
+			: public true_type
+		{
+		};
+	}
 
-  template <class T>
-  struct is_pointer
-    : public is_pointer_detail::is_pointer<remove_cv_t<T>>
-  {
-  };
+	template <class T>
+	struct is_pointer
+		: public is_pointer_detail::is_pointer<remove_cv_t<T>>
+	{
+	};
 }
 
 #endif

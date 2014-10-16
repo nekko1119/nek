@@ -5,29 +5,29 @@
 
 namespace nek
 {
-  template <class T>
-  struct is_byte
-    : public false_type
-  {
-  };
+	template <class T>
+	struct is_byte
+		: public false_type
+	{
+	};
 
-  template <>
-  struct is_byte<char>
-    : public true_type
-  {
-  };
+	template <>
+	struct is_byte<char>
+		: public true_type
+	{
+	};
 
-  template <>
-  struct is_byte<signed char>
-    : public true_type
-  {
-  };
+	template <>
+	struct is_byte<signed char>
+		: public true_type
+	{
+	};
 
-  template <>
-  struct is_byte<unsigned char>
-    : public true_type
-  {
-  };
+	template <>
+	struct is_byte<unsigned char>
+		: public true_type
+	{
+	};
 }
 
 #endif

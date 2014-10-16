@@ -5,20 +5,20 @@
 
 namespace nek
 {
-  namespace has_iterator_detail
-  {
-    template <class T, class U = T::iterator>
-    true_type has_iterator(int);
+	namespace has_iterator_detail
+	{
+		template <class T, class U = T::iterator>
+		true_type has_iterator(int);
 
-    template <class>
-    false_type has_iterator(long);
-  }
+		template <class>
+		false_type has_iterator(long);
+	}
 
-  template <class T>
-  struct has_iterator
-    : public decltype(has_iterator_detail::has_iterator<T>(0))
-  {
-  };
+	template <class T>
+	struct has_iterator
+		: public decltype(has_iterator_detail::has_iterator<T>(0))
+	{
+	};
 }
 
 #endif

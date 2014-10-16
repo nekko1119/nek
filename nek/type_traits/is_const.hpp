@@ -6,26 +6,26 @@
 
 namespace nek
 {
-  namespace is_const_detail
-  {
-    template <class T>
-    struct is_const_
-      : public false_type
-    {
-    };
+	namespace is_const_detail
+	{
+		template <class T>
+		struct is_const_
+			: public false_type
+		{
+		};
 
-    template <class T>
-    struct is_const_<T const>
-      : public true_type
-    {
-    };
-  }
+		template <class T>
+		struct is_const_<T const>
+			: public true_type
+		{
+		};
+	}
 
-  template <class T>
-  struct is_const
-    : public is_const_detail::is_const_<nek::remove_extends_t<T>>
-  {
-  };
+	template <class T>
+	struct is_const
+		: public is_const_detail::is_const_<nek::remove_extends_t<T>>
+	{
+	};
 }
 
 #endif

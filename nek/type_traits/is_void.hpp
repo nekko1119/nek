@@ -6,26 +6,26 @@
 
 namespace nek
 {
-  namespace is_void_detail
-  {
-    template <class T>
-    struct is_void
-      : public false_type
-    {
-    };
+	namespace is_void_detail
+	{
+		template <class T>
+		struct is_void
+			: public false_type
+		{
+		};
 
-    template <>
-    struct is_void<void>
-      : public true_type
-    {
-    };
-  }
+		template <>
+		struct is_void<void>
+			: public true_type
+		{
+		};
+	}
 
-  template <class T>
-  struct is_void
-    : public is_void_detail::is_void<remove_cv_t<T>>
-  {
-  };
+	template <class T>
+	struct is_void
+		: public is_void_detail::is_void<remove_cv_t<T>>
+	{
+	};
 }
 
 #endif
