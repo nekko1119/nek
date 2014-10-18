@@ -4,17 +4,17 @@
 
 TEST(add_const_test, normal)
 {
-  STATIC_ASSERT_EQ(nek::add_const<int>::type, int const);
-  STATIC_ASSERT_EQ(nek::add_const<int const>::type, int const);
-  STATIC_ASSERT_EQ(nek::add_const<int volatile>::type, int const volatile);
-  STATIC_ASSERT_EQ(nek::add_const<int*>::type, int* const);
-  STATIC_ASSERT_EQ(nek::add_const<int&>::type, int&);
-  STATIC_ASSERT_EQ(nek::add_const<int const&>::type, int const&);
-  STATIC_ASSERT_EQ(nek::add_const<int&&>::type, int&&);
-  STATIC_ASSERT_EQ(nek::add_const<int const&&>::type, int const&&);
-  STATIC_ASSERT_EQ(nek::add_const<int []>::type, int const []);
-  STATIC_ASSERT_EQ(nek::add_const<int const []>::type, int const []);
-  STATIC_ASSERT_EQ(nek::add_const<int (*)[]>::type, int (* const)[]);
-  STATIC_ASSERT_EQ(nek::add_const<int (&)[]>::type, int (&)[]);
-  SUCCEED();
+	STATIC_ASSERT_EQ(nek::add_const<int>::type, int const);
+	STATIC_ASSERT_EQ(nek::add_const<int const>::type, int const);
+	STATIC_ASSERT_EQ(nek::add_const<int volatile>::type, int const volatile);
+	STATIC_ASSERT_EQ(nek::add_const<int*>::type, int* const);
+	STATIC_ASSERT_EQ(nek::add_const<int&>::type, int&);
+	STATIC_ASSERT_EQ(nek::add_const<int const&>::type, int const&);
+	STATIC_ASSERT_EQ(nek::add_const<int&&>::type, int&&);
+	STATIC_ASSERT_EQ(nek::add_const<int const&&>::type, int const&&);
+	STATIC_ASSERT_EQ(nek::add_const<int[]>::type, int const[]);
+	STATIC_ASSERT_EQ(nek::add_const<int const[]>::type, int const[]);
+	STATIC_ASSERT_EQ(nek::add_const<int(*)[]>::type, int(* const)[]);
+	STATIC_ASSERT_EQ(nek::add_const<int(&)[]>::type, int(&)[]);
+	SUCCEED();
 }

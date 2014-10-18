@@ -9,7 +9,7 @@
 
 template <class T>
 class make_unsigned_test
-  : public ::testing::Test
+	: public ::testing::Test
 {
 };
 
@@ -17,18 +17,18 @@ TYPED_TEST_CASE_P(make_unsigned_test);
 
 TYPED_TEST_P(make_unsigned_test, type)
 {
-  using type = typename std::tuple_element<0, TypeParam>::type;
-  using expected = typename std::tuple_element<1, TypeParam>::type;
-  using actual = typename nek::make_unsigned<type>::type;
-  STATIC_ASSERT_EQ(actual, expected);
+	using type = typename std::tuple_element<0, TypeParam>::type;
+	using expected = typename std::tuple_element<1, TypeParam>::type;
+	using actual = typename nek::make_unsigned<type>::type;
+	STATIC_ASSERT_EQ(actual, expected);
 }
 
 TYPED_TEST_P(make_unsigned_test, const_type)
 {
-  using type = std::add_const_t<typename std::tuple_element<0, TypeParam>::type>;
-  using expected = std::add_const_t<typename std::tuple_element<1, TypeParam>::type>;
-  using actual = typename nek::make_unsigned<type>::type;
-  STATIC_ASSERT_EQ(actual, expected);
+	using type = std::add_const_t<typename std::tuple_element<0, TypeParam>::type>;
+	using expected = std::add_const_t<typename std::tuple_element<1, TypeParam>::type>;
+	using actual = typename nek::make_unsigned<type>::type;
+	STATIC_ASSERT_EQ(actual, expected);
 }
 
 REGISTER_TYPED_TEST_CASE_P(make_unsigned_test, type, const_type);
