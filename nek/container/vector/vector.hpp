@@ -7,7 +7,6 @@
 #include <initializer_list>
 #include <stdexcept>
 
-#include <algorithm> // TODO : std::move
 #include <utility>
 #include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/copy_backward.hpp>
@@ -15,6 +14,7 @@
 #include <nek/algorithm/fill.hpp>
 #include <nek/algorithm/lexicographical_compare.hpp>
 #include <nek/algorithm/max.hpp>
+#include <nek/algorithm/move.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
@@ -455,7 +455,7 @@ namespace nek
 			auto f = remove_const(first);
 			auto l = remove_const(last);
 
-			iterator new_last = std::move(l, end(), f);
+			iterator new_last = nek::move(l, end(), f);
 			detail::destroy(new_last.base(), this->last(), allocator());
 			this->last() = new_last.base();
 

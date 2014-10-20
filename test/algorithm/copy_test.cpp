@@ -16,6 +16,10 @@ TEST(copy_test, raw_array)
 	EXPECT_EQ(2, dest[1]);
 	EXPECT_EQ(3, dest[2]);
 	EXPECT_EQ(4, dest[3]);
+	EXPECT_EQ(1, src[0]);
+	EXPECT_EQ(2, src[1]);
+	EXPECT_EQ(3, src[2]);
+	EXPECT_EQ(4, src[3]);
 }
 
 TEST(copy_test, dynamic_array)
@@ -36,6 +40,10 @@ TEST(copy_test, dynamic_array)
 	EXPECT_EQ(2, dest[1]);
 	EXPECT_EQ(3, dest[2]);
 	EXPECT_EQ(4, dest[3]);
+	EXPECT_EQ(1, src[0]);
+	EXPECT_EQ(2, src[1]);
+	EXPECT_EQ(3, src[2]);
+	EXPECT_EQ(4, src[3]);
 
 	// tear down
 	delete[] src;
