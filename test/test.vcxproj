@@ -94,6 +94,7 @@
     <ClCompile Include="algorithm\lexicographical_compare_test.cpp" />
     <ClCompile Include="algorithm\max_test.cpp" />
     <ClCompile Include="algorithm\min_test.cpp" />
+    <ClCompile Include="algorithm\move_test.cpp" />
     <ClCompile Include="algorithm\reverse_test.cpp" />
     <ClCompile Include="algorithm\rotate_test.cpp" />
     <ClCompile Include="allocator\allocator_test.cpp" />

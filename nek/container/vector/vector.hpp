@@ -666,6 +666,7 @@ namespace nek
 				size_type const new_capacity_size = larger_size(nek::size(*this) + insert_size);
 				pointer new_first = allocator().allocate(new_capacity_size);
 				pointer new_last = new_first;
+
 				// move to new buffer from
 				// old buffer (before insert position) + insert elements + old buffer (after insert position)
 				try {
@@ -774,7 +775,7 @@ namespace nek
 		return nek::lexicographical_compare(left.begin(), left.end(), right.begin(), right.end());
 	}
 
-		template <class T, class Allocator>
+	template <class T, class Allocator>
 	inline bool operator>(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
 	{
 		return right < left;

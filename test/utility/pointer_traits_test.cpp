@@ -74,9 +74,9 @@ protected:
 
 using types = ::testing::Types<
 	//        <pointer_type,                     element_type, difference_type, pointer,                          rebind<double>::other,
-	std::tuple<int*, int, std::ptrdiff_t, int*, double*>,
-	std::tuple<complete_smart_pointer_mock<int>, int, char, complete_smart_pointer_mock<int>, complete_smart_pointer_mock<double>>,
-	std::tuple<simple_smart_pointer_mock<int>, int, std::ptrdiff_t, simple_smart_pointer_mock<int>, simple_smart_pointer_mock<double>>
+	std::tuple<int*,							 int,		   std::ptrdiff_t,	int*,							  double*>,
+	std::tuple<complete_smart_pointer_mock<int>, int,		   char,			complete_smart_pointer_mock<int>, complete_smart_pointer_mock<double>>,
+	std::tuple<simple_smart_pointer_mock<int>,	 int,		   std::ptrdiff_t,	simple_smart_pointer_mock<int>,	  simple_smart_pointer_mock<double>>
 >;
 
 TYPED_TEST_CASE(pointer_traits_test, types);

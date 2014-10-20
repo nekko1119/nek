@@ -20,6 +20,7 @@
     <ClInclude Include="algorithm\lexicographical_compare.hpp" />
     <ClInclude Include="algorithm\max.hpp" />
     <ClInclude Include="algorithm\min.hpp" />
+    <ClInclude Include="algorithm\move.hpp" />
     <ClInclude Include="algorithm\reverse.hpp" />
     <ClInclude Include="algorithm\rotate.hpp" />
     <ClInclude Include="allocator.hpp" />
