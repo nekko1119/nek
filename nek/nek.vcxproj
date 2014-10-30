@@ -60,6 +60,7 @@
     <ClInclude Include="iterator\normal_iterator.hpp" />
     <ClInclude Include="iterator\range.hpp" />
     <ClInclude Include="iterator\reverse_iterator.hpp" />
+    <ClInclude Include="math\gcd.hpp" />
     <ClInclude Include="mpl\and.hpp" />
     <ClInclude Include="mpl\bool.hpp" />
     <ClInclude Include="mpl\bool_fwd.hpp" />
