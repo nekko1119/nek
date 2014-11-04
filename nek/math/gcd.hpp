@@ -1,8 +1,6 @@
 ﻿#ifndef NEK_MATM_GCD_HPP
 #define NEK_MATH_GCD_HPP
 
-#include <boost/math/common_factor_rt.hpp>
-
 namespace nek
 {
 	namespace math
@@ -15,7 +13,7 @@ namespace nek
 				a = b;
 				b = r;
 			}
-			return a;
+			return a < 0 ? -a : a; // TODO : abs
 		}
 	}
 }

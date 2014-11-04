@@ -66,37 +66,37 @@ namespace nek
 				return first_;
 			}
 
-				pointer const& first() const noexcept
+			pointer const& first() const noexcept
 			{
 				return first_;
 			}
 
-				pointer& last() noexcept
+			pointer& last() noexcept
 			{
 				return last_;
 			}
 
-				pointer const& last() const noexcept
+			pointer const& last() const noexcept
 			{
 				return last_;
 			}
 
-				pointer& capacity_end() noexcept
+			pointer& capacity_end() noexcept
 			{
 				return capacity_end_;
 			}
 
-				pointer const& capacity_end() const noexcept
+			pointer const& capacity_end() const noexcept
 			{
 				return capacity_end_;
 			}
 
-				alloc_type& allocator() noexcept
+			alloc_type& allocator() noexcept
 			{
 				return *(static_cast<alloc_type*>(this));
 			}
 
-				alloc_type const& allocator() const noexcept
+			alloc_type const& allocator() const noexcept
 			{
 				return *(static_cast<alloc_type const*>(this));
 			}
