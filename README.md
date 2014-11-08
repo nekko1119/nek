@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nekko1119/nek.svg?branch=develop)](https://travis-ci.org/nekko1119/nek)
+
 # C++ 写経コード
 このコード群の目的は2つあります。
 

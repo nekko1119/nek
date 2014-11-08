@@ -2,12 +2,13 @@ language:
   - cpp
 
 compiler:
-  - gcc-4.8
+  - gcc-4.9
 
 install:
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
   - sudo apt-get -qq update
-  - sudo apt-get -qq install g++-4.8
+  - sudo apt-get -qq install g++-4.9
+  - export CXX="g++-4.9" CC="gcc-4.9"
   - sudo apt-get install libboost-dev
   - sudo apt-get install libgtest-dev
 
@@ -17,14 +18,18 @@ before_script:
   - sudo make
   - sudo cp *.a /usr/lib
   - cd -
+  - sudo pip install cpp-coveralls
 
 script:
   - mkdir _build
   - cd _build
   - cmake ..
-  - make
+  - make VERBOSE=1
   - make test
 
 notifications:
   on_success: never
   on_failure: never
+
+after_success:
+  - coveralls -r ./ -E ".*/test/.*" --gcov-options '\-lp'
