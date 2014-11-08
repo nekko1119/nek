@@ -2,10 +2,21 @@ language:
   - cpp
 
 compiler:
-  - gcc
+  - gcc-4.8
 
 install:
-  - sudo apt-get install g++-4.8;
+  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install g++-4.8
+  - sudo apt-get install libboost-dev
+  - sudo apt-get install libgtest-dev
+
+before_script:
+  - cd /usr/src/gtest
+  - sudo cmake CMakeLists.txt
+  - sudo make
+  - sudo cp *.a /usr/lib
+  - cd -
 
 script:
   - mkdir _build
@@ -13,3 +24,7 @@ script:
   - cmake ..
   - make
   - make test
+
+notifications:
+  on_success: never
+  on_failure: never

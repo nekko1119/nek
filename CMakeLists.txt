@@ -10,5 +10,5 @@ find_package(GTest REQUIRED)
 include_directories(${GTest_INCLUDE_DIRS})
 
 add_executable(nektest "./test/main.cpp")
-target_link_libraries(nektest ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(nektest ${GTEST_LIBRARIES} pthread)
 add_test(nektest nektest)
