@@ -1,0 +1,15 @@
+language:
+  - cpp
+
+compiler:
+  - gcc
+
+install:
+  - sudo apt-get install g++-4.8;
+
+script:
+  - mkdir _build
+  - cd _build
+  - cmake ..
+  - make
+  - make test
