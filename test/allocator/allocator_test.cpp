@@ -1,4 +1,4 @@
-﻿#include <nek\allocator\allocator.hpp>
+﻿#include <nek/allocator/allocator.hpp>
 #include <gtest/gtest.h>
 #include "../type_traits/static_assert.hpp"
 
