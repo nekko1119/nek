@@ -1,6 +1,7 @@
 ﻿#ifndef NEK_ANY_ANY_HPP
 #define NEK_ANY_ANY_HPP
 
+#include <typeinfo>
 #include <utility>
 #include <nek/any/any_fwd.hpp>
 #include <nek/any/exception.hpp>
@@ -75,7 +76,7 @@ namespace nek
 			held_ = nullptr;
 		}
 
-			any& operator=(any const& right)
+		any& operator=(any const& right)
 		{
 			any(right).swap(*this);
 			return *this;
@@ -95,12 +96,12 @@ namespace nek
 			return *this;
 		}
 
-			bool is_empty() const noexcept
+		bool is_empty() const noexcept
 		{
 			return !held_;
 		}
 
-			type_info const& type() const noexcept
+		std::type_info const& type() const noexcept
 		{
 			return held_ ? held_->type() : typeid(void);
 		}
@@ -138,7 +139,7 @@ namespace nek
 	{
 		using nonref_type = remove_reference_t<T>;
 		using ref_type = nek::mpl::if_t<nek::is_reference<T>,
-			T, typename add_lvalue_reference_t<T>>;
+			T, add_lvalue_reference_t<T>>;
 
 		nonref_type* result = any_cast<nonref_type>(&value);
 		if (!result) {
@@ -150,8 +151,8 @@ namespace nek
 	template <class T>
 	inline T any_cast(any const& value)
 	{
-		using nonref_type = remove_reference_t<T>
-			return any_cast<nonref_type const&>(const_cast<any&>(value));
+		using nonref_type = remove_reference_t<T>;
+		return any_cast<nonref_type const&>(const_cast<any&>(value));
 	}
 }
 
