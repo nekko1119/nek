@@ -50,7 +50,7 @@ namespace nek
 		auto current = first;
 		try {
 			for (; 0 < count; --count, ++current) {
-				traits::construct(allocator, nek::addressof(*current_));
+				traits::construct(allocator, nek::addressof(*current));
 			}
 		} catch (...) {
 			for (; first != current; ++first) {

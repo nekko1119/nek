@@ -3,6 +3,7 @@
 
 #include <initializer_list>
 
+#include <nek/utility/move.hpp>
 #include <nek/container/function/emplace_back.hpp>
 
 namespace nek

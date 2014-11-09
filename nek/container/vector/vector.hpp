@@ -1,13 +1,11 @@
 ﻿#ifndef NEK_CONTAINER_VECTOR_VECTOR_HPP
 #define NEK_CONTAINER_VECTOR_VECTOR_HPP
 
-#include <nek/container/vector/vector_fwd.hpp>
-
 #include <cassert>
 #include <initializer_list>
 #include <stdexcept>
-
 #include <utility>
+
 #include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/copy_backward.hpp>
 #include <nek/algorithm/equal.hpp>
@@ -16,9 +14,9 @@
 #include <nek/algorithm/max.hpp>
 #include <nek/algorithm/move.hpp>
 #include <nek/algorithm/rotate.hpp>
-#include <nek/detail/destroy.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
+#include <nek/detail/destroy.hpp>
 #include <nek/iterator/distance.hpp>
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/iterator/move_iterator.hpp>
@@ -32,10 +30,14 @@
 #include <nek/uninitialized/uninitialized_fill.hpp>
 #include <nek/uninitialized/uninitialized_move.hpp>
 #include <nek/utility/forward.hpp>
+#include <nek/utility/move.hpp>
 #include <vector>
 
 namespace nek
 {
+	template <class T, class Allocator>
+	auto size(vector<T, Allocator> const& v) noexcept;
+
 	namespace vector_detail
 	{
 		template <class T, class Allocator>
@@ -226,14 +228,14 @@ namespace nek
 		}
 
 		vector(vector&& right)
-			: vector(nek::move(right), allocator_type{})
+			: vector{nek::move(right), allocator_type{}}
 		{
 		}
 
 		vector(vector&& right, Allocator const& allocator)
 			: base_type{allocator}
 		{
-			move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment{});
+			move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment());
 		}
 
 		vector& operator=(vector const& right)
@@ -256,7 +258,7 @@ namespace nek
 
 			size_type const new_size = nek::size(right);
 			if (new_size <= nek::size(*this)) {
-				nek::detail::destroy(nek::copy(right.first(), right.last(), first()), last(), get_allocator());
+				nek::detail::destroy<pointer>(nek::copy(right.first(), right.last(), first()), last(), get_allocator());
 			} else if (new_size <= capacity()) {
 				nek::copy(right.first(), right.first() + nek::size(*this), first());
 				nek::uninitialized_copy(right.first() + nek::size(*this), right.last(), last(), get_allocator());
@@ -282,7 +284,7 @@ namespace nek
 				return *this;
 			}
 			destruct();
-			move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment{});
+			move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment());
 			return *this;
 		}
 
@@ -466,6 +468,46 @@ namespace nek
 		static constexpr inline double rate() noexcept
 		{
 			return 1.5;
+		}
+
+		inline pointer& first() noexcept
+		{
+			return base_type::first();
+		}
+
+		inline pointer const& first() const noexcept
+		{
+			return base_type::first();
+		}
+
+		inline pointer& last() noexcept
+		{
+			return base_type::last();
+		}
+
+		inline pointer const& last() const noexcept
+		{
+			return base_type::last();
+		}
+
+		inline pointer& capacity_end() noexcept
+		{
+			return base_type::capacity_end();
+		}
+
+		inline pointer const& capacity_end() const noexcept
+		{
+			return base_type::capacity_end();
+		}
+
+		allocator_type& allocator() noexcept
+		{
+			return base_type::allocator();
+		}
+
+		allocator_type const& allocator() const noexcept
+		{
+			return base_type::allocator();
 		}
 
 		inline size_type larger_size(size_type size) const noexcept
@@ -725,7 +767,7 @@ namespace nek
 	template <class T, class Allocator>
 	auto size(vector<T, Allocator> const& v) noexcept
 	{
-		return static_cast<typename vector<T>::size_type>(v.end() - v.begin());
+		return static_cast<typename vector<T, Allocator>::size_type>(v.end() - v.begin());
 	}
 
 	template <class T, class Allocator>

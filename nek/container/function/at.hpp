@@ -2,6 +2,7 @@
 #define NEK_CONTAINER_FUNCTION_AT_HPP
 
 #include <stdexcept>
+
 #include <nek/container/function/size.hpp>
 
 namespace nek
