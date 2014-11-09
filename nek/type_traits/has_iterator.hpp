@@ -7,7 +7,7 @@ namespace nek
 {
 	namespace has_iterator_detail
 	{
-		template <class T, class U = T::iterator>
+		template <class T, class U = typename T::iterator>
 		true_type has_iterator(int);
 
 		template <class>

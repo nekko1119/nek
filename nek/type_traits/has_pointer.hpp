@@ -7,7 +7,7 @@ namespace nek
 {
 	namespace has_pointer_detail
 	{
-		template <class T, class U = T::pointer>
+		template <class T, class U = typename T::pointer>
 		true_type has_pointer(int);
 
 		template <class>

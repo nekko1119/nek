@@ -7,7 +7,7 @@ namespace nek
 {
 	namespace difference_type_detail
 	{
-		template <class T, class U = T::difference_type>
+		template <class T, class U = typename T::difference_type>
 		true_type has_difference_type(int);
 
 		template <class>

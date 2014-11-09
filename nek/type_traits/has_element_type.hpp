@@ -7,7 +7,7 @@ namespace nek
 {
 	namespace has_element_detail
 	{
-		template <class T, class U = T::element_type>
+		template <class T, class U = typename T::element_type>
 		true_type has_element_type(int);
 
 		template <class>

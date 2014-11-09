@@ -25,7 +25,7 @@ namespace nek
 		NEK_HAS_XXX_TYPE_DEF(propagate_on_container_swap);
 		namespace detail
 		{
-			template <class Allocator, class T, class = Allocator::template rebind<T>::type>
+			template <class Allocator, class T, class = typename Allocator::template rebind<T>::type>
 			nek::true_type has_rebind(int);
 
 			template <class, class>
