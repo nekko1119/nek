@@ -6,7 +6,7 @@
 #define NEK_HAS_XXX_TYPE_DEF(type)\
 namespace type##_detail\
 {\
-	template <class T, class = typename T::##type>\
+	template <class T, class = typename T::type>\
 	nek::true_type has_##type(int);\
 \
 	template <class>\
