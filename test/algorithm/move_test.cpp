@@ -58,6 +58,7 @@ namespace
 		noncopyable(): x{0} {}
 		noncopyable(int x): x{x} {}
 		noncopyable(noncopyable const&) = delete;
+		noncopyable(noncopyable&&) = default;
 		noncopyable& operator=(noncopyable const&) = delete;
 		friend bool operator==(noncopyable const& l, noncopyable const& r) noexcept
 		{
