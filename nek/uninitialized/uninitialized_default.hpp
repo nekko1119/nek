@@ -44,7 +44,7 @@ namespace nek
 	}
 
 	template <class ForwardIterator, class Size, class Allocator>
-	void uninitialized_default_n(ForwardIterator first, Size count, Allocator& alloctor)
+	void uninitialized_default_n(ForwardIterator first, Size count, Allocator& allocator)
 	{
 		using traits = nek::allocator_traits<Allocator>;
 		auto current = first;
