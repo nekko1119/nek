@@ -29,7 +29,6 @@ TEST(is_trivially_destructible_test, yes)
 	STATIC_ASSERT_TRUE(nek::is_trivially_destructible<int const volatile>);
 	STATIC_ASSERT_TRUE(nek::is_trivially_destructible<no&>);
 	STATIC_ASSERT_TRUE(nek::is_trivially_destructible<no&&>);
-	STATIC_ASSERT_TRUE(nek::is_trivially_destructible<no[1]>);
 	STATIC_ASSERT_TRUE(nek::is_trivially_destructible<no*>);
 	STATIC_ASSERT_TRUE(nek::is_trivially_destructible<yes>);
 	STATIC_ASSERT_TRUE(nek::is_trivially_destructible<int(*)()>);
@@ -40,6 +39,7 @@ TEST(is_trivially_destructible_test, no)
 {
 	STATIC_ASSERT_FALSE(nek::is_trivially_destructible<void>);
 	STATIC_ASSERT_FALSE(nek::is_trivially_destructible<no>);
+    STATIC_ASSERT_FALSE(nek::is_trivially_destructible<no[1]>);
 	STATIC_ASSERT_FALSE(nek::is_trivially_destructible<int()>);
 	STATIC_ASSERT_FALSE(nek::is_trivially_destructible<int[]>);
 }

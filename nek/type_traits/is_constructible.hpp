@@ -85,12 +85,14 @@ namespace nek
 		template <class T, class Arg>
 		struct is_direct_constructible_ref
 			: public mpl::and_<
-			nek::is_static_castable<T, Arg>,
-			mpl::not_<mpl::or_<
-			is_base_to_derived_ref<Arg, T>,
-			is_l_ref_to_r_ref<Arg, T>
-			>>
-			>
+#ifdef _MSC_VER // Visual C++ workaround
+            nek::is_static_castable<T, Arg>,
+#else
+			nek::is_static_castable<Arg, T>,
+#endif
+			mpl::not_<mpl::or_<is_base_to_derived_ref<Arg, T>,
+			    is_l_ref_to_r_ref<Arg, T>
+			>>>
 		{
 		};
 

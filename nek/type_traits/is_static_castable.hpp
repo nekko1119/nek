@@ -12,7 +12,7 @@ namespace nek
 		struct is_static_castable_
 		{
 		private:
-			template <class From2, class To2, class = decltype(static_cast<To>(nek::declval<From>()))>
+			template <class From2, class To2, class = decltype(static_cast<To2>(nek::declval<From2>()))>
 			static nek::true_type check(int);
 
 			template <class, class>

@@ -83,25 +83,25 @@ TYPED_TEST_CASE(pointer_traits_test, types);
 
 TYPED_TEST(pointer_traits_test, element_type)
 {
-	using actual_t = typename nek::pointer_traits<ptr_t>::element_type;
-	static_assert(std::is_same<actual_t, elem_t>::value, "");
+	using actual_t = typename nek::pointer_traits<typename TestFixture::ptr_t>::element_type;
+    static_assert(std::is_same<actual_t, typename TestFixture::elem_t>::value, "");
 }
 
 TYPED_TEST(pointer_traits_test, difference_type)
 {
-	using actual_t = typename nek::pointer_traits<ptr_t>::difference_type;
-	static_assert(std::is_same<actual_t, diff_t>::value, "");
+    using actual_t = typename nek::pointer_traits<typename TestFixture::ptr_t>::difference_type;
+    static_assert(std::is_same<actual_t, typename TestFixture::diff_t>::value, "");
 }
 
 TYPED_TEST(pointer_traits_test, pointer)
 {
-	using actual_t = typename nek::pointer_traits<ptr_t>::pointer;
-	static_assert(std::is_same<actual_t, pointer_t>::value, "");
+    using actual_t = typename nek::pointer_traits<typename TestFixture::ptr_t>::pointer;
+    static_assert(std::is_same<actual_t, typename TestFixture::pointer_t>::value, "");
 }
 
 TYPED_TEST(pointer_traits_test, rebind)
 {
-	using actual_t = typename nek::pointer_traits<ptr_t>::template rebind<double>::other;
+    using actual_t = typename nek::pointer_traits<typename TestFixture::ptr_t>::template rebind<double>::other;
 	using expect_t = typename std::tuple_element<4, TypeParam>::type;
 	static_assert(std::is_same<actual_t, expect_t>::value, "");
 }

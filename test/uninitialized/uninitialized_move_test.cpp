@@ -36,7 +36,8 @@ TEST(uninitialized_test, custom_allocator)
 {
 	mock mocks[3] = {};
 	mock* buf = new mock[3];
-	nek::uninitialized_move(mocks + 0, mocks + 3, buf, std::allocator<mock>{});
+    nek::allocator<mock> allocator;
+	nek::uninitialized_move(mocks, mocks + 3, buf, allocator);
 	EXPECT_EQ("move ctor", buf[0].log);
 	EXPECT_EQ("move ctor", buf[1].log);
 	EXPECT_EQ("move ctor", buf[2].log);
