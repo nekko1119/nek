@@ -235,7 +235,7 @@ namespace nek
 		vector(vector&& right, Allocator const& allocator)
 			: base_type{allocator}
 		{
-			move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment());
+            move_construct(nek::move(right), typename alloc_traits::propagate_on_container_move_assignment{});
 		}
 
 		vector& operator=(vector const& right)
@@ -246,7 +246,7 @@ namespace nek
 				return *this;
 			}
 
-			if (get_allocator() != right.get_allocator()) {
+			if (allocator() != right.allocator()) {
 				destruct();
 				alloc_traits::copy(allocator(), right.allocator());
 			}
@@ -258,14 +258,14 @@ namespace nek
 
 			size_type const new_size = nek::size(right);
 			if (new_size <= nek::size(*this)) {
-				nek::detail::destroy<pointer>(nek::copy(right.first(), right.last(), first()), last(), get_allocator());
+				nek::detail::destroy<pointer>(nek::copy(right.first(), right.last(), first()), last(), allocator());
 			} else if (new_size <= capacity()) {
 				nek::copy(right.first(), right.first() + nek::size(*this), first());
-				nek::uninitialized_copy(right.first() + nek::size(*this), right.last(), last(), get_allocator());
+				nek::uninitialized_copy(right.first() + nek::size(*this), right.last(), last(), allocator());
 			} else {
 				pointer new_first = allocator().allocate(new_size);
 				try {
-					nek::uninitialized_copy(right.first(), right.last(), new_first, get_allocator());
+					nek::uninitialized_copy(right.first(), right.last(), new_first, allocator());
 				} catch (...) {
 					allocator().deallocate(new_first, new_size);
 					throw;
@@ -284,7 +284,7 @@ namespace nek
 				return *this;
 			}
 			destruct();
-			move_construct(nek::move(right), alloc_traits::propagate_on_container_move_assignment());
+			move_construct(nek::move(right), typename alloc_traits::propagate_on_container_move_assignment{});
 			return *this;
 		}
 
@@ -557,7 +557,7 @@ namespace nek
 
 		void move_construct(vector&& other, nek::false_type) noexcept
 		{
-			if (other.get_allocator() == this->get_allocator()) {
+			if (other.allocator() == this->allocator()) {
 				move_construct(nek::move(other), nek::true_type{});
 			} else {
 				range_initialize(
@@ -592,7 +592,7 @@ namespace nek
 				this->last() = this->first();
 				this->capacity_end() = this->first() + new_capacity_size;
 			}
-			this->last() = nek::uninitialized_copy(first, last, this->first(), get_allocator());
+			this->last() = nek::uninitialized_copy(first, last, this->first(), allocator());
 		}
 
 		iterator fill_insert(const_iterator position, size_type count, value_type const& value)
@@ -617,10 +617,10 @@ namespace nek
 					nek::fill(remove_const(position).base(), remove_const(position).base() + count, temp);
 				} else {
 					nek::uninitialized_fill_n(
-						last(), count - position_after_size, temp, get_allocator());
+						last(), count - position_after_size, temp, allocator());
 					last() += count - position_after_size;
 
-					nek::uninitialized_move(remove_const(position).base(), old_last, last(), get_allocator());
+					nek::uninitialized_move(remove_const(position).base(), old_last, last(), allocator());
 					last() += position_after_size;
 
 					nek::fill(remove_const(position).base(), old_last, temp);
@@ -635,24 +635,24 @@ namespace nek
 				pointer new_first = allocator().allocate(new_capacity_size);
 				pointer new_last = new_first;
 				try {
-					nek::uninitialized_fill_n(new_first + offset, count, value, get_allocator());
+					nek::uninitialized_fill_n(new_first + offset, count, value, allocator());
 					new_last = nullptr;
 
 					new_last = nek::uninitialized_copy(
 						nek::make_move_if_noexcept_iterator(first()),
 						nek::make_move_if_noexcept_iterator(remove_const(position).base()),
-						new_first, get_allocator());
+						new_first, allocator());
 					new_last += count;
 
 					new_last = nek::uninitialized_copy(
 						nek::make_move_if_noexcept_iterator(remove_const(position).base()),
 						nek::make_move_if_noexcept_iterator(last()),
-						new_last, get_allocator());
+						new_last, allocator());
 				} catch (...) {
 					if (!new_last) {
-						nek::detail::destroy(new_first + offset, new_first + offset + count, get_allocator());
+						nek::detail::destroy(new_first + offset, new_first + offset + count, allocator());
 					} else {
-						nek::detail::destroy(new_first, new_last, get_allocator());
+						nek::detail::destroy(new_first, new_last, allocator());
 					}
 					allocator().deallocate(new_first, new_capacity_size);
 					throw;
@@ -695,7 +695,7 @@ namespace nek
 
 			// has enough size
 			if (insert_size <= static_cast<size_type>(capacity_end() - this->last())) {
-				nek::uninitialized_copy(first, last, this->last(), get_allocator());
+				nek::uninitialized_copy(first, last, this->last(), allocator());
 				nek::rotate(remove_const(position).base(), this->last(), this->last() + insert_size);
 				this->last() += insert_size;
 			} else {
@@ -715,16 +715,16 @@ namespace nek
 					new_last = nek::uninitialized_copy(
 						nek::make_move_if_noexcept_iterator(this->first()),
 						nek::make_move_if_noexcept_iterator(remove_const(position).base()),
-						new_first, get_allocator()
+						new_first, allocator()
 						);
-					new_last = nek::uninitialized_copy(first, last, new_last, get_allocator());
+					new_last = nek::uninitialized_copy(first, last, new_last, allocator());
 					new_last = nek::uninitialized_copy(
 						nek::make_move_if_noexcept_iterator(remove_const(position).base()),
 						nek::make_move_if_noexcept_iterator(this->last()),
-						new_last, get_allocator()
+						new_last, allocator()
 						);
 				} catch (...) {
-					nek::detail::destroy(new_first, new_last, get_allocator());
+					nek::detail::destroy(new_first, new_last, allocator());
 					allocator().deallocate(new_first, new_capacity_size);
 					throw;
 				}
