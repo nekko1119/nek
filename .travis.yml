@@ -11,6 +11,9 @@ install:
   - export CXX="g++-4.9" CC="gcc-4.9"
   - sudo apt-get install libboost-dev
   - sudo apt-get install libgtest-dev
+  - sudo apt-get install python-setuptools
+  - sudo apt-get install python-pip
+  - sudo pip install cpp-coveralls
 
 before_script:
   - cd /usr/src/gtest
@@ -22,14 +25,13 @@ before_script:
 
 script:
   - mkdir _build
-  - cd _build
+  - cd ./_build
   - cmake ..
   - make VERBOSE=1
-  - make test
-
-notifications:
-  on_success: never
-  on_failure: never
+  #- make test
 
 after_success:
+  - cd ./test
+  - ./nektest
+  - cd -
   - coveralls -r ./ -E ".*/test/.*" --gcov-options '\-lp'
