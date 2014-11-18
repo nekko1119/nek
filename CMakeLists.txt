@@ -5,7 +5,7 @@ find_package(Boost REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftest-coverage")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -coverage")
 set(CMAKE_CXX_FLAGS "-std=c++1y ${CMAKE_CXX_FLAGS}")
 
 enable_testing()

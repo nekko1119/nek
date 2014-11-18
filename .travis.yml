@@ -22,6 +22,8 @@ before_script:
   - sudo cp *.a /usr/lib
   - cd -
   - sudo pip install cpp-coveralls
+  - g++ --version
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90;
 
 script:
   - mkdir _build
@@ -30,8 +32,14 @@ script:
   - make VERBOSE=1
   #- make test
 
+notifications:
+  on_success: never
+  on_failure: never
+
 after_success:
   - cd ./test
   - ./nektest
   - cd -
-  - coveralls -r ./ -E ".*/test/.*" --gcov-options '\-lp'
+  - gcov --version
+  - cd ../
+  - coveralls -r ./ -b ./test -E ".*/test/[^\.].*" --gcov-options '\-lp'

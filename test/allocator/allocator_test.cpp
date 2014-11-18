@@ -43,7 +43,7 @@ TEST_F(allocator_test, allocate_construct_destroy_deallocate)
 
 TEST_F(allocator_test, max_size)
 {
-	EXPECT_EQ(static_cast<unsigned int>(-1) / sizeof(int), sut.max_size());
+	EXPECT_EQ(static_cast<std::size_t>(-1) / sizeof(int), sut.max_size());
 }
 
 TEST_F(allocator_test, address)

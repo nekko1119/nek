@@ -268,7 +268,7 @@ TEST_F(vector_test, reserve)
 	EXPECT_EQ(5, v.capacity());
 	v.reserve(1);
 	EXPECT_EQ(5, v.capacity());
-	EXPECT_THROW(v.reserve((unsigned)-1), std::length_error);
+	EXPECT_THROW(v.reserve((std::size_t)-1), std::length_error);
 	v.reserve(7);
 	EXPECT_EQ(7, v.capacity());
 	EXPECT_EQ(42, v[2]);
