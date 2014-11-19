@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nekko1119/nek.svg?branch=develop)](https://travis-ci.org/nekko1119/nek)
+[![Build Status](https://travis-ci.org/nekko1119/nek.svg?branch=develop)](https://travis-ci.org/nekko1119/nek) [![Coverage Status](https://coveralls.io/repos/nekko1119/nek/badge.png?branch=develop)](https://coveralls.io/r/nekko1119/nek?branch=develop)
 
 # C++ 写経コード
 このコード群の目的は2つあります。
