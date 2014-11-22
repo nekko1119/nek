@@ -1,5 +1,6 @@
 SET(TEST_SRCS ./algorithm/copy_backward_test.cpp
               ./algorithm/copy_test.cpp
+              ./algorithm/equal_test.cpp
               ./algorithm/fill_n_test.cpp
               ./algorithm/fill_test.cpp
               ./algorithm/iter_swap_test.cpp
@@ -12,9 +13,11 @@ SET(TEST_SRCS ./algorithm/copy_backward_test.cpp
               ./allocator/allocator_test.cpp
               ./allocator/allocator_traits_test.cpp
               ./any/any_test.cpp
+              ./container/function/at_test.cpp
               ./container/function/back_test.cpp
               ./container/function/front_test.cpp
               ./container/function/is_emtpy_test.cpp
+              ./container/function/push_back_test.cpp
               ./container/function/size_test.cpp
               ./container/vector_test.cpp
               ./iterator/advance_test.cpp

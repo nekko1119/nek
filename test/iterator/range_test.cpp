@@ -42,4 +42,8 @@ TEST(range_test, reverse_list)
 	auto const first = nek::rbegin(list);
 	EXPECT_EQ(list.back(), *first);
 	EXPECT_EQ(list.end(), first.base());
+    auto const last = nek::rend(list);
+    auto last2 = last;
+    EXPECT_EQ(list.front(), *(--last2));
+    EXPECT_EQ(list.begin(), last.base());
 }

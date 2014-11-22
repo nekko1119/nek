@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="algorithm\copy_backward_test.cpp" />
     <ClCompile Include="algorithm\copy_test.cpp" />
+    <ClCompile Include="algorithm\equal_test.cpp" />
     <ClCompile Include="algorithm\fill_n_test.cpp" />
     <ClCompile Include="algorithm\fill_test.cpp" />
     <ClCompile Include="algorithm\iter_swap_test.cpp" />
@@ -103,9 +104,11 @@
     <ClCompile Include="allocator\allocator_test.cpp" />
     <ClCompile Include="allocator\allocator_traits_test.cpp" />
     <ClCompile Include="any\any_test.cpp" />
+    <ClCompile Include="container\function\at_test.cpp" />
     <ClCompile Include="container\function\back_test.cpp" />
     <ClCompile Include="container\function\front_test.cpp" />
     <ClCompile Include="container\function\is_emtpy_test.cpp" />
+    <ClCompile Include="container\function\push_back_test.cpp" />
     <ClCompile Include="container\function\size_test.cpp" />
     <ClCompile Include="container\vector_test.cpp" />
     <ClCompile Include="iterator\advance_test.cpp" />

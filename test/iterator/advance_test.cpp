@@ -9,6 +9,8 @@ TEST(advance_test, random_access_iterator)
 	int* p = a;
 	nek::advance(p, 2);
 	EXPECT_EQ(3, *p);
+    nek::advance(p, -2);
+    EXPECT_EQ(1, *p);
 }
 
 TEST(advance_test, bidirectional_iterator)
@@ -17,6 +19,8 @@ TEST(advance_test, bidirectional_iterator)
 	auto it = l.begin();
 	nek::advance(it, 2);
 	EXPECT_EQ(3, *it);
+    nek::advance(it, -2);
+    EXPECT_EQ(1, *it);
 }
 
 TEST(advance_test, forward_iterator)

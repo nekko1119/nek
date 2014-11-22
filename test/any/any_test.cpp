@@ -111,6 +111,25 @@ TEST(any_test, swap)
 	EXPECT_NE(&value, nek::any_cast<int>(&swapped));
 }
 
+TEST(any_test, non_member_swap)
+{
+    int value = 1;
+    nek::any original = value;
+    nek::any swapped;
+
+    // exercise
+    nek::swap(original, swapped);
+
+    EXPECT_TRUE(original.is_empty());
+    EXPECT_EQ(typeid(void), original.type());
+
+    EXPECT_FALSE(swapped.is_empty());
+    EXPECT_EQ(typeid(int), swapped.type());
+
+    EXPECT_EQ(value, nek::any_cast<int>(swapped));
+    EXPECT_NE(&value, nek::any_cast<int>(&swapped));
+}
+
 TEST(any_test, clear)
 {
 	nek::any sut = 1;
@@ -126,9 +145,20 @@ TEST(any_test, clear)
 	EXPECT_TRUE(sut.is_empty());
 }
 
+TEST(any_test, const_any_cast)
+{
+    nek::any const sut = 1;
+    int value = nek::any_cast<int>(sut);
+    EXPECT_EQ(1, value);
+    int const* pointer = nek::any_cast<int>(&sut);
+    EXPECT_EQ(1, *pointer);
+}
+
 TEST(any_test, bad_cast)
 {
 	int stub = 0;
 	nek::any sut = stub;
 	EXPECT_THROW(nek::any_cast<dummy>(sut);, nek::bad_any_cast_exception);
+    nek::bad_any_cast_exception e;
+    EXPECT_NE(nullptr, e.what());
 }

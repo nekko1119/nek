@@ -829,7 +829,7 @@ namespace nek
 		return !(right < left);
 	}
 
-		template <class T, class Allocator>
+	template <class T, class Allocator>
 	inline bool operator>=(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
 	{
 		return !(left < right);
