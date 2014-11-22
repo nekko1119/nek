@@ -127,3 +127,29 @@ TEST(allocator_triats_test, minimum_select_on_container_copy_construction)
 	using type = nek::allocator_traits<minimum_allocator<int>>;
 	EXPECT_EQ(alloc, type::select_on_container_copy_construction(alloc));
 }
+
+namespace
+{
+    template <class T>
+    struct copied_minimum_allocator
+        : public minimum_allocator<T>
+    {
+        using propagate_on_container_copy_assignment = nek::true_type;
+
+        copied_minimum_allocator(int value)
+            : value{value}
+        {
+        }
+
+        int value;
+    };
+}
+
+TEST(allocator_traits_test, copy)
+{
+    using type = nek::allocator_traits<copied_minimum_allocator<int>>;
+    copied_minimum_allocator<int> src{1};
+    copied_minimum_allocator<int> dest{2};
+    type::copy(dest, src);
+    EXPECT_EQ(1, dest.value);
+}

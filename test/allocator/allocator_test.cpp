@@ -41,6 +41,11 @@ TEST_F(allocator_test, allocate_construct_destroy_deallocate)
 	sut.deallocate(actual, 3);
 }
 
+TEST_F(allocator_test, error)
+{
+    EXPECT_THROW(sut.allocate(static_cast<std::size_t>(-1)), std::bad_alloc);
+}
+
 TEST_F(allocator_test, max_size)
 {
 	EXPECT_EQ(static_cast<std::size_t>(-1) / sizeof(int), sut.max_size());
@@ -50,6 +55,8 @@ TEST_F(allocator_test, address)
 {
 	int value = 0;
 	EXPECT_EQ(&value, sut.address(value));
+    int const cvalue = 0;
+    EXPECT_EQ(&cvalue, sut.address(cvalue));
 }
 
 TEST_F(allocator_test, equal)
