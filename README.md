@@ -27,15 +27,13 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
 
 ### とりあえず第１段階として実現したいなあと思っているもの
 
- - [ ] `<algorithm>`より、シーケンスを変更しない操作
+ - [ ] `<algorithm>`より、vectorの実装に使うもの
  - [ ] `std::vector`
- - [ ] `std::list`
- - [ ] `std::array`
- - [ ] iteratorのタグ、`iterator_traits`、`next`、`prev`、`advance`、`distance`周り　
+ - [ ] `iterator_traits`、`next`、`prev`、`advance`、`distance`周り　
  - [x] `std::allcator`、`std::allcator_traits`、`std::pointer_traits`、`std::addressof`
  - [x] `boost::any`
  - [x] `boost::noncopyable`
- - [x] `<utility>`より、`move`、`forward`、`swap`
+ - [x] `<utility>`より、`move`、`move_if_noexcept`, `forward`、`swap`、`declval`
  - [ ] `boost::mpl`から簡単なもの(`integral_c`、`bool_`、`if_`、`eval_if`、`identity`)と上記実装に使いそうなもの
  - [ ] `<type_traits>`より、上記の実装に必要なもの
  - [ ] その他、標準、boostには無いが作ってみたもの
@@ -53,8 +51,11 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
  * OS
   - windows 8 64bit
   - windows 8.1 64bit
+  - Ubuntu 14.04
  * コンパイラ
   - VC12.0 CTP
+  - VC14.0 PR
+  - gcc 4.9.2
 
 ## 最後に  
 環境依存バリバリなソースコードです。上記の環境でしか確認していませんし、上記の環境ででしか動かないと思いますし、上記以外をサポートする予定はありません。
