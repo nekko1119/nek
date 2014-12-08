@@ -3,8 +3,8 @@
 
 namespace nek
 {
-	template <class T, class Allocator>
-	class vector;
+    template <class T, class Allocator>
+    class vector;
 
     template <class T, class Allocator>
     auto size(vector<T, Allocator> const& v) noexcept;
