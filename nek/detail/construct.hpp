@@ -6,14 +6,14 @@
 
 namespace nek
 {
-	namespace detail
-	{
-		template <class T, class... Args>
-		inline void construct(T* ptr, Args&&... args)
-		{
-			::new (static_cast<void*>(ptr)) T(nek::forward<Args>(args)...);
-		}
-	}
+    namespace detail
+    {
+        template <class T, class... Args>
+        inline void construct(T* ptr, Args&&... args)
+        {
+            ::new (static_cast<void*>(ptr)) T(nek::forward<Args>(args)...);
+        }
+    }
 }
 
 #endif
