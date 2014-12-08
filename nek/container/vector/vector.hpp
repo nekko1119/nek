@@ -8,30 +8,25 @@
 
 #include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/copy_backward.hpp>
-#include <nek/algorithm/equal.hpp>
 #include <nek/algorithm/fill.hpp>
-#include <nek/algorithm/lexicographical_compare.hpp>
 #include <nek/algorithm/max.hpp>
 #include <nek/algorithm/move.hpp>
 #include <nek/algorithm/rotate.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
+#include <nek/container/vector/vector_fwd.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/iterator/distance.hpp>
 #include <nek/iterator/iterator_traits.hpp>
 #include <nek/iterator/move_iterator.hpp>
 #include <nek/iterator/normal_iterator.hpp>
 #include <nek/iterator/reverse_iterator.hpp>
-#include <nek/mpl/not.hpp>
-#include <nek/type_traits/enable_if.hpp>
-#include <nek/type_traits/is_integral.hpp>
 #include <nek/uninitialized/uninitialized_copy.hpp>
 #include <nek/uninitialized/uninitialized_default.hpp>
 #include <nek/uninitialized/uninitialized_fill.hpp>
 #include <nek/uninitialized/uninitialized_move.hpp>
 #include <nek/utility/forward.hpp>
 #include <nek/utility/move.hpp>
-#include <vector>
 
 namespace nek
 {
@@ -741,99 +736,10 @@ namespace nek
         }
     };
 
-    // specialization of container functions
-
     template <class T, class Allocator>
     auto size(vector<T, Allocator> const& v) noexcept
     {
         return static_cast<typename vector<T, Allocator>::size_type>(v.end() - v.begin());
-    }
-
-    // operations of vector that enable to be non member functions
-
-    template <class T, class Allocator, class InputIterator>
-    inline enable_if_t<nek::mpl::not_<nek::is_integral<InputIterator>>> assign(vector<T, Allocator>& v, InputIterator first, InputIterator last)
-    {
-        nek::clear(v);
-        nek::insert(v, first, last);
-    }
-
-    template <class T, class Allocator>
-    inline void assign(vector<T, Allocator>& v, std::initializer_list<T> list)
-    {
-        v = list;
-    }
-
-    template <class T, class Allocator>
-    inline void assign(vector<T, Allocator>& v, typename vector<T, Allocator>::size_type count, T const& value)
-    {
-        nek::clear(v);
-        v.insert(v.begin(), count, value);
-    }
-
-    template <class T, class Allocator>
-    void shrink_to_fit(vector<T, Allocator>& v)
-    {
-        if (nek::size(v) == v.capacity()) {
-            return;
-        }
-
-        nek::vector<T, Allocator>(
-            nek::make_move_if_noexcept_iterator(v.begin()),
-            nek::make_move_if_noexcept_iterator(v.end()),
-            v.get_allocator()).swap(v);
-    }
-
-    template <class T, class Allocator>
-    void resize(vector<T, Allocator>& v, typename vector<T, Allocator>::size_type new_size, T const& value)
-    {
-        if (new_size < nek::size(v)) {
-            v.erase(v.begin() + new_size, v.end());
-        } else if (nek::size(v) < new_size) {
-            v.insert(v.end(), new_size - nek::size(v), value);
-        }
-    }
-
-    template <class T, class Allocator>
-    void resize(vector<T, Allocator>& v, typename vector<T, Allocator>::size_type new_size)
-    {
-        nek::resize(v, new_size, T());
-    }
-
-    template <class T, class Allocator>
-    inline bool operator==(vector<T, Allocator> const& left, vector<T, Allocator> const& right)
-    {
-        return nek::size(left) == nek::size(right) && nek::equal(left.begin(), left.end(), right.begin());
-    }
-
-    template <class T, class Allocator>
-    inline bool operator!=(vector<T, Allocator> const& left, vector<T, Allocator> const& right)
-    {
-        return !(left == right);
-    }
-
-    template <class T, class Allocator>
-    inline bool operator<(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
-    {
-        return nek::lexicographical_compare(left.begin(), left.end(), right.begin(), right.end());
-    }
-
-    template <class T, class Allocator>
-    inline bool operator>(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
-    {
-        return right < left;
-    }
-
-    template <class T, class Allocator>
-    inline bool operator<=(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
-    {
-        return !(right < left);
-    }
-
-    template <class T, class Allocator>
-    inline bool operator>=(vector<T, Allocator> const& left, vector<T, Allocator> right) noexcept
-    {
-        return !(left < right);
     }
 }
 

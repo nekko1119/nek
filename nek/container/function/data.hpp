@@ -16,15 +16,15 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline constexpr T* data(T (&ar[N]))
+    inline T* data(T (&array)[N])
     {
-        return ar;
+        return array;
     }
 
     template <class T, std::size_t N>
-    inline constexpr T const* data(T const (&ar[N]))
+    inline T const* data(T const (&array)[N])
     {
-        return ar;
+        return array;
     }
 }
 

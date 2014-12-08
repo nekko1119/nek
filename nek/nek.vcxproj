@@ -47,6 +47,8 @@
     <ClInclude Include="container\function\push_back.hpp" />
     <ClInclude Include="container\function\size.hpp" />
     <ClInclude Include="container\vector.hpp" />
+    <ClInclude Include="container\vector\function.hpp" />
+    <ClInclude Include="container\vector\operator.hpp" />
     <ClInclude Include="container\vector\vector.hpp" />
     <ClInclude Include="container\vector\vector_fwd.hpp" />
     <ClInclude Include="detail\construct.hpp" />
@@ -134,9 +136,6 @@
     <ClInclude Include="utility\noncopyable.hpp" />
     <ClInclude Include="utility\pointer_traits.hpp" />
     <ClInclude Include="utility\swap.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A2637998-650F-4833-9635-05C96B432E36}</ProjectGuid>
