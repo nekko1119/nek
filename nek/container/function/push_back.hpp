@@ -8,17 +8,17 @@
 
 namespace nek
 {
-	template <class Container, class Value>
-	void push_back(Container& con, Value const& value)
-	{
-		nek::insert(con, con.end(), value);
-	}
+    template <class Container, class Value>
+    void push_back(Container& con, Value const& value)
+    {
+        nek::insert(con, con.end(), value);
+    }
 
-	template <class Container, class Value>
-	void push_back(Container& con, nek::remove_reference_t<Value>&& value)
-	{
-		nek::emplace_back(con, nek::move(value));
-	}
+    template <class Container, class Value>
+    void push_back(Container& con, nek::remove_reference_t<Value>&& value)
+    {
+        nek::emplace_back(con, nek::move(value));
+    }
 }
 
 #endif

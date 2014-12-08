@@ -5,17 +5,17 @@
 
 namespace nek
 {
-	template <class Container, class Iterator>
-	auto erase(Container& con, Iterator first, Iterator last)
-	{
-		return con.erase(first, last);
-	}
+    template <class Container, class Iterator>
+    auto erase(Container& con, Iterator first, Iterator last)
+    {
+        return con.erase(first, last);
+    }
 
-	template <class Container, class Iterator>
-	auto erase(Container& con, Iterator position)
-	{
-		return con.erase(std::prev(position), position);
-	}
+    template <class Container, class Iterator>
+    auto erase(Container& con, Iterator position)
+    {
+        return con.erase(std::prev(position), position);
+    }
 }
 
 #endif

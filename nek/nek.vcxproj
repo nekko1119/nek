@@ -32,6 +32,7 @@
     <ClInclude Include="any\exception.hpp" />
     <ClInclude Include="any\traits.hpp" />
     <ClInclude Include="container\container_fwd.hpp" />
+    <ClInclude Include="container\container_traits.hpp" />
     <ClInclude Include="container\function.hpp" />
     <ClInclude Include="container\function\at.hpp" />
     <ClInclude Include="container\function\back.hpp" />
