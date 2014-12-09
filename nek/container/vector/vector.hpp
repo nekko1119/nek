@@ -6,6 +6,9 @@
 #include <stdexcept>
 #include <utility>
 
+#include <nek/container/vector/vector_fwd.hpp>
+#include <nek/container/function.hpp>
+
 #include <nek/algorithm/copy.hpp>
 #include <nek/algorithm/copy_backward.hpp>
 #include <nek/algorithm/fill.hpp>
@@ -14,7 +17,6 @@
 #include <nek/algorithm/rotate.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
-#include <nek/container/vector/vector_fwd.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/iterator/distance.hpp>
 #include <nek/iterator/iterator_traits.hpp>

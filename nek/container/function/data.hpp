@@ -1,6 +1,8 @@
 ﻿#ifndef NEK_CONTAINER_FUNCTION_DATA_HPP
 #define NEK_CONTAINER_FUNCTION_DATA_HPP
 
+#include <cstddef>
+
 namespace nek
 {
     template <class Container>

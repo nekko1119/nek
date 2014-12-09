@@ -106,6 +106,7 @@
     <ClCompile Include="any\any_test.cpp" />
     <ClCompile Include="container\function\at_test.cpp" />
     <ClCompile Include="container\function\back_test.cpp" />
+    <ClCompile Include="container\function\data_test.cpp" />
     <ClCompile Include="container\function\front_test.cpp" />
     <ClCompile Include="container\function\is_emtpy_test.cpp" />
     <ClCompile Include="container\function\push_back_test.cpp" />
