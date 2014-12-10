@@ -6,17 +6,17 @@
 
 namespace nek
 {
-	template <class InputIterator, class ForwardIterator>
-	ForwardIterator uninitialized_move(InputIterator first, InputIterator last, ForwardIterator dest)
-	{
-		return nek::uninitialized_copy(nek::make_move_iterator(first), nek::make_move_iterator(last), dest);
-	}
+    template <class InputIterator, class ForwardIterator>
+    ForwardIterator uninitialized_move(InputIterator first, InputIterator last, ForwardIterator dest)
+    {
+        return nek::uninitialized_copy(nek::make_move_iterator(first), nek::make_move_iterator(last), dest);
+    }
 
-	template <class InputIterator, class ForwardIterator, class Allocator>
-	ForwardIterator uninitialized_move(InputIterator first, InputIterator last, ForwardIterator dest, Allocator& allocator)
-	{
-		return nek::uninitialized_copy(nek::make_move_iterator(first), nek::make_move_iterator(last), dest, allocator);
-	}
+    template <class InputIterator, class ForwardIterator, class Allocator>
+    ForwardIterator uninitialized_move(InputIterator first, InputIterator last, ForwardIterator dest, Allocator& allocator)
+    {
+        return nek::uninitialized_copy(nek::make_move_iterator(first), nek::make_move_iterator(last), dest, allocator);
+    }
 }
 
 #endif

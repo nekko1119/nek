@@ -6,37 +6,37 @@
 
 namespace nek
 {
-	namespace is_floating_point_detail
-	{
-		template <class T>
-		struct is_floating_point
-			: public false_type
-		{
-		};
+    namespace is_floating_point_detail
+    {
+        template <class T>
+        struct is_floating_point
+            : public false_type
+        {
+        };
 
-		template <>
-		struct is_floating_point<float>
-			: public true_type
-		{
-		};
+        template <>
+        struct is_floating_point<float>
+            : public true_type
+        {
+        };
 
-		template <>
-		struct is_floating_point<double>
-			: public true_type
-		{
-		};
+        template <>
+        struct is_floating_point<double>
+            : public true_type
+        {
+        };
 
-		template <>
-		struct is_floating_point<long double>
-			: public true_type
-		{
-		};
-	}
+        template <>
+        struct is_floating_point<long double>
+            : public true_type
+        {
+        };
+    }
 
-	template <class T>
-	struct is_floating_point
-		: public is_floating_point_detail::is_floating_point<remove_cv_t<T>>
-	{
-	};
+    template <class T>
+    struct is_floating_point
+        : public is_floating_point_detail::is_floating_point<remove_cv_t<T>>
+    {
+    };
 }
 #endif

@@ -12,59 +12,59 @@
 
 namespace nek
 {
-	namespace uninitialized_default_detail
-	{
-		template <class ForwardIterator, class Size>
-		void uninitialized_default_n_(ForwardIterator first, Size count, nek::false_type)
-		{
-			auto current = first;
-			try {
-				for (; 0 < count; --count, ++current) {
-					nek::detail::construct(nek::addressof(*current));
-				}
-			} catch (...) {
-				nek::detail::destroy(first, current);
-				throw;
-			}
-		}
+    namespace uninitialized_default_detail
+    {
+        template <class ForwardIterator, class Size>
+        void uninitialized_default_n_(ForwardIterator first, Size count, nek::false_type)
+        {
+            auto current = first;
+            try {
+                for (; 0 < count; --count, ++current) {
+                    nek::detail::construct(nek::addressof(*current));
+                }
+            } catch (...) {
+                nek::detail::destroy(first, current);
+                throw;
+            }
+        }
 
-		template <class ForwardIterator, class Size>
-		void uninitialized_default_n_(ForwardIterator first, Size count, nek::true_type)
-		{
-			using value_type = typename nek::iterator_traits<ForwardIterator>::value_type;
-			nek::fill_n(first, count, value_type{});
-		}
-	}
+        template <class ForwardIterator, class Size>
+        void uninitialized_default_n_(ForwardIterator first, Size count, nek::true_type)
+        {
+            using value_type = typename nek::iterator_traits<ForwardIterator>::value_type;
+            nek::fill_n(first, count, value_type{});
+        }
+    }
 
-	template <class ForwardIterator, class Size>
-	void uninitialized_default_n(ForwardIterator first, Size count)
-	{
-		using value_type = typename nek::iterator_traits<ForwardIterator>::value_type;
-		uninitialized_default_detail::uninitialized_default_n_(first, count, nek::is_trivial<value_type>{});
-	}
+    template <class ForwardIterator, class Size>
+    void uninitialized_default_n(ForwardIterator first, Size count)
+    {
+        using value_type = typename nek::iterator_traits<ForwardIterator>::value_type;
+        uninitialized_default_detail::uninitialized_default_n_(first, count, nek::is_trivial<value_type>{});
+    }
 
-	template <class ForwardIterator, class Size, class Allocator>
-	void uninitialized_default_n(ForwardIterator first, Size count, Allocator& allocator)
-	{
-		using traits = nek::allocator_traits<Allocator>;
-		auto current = first;
-		try {
-			for (; 0 < count; --count, ++current) {
-				traits::construct(allocator, nek::addressof(*current));
-			}
-		} catch (...) {
-			for (; first != current; ++first) {
-				traits::destroy(allocator, nek::addressof(*first));
-			}
-			throw;
-		}
-	}
+    template <class ForwardIterator, class Size, class Allocator>
+    void uninitialized_default_n(ForwardIterator first, Size count, Allocator& allocator)
+    {
+        using traits = nek::allocator_traits<Allocator>;
+        auto current = first;
+        try {
+            for (; 0 < count; --count, ++current) {
+                traits::construct(allocator, nek::addressof(*current));
+            }
+        } catch (...) {
+            for (; first != current; ++first) {
+                traits::destroy(allocator, nek::addressof(*first));
+            }
+            throw;
+        }
+    }
 
-	template <class ForwardIterator, class Size, class T>
-	void uninitialized_default_n(ForwardIterator first, Size count, nek::allocator<T>&)
-	{
-		nek::uninitialized_default_n(first, count);
-	}
+    template <class ForwardIterator, class Size, class T>
+    void uninitialized_default_n(ForwardIterator first, Size count, nek::allocator<T>&)
+    {
+        nek::uninitialized_default_n(first, count);
+    }
 }
 
 #endif

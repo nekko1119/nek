@@ -6,11 +6,11 @@
 
 namespace nek
 {
-	template <class T>
-	struct is_trivial
-		: public nek::integral_constant<bool, __is_trivial(nek::remove_cv_t<T>)>
-	{
-	};
+    template <class T>
+    struct is_trivial
+        : public nek::integral_constant<bool, __is_trivial(nek::remove_cv_t<T>)>
+    {
+    };
 }
 
 #endif
