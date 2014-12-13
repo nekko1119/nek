@@ -38,6 +38,7 @@
     <ClInclude Include="container\function\back.hpp" />
     <ClInclude Include="container\function\clear.hpp" />
     <ClInclude Include="container\function\data.hpp" />
+    <ClInclude Include="container\function\emplace.hpp" />
     <ClInclude Include="container\function\emplace_back.hpp" />
     <ClInclude Include="container\function\erase.hpp" />
     <ClInclude Include="container\function\front.hpp" />

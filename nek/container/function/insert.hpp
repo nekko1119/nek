@@ -3,8 +3,7 @@
 
 #include <initializer_list>
 
-#include <nek/utility/move.hpp>
-#include <nek/container/function/emplace_back.hpp>
+#include <nek/utility/forward.hpp>
 
 namespace nek
 {
@@ -26,10 +25,10 @@ namespace nek
 		return con.insert(position, static_cast<typename Container::size_type>(1), value);
 	}
 
-	template <class Container, class Iterator, class Value>
-	auto insert(Container& con, Iterator position, Value&& value)
+	template <class Container, class Iterator, class T>
+	auto insert(Container& con, Iterator position, T&& value)
 	{
-		return nek::emplace_back(con, nek::move(value));
+		return nek::emplace(con, position, nek::forward<T>(value));
 	}
 
 	template <class Container>

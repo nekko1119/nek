@@ -5,6 +5,7 @@
 #include <nek/container/function/back.hpp>
 #include <nek/container/function/clear.hpp>
 #include <nek/container/function/data.hpp>
+#include <nek/container/function/emplace.hpp>
 #include <nek/container/function/emplace_back.hpp>
 #include <nek/container/function/erase.hpp>
 #include <nek/container/function/front.hpp>
