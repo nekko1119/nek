@@ -18,7 +18,7 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    constexpr decltype(auto) front(T(&array)[N])
+    constexpr decltype(auto) front(T (&array)[N])
     {
         return array[0];
     }
