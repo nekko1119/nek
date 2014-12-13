@@ -4,51 +4,51 @@
 
 namespace
 {
-	struct noexceptable
-	{
-		std::string log = "";
+    struct noexceptable
+    {
+        std::string log = "";
 
-		noexceptable() = default;
+        noexceptable() = default;
 
-		noexceptable(noexceptable const&) noexcept
-		{
-			log += "copy ctor";
-		}
+        noexceptable(noexceptable const&) noexcept
+        {
+            log += "copy ctor";
+        }
 
-			noexceptable(noexceptable&&) noexcept
-		{
-			log += "move ctor";
-		}
-	};
+            noexceptable(noexceptable&&) noexcept
+        {
+            log += "move ctor";
+        }
+    };
 
-	struct exceptable
-	{
-		std::string log = "";
+    struct exceptable
+    {
+        std::string log = "";
 
-		exceptable() = default;
+        exceptable() = default;
 
-		exceptable(exceptable const&)
-		{
-			log += "copy ctor";
-		}
+        exceptable(exceptable const&)
+        {
+            log += "copy ctor";
+        }
 
-		exceptable(exceptable&&)
-		{
-			log += "move ctor";
-		}
-	};
+        exceptable(exceptable&&)
+        {
+            log += "move ctor";
+        }
+    };
 }
 
 TEST(move_if_noexcept_test, except)
 {
-	exceptable e;
-	auto actual = nek::move_if_noexcept(e);
-	EXPECT_EQ("copy ctor", actual.log);
+    exceptable e;
+    auto actual = nek::move_if_noexcept(e);
+    EXPECT_EQ("copy ctor", actual.log);
 }
 
 TEST(move_if_noexcept_test, noexcept)
 {
-	noexceptable e;
-	auto actual = nek::move_if_noexcept(e);
-	EXPECT_EQ("move ctor", actual.log);
+    noexceptable e;
+    auto actual = nek::move_if_noexcept(e);
+    EXPECT_EQ("move ctor", actual.log);
 }

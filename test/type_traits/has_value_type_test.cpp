@@ -10,24 +10,24 @@
 
 TEST(has_value_type_test, initialize_true)
 {
-	STATIC_ASSERT_TRUE(nek::has_value_type<has_member_type>);
-	STATIC_ASSERT_EQ(nek::has_value_type<has_member_type>::type, nek::true_type);
-	STATIC_ASSERT_EQ(nek::has_value_type<has_member_type>::value_type, bool);
-	EXPECT_EQ(true, nek::has_value_type<has_member_type>());
-	SUCCEED();
+    STATIC_ASSERT_TRUE(nek::has_value_type<has_member_type>);
+    STATIC_ASSERT_EQ(nek::has_value_type<has_member_type>::type, nek::true_type);
+    STATIC_ASSERT_EQ(nek::has_value_type<has_member_type>::value_type, bool);
+    EXPECT_EQ(true, nek::has_value_type<has_member_type>());
+    SUCCEED();
 }
 
 TEST(has_value_type_test, initialize_false)
 {
-	STATIC_ASSERT_FALSE(nek::has_value_type<int>);
-	STATIC_ASSERT_EQ(nek::has_value_type<int>::type, nek::false_type);
-	STATIC_ASSERT_EQ(nek::has_value_type<int>::value_type, bool);
-	EXPECT_EQ(false, nek::has_value_type<int>());
-	SUCCEED();
+    STATIC_ASSERT_FALSE(nek::has_value_type<int>);
+    STATIC_ASSERT_EQ(nek::has_value_type<int>::type, nek::false_type);
+    STATIC_ASSERT_EQ(nek::has_value_type<int>::value_type, bool);
+    EXPECT_EQ(false, nek::has_value_type<int>());
+    SUCCEED();
 }
 
 TEST(has_value_type_test, normal)
 {
-	NEK_HAS_MEMBER_TYPE(nek::has_value_type);
-	SUCCEED();
+    NEK_HAS_MEMBER_TYPE(nek::has_value_type);
+    SUCCEED();
 }

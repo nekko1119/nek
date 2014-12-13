@@ -3,20 +3,20 @@
 
 namespace
 {
-	struct has_member_type
-	{
-		using NEK_MEMBER_TYPE = int;
-	};
+    struct has_member_type
+    {
+        using NEK_MEMBER_TYPE = int;
+    };
 
-	struct has_member_func
-	{
-		void NEK_MEMBER_TYPE() {}
-	};
+    struct has_member_func
+    {
+        void NEK_MEMBER_TYPE() {}
+    };
 
-	struct has_member_obj
-	{
-		int NEK_MEMBER_TYPE;
-	};
+    struct has_member_obj
+    {
+        int NEK_MEMBER_TYPE;
+    };
 }
 
 #define NEK_HAS_MEMBER_TYPE(type)\

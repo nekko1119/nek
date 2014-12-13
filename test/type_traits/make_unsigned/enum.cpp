@@ -6,7 +6,7 @@ enum class e2 : int {}; // TODO : is this valid that enum that underlying type i
 enum class e3 : long {};
 
 using types = ::testing::Types<
-	std::tuple<e1, std::make_unsigned<e1>::type>,
+    std::tuple<e1, std::make_unsigned<e1>::type>,
     std::tuple<e2, std::make_unsigned<e2>::type>,
     std::tuple<e3, std::make_unsigned<e3>::type>
 >;

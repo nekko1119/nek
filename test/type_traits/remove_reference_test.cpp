@@ -4,17 +4,17 @@
 
 TEST(remove_reference_test, normal)
 {
-	STATIC_ASSERT_EQ(nek::remove_reference<int>::type, int);
-	STATIC_ASSERT_EQ(nek::remove_reference<int const>::type, int const);
-	STATIC_ASSERT_EQ(nek::remove_reference<int volatile>::type, int volatile);
-	STATIC_ASSERT_EQ(nek::remove_reference<int*>::type, int*);
-	STATIC_ASSERT_EQ(nek::remove_reference<int&>::type, int);
-	STATIC_ASSERT_EQ(nek::remove_reference<int const&>::type, int const);
-	STATIC_ASSERT_EQ(nek::remove_reference<int&&>::type, int);
-	STATIC_ASSERT_EQ(nek::remove_reference<int const&&>::type, int const);
-	STATIC_ASSERT_EQ(nek::remove_reference<int[]>::type, int[]);
-	STATIC_ASSERT_EQ(nek::remove_reference<int(&)[]>::type, int[]);
-	STATIC_ASSERT_EQ(nek::remove_reference<int(&)()>::type, int());
-	STATIC_ASSERT_EQ(nek::remove_reference<int*&>::type, int*);
-	SUCCEED();
+    STATIC_ASSERT_EQ(nek::remove_reference<int>::type, int);
+    STATIC_ASSERT_EQ(nek::remove_reference<int const>::type, int const);
+    STATIC_ASSERT_EQ(nek::remove_reference<int volatile>::type, int volatile);
+    STATIC_ASSERT_EQ(nek::remove_reference<int*>::type, int*);
+    STATIC_ASSERT_EQ(nek::remove_reference<int&>::type, int);
+    STATIC_ASSERT_EQ(nek::remove_reference<int const&>::type, int const);
+    STATIC_ASSERT_EQ(nek::remove_reference<int&&>::type, int);
+    STATIC_ASSERT_EQ(nek::remove_reference<int const&&>::type, int const);
+    STATIC_ASSERT_EQ(nek::remove_reference<int[]>::type, int[]);
+    STATIC_ASSERT_EQ(nek::remove_reference<int(&)[]>::type, int[]);
+    STATIC_ASSERT_EQ(nek::remove_reference<int(&)()>::type, int());
+    STATIC_ASSERT_EQ(nek::remove_reference<int*&>::type, int*);
+    SUCCEED();
 }
