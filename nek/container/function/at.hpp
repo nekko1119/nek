@@ -33,7 +33,7 @@ namespace nek
     {
         using size_type = typename nek::container_traits<Container>::size_type;
         if (nek::size(con) < static_cast<size_type>(n)) {
-            throw std::out_of_range{"nek::at"};
+            throw std::out_of_range{"nek::cat"};
         }
         return con[n];
     }

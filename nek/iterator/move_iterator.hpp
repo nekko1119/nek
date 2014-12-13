@@ -38,7 +38,7 @@ namespace nek
         {
         }
 
-        iterator_type base() const
+        iterator_type const& base() const
         {
             return current_;
         }
@@ -171,11 +171,11 @@ namespace nek
             typename iterator_traits<Iterator>::value_type,
         class Return =
             if_t<
-            and_<
-            not_<std::is_nothrow_move_constructible<ValueType>>,
-            std::is_copy_constructible<ValueType>
-            >,
-            Iterator, move_iterator<Iterator>>
+                and_<
+                    not_<std::is_nothrow_move_constructible<ValueType>>,
+                    std::is_copy_constructible<ValueType>
+                >,
+                Iterator, move_iterator<Iterator>>
             >
             inline Return make_move_if_noexcept_iterator_(Iterator it)
         {
