@@ -9,17 +9,17 @@
 
 namespace nek
 {
-	template <class T>
-	inline auto move_if_noexcept(T& value) noexcept
-		-> mpl::if_t<
-				mpl::and_<
-					mpl::not_<std::is_nothrow_move_constructible<T>>,
-					std::is_copy_constructible<T>
-				>,
-			T const&, T&&>
-	{
-		return nek::move(value);
-	}
+    template <class T>
+    inline auto move_if_noexcept(T& value) noexcept
+        ->mpl::if_t<
+                mpl::and_<
+                    mpl::not_<std::is_nothrow_move_constructible<T>>,
+                    std::is_copy_constructible<T>
+                >,
+            T const&, T&&>
+    {
+        return nek::move(value);
+    }
 }
 
 #endif

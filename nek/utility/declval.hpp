@@ -5,8 +5,8 @@
 
 namespace nek
 {
-	template <class T>
-	nek::add_rvalue_reference_t<T> declval() noexcept;
+    template <class T>
+    nek::add_rvalue_reference_t<T> declval() noexcept;
 }
 
 #endif

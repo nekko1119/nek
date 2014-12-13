@@ -6,21 +6,21 @@
 
 namespace nek
 {
-	namespace mpl
-	{
-		template <bool C>
-		struct bool_
-		{
-			static constexpr bool value = C;
-			using tag = integral_c_tag;
-			using type = bool_;
-			using value_type = bool;
-			operator bool() const
-			{
-				return value;
-			}
-		};
-	}
+    namespace mpl
+    {
+        template <bool C>
+        struct bool_
+        {
+            static constexpr bool value = C;
+            using tag = integral_c_tag;
+            using type = bool_;
+            using value_type = bool;
+            operator bool() const
+            {
+                return value;
+            }
+        };
+    }
 }
 
 #endif

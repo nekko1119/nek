@@ -5,20 +5,20 @@
 
 namespace nek
 {
-	namespace mpl
-	{
-		template <bool C>
-		struct not_c
-			: bool_<!C>
-		{
-		};
+    namespace mpl
+    {
+        template <bool C>
+        struct not_c
+            : bool_<!C>
+        {
+        };
 
-		template <class T>
-		struct not_
-			: public bool_<!T::type::value>
-		{
-		};
-	}
+        template <class T>
+        struct not_
+            : public bool_<!T::type::value>
+        {
+        };
+    }
 }
 
 #endif
