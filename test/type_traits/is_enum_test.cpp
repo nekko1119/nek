@@ -16,20 +16,12 @@ namespace
 TEST(is_enum_test, initialize_true)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_TRUE(nek::is_enum<enum_type>);
-    STATIC_ASSERT_EQ(nek::is_enum<enum_type>::type, nek::true_type);
-    STATIC_ASSERT_EQ(nek::is_enum<enum_type>::value_type, bool);
-    EXPECT_EQ(true, nek::is_enum<enum_type>());
-    SUCCEED();
+    nektest::require_true_type_member<nek::is_enum<enum_type>>();
 }
 
 TEST(is_enum_test, initialize_false)
 {
-    STATIC_ASSERT_FALSE(nek::is_enum<int>);
-    STATIC_ASSERT_EQ(nek::is_enum<int>::type, nek::false_type);
-    STATIC_ASSERT_EQ(nek::is_enum<int>::value_type, bool);
-    EXPECT_EQ(false, nek::is_enum<int>());
-    SUCCEED();
+    nektest::require_false_type_member<nek::is_enum<int>>();
 }
 
 TEST(is_enum_test, yes)

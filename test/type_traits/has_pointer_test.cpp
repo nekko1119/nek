@@ -4,7 +4,6 @@
 
 #define NEK_MEMBER_TYPE pointer
 #include "has_member_type.hpp"
-
 #undef NEK_MEMBER_TYPE
 
 TEST(has_pointer_test, initialize_true)

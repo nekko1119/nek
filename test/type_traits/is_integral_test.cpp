@@ -5,20 +5,12 @@
 
 TEST(is_integral_test, initialize_true)
 {
-    STATIC_ASSERT_TRUE(nek::is_integral<int>);
-    STATIC_ASSERT_EQ(nek::is_integral<int>::type, nek::true_type);
-    STATIC_ASSERT_EQ(nek::is_integral<int>::value_type, bool);
-    EXPECT_EQ(true, nek::is_integral<int>());
-    SUCCEED();
+    nektest::require_true_type_member<nek::is_integral<int>>();
 }
 
 TEST(is_integral_test, initialize_false)
 {
-    STATIC_ASSERT_FALSE(nek::is_integral<double>);
-    STATIC_ASSERT_EQ(nek::is_integral<double>::type, nek::false_type);
-    STATIC_ASSERT_EQ(nek::is_integral<double>::value_type, bool);
-    EXPECT_EQ(false, nek::is_integral<double>());
-    SUCCEED();
+    nektest::require_false_type_member<nek::is_integral<double>>();
 }
 
 TEST(is_integral_test, yes)

@@ -17,19 +17,13 @@ namespace
 
 TEST(is_trival_test, initialize_true)
 {
-    STATIC_ASSERT_TRUE(nek::is_trivial<int>);
-    STATIC_ASSERT_EQ(nek::is_trivial<int>::type, nek::true_type);
-    STATIC_ASSERT_EQ(nek::is_trivial<int>::value_type, bool);
-    EXPECT_EQ(true, nek::is_trivial<int>());
+    nektest::require_true_type_member<nek::is_trivial<int>>();
 }
 
 TEST(is_trival_test, initialize_false)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_FALSE(nek::is_trivial<standard_layout_type>);
-    STATIC_ASSERT_EQ(nek::is_trivial<standard_layout_type>::type, nek::false_type);
-    STATIC_ASSERT_EQ(nek::is_trivial<standard_layout_type>::value_type, bool);
-    EXPECT_EQ(false, nek::is_trivial<standard_layout_type>());
+    nektest::require_false_type_member<nek::is_trivial<standard_layout_type>>();
 }
 
 TEST(is_trivial_test, yes)

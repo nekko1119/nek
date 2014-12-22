@@ -6,20 +6,12 @@
 TEST(is_class_test, initialize_true)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_TRUE(nek::is_class<class_type>);
-    STATIC_ASSERT_EQ(nek::is_class<class_type>::type, nek::true_type);
-    STATIC_ASSERT_EQ(nek::is_class<class_type>::value_type, bool);
-    EXPECT_EQ(true, nek::is_class<class_type>());
-    SUCCEED();
+    nektest::require_true_type_member<nek::is_class<class_type>>();
 }
 
 TEST(is_class_test, initialize_false)
 {
-    STATIC_ASSERT_FALSE(nek::is_class<int>);
-    STATIC_ASSERT_EQ(nek::is_class<int>::type, nek::false_type);
-    STATIC_ASSERT_EQ(nek::is_class<int>::value_type, bool);
-    EXPECT_EQ(false, nek::is_class<int>());
-    SUCCEED();
+    nektest::require_false_type_member<nek::is_class<int>>();
 }
 
 TEST(is_class_test, yes)

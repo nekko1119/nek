@@ -30,20 +30,12 @@ namespace
 
 TEST(is_constructible_test, initialize_true)
 {
-    using actual_type = nek::is_constructible<int, int>;
-    STATIC_ASSERT_TRUE(actual_type);
-    STATIC_ASSERT_EQ(actual_type::type, nek::true_type);
-    STATIC_ASSERT_EQ(actual_type::value_type, bool);
-    EXPECT_EQ(true, actual_type());
+    nektest::require_true_type_member<nek::is_constructible<int, int>>();
 }
 
 TEST(is_constructible_test, initialize_false)
 {
-    using actual_type = nek::is_constructible<int, void>;
-    STATIC_ASSERT_FALSE(actual_type);
-    STATIC_ASSERT_EQ(actual_type::type, nek::false_type);
-    STATIC_ASSERT_EQ(actual_type::value_type, bool);
-    EXPECT_EQ(false, actual_type());
+    nektest::require_false_type_member<nek::is_constructible<int, void>>();
 }
 
 TEST(is_constructible_test, yes)

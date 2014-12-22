@@ -9,18 +9,12 @@ namespace {
 
 TEST(is_trivially_destructible_test, initialize_true)
 {
-    STATIC_ASSERT_TRUE(nek::is_trivially_destructible<yes>);
-    STATIC_ASSERT_EQ(nek::is_trivially_destructible<yes>::type, nek::true_type);
-    STATIC_ASSERT_EQ(nek::is_trivially_destructible<yes>::value_type, bool);
-    EXPECT_TRUE(nek::is_trivially_destructible<yes>());
+    nektest::require_true_type_member<nek::is_trivially_destructible<yes>>();
 }
 
 TEST(is_trivially_destructible_test, initialize_false)
 {
-    STATIC_ASSERT_FALSE(nek::is_trivially_destructible<no>);
-    STATIC_ASSERT_EQ(nek::is_trivially_destructible<no>::type, nek::false_type);
-    STATIC_ASSERT_EQ(nek::is_trivially_destructible<no>::value_type, bool);
-    EXPECT_FALSE(nek::is_trivially_destructible<no>());
+    nektest::require_false_type_member<nek::is_trivially_destructible<no>>();
 }
 
 TEST(is_trivially_destructible_test, yes)

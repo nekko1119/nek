@@ -5,20 +5,12 @@
 
 TEST(is_floating_point_test, initialize_true)
 {
-    STATIC_ASSERT_TRUE(nek::is_floating_point<float>);
-    STATIC_ASSERT_EQ(nek::is_floating_point<float>::type, nek::true_type);
-    STATIC_ASSERT_EQ(nek::is_floating_point<float>::value_type, bool);
-    EXPECT_EQ(true, nek::is_floating_point<float>());
-    SUCCEED();
+    nektest::require_true_type_member<nek::is_floating_point<float>>();
 }
 
 TEST(is_floating_point_test, initialize_false)
 {
-    STATIC_ASSERT_FALSE(nek::is_floating_point<int>);
-    STATIC_ASSERT_EQ(nek::is_floating_point<int>::type, nek::false_type);
-    STATIC_ASSERT_EQ(nek::is_floating_point<int>::value_type, bool);
-    EXPECT_EQ(false, nek::is_floating_point<int>());
-    SUCCEED();
+    nektest::require_false_type_member<nek::is_floating_point<int>>();
 }
 
 TEST(is_floating_point_test, yes)

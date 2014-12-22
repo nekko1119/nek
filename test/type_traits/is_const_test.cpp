@@ -5,20 +5,12 @@
 
 TEST(is_const_test, initialize_true)
 {
-    STATIC_ASSERT_TRUE(nek::is_const<int const>);
-    STATIC_ASSERT_EQ(nek::is_const<int const>::type, nek::true_type);
-    STATIC_ASSERT_EQ(nek::is_const<int const>::value_type, bool);
-    EXPECT_EQ(true, nek::is_const<int const>());
-    SUCCEED();
+    nektest::require_true_type_member<nek::is_const<int const>>();
 }
 
 TEST(is_const_test, initialize_false)
 {
-    STATIC_ASSERT_FALSE(nek::is_const<int>);
-    STATIC_ASSERT_EQ(nek::is_const<int>::type, nek::false_type);
-    STATIC_ASSERT_EQ(nek::is_const<int>::value_type, bool);
-    EXPECT_EQ(false, nek::is_const<int>());
-    SUCCEED();
+    nektest::require_false_type_member<nek::is_const<int>>();
 }
 
 TEST(is_const_test, yes)

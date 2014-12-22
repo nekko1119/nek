@@ -4,22 +4,12 @@
 
 TEST(is_same_test, initialize_true)
 {
-    using testee_type = nek::is_same<int, int>;
-    STATIC_ASSERT_TRUE(testee_type);
-    STATIC_ASSERT_EQ(testee_type::type, nek::true_type);
-    STATIC_ASSERT_EQ(testee_type::value_type, bool);
-    EXPECT_EQ(true, testee_type());
-    SUCCEED();
+    nektest::require_true_type_member<nek::is_same<int, int>>();
 }
 
 TEST(is_same_test, initialize_false)
 {
-    using testee_type = nek::is_same<int, double>;
-    STATIC_ASSERT_FALSE(testee_type);
-    STATIC_ASSERT_EQ(testee_type::type, nek::false_type);
-    STATIC_ASSERT_EQ(testee_type::value_type, bool);
-    EXPECT_EQ(false, testee_type());
-    SUCCEED();
+    nektest::require_false_type_member<nek::is_same<int, double>>();
 }
 
 TEST(is_same_test, yes)
