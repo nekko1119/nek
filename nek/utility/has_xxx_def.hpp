@@ -7,14 +7,14 @@
 namespace type##_detail\
 {\
     template <class T, class = typename T::type>\
-    nek::true_type has_##type(int);\
+    nek::true_type has_##type(T*);\
 \
     template <class>\
-    nek::false_type has_##type(long);\
+    nek::false_type has_##type(...);\
 }\
 template <class T>\
 struct has_##type\
-    : public decltype(type##_detail::has_##type<T>(0))\
+    : public decltype(type##_detail::has_##type<T>(nullptr))\
 {\
 }
 

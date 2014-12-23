@@ -7,16 +7,16 @@ namespace nek
 {
     namespace has_pointer_detail
     {
-        template <class T, class U = typename T::pointer>
-        true_type has_pointer(int);
+        template <class T, class = typename T::pointer>
+        nek::true_type has_pointer(T*);
 
         template <class>
-        false_type has_pointer(long);
+        nek::false_type has_pointer(...);
     }
 
     template <class T>
     struct has_pointer
-        : public decltype(has_pointer_detail::has_pointer<T>(0))
+        : public decltype(has_pointer_detail::has_pointer<T>(nullptr))
     {
     };
 }

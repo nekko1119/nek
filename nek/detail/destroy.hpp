@@ -54,6 +54,12 @@ namespace nek
         {
             destroy(first, last);
         }
+
+        template <class ForwardIterator, class T>
+        void destroy(ForwardIterator first, ForwardIterator last, std::allocator<T>&)
+        {
+            destroy(first, last);
+        }
     }
 }
 

@@ -8,15 +8,15 @@ namespace nek
     namespace has_value_type_detail
     {
         template <class T, class = typename T::value_type>
-        true_type has_value_type(int);
+        nek::true_type has_value_type(T*);
 
         template <class>
-        false_type has_value_type(long);
+        nek::false_type has_value_type(...);
     }
 
     template <class T>
     struct has_value_type
-        : public decltype(has_value_type_detail::has_value_type<T>(0))
+        : public decltype(has_value_type_detail::has_value_type<T>(nullptr))
     {
     };
 }

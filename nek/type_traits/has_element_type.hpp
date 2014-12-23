@@ -7,16 +7,16 @@ namespace nek
 {
     namespace has_element_detail
     {
-        template <class T, class U = typename T::element_type>
-        true_type has_element_type(int);
+        template <class T, class = typename T::element_type>
+        nek::true_type has_element_type(T*);
 
         template <class>
-        false_type has_element_type(long);
+        nek::false_type has_element_type(...);
     }
 
     template <class T>
     struct has_element_type
-        : public decltype(has_element_detail::has_element_type<T>(0))
+        : public decltype(has_element_detail::has_element_type<T>(nullptr))
     {
     };
 }

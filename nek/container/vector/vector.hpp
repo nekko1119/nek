@@ -57,42 +57,42 @@ namespace nek
             }
 
         protected:
-            pointer& first() noexcept
+            inline pointer& first() noexcept
             {
                 return first_;
             }
 
-            pointer const& first() const noexcept
+            inline pointer const& first() const noexcept
             {
                 return first_;
             }
 
-            pointer& last() noexcept
+            inline pointer& last() noexcept
             {
                 return last_;
             }
 
-            pointer const& last() const noexcept
+            inline pointer const& last() const noexcept
             {
                 return last_;
             }
 
-            pointer& capacity_end() noexcept
+            inline pointer& capacity_end() noexcept
             {
                 return capacity_end_;
             }
 
-            pointer const& capacity_end() const noexcept
+            inline pointer const& capacity_end() const noexcept
             {
                 return capacity_end_;
             }
 
-            alloc_type& allocator() noexcept
+            inline alloc_type& allocator() noexcept
             {
                 return *(static_cast<alloc_type*>(this));
             }
 
-            alloc_type const& allocator() const noexcept
+            inline alloc_type const& allocator() const noexcept
             {
                 return *(static_cast<alloc_type const*>(this));
             }
@@ -100,17 +100,17 @@ namespace nek
         public:
             vector_base()
                 : base_type{},
-                first_{nullptr},
-                last_{nullptr},
-                capacity_end_{nullptr}
+                first_{},
+                last_{},
+                capacity_end_{}
             {
             }
 
             explicit vector_base(Allocator const& allocator)
                 : base_type{allocator},
-                first_{nullptr},
-                last_{nullptr},
-                capacity_end_{nullptr}
+                first_{},
+                last_{},
+                capacity_end_{}
             {
             }
 
@@ -504,7 +504,7 @@ namespace nek
             return base_type::allocator();
         }
 
-        inline size_type larger_size(size_type size) const noexcept
+        inline size_type larger_size(size_type size) const
         {
             return nek::max(static_cast<size_type>(size * rate()), size + 1);
         }
@@ -514,9 +514,9 @@ namespace nek
             if (first()) {
                 detail::destroy(first(), last(), allocator());
                 allocator().deallocate(first(), nek::distance(first(), capacity_end()));
-                first() = nullptr;
-                last() = nullptr;
-                capacity_end() = nullptr;
+                first() = pointer{};
+                last() = pointer{};
+                capacity_end() = pointer{};
             }
         }
 

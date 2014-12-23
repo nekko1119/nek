@@ -13,6 +13,8 @@ namespace nek
         using difference_type = Difference;
         using pointer = Pointer;
         using reference = Reference;
+    protected:
+        ~iterator() = default;
     };
 }
 

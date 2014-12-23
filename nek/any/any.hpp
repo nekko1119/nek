@@ -20,10 +20,7 @@ namespace nek
         public:
             holder_base() = default;
             holder_base(holder_base const&) = default;
-
-            virtual ~holder_base()
-            {
-            }
+            virtual ~holder_base() = default;
 
             virtual holder_base* clone() const = 0;
             virtual std::type_info const& type() const noexcept = 0;
