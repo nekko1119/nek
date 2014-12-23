@@ -11,7 +11,7 @@ namespace nek
     template <class Container, class Size>
     decltype(auto) at(Container& con, Size n)
     {
-        using size_type = typename nek::container_traits<Container>::size_type;
+        using size_type = nek::container_traits::size_type_t<Container>;
         if (nek::size(con) < static_cast<size_type>(n)) {
             throw std::out_of_range{"nek::at"};
         }
@@ -21,7 +21,7 @@ namespace nek
     template <class Container, class Size>
     decltype(auto) at(Container const& con, Size n)
     {
-        using size_type = typename nek::container_traits<Container>::size_type;
+        using size_type = nek::container_traits::size_type_t<Container>;
         if (nek::size(con) < static_cast<size_type>(n)) {
             throw std::out_of_range{"nek::at"};
         }
@@ -31,7 +31,7 @@ namespace nek
     template <class Container, class Size>
     decltype(auto) cat(Container const& con, Size n)
     {
-        using size_type = typename nek::container_traits<Container>::size_type;
+        using size_type = nek::container_traits::size_type_t<Container>;
         if (nek::size(con) < static_cast<size_type>(n)) {
             throw std::out_of_range{"nek::cat"};
         }

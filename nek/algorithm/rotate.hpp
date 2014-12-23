@@ -6,6 +6,7 @@
 #include <nek/iterator/advance.hpp>
 #include <nek/iterator/distance.hpp>
 #include <nek/iterator/iterator_traits.hpp>
+#include <nek/math/gcd.hpp>
 
 namespace nek
 {
@@ -65,17 +66,8 @@ namespace nek
             if (first == middle || middle == last) {
                 return;
             }
-            // TODO : gcd
             using diff_type = typename nek::iterator_traits<RandomAccessIterator>::difference_type;
-            auto shift = middle - first;
-            auto count = last - first;
-            diff_type temp;
-            while (shift != 0) {
-                temp = shift;
-                shift = count % shift;
-                count = temp;
-            }
-            diff_type repeat = count;
+            diff_type repeat = nek::math::gcd(middle - first, last - first);
             for (auto i = 0; i < repeat; ++i) {
                 for (diff_type cursor = i, next; (next = (cursor + (middle - first)) % (last - first)) != i; cursor = next) {
                     nek::iter_swap(first + cursor, first + next);

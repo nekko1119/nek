@@ -25,7 +25,7 @@ TEST(front_test, array)
 TEST(front_test, const_array)
 {
     constexpr int a[] = {1, 2, 3};
-    // TODO VC++ 4.0 RTM
+    // TODO VC++ 14.0 RTM
     // static_assert(nek::front(a) == 1, "");
     EXPECT_EQ(1, nek::front(a));
 }

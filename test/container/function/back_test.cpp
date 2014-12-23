@@ -11,7 +11,7 @@ TEST(back_test, list)
 TEST(back_test, array)
 {
     constexpr int a[] = {1, 2, 3};
-    // CTP 2013's constexpr is very poor.
+    // NOTE : Visual C++ CTP 2013's constexpr is very poor.
     //static_assert(1 == nek::front(a), "");
     EXPECT_EQ(3, nek::back(a));
 }
