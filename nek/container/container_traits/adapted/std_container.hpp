@@ -1,0 +1,6 @@
+﻿#ifndef NEK_CONTAINER_CONTAINER_TRAITS_ADAPTED_STD_CONTAINER_HPP
+#define NEK_CONTAINER_CONTAINER_TRAITS_ADAPTED_STD_CONTAINER_HPP
+
+#include <nek/container/container_traits/adapted/std_container/container_tag.hpp>
+
+#endif

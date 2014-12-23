@@ -33,6 +33,10 @@
     <ClInclude Include="any\traits.hpp" />
     <ClInclude Include="container\container_fwd.hpp" />
     <ClInclude Include="container\container_traits.hpp" />
+    <ClInclude Include="container\container_traits\adapted\std_container.hpp" />
+    <ClInclude Include="container\container_traits\adapted\std_container\container_tag.hpp" />
+    <ClInclude Include="container\container_traits\container_tag.hpp" />
+    <ClInclude Include="container\container_traits\container_traits.hpp" />
     <ClInclude Include="container\function.hpp" />
     <ClInclude Include="container\function\at.hpp" />
     <ClInclude Include="container\function\back.hpp" />

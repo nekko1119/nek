@@ -17,6 +17,7 @@
 #include <nek/algorithm/rotate.hpp>
 #include <nek/allocator/allocator.hpp>
 #include <nek/allocator/allocator_traits.hpp>
+#include <nek/container/container_traits/container_tag.hpp>
 #include <nek/detail/destroy.hpp>
 #include <nek/iterator/distance.hpp>
 #include <nek/iterator/iterator_traits.hpp>
@@ -155,6 +156,9 @@ namespace nek
         using const_iterator = normal_iterator<const_pointer>;
         using reverse_iterator = nek::reverse_iterator<iterator>;
         using const_reverse_iterator = nek::reverse_iterator<const_iterator>;
+
+        // own extension
+        using container_tag = container_traits::nek_container_tag;
 
         vector()
             : base_type{}

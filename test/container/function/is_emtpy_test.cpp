@@ -1,4 +1,5 @@
-﻿#include <nek/container/function/is_empty.hpp>
+﻿#include <nek/container/container_traits/adapted/std_container.hpp>
+#include <nek/container/function/is_empty.hpp>
 #include <gtest/gtest.h>
 #include <list>
 
