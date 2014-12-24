@@ -8,16 +8,22 @@ namespace nek
 {
     namespace is_empty_detail
     {
-        template <class Container>
-        inline bool is_empty(Container const& con, container_traits::nek_container_tag) noexcept
+        template <class Container, class Tag>
+        inline bool is_empty_(Container const& con, Tag) noexcept
         {
-            return con.begin() == con.end();
+            return con.is_empty();
         }
 
         template <class Container>
-        inline bool is_empty(Container const& con, container_traits::std_container_tag) noexcept
+        inline bool is_empty_(Container const& con, container_traits::std_container_tag) noexcept
         {
             return con.empty();
+        }
+
+        template <class Container>
+        inline bool is_empty_(Container const& con, container_traits::nek_container_tag) noexcept
+        {
+            return con.begin() == con.end();
         }
     }
 
@@ -25,7 +31,7 @@ namespace nek
     inline bool is_empty(Container const& con) noexcept
     {
         using tag = typename container_traits::container_tag<Container>::type;
-        return is_empty_detail::is_empty(con, tag{});
+        return is_empty_detail::is_empty_(con, tag{});
     }
 
         template <class T, std::size_t N>

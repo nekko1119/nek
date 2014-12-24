@@ -3,6 +3,9 @@
 
 #include <cstddef>
 #include <nek/container/container_traits/container_tag.hpp>
+#include <nek/mpl/identity.hpp>
+#include <nek/mpl/eval_if.hpp>
+#include <nek/utility/has_xxx_def.hpp>
 
 #ifdef NEK_CONTAINER_MEMBER_TYPE_DEF
 #   undef NEK_CONTAINER_MEMBER_TYPE_DEF
@@ -33,13 +36,25 @@ namespace nek
 {
     namespace container_traits
     {
+        namespace container_traits_detail
+        {
+            NEK_HAS_XXX_TYPE_DEF(container_tag);
+            template <class Container>
+            struct get_container_tag
+            {
+                using type = typename Container::container_tag;
+            };
+        }
         NEK_CONTAINER_MEMBER_TYPE_DEF(value_type, T);
         NEK_CONTAINER_MEMBER_TYPE_DEF(size_type, std::size_t);
 
         template <class Container>
         struct container_tag
         {
-            using type = typename Container::container_tag;
+            using type = typename mpl::eval_if_t<
+                container_traits_detail::has_container_tag<Container>,
+                container_traits_detail::get_container_tag<Container>,
+                mpl::identity<unknown_container_tag>>;
         };
     }
 }
