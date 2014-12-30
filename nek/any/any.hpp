@@ -140,7 +140,7 @@ namespace nek
 
         nonref_type* result = any_cast<nonref_type>(&value);
         if (!result) {
-            throw bad_any_cast_exception();
+            throw bad_any_cast();
         }
         return static_cast<ref_type>(*result);
     }

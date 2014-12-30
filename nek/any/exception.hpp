@@ -5,13 +5,13 @@
 
 namespace nek
 {
-    class bad_any_cast_exception
+    class bad_any_cast
         : public std::bad_cast
     {
     public:
         virtual char const* what() const noexcept override
         {
-            return "nek::bad_any_cast_exception: failed conversion";
+            return "nek::bad_any_cast: failed conversion";
         }
     };
 }

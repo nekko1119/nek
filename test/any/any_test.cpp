@@ -158,7 +158,7 @@ TEST(any_test, bad_cast)
 {
     int stub = 0;
     nek::any sut = stub;
-    EXPECT_THROW(nek::any_cast<dummy>(sut);, nek::bad_any_cast_exception);
-    nek::bad_any_cast_exception e;
+    EXPECT_THROW(nek::any_cast<dummy>(sut);, nek::bad_any_cast);
+    nek::bad_any_cast e;
     EXPECT_NE(nullptr, e.what());
 }
