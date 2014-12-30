@@ -13,6 +13,7 @@ SET(TEST_SRCS ./algorithm/copy_backward_test.cpp
               ./allocator/allocator_test.cpp
               ./allocator/allocator_traits_test.cpp
               ./any/any_test.cpp
+              ./container/container_traits/container_traits_test.cpp
               ./container/function/at_test.cpp
               ./container/function/back_test.cpp
               ./container/function/clear_test.cpp
