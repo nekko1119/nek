@@ -5,6 +5,7 @@
 #include <nek/container/container_traits/container_tag.hpp>
 #include <nek/mpl/identity.hpp>
 #include <nek/mpl/eval_if.hpp>
+#include <nek/type_traits/is_array.hpp>
 #include <nek/utility/has_xxx_def.hpp>
 
 #ifdef NEK_CONTAINER_MEMBER_TYPE_DEF
@@ -51,11 +52,17 @@ namespace nek
         template <class Container>
         struct container_tag
         {
-            using type = typename mpl::eval_if_t<
-                container_traits_detail::has_container_tag<Container>,
-                container_traits_detail::get_container_tag<Container>,
-                mpl::identity<unknown_container_tag>>;
+            using type = mpl::if_t<
+                nek::is_array<Container>,
+                array_container_tag,
+                typename mpl::eval_if_t<
+                    container_traits_detail::has_container_tag<Container>,
+                    container_traits_detail::get_container_tag<Container>,
+                mpl::identity<unknown_container_tag>>>;
         };
+
+        template <class Container>
+        using container_tag_t = typename container_tag<Container>::type;
     }
 }
 
