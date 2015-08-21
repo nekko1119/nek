@@ -8,7 +8,7 @@
 
 TEST(has_pointer_test, initialize_true)
 {
-    STATIC_ASSERT_TRUE(nek::has_pointer<has_member_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::has_pointer<has_member_type>);
     STATIC_ASSERT_EQ(nek::has_pointer<has_member_type>::type, nek::true_type);
     STATIC_ASSERT_EQ(nek::has_pointer<has_member_type>::value_type, bool);
     EXPECT_EQ(true, nek::has_pointer<has_member_type>());
@@ -17,7 +17,7 @@ TEST(has_pointer_test, initialize_true)
 
 TEST(has_pointer_test, initialize_false)
 {
-    STATIC_ASSERT_FALSE(nek::has_pointer<int>);
+    STATIC_ASSERT_FALSE_VALUE(nek::has_pointer<int>);
     STATIC_ASSERT_EQ(nek::has_pointer<int>::type, nek::false_type);
     STATIC_ASSERT_EQ(nek::has_pointer<int>::value_type, bool);
     EXPECT_EQ(false, nek::has_pointer<int>());

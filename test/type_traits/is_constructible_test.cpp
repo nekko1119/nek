@@ -51,16 +51,16 @@ TEST(is_constructible_test, yes)
     using pbpd_type = nek::is_constructible<base*, derived*>;
     using rbrd_type = nek::is_constructible<base&, derived&>;
     using brd_type = nek::is_constructible<base, derived&>;
-    STATIC_ASSERT_TRUE(i_type);
-    STATIC_ASSERT_TRUE(ii_type);
-    STATIC_ASSERT_TRUE(id_type);
-    STATIC_ASSERT_TRUE(xi_type);
-    STATIC_ASSERT_TRUE(vin_type);
-    STATIC_ASSERT_TRUE(vii_type);
-    STATIC_ASSERT_TRUE(bd_type);
-    STATIC_ASSERT_TRUE(pbpd_type);
-    STATIC_ASSERT_TRUE(rbrd_type);
-    STATIC_ASSERT_TRUE(brd_type);
+    STATIC_ASSERT_TRUE_VALUE(i_type);
+    STATIC_ASSERT_TRUE_VALUE(ii_type);
+    STATIC_ASSERT_TRUE_VALUE(id_type);
+    STATIC_ASSERT_TRUE_VALUE(xi_type);
+    STATIC_ASSERT_TRUE_VALUE(vin_type);
+    STATIC_ASSERT_TRUE_VALUE(vii_type);
+    STATIC_ASSERT_TRUE_VALUE(bd_type);
+    STATIC_ASSERT_TRUE_VALUE(pbpd_type);
+    STATIC_ASSERT_TRUE_VALUE(rbrd_type);
+    STATIC_ASSERT_TRUE_VALUE(brd_type);
 }
 
 TEST(is_constructible_test, no)
@@ -72,10 +72,10 @@ TEST(is_constructible_test, no)
     using vvv_type = nek::is_constructible<std::vector<int>, void, void>;
     using rbd_type = nek::is_constructible<base&, derived>;
 
-    STATIC_ASSERT_FALSE(xx_type);
-    STATIC_ASSERT_FALSE(fi_type);
-    STATIC_ASSERT_FALSE(vi_type);
-    STATIC_ASSERT_FALSE(y_type);
-    STATIC_ASSERT_FALSE(vvv_type);
-    STATIC_ASSERT_FALSE(rbd_type);
+    STATIC_ASSERT_FALSE_VALUE(xx_type);
+    STATIC_ASSERT_FALSE_VALUE(fi_type);
+    STATIC_ASSERT_FALSE_VALUE(vi_type);
+    STATIC_ASSERT_FALSE_VALUE(y_type);
+    STATIC_ASSERT_FALSE_VALUE(vvv_type);
+    STATIC_ASSERT_FALSE_VALUE(rbd_type);
 }

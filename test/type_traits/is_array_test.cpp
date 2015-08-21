@@ -15,21 +15,21 @@ TEST(is_array_test, initialize_false)
 
 TEST(is_array_test, yes)
 {
-    STATIC_ASSERT_TRUE(nek::is_array<int[]>);
-    STATIC_ASSERT_TRUE(nek::is_array<int[1]>);
-    STATIC_ASSERT_TRUE(nek::is_array<int[][1]>);
-    STATIC_ASSERT_TRUE(nek::is_array<int[1][1]>);
-    STATIC_ASSERT_TRUE(nek::is_array<int const volatile[]>);
-    STATIC_ASSERT_TRUE(nek::is_array<int*[]>);
-    STATIC_ASSERT_TRUE(nek::is_array<void(*[])()>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_array<int[]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_array<int[1]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_array<int[][1]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_array<int[1][1]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_array<int const volatile[]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_array<int*[]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_array<void(*[])()>);
 }
 
 TEST(is_array_test, no)
 {
-    STATIC_ASSERT_FALSE(nek::is_array<int(*)[]>);
-    STATIC_ASSERT_FALSE(nek::is_array<int(&)[]>);
-    STATIC_ASSERT_FALSE(nek::is_array<int*>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_array<int(*)[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_array<int(&)[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_array<int*>);
     using array_type = std::array<int, 1>;
-    STATIC_ASSERT_FALSE(nek::is_array<array_type>);
-    STATIC_ASSERT_FALSE(nek::is_array<void(int(&)[1])>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_array<array_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_array<void(int(&)[1])>);
 }

@@ -26,23 +26,23 @@ TEST(is_default_constructible_test, initialize_false)
 
 TEST(is_default_constructible_test, yes)
 {
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<int>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<int const volatile>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<std::nullptr_t>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<int*>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<void*>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<int(*)[]>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<int[1]>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<int(*)()>);
-    STATIC_ASSERT_TRUE(nek::is_default_constructible<can_def>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<int>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<int const volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<std::nullptr_t>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<int*>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<void*>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<int(*)[]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<int[1]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<int(*)()>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_default_constructible<can_def>);
 }
 
 TEST(is_default_constructible_test, no)
 {
-    STATIC_ASSERT_FALSE(nek::is_default_constructible<int&>);
-    STATIC_ASSERT_FALSE(nek::is_default_constructible<int&&>);
-    STATIC_ASSERT_FALSE(nek::is_default_constructible<int[]>);
-    STATIC_ASSERT_FALSE(nek::is_default_constructible<int()>);
-    STATIC_ASSERT_FALSE(nek::is_default_constructible<void>);
-    STATIC_ASSERT_FALSE(nek::is_default_constructible<non_def>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_default_constructible<int&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_default_constructible<int&&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_default_constructible<int[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_default_constructible<int()>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_default_constructible<void>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_default_constructible<non_def>);
 }

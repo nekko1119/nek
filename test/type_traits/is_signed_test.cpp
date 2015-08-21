@@ -14,18 +14,18 @@ TEST(is_signed_test, initialize_false)
 
 TEST(is_signed_test, yes)
 {
-    STATIC_ASSERT_TRUE(nek::is_signed<int>);
-    STATIC_ASSERT_TRUE(nek::is_signed<float>);
-    STATIC_ASSERT_TRUE(nek::is_signed<long double>);
-    STATIC_ASSERT_TRUE(nek::is_signed<char>);
-    STATIC_ASSERT_TRUE(nek::is_signed<signed char>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_signed<int>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_signed<float>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_signed<long double>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_signed<char>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_signed<signed char>);
 }
 
 TEST(is_signed_test, no)
 {
-    STATIC_ASSERT_FALSE(nek::is_signed<unsigned char>);
-    STATIC_ASSERT_FALSE(nek::is_signed<std::nullptr_t>);
-    STATIC_ASSERT_FALSE(nek::is_signed<void>);
-    STATIC_ASSERT_FALSE(nek::is_signed<bool>);
-    STATIC_ASSERT_FALSE(nek::is_signed<int*>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_signed<unsigned char>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_signed<std::nullptr_t>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_signed<void>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_signed<bool>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_signed<int*>);
 }

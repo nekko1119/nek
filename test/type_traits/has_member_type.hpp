@@ -20,8 +20,8 @@ namespace
 }
 
 #define NEK_HAS_MEMBER_TYPE(type)\
-  STATIC_ASSERT_TRUE(type<has_member_type>);\
-  STATIC_ASSERT_FALSE(type<has_member_func>);\
-  STATIC_ASSERT_FALSE(type<has_member_obj>);
+  STATIC_ASSERT_TRUE_VALUE(type<has_member_type>);\
+  STATIC_ASSERT_FALSE_VALUE(type<has_member_func>);\
+  STATIC_ASSERT_FALSE_VALUE(type<has_member_obj>);
 
 #endif

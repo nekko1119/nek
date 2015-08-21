@@ -34,10 +34,10 @@ TEST(is_base_of_test, yes)
     using bb_type = nek::is_base_of<b, b>;
     using cvbd_type = nek::is_base_of<b const volatile, d>;
     using other_other_type = nek::is_base_of<other, other>;
-    STATIC_ASSERT_TRUE(bd_type);
-    STATIC_ASSERT_TRUE(bb_type);
-    STATIC_ASSERT_TRUE(cvbd_type);
-    STATIC_ASSERT_TRUE(other_other_type);
+    STATIC_ASSERT_TRUE_VALUE(bd_type);
+    STATIC_ASSERT_TRUE_VALUE(bb_type);
+    STATIC_ASSERT_TRUE_VALUE(cvbd_type);
+    STATIC_ASSERT_TRUE_VALUE(other_other_type);
 }
 
 TEST(is_base_of_test, no)
@@ -48,10 +48,10 @@ TEST(is_base_of_test, no)
     using refb_d_type = nek::is_base_of<b&, d>;
     using rbrd_type = nek::is_base_of<b&, d&>;
     using pbpd_type = nek::is_base_of<b*, d*>;
-    STATIC_ASSERT_FALSE(int_int_type);
-    STATIC_ASSERT_FALSE(int_char_type);
-    STATIC_ASSERT_FALSE(b_other_type);
-    STATIC_ASSERT_FALSE(refb_d_type);
-    STATIC_ASSERT_FALSE(rbrd_type);
-    STATIC_ASSERT_FALSE(pbpd_type);
+    STATIC_ASSERT_FALSE_VALUE(int_int_type);
+    STATIC_ASSERT_FALSE_VALUE(int_char_type);
+    STATIC_ASSERT_FALSE_VALUE(b_other_type);
+    STATIC_ASSERT_FALSE_VALUE(refb_d_type);
+    STATIC_ASSERT_FALSE_VALUE(rbrd_type);
+    STATIC_ASSERT_FALSE_VALUE(pbpd_type);
 }

@@ -16,29 +16,29 @@ TEST(is_volatile_test, initialize_false)
 TEST(is_volatile_test, yes)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_TRUE(nek::is_volatile<int volatile>);
-    STATIC_ASSERT_TRUE(nek::is_volatile<class_type volatile>);
-    STATIC_ASSERT_TRUE(nek::is_volatile<enum_type volatile>);
-    STATIC_ASSERT_TRUE(nek::is_volatile<union_type volatile>);
-    STATIC_ASSERT_TRUE(nek::is_volatile<void volatile>);
-    STATIC_ASSERT_TRUE(nek::is_volatile<void(*volatile)()>);
-    STATIC_ASSERT_TRUE(nek::is_volatile<int* volatile>);
-    STATIC_ASSERT_TRUE(nek::is_volatile<int volatile[]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<int volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<class_type volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<enum_type volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<union_type volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<void volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<void(*volatile)()>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<int* volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_volatile<int volatile[]>);
     SUCCEED();
 }
 
 TEST(is_volatile_test, no)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_FALSE(nek::is_volatile<int>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<class_type>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<enum_type>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<union_type>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<void>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<int[]>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<void(*)()>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<int volatile*>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<int volatile&>);
-    STATIC_ASSERT_FALSE(nek::is_volatile<int volatile&&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<int>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<class_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<enum_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<union_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<void>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<int[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<void(*)()>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<int volatile*>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<int volatile&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_volatile<int volatile&&>);
     SUCCEED();
 }

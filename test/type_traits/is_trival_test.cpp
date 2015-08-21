@@ -29,21 +29,21 @@ TEST(is_trival_test, initialize_false)
 TEST(is_trivial_test, yes)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_TRUE(nek::is_trivial<int>);
-    STATIC_ASSERT_TRUE(nek::is_trivial<trivial_type>);
-    STATIC_ASSERT_TRUE(nek::is_trivial<int*>);
-    STATIC_ASSERT_TRUE(nek::is_trivial<int[]>);
-    STATIC_ASSERT_TRUE(nek::is_trivial<enum_type>);
-    STATIC_ASSERT_TRUE(nek::is_trivial<union_type>);
-    STATIC_ASSERT_TRUE(nek::is_trivial<f1_type>);
-    STATIC_ASSERT_TRUE(nek::is_trivial<mf1_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<int>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<trivial_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<int*>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<int[]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<enum_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<union_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<f1_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_trivial<mf1_type>);
 }
 
 TEST(is_trivial_test, no)
 {
-    STATIC_ASSERT_FALSE(nek::is_trivial<int&>);
-    STATIC_ASSERT_FALSE(nek::is_trivial<non_trivial_type>);
-    STATIC_ASSERT_FALSE(nek::is_trivial<void>);
-    STATIC_ASSERT_FALSE(nek::is_trivial<int()>);
-    STATIC_ASSERT_FALSE(nek::is_trivial<int&&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_trivial<int&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_trivial<non_trivial_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_trivial<void>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_trivial<int()>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_trivial<int&&>);
 }

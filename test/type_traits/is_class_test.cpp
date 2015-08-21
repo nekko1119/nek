@@ -17,25 +17,25 @@ TEST(is_class_test, initialize_false)
 TEST(is_class_test, yes)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_TRUE(nek::is_class<class_type>);
-    STATIC_ASSERT_TRUE(nek::is_class<class_type const>);
-    STATIC_ASSERT_TRUE(nek::is_class<class_type volatile>);
-    STATIC_ASSERT_TRUE(nek::is_class<class_type const volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_class<class_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_class<class_type const>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_class<class_type volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_class<class_type const volatile>);
     SUCCEED();
 }
 
 TEST(is_class_test, no)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_FALSE(nek::is_class<int>);
-    STATIC_ASSERT_FALSE(nek::is_class<void>);
-    STATIC_ASSERT_FALSE(nek::is_class<class_type*>);
-    STATIC_ASSERT_FALSE(nek::is_class<class_type[]>);
-    STATIC_ASSERT_FALSE(nek::is_class<class_type&>);
-    STATIC_ASSERT_FALSE(nek::is_class<class_type&&>);
-    STATIC_ASSERT_FALSE(nek::is_class<enum_type>);
-    STATIC_ASSERT_FALSE(nek::is_class<union_type>);
-    STATIC_ASSERT_FALSE(nek::is_class<f1_type>);
-    STATIC_ASSERT_FALSE(nek::is_class<mf1_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<int>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<void>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<class_type*>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<class_type[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<class_type&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<class_type&&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<enum_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<union_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<f1_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_class<mf1_type>);
     SUCCEED();
 }

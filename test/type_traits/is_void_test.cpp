@@ -14,19 +14,19 @@ TEST(is_void_test, initialize_false)
 
 TEST(is_void_test, yes)
 {
-    STATIC_ASSERT_TRUE(nek::is_void<void>);
-    STATIC_ASSERT_TRUE(nek::is_void<void const>);
-    STATIC_ASSERT_TRUE(nek::is_void<void volatile>);
-    STATIC_ASSERT_TRUE(nek::is_void<void const volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_void<void>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_void<void const>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_void<void volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_void<void const volatile>);
     SUCCEED();
 }
 
 TEST(is_void_test, no)
 {
-    STATIC_ASSERT_FALSE(nek::is_void<int>);
-    STATIC_ASSERT_FALSE(nek::is_void<void*>);
-    STATIC_ASSERT_FALSE(nek::is_void<void*&>);
-    STATIC_ASSERT_FALSE(nek::is_void<void*&&>);
-    STATIC_ASSERT_FALSE(nek::is_void<void()>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_void<int>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_void<void*>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_void<void*&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_void<void*&&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_void<void()>);
     SUCCEED();
 }

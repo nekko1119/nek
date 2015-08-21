@@ -21,12 +21,12 @@ TEST(is_same_test, yes)
     using arr_type2 = nek::is_same<int[2], int[2]>;
     using func_type = nek::is_same<void(), void()>;
 
-    STATIC_ASSERT_TRUE(value_type);
-    STATIC_ASSERT_TRUE(lref_type);
-    STATIC_ASSERT_TRUE(rref_type);
-    STATIC_ASSERT_TRUE(arr_type);
-    STATIC_ASSERT_TRUE(arr_type2);
-    STATIC_ASSERT_TRUE(func_type);
+    STATIC_ASSERT_TRUE_VALUE(value_type);
+    STATIC_ASSERT_TRUE_VALUE(lref_type);
+    STATIC_ASSERT_TRUE_VALUE(rref_type);
+    STATIC_ASSERT_TRUE_VALUE(arr_type);
+    STATIC_ASSERT_TRUE_VALUE(arr_type2);
+    STATIC_ASSERT_TRUE_VALUE(func_type);
 }
 
 TEST(is_same_test, no)
@@ -39,11 +39,11 @@ TEST(is_same_test, no)
     using cptr_type = nek::is_same<int*, int const>;
     using ptrc_type = nek::is_same <int*, int* const>;
 
-    STATIC_ASSERT_FALSE(const_type);
-    STATIC_ASSERT_FALSE(lref_type);
-    STATIC_ASSERT_FALSE(rref_type);
-    STATIC_ASSERT_FALSE(arr_type);
-    STATIC_ASSERT_FALSE(arr_type2);
-    STATIC_ASSERT_FALSE(cptr_type);
-    STATIC_ASSERT_FALSE(ptrc_type);
+    STATIC_ASSERT_FALSE_VALUE(const_type);
+    STATIC_ASSERT_FALSE_VALUE(lref_type);
+    STATIC_ASSERT_FALSE_VALUE(rref_type);
+    STATIC_ASSERT_FALSE_VALUE(arr_type);
+    STATIC_ASSERT_FALSE_VALUE(arr_type2);
+    STATIC_ASSERT_FALSE_VALUE(cptr_type);
+    STATIC_ASSERT_FALSE_VALUE(ptrc_type);
 }

@@ -16,34 +16,34 @@ TEST(is_pointer_test, initialize_false)
 TEST(is_pointer_test, yes)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_TRUE(nek::is_pointer<int*>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int**>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int const*>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int volatile*>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int const volatile*>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int* const>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int* volatile>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int* const volatile>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<f1_type>);
-    STATIC_ASSERT_TRUE(nek::is_pointer<int(*)[]>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int*>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int**>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int const*>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int volatile*>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int const volatile*>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int* const>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int* volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int* const volatile>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<f1_type>);
+    STATIC_ASSERT_TRUE_VALUE(nek::is_pointer<int(*)[]>);
     SUCCEED();
 }
 
 TEST(is_pointer_test, no)
 {
     using namespace type_traits_test;
-    STATIC_ASSERT_FALSE(nek::is_pointer<int>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<void>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<std::nullptr_t>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<int&>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<int&&>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<int[]>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<int(&)[]>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<void()>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<void(&)()>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<int*&>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<int(&)[]>);
-    STATIC_ASSERT_FALSE(nek::is_pointer<mf1_type>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<int>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<void>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<std::nullptr_t>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<int&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<int&&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<int[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<int(&)[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<void()>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<void(&)()>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<int*&>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<int(&)[]>);
+    STATIC_ASSERT_FALSE_VALUE(nek::is_pointer<mf1_type>);
 
     SUCCEED();
 }

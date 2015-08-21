@@ -15,7 +15,17 @@ namespace nek
             using tag = integral_c_tag;
             using type = bool_;
             using value_type = bool;
-            operator bool() const
+
+            constexpr bool_()
+            {
+            }
+
+            constexpr operator bool() const
+            {
+                return value;
+            }
+
+            constexpr bool operator()() const
             {
                 return value;
             }
