@@ -195,6 +195,7 @@
     <ClInclude Include="type_traits\test_type.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="git.ignore" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -51,10 +51,10 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
  * OS
   - windows 8 64bit
   - windows 8.1 64bit
+  - windows 10 64bit
   - Ubuntu 14.04
  * コンパイラ
-  - VC12.0 CTP
-  - VC14.0 PR
+  - VC14.0 PTM
   - gcc 4.9.2
 
 ## 最後に  
