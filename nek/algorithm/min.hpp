@@ -4,7 +4,7 @@
 namespace nek
 {
     template <class T>
-    inline T const& min(T const& left, T const& right)
+    inline constexpr T const& min(T const& left, T const& right)
     {
         return left < right ? left : right;
     }
