@@ -42,7 +42,7 @@ namespace nek
         };
 
         template <class IsMoveIterator>
-        struct copy_backward<IsMoveIterator, nek::true_type, std::random_access_iterator_tag>
+        struct copy_backward<IsMoveIterator, true_type, std::random_access_iterator_tag>
         {
             template <class BidirectionalIterator1, class BidirectionalIterator2>
             static BidirectionalIterator2 copy_backward_(BidirectionalIterator1 first, BidirectionalIterator1 last, BidirectionalIterator2 dest)

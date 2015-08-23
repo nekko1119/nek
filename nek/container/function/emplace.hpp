@@ -6,7 +6,7 @@
 namespace nek
 {
     template <class Container, class Iterator, class... Args>
-    auto emplace(Container& con, Iterator position, Args... args)
+    auto emplace(Container& con, Iterator position, Args&&... args)
     {
         return con.emplace(position, nek::forward<Args>(args)...);
     }

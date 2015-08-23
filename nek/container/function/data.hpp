@@ -18,13 +18,13 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline T* data(T (&array)[N])
+    inline constexpr T* data(T (&array)[N])
     {
         return array;
     }
 
     template <class T, std::size_t N>
-    inline T const* data(T const (&array)[N])
+    inline constexpr T const* data(T const (&array)[N])
     {
         return array;
     }

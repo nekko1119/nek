@@ -41,7 +41,7 @@ namespace nek
         using in_value_type = typename iterator_traits<InputIterator>::value_type;
         using out_value_type = typename iterator_traits<ForwardIterator>::value_type;
         return uninitialized_copy_detail::uninitialized_copy_(first, last, dest,
-                                                                                                                    nek::integral_constant<bool, nek::is_trivial<in_value_type>::value && nek::is_trivial<out_value_type>::value>{});
+        nek::integral_constant<bool, nek::is_trivial<in_value_type>::value && nek::is_trivial<out_value_type>::value>{});
     }
 
     template <class InputIterator, class ForwardIterator, class Allocator>

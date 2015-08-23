@@ -60,6 +60,7 @@ namespace
         noncopyable(noncopyable const&) = delete;
         noncopyable(noncopyable&&) = default;
         noncopyable& operator=(noncopyable const&) = delete;
+        noncopyable& operator=(noncopyable&&) = default;
         friend bool operator==(noncopyable const& l, noncopyable const& r) noexcept
         {
             return l.x == r.x;

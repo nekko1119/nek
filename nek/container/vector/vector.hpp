@@ -515,13 +515,14 @@ namespace nek
 
         void destruct() noexcept
         {
-            if (first()) {
-                detail::destroy(first(), last(), allocator());
-                allocator().deallocate(first(), nek::distance(first(), capacity_end()));
-                first() = pointer{};
-                last() = pointer{};
-                capacity_end() = pointer{};
+            if (!first()) {
+                return;
             }
+            detail::destroy(first(), last(), allocator());
+            allocator().deallocate(first(), nek::distance(first(), capacity_end()));
+            first() = pointer{};
+            last() = pointer{};
+            capacity_end() = pointer{};
         }
 
         template <class InputIterator>

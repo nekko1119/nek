@@ -6,6 +6,7 @@
 #include <nek/type_traits/has_difference_type.hpp>
 #include <nek/type_traits/has_element_type.hpp>
 #include <nek/type_traits/is_void.hpp>
+#include <nek/type_traits/void_t.hpp>
 #include <nek/utility/addressof.hpp>
 
 namespace nek
@@ -36,15 +37,15 @@ namespace nek
             using type = std::ptrdiff_t;
         };
 
-        template <class T, class U, class V = typename T::template rebind<U>::other>
-        true_type has_rebind_impl(int);
-
-        template <class, class>
-        false_type has_rebind_impl(long);
+        template <class, class, class = void>
+        struct has_rebind
+            : public false_type
+        {
+        };
 
         template <class T, class U>
-        struct has_rebind
-            : public decltype(has_rebind_impl<T, U>(0))
+        struct has_rebind<T, U, void_t<typename T::template rebind<U>::other>>
+            : public true_type
         {
         };
 

@@ -7,6 +7,7 @@
 #include <nek/type_traits/has_difference_type.hpp>
 #include <nek/type_traits/has_pointer.hpp>
 #include <nek/type_traits/make_unsigned.hpp>
+#include <nek/type_traits/void_t.hpp>
 #include <nek/utility/forward.hpp>
 #include <nek/utility/has_xxx_def.hpp>
 #include <nek/utility/pointer_traits.hpp>
@@ -23,18 +24,16 @@ namespace nek
         NEK_HAS_XXX_TYPE_DEF(propagate_on_container_copy_assignment);
         NEK_HAS_XXX_TYPE_DEF(propagate_on_container_move_assignment);
         NEK_HAS_XXX_TYPE_DEF(propagate_on_container_swap);
-        namespace detail
-        {
-            template <class Allocator, class T, class = typename Allocator::template rebind<T>::type>
-            nek::true_type has_rebind(int);
 
-            template <class, class>
-            nek::false_type has_rebind(long);
-        }
+        template <class, class, class = void>
+        struct has_rebind
+            : public false_type
+        {
+        };
 
         template <class Allocator, class T>
-        struct has_rebind
-            : public decltype(detail::has_rebind<Allocator, T>(0))
+        struct has_rebind<Allocator, T, nek::void_t<typename Allocator::template rebind<T>::type>>
+            : public true_type
         {
         };
 

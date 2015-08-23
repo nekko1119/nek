@@ -28,7 +28,7 @@ namespace nek
         };
 
         template <>
-        struct move_<nek::false_type>
+        struct move_<true_type>
         {
             template <class InputIterator, class OutputIterator>
             static OutputIterator move(InputIterator first, InputIterator last, OutputIterator dest)

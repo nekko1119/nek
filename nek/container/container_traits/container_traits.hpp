@@ -55,9 +55,8 @@ namespace nek
             using type = mpl::if_t<
                 nek::is_array<Container>,
                 array_container_tag,
-                typename mpl::eval_if_t<
-                    container_traits_detail::has_container_tag<Container>,
-                    container_traits_detail::get_container_tag<Container>,
+                typename mpl::eval_if_t<container_traits_detail::has_container_tag<Container>,
+                container_traits_detail::get_container_tag<Container>,
                 mpl::identity<unknown_container_tag>>>;
         };
 

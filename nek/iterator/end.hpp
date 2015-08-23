@@ -19,7 +19,7 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline T* end(T(&array)[N])
+    inline constexpr T* end(T(&array)[N])
     {
         return array + N;
     }
@@ -31,7 +31,7 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline T const* cend(T const (&array)[N])
+    inline constexpr T const* cend(T const (&array)[N])
     {
         return array + N;
     }

@@ -29,7 +29,7 @@ namespace nek
         };
 
         template <class Tag>
-        struct copy_<nek::true_type, nek::false_type, Tag>
+        struct copy_<true_type, nek::false_type, Tag>
         {
             template <class InputIterator, class OutputIterator>
             static OutputIterator copy(InputIterator first, InputIterator last, OutputIterator dest)
@@ -42,7 +42,7 @@ namespace nek
         };
 
         template <class IsMoveIterator>
-        struct copy_<IsMoveIterator, nek::true_type, std::random_access_iterator_tag>
+        struct copy_<IsMoveIterator, true_type, std::random_access_iterator_tag>
         {
             template <class InputIterator, class OutputIterator>
             static OutputIterator copy(InputIterator first, InputIterator last, OutputIterator dest)

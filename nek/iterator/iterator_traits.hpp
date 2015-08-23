@@ -36,5 +36,4 @@ namespace nek
         using reference = T const&;
     };
 }
-#include <boost/version.hpp>
 #endif

@@ -19,7 +19,7 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline T* begin(T(&array)[N])
+    inline constexpr T* begin(T(&array)[N])
     {
         return array;
     }
@@ -31,7 +31,7 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline T const* cbegin(T const (&array)[N])
+    inline constexpr T const* cbegin(T const (&array)[N])
     {
         return array;
     }

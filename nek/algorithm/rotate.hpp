@@ -19,8 +19,8 @@ namespace nek
         [ABC12]f[453]ml
         [ABC12]f[45]m[3]l
         [ABC123]f[54]ml
-        [ABCD123]f[5]m[4]l
-        [ABCD1234]f[5]ml
+        [ABC123]f[5]m[4]l
+        [ABC1234]f[5]ml
 
         f[123]m[ABCDE]l
         [ABC]f[123]m[DE]l
@@ -66,8 +66,8 @@ namespace nek
             if (first == middle || middle == last) {
                 return;
             }
-            using diff_type = typename nek::iterator_traits<RandomAccessIterator>::difference_type;
-            diff_type repeat = nek::math::gcd(middle - first, last - first);
+            using diff_type = typename iterator_traits<RandomAccessIterator>::difference_type;
+            diff_type repeat = math::gcd(middle - first, last - first);
             for (auto i = 0; i < repeat; ++i) {
                 for (diff_type cursor = i, next; (next = (cursor + (middle - first)) % (last - first)) != i; cursor = next) {
                     nek::iter_swap(first + cursor, first + next);
@@ -80,7 +80,7 @@ namespace nek
     template <class ForwardIterator>
     ForwardIterator rotate(ForwardIterator first, ForwardIterator middle, ForwardIterator last)
     {
-        using tag = typename nek::iterator_traits<ForwardIterator>::iterator_category;
+        using tag = typename iterator_traits<ForwardIterator>::iterator_category;
         rotate_detail::rotate_(first, middle, last, tag{});
         nek::advance(first, nek::distance(middle, last));
         return first;

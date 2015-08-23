@@ -60,7 +60,7 @@ namespace nek
         template <class U, class... Args>
         void construct(U* other, Args&&... args) const
         {
-            ::new (static_cast<void*>(other)) U(nek::forward<Args>(args)...);
+            ::new (static_cast<void*>(other)) U(forward<Args>(args)...);
         }
 
         template <class U>

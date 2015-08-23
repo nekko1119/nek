@@ -11,7 +11,7 @@ namespace nek
     namespace fill_detail
     {
         template <class ForwardIterator, class T>
-        inline nek::disable_if_t<is_byte<T>> fill_(ForwardIterator first, ForwardIterator last, T const& value)
+        inline disable_if_t<is_byte<T>> fill_(ForwardIterator first, ForwardIterator last, T const& value)
         {
             for (; first != last; ++first) {
                 *first = value;
@@ -19,7 +19,7 @@ namespace nek
         }
 
         template <class T>
-        inline nek::enable_if_t<is_byte<T>> fill_(T* first, T* last, T const& value)
+        inline enable_if_t<is_byte<T>> fill_(T* first, T* last, T const& value)
         {
             std::memset(first, value, last - first);
         }

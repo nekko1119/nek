@@ -11,7 +11,7 @@ namespace nek
     namespace fill_n_detail
     {
         template <class OutputIterator, class Size, class T>
-        inline nek::disable_if_t<is_byte<T>, OutputIterator> fill_n_(OutputIterator dest, Size count, T const& value)
+        inline disable_if_t<is_byte<T>, OutputIterator> fill_n_(OutputIterator dest, Size count, T const& value)
         {
             for (; 0 < count; --count, ++dest) {
                 *dest = value;
@@ -20,7 +20,7 @@ namespace nek
         }
 
         template <class T, class Size>
-        inline nek::enable_if_t<is_byte<T>, T*> fill_n_(T* dest, Size count, T const& value)
+        inline enable_if_t<is_byte<T>, T*> fill_n_(T* dest, Size count, T const& value)
         {
             std::memset(dest, value, count);
             return dest + count;
