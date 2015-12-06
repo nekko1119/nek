@@ -382,6 +382,10 @@ TEST_F(vector_test, emplace_back)
     nek::emplace_back(sut, 1);
     nek::emplace_back(sut, 2);
     nek::emplace_back(sut, 3);
+    EXPECT_EQ(3U, nek::size(sut));
+    EXPECT_EQ(1, sut[0]);
+    EXPECT_EQ(2, sut[1]);
+    EXPECT_EQ(3, sut[2]);
 }
 
 TEST_F(vector_test, insert_family)
@@ -418,18 +422,21 @@ TEST_F(vector_test, insert_family)
 
 TEST_F(vector_test, insert_family_reserve_enough_size)
 {
-    sut.reserve(64);
+    constexpr auto reserved_size = 64U;
+    sut.reserve(reserved_size);
     nek::insert(sut, sut.end(), 10);
     EXPECT_EQ(1U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
 
     int n = 20;
     nek::insert(sut, sut.end(), n);
+    EXPECT_EQ(reserved_size, sut.capacity());
     EXPECT_EQ(2U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
 
     nek::insert(sut, sut.end(), 3, 30);
+    EXPECT_EQ(reserved_size, sut.capacity());
     EXPECT_EQ(5U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
@@ -438,6 +445,7 @@ TEST_F(vector_test, insert_family_reserve_enough_size)
     EXPECT_EQ(30, sut[4]);
 
     nek::insert(sut, sut.end(), {40, 50, 60});
+    EXPECT_EQ(reserved_size, sut.capacity());
     EXPECT_EQ(8U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
