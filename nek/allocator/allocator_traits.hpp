@@ -202,7 +202,7 @@ namespace nek
             }
 
             template <class Allocator, class T, class... Args>
-            static auto construct(long, Allocator& allocator, T* p, Args&&... args)
+            static auto construct(long, Allocator&, T* p, Args&&... args)
                 -> void
             {
                 ::new (static_cast<void*>(p)) T(nek::forward<Args>(args)...);
@@ -216,7 +216,7 @@ namespace nek
             }
 
             template <class Allocator, class T>
-            static auto destroy(long, Allocator& allocator, T* p)
+            static auto destroy(long, Allocator&, T* p)
                 -> void
             {
                 p->~T();
@@ -230,7 +230,7 @@ namespace nek
             }
 
             template <class Allocator>
-            static auto max_size(long, Allocator& allocator)
+            static auto max_size(long, Allocator&)
                 -> typename size_type<Allocator>::type
             {
                 return std::numeric_limits<typename size_type<Allocator>::type>::max();
@@ -250,6 +250,7 @@ namespace nek
                 return allocator;
             }
         };
+
         template <class Allocator>
         inline void swap_(Allocator& left, Allocator& right, nek::true_type)
         {

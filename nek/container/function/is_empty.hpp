@@ -35,7 +35,7 @@ namespace nek
     }
 
         template <class T, std::size_t N>
-    inline constexpr bool is_empty(T (&arr)[N]) noexcept
+    inline constexpr bool is_empty(T (&)[N]) noexcept
     {
         // return true if N == 0. but N is never 0.
         return false;

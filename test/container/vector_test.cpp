@@ -461,7 +461,6 @@ TEST_F(vector_test, pop_back)
 TEST_F(vector_test, push_back)
 {
     nek::push_back(sut, 1);
-    int a = 2;
     nek::push_back(sut, 2);
     EXPECT_EQ(1, sut[0]);
     EXPECT_EQ(2, sut[1]);

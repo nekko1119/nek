@@ -12,7 +12,7 @@ namespace nek
     }
 
     template <class T, std::size_t N>
-    inline constexpr std::size_t size(T (&arr)[N]) noexcept
+    inline constexpr std::size_t size(T (&)[N]) noexcept
     {
         return N;
     }
