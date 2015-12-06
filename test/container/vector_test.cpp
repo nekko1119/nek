@@ -109,7 +109,7 @@ TEST_F(vector_test, range_constructor)
 {
     std::list<int> original = {1, 2, 3};
     nek::vector<int> instance{original.begin(), original.end()};
-    EXPECT_EQ(3, nek::size(instance));
+    EXPECT_EQ(3U, nek::size(instance));
     EXPECT_EQ(1, instance[0]);
     EXPECT_EQ(2, instance[1]);
     EXPECT_EQ(3, instance[2]);
@@ -118,7 +118,7 @@ TEST_F(vector_test, range_constructor)
 TEST_F(vector_test, initializer_list_constructor)
 {
     nek::vector<int> instance = {1, 2, 3};
-    EXPECT_EQ(3, nek::size(instance));
+    EXPECT_EQ(3U, nek::size(instance));
     EXPECT_EQ(1, instance[0]);
     EXPECT_EQ(2, instance[1]);
     EXPECT_EQ(3, instance[2]);
@@ -152,7 +152,7 @@ TEST_F(vector_test, move_constructor)
     nek::emplace_back(sut, 1);
     nek::emplace_back(sut, 2);
     nek::vector<int> moved = nek::move(sut);
-    EXPECT_EQ(3, nek::size(moved));
+    EXPECT_EQ(3U, nek::size(moved));
     EXPECT_EQ(0, moved[0]);
     EXPECT_EQ(1, moved[1]);
     EXPECT_EQ(2, moved[2]);
@@ -165,7 +165,7 @@ TEST_F(vector_test, copy_assignment)
     nek::emplace_back(sut, 2);
     nek::vector<int> copied = {10, 20, 30, 40};
     copied = sut;
-    EXPECT_EQ(3, nek::size(copied));
+    EXPECT_EQ(3U, nek::size(copied));
     EXPECT_EQ(0, copied[0]);
     EXPECT_EQ(1, copied[1]);
     EXPECT_EQ(2, copied[2]);
@@ -179,7 +179,7 @@ TEST_F(vector_test, move_assignment)
     nek::emplace_back(sut, 2);
     nek::vector<int> moved = {10, 20, 30, 40};
     moved = nek::move(sut);
-    EXPECT_EQ(3, nek::size(moved));
+    EXPECT_EQ(3U, nek::size(moved));
     EXPECT_EQ(0, moved[0]);
     EXPECT_EQ(1, moved[1]);
     EXPECT_EQ(2, moved[2]);
@@ -192,7 +192,7 @@ TEST_F(vector_test, initializer_list_assignment)
     nek::emplace_back(sut, 30);
     nek::emplace_back(sut, 40);
     sut = {0, 1, 2};
-    EXPECT_EQ(3, nek::size(sut));
+    EXPECT_EQ(3U, nek::size(sut));
     EXPECT_EQ(0, sut[0]);
     EXPECT_EQ(1, sut[1]);
     EXPECT_EQ(2, sut[2]);
@@ -218,7 +218,7 @@ TEST_F(vector_test, assign_initializer_list)
     nek::emplace_back(sut, 30);
     nek::emplace_back(sut, 40);
     nek::assign(sut, {0, 1, 2});
-    EXPECT_EQ(3, nek::size(sut));
+    EXPECT_EQ(3U, nek::size(sut));
     EXPECT_EQ(0, sut[0]);
     EXPECT_EQ(1, sut[1]);
     EXPECT_EQ(2, sut[2]);
@@ -234,8 +234,8 @@ TEST_F(vector_test, swap)
     nek::emplace_back(other, 20);
 
     sut.swap(other);
-    EXPECT_EQ(nek::size(sut), 2);
-    EXPECT_EQ(nek::size(other), 3);
+    EXPECT_EQ(nek::size(sut), 2U);
+    EXPECT_EQ(nek::size(other), 3U);
     EXPECT_EQ(sut[0], 10);
     EXPECT_EQ(other[0], 1);
 }
@@ -307,7 +307,7 @@ TEST_F(vector_test, subscript)
 {
     constexpr std::size_t size = 4U;
     nek::vector<int> v(size);
-    ASSERT_EQ(4, nek::size(v));
+    ASSERT_EQ(4U, nek::size(v));
     v[0] = 11;
     v[1] = 22;
     v[2] = 33;
@@ -323,7 +323,7 @@ TEST_F(vector_test, insert)
     nek::vector<int> v = {1, 2, 3};
     int a[] = {10, 20, 30};
     v.insert(v.begin() + 1, a, a + 3);
-    EXPECT_EQ(6, nek::size(v));
+    EXPECT_EQ(6U, nek::size(v));
     EXPECT_EQ(1, v[0]);
     EXPECT_EQ(10, v[1]);
     EXPECT_EQ(20, v[2]);
@@ -339,7 +339,7 @@ TEST_F(vector_test, emplace)
     sut.reserve(2);
 
     sut.emplace(sut.end(), 13);
-    EXPECT_EQ(1, nek::size(sut));
+    EXPECT_EQ(1U, nek::size(sut));
     EXPECT_LE(2U, sut.capacity());
     EXPECT_EQ(13, sut[0]);
 
@@ -348,7 +348,7 @@ TEST_F(vector_test, emplace)
     sut.emplace(sut.begin(), 23);
     sut.emplace(sut.begin(), 29);
     EXPECT_LE(5U, sut.capacity());
-    EXPECT_EQ(5, nek::size(sut));
+    EXPECT_EQ(5U, nek::size(sut));
     EXPECT_EQ(29, sut[0]);
     EXPECT_EQ(23, sut[1]);
     EXPECT_EQ(13, sut[2]);
@@ -360,7 +360,7 @@ TEST_F(vector_test, erase)
 {
     nek::vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     v.erase(v.begin() + 1, v.begin() + 7);
-    EXPECT_EQ(3, nek::size(v));
+    EXPECT_EQ(3U, nek::size(v));
     EXPECT_EQ(1, v[0]);
     EXPECT_EQ(8, v[1]);
     EXPECT_EQ(9, v[2]);
@@ -387,17 +387,17 @@ TEST_F(vector_test, emplace_back)
 TEST_F(vector_test, insert_family)
 {
     nek::insert(sut, sut.end(), 10);
-    EXPECT_EQ(1, nek::size(sut));
+    EXPECT_EQ(1U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
 
     int n = 20;
     nek::insert(sut, sut.end(), n);
-    EXPECT_EQ(2, nek::size(sut));
+    EXPECT_EQ(2U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
 
     nek::insert(sut, sut.end(), 3, 30);
-    EXPECT_EQ(5, nek::size(sut));
+    EXPECT_EQ(5U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
     EXPECT_EQ(30, sut[2]);
@@ -405,7 +405,7 @@ TEST_F(vector_test, insert_family)
     EXPECT_EQ(30, sut[4]);
 
     nek::insert(sut, sut.end(), {40, 50, 60});
-    EXPECT_EQ(8, nek::size(sut));
+    EXPECT_EQ(8U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
     EXPECT_EQ(30, sut[2]);
@@ -420,17 +420,17 @@ TEST_F(vector_test, insert_family_reserve_enough_size)
 {
     sut.reserve(64);
     nek::insert(sut, sut.end(), 10);
-    EXPECT_EQ(1, nek::size(sut));
+    EXPECT_EQ(1U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
 
     int n = 20;
     nek::insert(sut, sut.end(), n);
-    EXPECT_EQ(2, nek::size(sut));
+    EXPECT_EQ(2U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
 
     nek::insert(sut, sut.end(), 3, 30);
-    EXPECT_EQ(5, nek::size(sut));
+    EXPECT_EQ(5U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
     EXPECT_EQ(30, sut[2]);
@@ -438,7 +438,7 @@ TEST_F(vector_test, insert_family_reserve_enough_size)
     EXPECT_EQ(30, sut[4]);
 
     nek::insert(sut, sut.end(), {40, 50, 60});
-    EXPECT_EQ(8, nek::size(sut));
+    EXPECT_EQ(8U, nek::size(sut));
     EXPECT_EQ(10, sut[0]);
     EXPECT_EQ(20, sut[1]);
     EXPECT_EQ(30, sut[2]);
@@ -453,7 +453,7 @@ TEST_F(vector_test, pop_back)
 {
     nek::vector<int> v = {1, 2, 3};
     nek::pop_back(v);
-    EXPECT_EQ(2, nek::size(v));
+    EXPECT_EQ(2U, nek::size(v));
     EXPECT_EQ(1, v[0]);
     EXPECT_EQ(2, v[1]);
 }
@@ -488,7 +488,7 @@ TEST_F(vector_test, resize)
     {
         nek::vector<int> v = {1, 2, 3};
         nek::resize(v, 5);
-        EXPECT_EQ(5, nek::size(v));
+        EXPECT_EQ(5U, nek::size(v));
         EXPECT_EQ(1, v[0]);
         EXPECT_EQ(2, v[1]);
         EXPECT_EQ(3, v[2]);
@@ -498,7 +498,7 @@ TEST_F(vector_test, resize)
     {
         nek::vector<int> v = {1, 2, 3};
         nek::resize(v, 1);
-        EXPECT_EQ(1, nek::size(v));
+        EXPECT_EQ(1U, nek::size(v));
         EXPECT_EQ(1, v[0]);
     }
 }
