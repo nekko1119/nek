@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.props" Condition="Exists('..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -56,8 +57,8 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(GTEST_DIR)\include\;$(ProjectDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DisableSpecificWarnings>4425;4647;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
       <EnablePREfast>false</EnablePREfast>
@@ -65,8 +66,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(GTEST_DIR)\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,8 +79,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(GTEST_DIR)\include\;$(ProjectDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DisableSpecificWarnings>4425;4647;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
       <EnablePREfast>false</EnablePREfast>
@@ -89,8 +90,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(GTEST_DIR)\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -207,16 +208,17 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\boost.1.58.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.58.0.0\build\native\boost.targets')" />
     <Import Project="..\packages\gtest.1.7.0.1\build\native\gtest.targets" Condition="Exists('..\packages\gtest.1.7.0.1\build\native\gtest.targets')" />
-    <Import Project="..\packages\Microsoft.Gsl.0.0.1.0\build\native\Microsoft.Gsl.targets" Condition="Exists('..\packages\Microsoft.Gsl.0.0.1.0\build\native\Microsoft.Gsl.targets')" />
-    <Import Project="..\packages\Microsoft.CppCoreCheck.14.0.23107.2\build\native\Microsoft.CppCoreCheck.targets" Condition="Exists('..\packages\Microsoft.CppCoreCheck.14.0.23107.2\build\native\Microsoft.CppCoreCheck.targets')" />
+    <Import Project="..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.targets" Condition="Exists('..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.targets')" />
+    <Import Project="..\packages\fix8.dependencies.gtest.symbols.1.7.20140509.1\build\native\fix8.dependencies.gtest.symbols.targets" Condition="Exists('..\packages\fix8.dependencies.gtest.symbols.1.7.20140509.1\build\native\fix8.dependencies.gtest.symbols.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\boost.1.58.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.58.0.0\build\native\boost.targets'))" />
     <Error Condition="!Exists('..\packages\gtest.1.7.0.1\build\native\gtest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\gtest.1.7.0.1\build\native\gtest.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Gsl.0.0.1.0\build\native\Microsoft.Gsl.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Gsl.0.0.1.0\build\native\Microsoft.Gsl.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CppCoreCheck.14.0.23107.2\build\native\Microsoft.CppCoreCheck.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CppCoreCheck.14.0.23107.2\build\native\Microsoft.CppCoreCheck.targets'))" />
+    <Error Condition="!Exists('..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.props'))" />
+    <Error Condition="!Exists('..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fix8.dependencies.gtest.1.7.20151130.1\build\native\fix8.dependencies.gtest.targets'))" />
+    <Error Condition="!Exists('..\packages\fix8.dependencies.gtest.symbols.1.7.20140509.1\build\native\fix8.dependencies.gtest.symbols.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fix8.dependencies.gtest.symbols.1.7.20140509.1\build\native\fix8.dependencies.gtest.symbols.targets'))" />
   </Target>
 </Project>
