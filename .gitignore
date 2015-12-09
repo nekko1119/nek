@@ -11,13 +11,11 @@ nek.v12.suo
 
 nek/Debug/
 nek/Release/
-nek/packages.config
 nek.vcxproj.filters
 nek.vcxproj.user
 
 test/Debug/
 test/Release/
-test/packages.config
 test/test.vcxproj.filters
 test/test.vcxproj.user
 
