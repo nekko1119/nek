@@ -1,0 +1,18 @@
+version: 1.0.{build}
+before_build:
+- cmd: nuget restore
+build:
+  project: nek.sln
+  verbosity: minimal
+test_script:
+- ps: >-
+    # run tests
+
+    Debug/test.exe --gtest_output=xml:report.xml
+
+
+    # upload results to AppVeyor
+
+    $client = New-Object 'System.Net.WebClient'
+
+    $client.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path report.xml))

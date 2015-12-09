@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/nekko1119/nek.svg?branch=develop)](https://travis-ci.org/nekko1119/nek) [![Coverage Status](https://coveralls.io/repos/nekko1119/nek/badge.png?branch=develop)](https://coveralls.io/r/nekko1119/nek?branch=develop)
+[![Build Status](https://travis-ci.org/nekko1119/nek.svg?branch=develop)](https://travis-ci.org/nekko1119/nek) [![Coverage Status](https://coveralls.io/repos/nekko1119/nek/badge.png?branch=develop)](https://coveralls.io/r/nekko1119/nek?branch=develop) [![Build status](https://ci.appveyor.com/api/projects/status/vwppraps0fvu3ikl?svg=true)](https://ci.appveyor.com/project/nekko1119/nek)
 
 # C++ 写経コード
 このコード群の目的は2つあります。
@@ -54,7 +54,7 @@ C++標準ライブラリ(STL含む、言語サポートライブラリとIOと�
   - windows 10 64bit
   - Ubuntu 14.04
  * コンパイラ
-  - VC14.0 PTM
+  - VC14.0 RTM
   - gcc 4.9.2
 
 ## 最後に  
