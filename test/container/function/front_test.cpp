@@ -4,14 +4,27 @@
 
 TEST(front_test, list)
 {
-	std::list<int> const l = {1, 2, 3};
-	EXPECT_EQ(1, nek::front(l));
+    std::list<int> l = {1, 2, 3};
+    nek::front(l) = 10;
+    EXPECT_EQ(10, nek::front(l));
+}
+
+TEST(front_test, const_list)
+{
+    std::list<int> const l = {1, 2, 3};
+    EXPECT_EQ(1, nek::front(l));
 }
 
 TEST(front_test, array)
 {
-	constexpr int a[] = {1, 2, 3};
-	// CTP 2013's constexpr is very poor.
-	//static_assert(1 == nek::front(a), "");
-	EXPECT_EQ(1, nek::front(a));
+    int a[] = {1, 2, 3};
+    nek::front(a) = 10;
+    EXPECT_EQ(10, nek::front(a));
+}
+
+TEST(front_test, const_array)
+{
+    constexpr int a[] = {1, 2, 3};
+    static_assert(nek::front(a) == 1, "nek::front can apply on compile time");
+    EXPECT_EQ(1, nek::front(a));
 }

@@ -8,28 +8,28 @@
 
 namespace nek
 {
-	namespace fill_detail
-	{
-		template <class ForwardIterator, class T>
-		inline nek::disable_if_t<is_byte<T>> fill_(ForwardIterator first, ForwardIterator last, T const& value)
-		{
-			for (; first != last; ++first) {
-				*first = value;
-			}
-		}
+    namespace fill_detail
+    {
+        template <class ForwardIterator, class T>
+        inline disable_if_t<is_byte<T>> fill_(ForwardIterator first, ForwardIterator last, T const& value)
+        {
+            for (; first != last; ++first) {
+                *first = value;
+            }
+        }
 
-		template <class T>
-		inline nek::enable_if_t<is_byte<T>> fill_(T* first, T* last, T const& value)
-		{
-			std::memset(first, value, last - first);
-		}
-	}
+        template <class T>
+        inline enable_if_t<is_byte<T>> fill_(T* first, T* last, T const& value)
+        {
+            std::memset(first, value, last - first);
+        }
+    }
 
-	template <class ForwardIterator, class T>
-	void fill(ForwardIterator first, ForwardIterator last, T const& value)
-	{
-		fill_detail::fill_(first, last, value);
-	}
+    template <class ForwardIterator, class T>
+    void fill(ForwardIterator first, ForwardIterator last, T const& value)
+    {
+        fill_detail::fill_(first, last, value);
+    }
 }
 
 #endif

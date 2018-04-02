@@ -2,23 +2,21 @@
 #define NEK_TYPE_TRAITS_HAS_ITERATOR_HPP
 
 #include <nek/type_traits/integral_constant.hpp>
+#include <nek/type_traits/void_t.hpp>
 
 namespace nek
 {
-	namespace has_iterator_detail
-	{
-		template <class T, class U = T::iterator>
-		true_type has_iterator(int);
+    template <class, class = void>
+    struct has_iterator
+        : public false_type
+    {
+    };
 
-		template <class>
-		false_type has_iterator(long);
-	}
-
-	template <class T>
-	struct has_iterator
-		: public decltype(has_iterator_detail::has_iterator<T>(0))
-	{
-	};
+    template <class T>
+    struct has_iterator<T, void_t<typename T::iterator>>
+        : public true_type
+    {
+    };
 }
 
 #endif

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -20,6 +20,7 @@
     <ClInclude Include="algorithm\lexicographical_compare.hpp" />
     <ClInclude Include="algorithm\max.hpp" />
     <ClInclude Include="algorithm\min.hpp" />
+    <ClInclude Include="algorithm\move.hpp" />
     <ClInclude Include="algorithm\reverse.hpp" />
     <ClInclude Include="algorithm\rotate.hpp" />
     <ClInclude Include="allocator.hpp" />
@@ -31,10 +32,17 @@
     <ClInclude Include="any\exception.hpp" />
     <ClInclude Include="any\traits.hpp" />
     <ClInclude Include="container\container_fwd.hpp" />
+    <ClInclude Include="container\container_traits.hpp" />
+    <ClInclude Include="container\container_traits\adapted\std_container.hpp" />
+    <ClInclude Include="container\container_traits\adapted\std_container\container_tag.hpp" />
+    <ClInclude Include="container\container_traits\container_tag.hpp" />
+    <ClInclude Include="container\container_traits\container_traits.hpp" />
     <ClInclude Include="container\function.hpp" />
     <ClInclude Include="container\function\at.hpp" />
     <ClInclude Include="container\function\back.hpp" />
     <ClInclude Include="container\function\clear.hpp" />
+    <ClInclude Include="container\function\data.hpp" />
+    <ClInclude Include="container\function\emplace.hpp" />
     <ClInclude Include="container\function\emplace_back.hpp" />
     <ClInclude Include="container\function\erase.hpp" />
     <ClInclude Include="container\function\front.hpp" />
@@ -44,6 +52,8 @@
     <ClInclude Include="container\function\push_back.hpp" />
     <ClInclude Include="container\function\size.hpp" />
     <ClInclude Include="container\vector.hpp" />
+    <ClInclude Include="container\vector\function.hpp" />
+    <ClInclude Include="container\vector\operator.hpp" />
     <ClInclude Include="container\vector\vector.hpp" />
     <ClInclude Include="container\vector\vector_fwd.hpp" />
     <ClInclude Include="detail\construct.hpp" />
@@ -59,6 +69,7 @@
     <ClInclude Include="iterator\normal_iterator.hpp" />
     <ClInclude Include="iterator\range.hpp" />
     <ClInclude Include="iterator\reverse_iterator.hpp" />
+    <ClInclude Include="math\gcd.hpp" />
     <ClInclude Include="mpl\and.hpp" />
     <ClInclude Include="mpl\bool.hpp" />
     <ClInclude Include="mpl\bool_fwd.hpp" />
@@ -115,6 +126,7 @@
     <ClInclude Include="type_traits\remove_reference.hpp" />
     <ClInclude Include="type_traits\remove_volatile.hpp" />
     <ClInclude Include="type_traits\is_trivial.hpp" />
+    <ClInclude Include="type_traits\void_t.hpp" />
     <ClInclude Include="uninitialized\uninitialized_copy.hpp" />
     <ClInclude Include="uninitialized\uninitialized_default.hpp" />
     <ClInclude Include="uninitialized\uninitialized_fill.hpp" />
@@ -131,21 +143,26 @@
     <ClInclude Include="utility\pointer_traits.hpp" />
     <ClInclude Include="utility\swap.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A2637998-650F-4833-9635-05C96B432E36}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>CTP_Nov2013</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -159,9 +176,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\Rule Sets\NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -171,6 +192,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -185,6 +207,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -196,5 +219,12 @@
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\boost.1.58.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.58.0.0\build\native\boost.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\boost.1.58.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.58.0.0\build\native\boost.targets'))" />
+  </Target>
 </Project>

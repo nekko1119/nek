@@ -3,25 +3,25 @@
 
 namespace
 {
-	struct has_member_type
-	{
-		using NEK_MEMBER_TYPE = int;
-	};
+    struct has_member_type
+    {
+        using NEK_MEMBER_TYPE = int;
+    };
 
-	struct has_member_func
-	{
-		void NEK_MEMBER_TYPE() {}
-	};
+    struct has_member_func
+    {
+        void NEK_MEMBER_TYPE() {}
+    };
 
-	struct has_member_obj
-	{
-		int NEK_MEMBER_TYPE;
-	};
+    struct has_member_obj
+    {
+        int NEK_MEMBER_TYPE;
+    };
 }
 
 #define NEK_HAS_MEMBER_TYPE(type)\
-  STATIC_ASSERT_TRUE(type<has_member_type>);\
-  STATIC_ASSERT_FALSE(type<has_member_func>);\
-  STATIC_ASSERT_FALSE(type<has_member_obj>);
+  STATIC_ASSERT_TRUE_VALUE(type<has_member_type>);\
+  STATIC_ASSERT_FALSE_VALUE(type<has_member_func>);\
+  STATIC_ASSERT_FALSE_VALUE(type<has_member_obj>);
 
 #endif

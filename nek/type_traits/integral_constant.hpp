@@ -6,29 +6,29 @@
 
 namespace nek
 {
-  template <class T, T N>
-  struct integral_constant
-    : public mpl::integral_c<T, N>
-  {
-    using type = integral_constant<T, N>;
-  };
+    template <class T, T N>
+    struct integral_constant
+      : public mpl::integral_c<T, N>
+    {
+        using type = integral_constant<T, N>;
+    };
 
-  template <>
-  struct integral_constant<bool, true>
-    : public mpl::true_
-  {
-    using type = integral_constant;
-  };
+    template <>
+    struct integral_constant<bool, true>
+      : public mpl::true_
+    {
+        using type = integral_constant;
+    };
 
-  template <>
-  struct integral_constant<bool, false>
-    : public mpl::false_
-  {
-    using type = integral_constant;
-  };
+    template <>
+    struct integral_constant<bool, false>
+      : public mpl::false_
+    {
+        using type = integral_constant;
+    };
 
-  using true_type = integral_constant<bool, true>;
-  using false_type = integral_constant<bool, false>;
+    using true_type = integral_constant<bool, true>;
+    using false_type = integral_constant<bool, false>;
 }
 
 #endif

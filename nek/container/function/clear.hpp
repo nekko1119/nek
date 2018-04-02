@@ -3,11 +3,11 @@
 
 namespace nek
 {
-	template <class Container>
-	void clear(Container& con)
-	{
-		con.erase(con.begin(), con.end());
-	}
+    template <class Container>
+    void clear(Container& con)
+    {
+        con.erase(con.begin(), con.end());
+    }
 }
 
 #endif

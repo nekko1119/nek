@@ -6,26 +6,26 @@
 
 namespace nek
 {
-	namespace is_volatile_detail
-	{
-		template <class T>
-		struct is_volatile_
-			: public false_type
-		{
-		};
+    namespace is_volatile_detail
+    {
+        template <class T>
+        struct is_volatile_
+            : public false_type
+        {
+        };
 
-		template <class T>
-		struct is_volatile_<T volatile>
-			: public true_type
-		{
-		};
-	}
+        template <class T>
+        struct is_volatile_<T volatile>
+            : public true_type
+        {
+        };
+    }
 
-	template <class T>
-	struct is_volatile
-		: public is_volatile_detail::is_volatile_<nek::remove_extends_t<T>>
-	{
-	};
+    template <class T>
+    struct is_volatile
+        : public is_volatile_detail::is_volatile_<nek::remove_extends_t<T>>
+    {
+    };
 }
 
 #endif

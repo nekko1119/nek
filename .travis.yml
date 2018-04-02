@@ -1,0 +1,45 @@
+language:
+  - cpp
+
+compiler:
+  - gcc-4.9
+
+install:
+  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install g++-4.9
+  - export CXX="g++-4.9" CC="gcc-4.9"
+  - sudo apt-get install libboost-dev
+  - sudo apt-get install libgtest-dev
+  - sudo apt-get install python-setuptools
+  - sudo apt-get install python-pip
+  - sudo pip install cpp-coveralls
+
+before_script:
+  - cd /usr/src/gtest
+  - sudo cmake CMakeLists.txt
+  - sudo make
+  - sudo cp *.a /usr/lib
+  - cd -
+  - sudo pip install cpp-coveralls
+  - g++ --version
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.9 90;
+
+script:
+  - mkdir _build
+  - cd ./_build
+  - cmake ..
+  - make VERBOSE=1
+  #- make test
+
+notifications:
+  on_success: never
+  on_failure: never
+
+after_success:
+  - cd ./test
+  - ./nektest
+  - cd -
+  - gcov --version
+  - cd ../
+  - coveralls -r ./ -b ./test -E ".*/test/[^\.].*" --gcov-options '\-lp'

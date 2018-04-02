@@ -3,11 +3,11 @@
 
 namespace nek
 {
-	namespace mpl
-	{
-		template <class T, T N>
-		struct integral_c;
-	}
+    namespace mpl
+    {
+        template <class T, T N>
+        struct integral_c;
+    }
 }
 
 #endif
